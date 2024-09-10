@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     //Private variables
     private Rigidbody2D rb;
     private float xAxis;
-    //private float yAxis;
+    private float yAxis;
     PlayerStateList playerState;
     private float gravity;
 
@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Movement Settings")]
     [SerializeField] private float jumpForce = 5;
     [SerializeField] private float jumpCancelForce = 0.25f;
-    private int jumpBufferCounter = 0;
-    [SerializeField] private int jumpBufferFrames;
+    private float jumpBufferCounter = 0;
+    [SerializeField] private float jumpBufferFrames;
     private float coyoteTimeCounter;
     [SerializeField] private float coyoteTime;
     private int airJumpCounter = 0;
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
     private void GetInputs()
     {
         xAxis = Input.GetAxisRaw("Horizontal");
-        //yAxis = Input.GetAxisRaw("W");
+        yAxis = Input.GetAxisRaw("Vertical");
     }
 
     //Basic back and forth movement
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            jumpBufferCounter--;
+            jumpBufferCounter = jumpBufferCounter - Time.deltaTime * 10;
         }
     }
 
@@ -201,7 +201,7 @@ public class PlayerController : MonoBehaviour
         canDash = false;
         playerState.dashing = true;
         rb.gravityScale = 0;
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || yAxis > 0.5f)
         {
             rb.velocity = new Vector2(0, transform.localScale.y * upwardsDashSpeed);
             yield return new WaitForSeconds(upwardsDashTime);
