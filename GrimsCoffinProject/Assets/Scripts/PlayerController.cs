@@ -44,6 +44,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canDash;
     [SerializeField] private bool dashed;
 
+    [Header("Player Stats")]
+    [SerializeField] public float maxHP;
+    [SerializeField] public float currentHP;
+    [SerializeField] public float maxSP;
+    [SerializeField] public float currentSP;
+
     //Singleton so the controller can be referenced across scripts
     public static PlayerController Instance;
 
