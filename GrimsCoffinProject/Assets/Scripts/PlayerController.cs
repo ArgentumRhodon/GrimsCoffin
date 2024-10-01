@@ -186,6 +186,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnPause()
+    {
+        UIManager.Instance.Pause();
+    }
+
     //Method to run Dash IEnum
     //private void OnDash()
     //{
