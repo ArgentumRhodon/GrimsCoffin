@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
 {
     //Private variables
     private Rigidbody2D rb;
-    private float xAxis;
-    private float yAxis;
+    //private float xAxis;
+    //private float yAxis;
     PlayerStateList playerState;
     private float gravity;
 
@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coyoteTime;
     private int airJumpCounter = 0;
     [SerializeField] private int maxAirJumps;
+    //[SerializeField] private bool canJump;
 
     [Header("Ground Check Settings")]
     [SerializeField] private Transform groundCheckPoint;
@@ -45,7 +46,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float upDashCancelForce;
     [SerializeField] private float dashCooldown;
     [SerializeField] private bool canDash;
-    [SerializeField] private bool dashed;
 
     [Header("Player Stats")]
     [SerializeField] public float maxHP;
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
@@ -75,56 +75,45 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         gravity = rb.gravityScale;
-        //canDash = true;
+        canDash = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Update movement variables
         UpdateJumpVariables();
-
-        // Dash variables
-        //if (Grounded())
-        //{
-        //    dashed = false;
-        //}
+        UpdateDashVariables();
         //Flip();
-
-        //Controls, makes sure it doesn't take input when in certain movements
     }
 
-    //Basic back and forth movement
+    //Walking
     private void OnMove(InputValue value)
     {
-        //if (isDashing)
-        //    return;
+        if (playerState.dashing)
+            return;
+
+        Debug.Log("Player is moving");
 
         input = value.Get<Vector2>();
         rb.velocity = new Vector2(walkSpeed * input.x, rb.velocity.y);
     }
 
-    //Check what direction the player is moving in
-    private void Flip()
-    {
-        if (xAxis < 0)
-        {
-            transform.localScale = new Vector2(-1, transform.localScale.y);
-        }
-        else if (xAxis > 0)
-        {
-            transform.localScale = new Vector2(1, transform.localScale.y);
-        }
-    }
-
     //Jump
-    private void OnJump()
+    private void OnJump(InputValue value)
     {
+        Debug.Log("Player is jumping");
+
+        //Return if player is mid-dash
+        if (playerState.dashing)
+            return;
+
         jumpBufferCounter = jumpBufferFrames;
+        //Debug.Log(value.isPressed);
 
-        if (rb.velocity.y > 0)
+        //Jump cancel if released
+        if (!value.isPressed && rb.velocity.y > 0)
         {
-            Debug.Log("Here");
-
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - jumpCancelForce);
 
             //Check to make sure there is not more downwards velocity, gravity should be the main force controlling this
@@ -136,17 +125,16 @@ public class PlayerController : MonoBehaviour
             playerState.jumping = false;
         }
 
-        if (!playerState.jumping)
+        //If the player is not jumping already, activate jump
+        if (value.isPressed && !playerState.jumping)
         {
-
             if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
             {
-                Debug.Log("Here2");
                 rb.velocity = new Vector3(rb.velocity.x, jumpForce);
 
                 playerState.jumping = true;
             }
-            else if(!Grounded() && airJumpCounter < maxAirJumps)
+            else if (!Grounded() && airJumpCounter < maxAirJumps)
             {
                 playerState.jumping = true;
                 airJumpCounter++;
@@ -156,19 +144,71 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //Jump Helper Methods
-    public bool Grounded()
+
+    //Method to run Dash IEnum
+    private void OnDash()
     {
-        if (Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckY, groundLayer) 
-            || Physics2D.Raycast(groundCheckPoint.position + new Vector3(groundCheckX, 0, 0), Vector2.down, groundCheckY, groundLayer)
-            || Physics2D.Raycast(groundCheckPoint.position + new Vector3(-groundCheckX, 0, 0), Vector2.down, groundCheckY, groundLayer))
-            return true;
-        else
-            return false;
+        //Checks to see if the player can dash (cooldown is reset) and makes sure player is not currently dashing
+        if (canDash && !playerState.dashing)
+        {
+            playerState.dashing = true;
+            canDash = false;
+            StartCoroutine(Dash());
+        }
     }
 
+    //Function that controls the dash movement
+    IEnumerator Dash()
+    {
+        //Update physics of player
+        rb.gravityScale = 0;
+        rb.velocity = new Vector2(transform.localScale.x * dashSpeed * input.x, 0);
+
+        //Dash movement has been completed
+        yield return new WaitForSeconds(dashTime);
+        playerState.dashing = false;
+        rb.gravityScale = gravity;
+
+        //Reset velocity, may need to be changed with implementation of phantom shift
+        rb.velocity = new Vector2(walkSpeed * input.x, rb.velocity.y);
+    }
+
+
+    /*    //Check what direction the player is moving in
+        private void Flip()
+        {
+            if (xAxis < 0)
+            {
+                transform.localScale = new Vector2(-1, transform.localScale.y);
+            }
+            else if (xAxis > 0)
+            {
+                transform.localScale = new Vector2(1, transform.localScale.y);
+            }
+        }*/
+
+    //Helper Methods ----------------------------------------------------------------------------------------------
+
+    //Checks to see if the user is grounded
+    public bool Grounded()
+    {
+        return Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckY, groundLayer)
+            || Physics2D.Raycast(groundCheckPoint.position + new Vector3(groundCheckX, 0, 0), Vector2.down, groundCheckY, groundLayer)
+            || Physics2D.Raycast(groundCheckPoint.position + new Vector3(-groundCheckX, 0, 0), Vector2.down, groundCheckY, groundLayer);
+    }
+
+    private bool OffWall()
+    {
+        return Physics2D.Raycast(groundCheckPoint.position + new Vector3(groundCheckX, 0, 0), Vector2.down, groundCheckY, groundLayer)
+            || Physics2D.Raycast(groundCheckPoint.position + new Vector3(-groundCheckX, 0, 0), Vector2.down, groundCheckY, groundLayer);
+    }
+
+    //Methods to update movement variables ------------------------------------------------------------------------
+
+    //Jump
     private void UpdateJumpVariables()
     {
+        //Checks grounded state to determine if player can jump again
         if (Grounded())
         {
             playerState.jumping = false;
@@ -180,38 +220,26 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
 
-        if(jumpBufferCounter > 0)
+        //Check for jump delay
+        if (jumpBufferCounter > 0)
         {
             jumpBufferCounter = jumpBufferCounter - Time.deltaTime * 10;
         }
     }
 
-    //Method to run Dash IEnum
-    //private void OnDash()
-    //{
-    //    if (canDash && !dashed) 
-    //    {
-    //        dashed = true;
-    //        StartCoroutine(Dash());
-    //    }
-    //}
+    //Dash
+    private void UpdateDashVariables()
+    {
+        //Checks grounded state to determine if player can jump again
+        if (Grounded() && dashCooldown < 0)
+        {
+            canDash = true;
+        }
 
-    ////Function that controls the dash movement
-    //IEnumerator Dash()
-    //{
-    //    Debug.Log("Dashing!");
-
-    //    canDash = false;
-    //    playerState.dashing = true;
-    //    rb.gravityScale = 0;
-
-    //    rb.velocity = new Vector2(transform.localScale.x * dashSpeed * input.x, 0);
-
-    //    yield return new WaitForSeconds(dashTime);
- 
-    //    rb.gravityScale = gravity;
-    //    yield return new WaitForSeconds(dashCooldown);
-    //    playerState.dashing = false;
-    //    canDash = true;
-    //}
+        //Update dash cooldown
+        if (dashCooldown > 0)
+        {
+            dashCooldown = dashCooldown - Time.deltaTime;
+        }
+    }
 }
