@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private float yAxis;
     PlayerStateList playerState;
     private float gravity;
+
+    private Vector2 input;
 
     //Editable Settings
     [Header("Horizontal Movement Settings")]
@@ -72,37 +75,32 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         gravity = rb.gravityScale;
-        canDash = true;
+        //canDash = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Update current states
-        GetInputs();
         UpdateJumpVariables();
+
+        // Dash variables
+        //if (Grounded())
+        //{
+        //    dashed = false;
+        //}
         //Flip();
 
         //Controls, makes sure it doesn't take input when in certain movements
-        if (playerState.dashing)
-            return;
-       
-        Move();
-        Jump();
-        StartDash();
-    }
-
-    
-    private void GetInputs()
-    {
-        xAxis = Input.GetAxisRaw("Horizontal");
-        yAxis = Input.GetAxisRaw("Vertical");
     }
 
     //Basic back and forth movement
-    private void Move()
+    private void OnMove(InputValue value)
     {
-        rb.velocity = new Vector2(walkSpeed * xAxis, rb.velocity.y);
+        //if (isDashing)
+        //    return;
+
+        input = value.Get<Vector2>();
+        rb.velocity = new Vector2(walkSpeed * input.x, rb.velocity.y);
     }
 
     //Check what direction the player is moving in
@@ -119,10 +117,14 @@ public class PlayerController : MonoBehaviour
     }
 
     //Jump
-    private void Jump()
+    private void OnJump()
     {
-        if(Input.GetButtonUp("Jump") && rb.velocity.y > 0)
+        jumpBufferCounter = jumpBufferFrames;
+
+        if (rb.velocity.y > 0)
         {
+            Debug.Log("Here");
+
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - jumpCancelForce);
 
             //Check to make sure there is not more downwards velocity, gravity should be the main force controlling this
@@ -136,13 +138,15 @@ public class PlayerController : MonoBehaviour
 
         if (!playerState.jumping)
         {
+
             if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
             {
+                Debug.Log("Here2");
                 rb.velocity = new Vector3(rb.velocity.x, jumpForce);
 
                 playerState.jumping = true;
             }
-            else if(!Grounded() && airJumpCounter < maxAirJumps && Input.GetButtonDown("Jump"))
+            else if(!Grounded() && airJumpCounter < maxAirJumps)
             {
                 playerState.jumping = true;
                 airJumpCounter++;
@@ -176,68 +180,38 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            jumpBufferCounter = jumpBufferFrames;
-        }
-        else
+        if(jumpBufferCounter > 0)
         {
             jumpBufferCounter = jumpBufferCounter - Time.deltaTime * 10;
         }
     }
 
     //Method to run Dash IEnum
-    private void StartDash()
-    {
-        if (Input.GetButtonDown("Dash") && canDash && !dashed)
-        {
-            StartCoroutine(Dash());
-            dashed = true;
-        }
+    //private void OnDash()
+    //{
+    //    if (canDash && !dashed) 
+    //    {
+    //        dashed = true;
+    //        StartCoroutine(Dash());
+    //    }
+    //}
 
-        if (Grounded()) 
-        { 
-            dashed = false;
-        }
-    }
+    ////Function that controls the dash movement
+    //IEnumerator Dash()
+    //{
+    //    Debug.Log("Dashing!");
 
-    //Function that controls the dash movement
-    IEnumerator Dash()
-    {
-        canDash = false;
-        playerState.dashing = true;
-        rb.gravityScale = 0;
-        if (Input.GetKey(KeyCode.W) || yAxis > 0.5f)
-        {
-            rb.velocity = new Vector2(0, transform.localScale.y * upwardsDashSpeed);
-            yield return new WaitForSeconds(upwardsDashTime);
+    //    canDash = false;
+    //    playerState.dashing = true;
+    //    rb.gravityScale = 0;
 
-            while(rb.velocity.y > 0)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - upDashCancelForce);
-            }
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-        }
-        else
-        {
-            if (xAxis > 0)
-            {
-                rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-            }
-            else if (xAxis < 0)
-            {
-                rb.velocity = new Vector2(-transform.localScale.x * dashSpeed, 0);
-            }
+    //    rb.velocity = new Vector2(transform.localScale.x * dashSpeed * input.x, 0);
 
-            //rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-
-            yield return new WaitForSeconds(dashTime);
-        }
-
+    //    yield return new WaitForSeconds(dashTime);
  
-        rb.gravityScale = gravity;
-        playerState.dashing = false;
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
-    }
+    //    rb.gravityScale = gravity;
+    //    yield return new WaitForSeconds(dashCooldown);
+    //    playerState.dashing = false;
+    //    canDash = true;
+    //}
 }
