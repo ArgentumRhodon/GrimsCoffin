@@ -22,5 +22,12 @@ public class PlayerStatsUI : MonoBehaviour
 
         healthBarFill.fillAmount = player.currentHP / player.maxHP;
         spiritBarFill.fillAmount = player.currentSP / player.maxSP;
+
+        UIManager.Instance.LowHealthVignette(LowHealth());
+    }
+
+    private bool LowHealth()
+    {
+        return (player.currentHP / player.maxHP) < .25f;
     }
 }
