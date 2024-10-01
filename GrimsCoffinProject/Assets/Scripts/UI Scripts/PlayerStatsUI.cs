@@ -20,7 +20,7 @@ public class PlayerStatsUI : MonoBehaviour
         spiritBar.sizeDelta = new Vector2(player.maxSP * 3, 35);
         spiritBarFill.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(player.maxSP * 3, 35);
 
-        healthBarFill.fillAmount = player.currentHP / 100;
-        spiritBarFill.fillAmount = player.currentSP / 100;
+        healthBarFill.fillAmount = player.currentHP / player.maxHP;
+        spiritBarFill.fillAmount = player.currentSP / player.maxSP;
     }
 }
