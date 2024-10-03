@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float upDashCancelForce;
     [SerializeField] private float dashCooldown;
     [SerializeField] private bool canDash;
+    private float currentDashCooldown;
 
     [Header("Player Stats")]
     [SerializeField] public float maxHP;
@@ -74,13 +76,21 @@ public class PlayerController : MonoBehaviour
         playerControls = new PlayerControls();
     }
 
+    private void OnEnable()
+    {
+        playerControls.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Player.Disable();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         playerState = GetComponent<PlayerStateList>();
         rb = GetComponent<Rigidbody2D>();
-
-        //moveAction = InputSystem.
 
         gravity = rb.gravityScale;
         canDash = true;
@@ -98,7 +108,8 @@ public class PlayerController : MonoBehaviour
         UpdateJumpVariables();
         UpdateDashVariables();
         //Flip();
-        //Move();
+
+        Move();
     }
 
     //Walking
@@ -107,37 +118,32 @@ public class PlayerController : MonoBehaviour
         if (playerState.dashing)
             return;
 
-        Vector2 move = playerControls.Player.Move.ReadValue<Vector2>();
-        Debug.Log(move);
-        //move = playerControls.Player.Move.ReadValue<Vector2>();
-        rb.velocity = new Vector2(walkSpeed * move.x, rb.velocity.y);
+        input = playerControls.Player.Move.ReadValue<Vector2>();
+        rb.velocity = new Vector2(walkSpeed * XInputDirection(), rb.velocity.y);
     }
-
+/*
     //Walking
     private void OnMove(InputValue value)
     {
         if (playerState.dashing)
             return;
 
-        Debug.Log("Player is moving");
+        //Debug.Log("Player is moving");
 
         input = value.Get<Vector2>();
-        rb.velocity = new Vector2(walkSpeed * input.x, rb.velocity.y);
 
-
-    }
+        if (value.isPressed)
+            Debug.Log("is pressed");
+    }*/
 
     //Jump
     private void OnJump(InputValue value)
     {
-        Debug.Log("Player is jumping");
-
         //Return if player is mid-dash
         if (playerState.dashing)
             return;
 
         jumpBufferCounter = jumpBufferFrames;
-        //Debug.Log(value.isPressed);
 
         //Jump cancel if released
         if (!value.isPressed && rb.velocity.y > 0)
@@ -179,8 +185,14 @@ public class PlayerController : MonoBehaviour
         //Checks to see if the player can dash (cooldown is reset) and makes sure player is not currently dashing
         if (canDash && !playerState.dashing)
         {
+            //Update States
             playerState.dashing = true;
             canDash = false;
+
+            //Cooldown Timer
+            currentDashCooldown = dashCooldown;
+
+            //Dash
             StartCoroutine(Dash());
         }
     }
@@ -190,7 +202,12 @@ public class PlayerController : MonoBehaviour
     {
         //Update physics of player
         rb.gravityScale = 0;
-        rb.velocity = new Vector2(transform.localScale.x * dashSpeed * input.x, 0);
+
+        //Get direction of input
+        int direction = XInputDirection();
+        //Debug.Log(direction);
+
+        rb.velocity = new Vector2(transform.localScale.x * dashSpeed * direction, 0);
 
         //Dash movement has been completed
         yield return new WaitForSeconds(dashTime);
@@ -231,6 +248,16 @@ public class PlayerController : MonoBehaviour
             || Physics2D.Raycast(groundCheckPoint.position + new Vector3(-groundCheckX, 0, 0), Vector2.down, groundCheckY, groundLayer);
     }
 
+    private int XInputDirection()
+    {
+        if (input.x == 0)
+            return 0;
+        else if (input.x < 0)
+            return -1;
+        else
+            return 1;
+    }
+
     //Methods to update movement variables ------------------------------------------------------------------------
 
     //Jump
@@ -259,15 +286,15 @@ public class PlayerController : MonoBehaviour
     private void UpdateDashVariables()
     {
         //Checks grounded state to determine if player can jump again
-        if (Grounded() && dashCooldown < 0)
+        if (Grounded() && currentDashCooldown < 0)
         {
             canDash = true;
         }
 
         //Update dash cooldown
-        if (dashCooldown > 0)
+        if (currentDashCooldown > 0)
         {
-            dashCooldown = dashCooldown - Time.deltaTime;
+            currentDashCooldown = currentDashCooldown - Time.deltaTime;
         }
     }
 }
