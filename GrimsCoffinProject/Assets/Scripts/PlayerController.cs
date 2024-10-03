@@ -56,6 +56,10 @@ public class PlayerController : MonoBehaviour
     //Singleton so the controller can be referenced across scripts
     public static PlayerController Instance;
 
+    [Header("Input Actions")]
+    //[SerializeField] private InputAction moveAction;
+    private PlayerControls playerControls;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -66,6 +70,8 @@ public class PlayerController : MonoBehaviour
         {
             Instance = this;
         }
+
+        playerControls = new PlayerControls();
     }
 
     // Start is called before the first frame update
@@ -74,6 +80,8 @@ public class PlayerController : MonoBehaviour
         playerState = GetComponent<PlayerStateList>();
         rb = GetComponent<Rigidbody2D>();
 
+        //moveAction = InputSystem.
+
         gravity = rb.gravityScale;
         canDash = true;
     }
@@ -81,10 +89,28 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
         //Update movement variables
         UpdateJumpVariables();
         UpdateDashVariables();
         //Flip();
+        //Move();
+    }
+
+    //Walking
+    private void Move()
+    {
+        if (playerState.dashing)
+            return;
+
+        Vector2 move = playerControls.Player.Move.ReadValue<Vector2>();
+        Debug.Log(move);
+        //move = playerControls.Player.Move.ReadValue<Vector2>();
+        rb.velocity = new Vector2(walkSpeed * move.x, rb.velocity.y);
     }
 
     //Walking
@@ -97,6 +123,8 @@ public class PlayerController : MonoBehaviour
 
         input = value.Get<Vector2>();
         rb.velocity = new Vector2(walkSpeed * input.x, rb.velocity.y);
+
+
     }
 
     //Jump
