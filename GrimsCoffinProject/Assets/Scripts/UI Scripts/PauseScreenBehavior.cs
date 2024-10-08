@@ -56,6 +56,7 @@ public class PauseScreenBehavior : MonoBehaviour
 
     private void QuitGame()
     {
+        Time.timeScale = 1.0f;
         EventSystem.current.SetSelectedGameObject(null);
         SceneManager.LoadScene("TitleScreen");
     }
