@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
     //Walking
     private void Move()
     {
-        if (playerState.dashing)
+        if (playerState.IsDashing)
             return;
 
         input = playerControls.Player.Move.ReadValue<Vector2>();
@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
     private void OnJump(InputValue value)
     {
         //Return if player is mid-dash
-        if (playerState.dashing)
+        if (playerState.IsDashing)
             return;
 
         jumpBufferCounter = jumpBufferFrames;
@@ -156,21 +156,21 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, 0);
             }
 
-            playerState.jumping = false;
+            playerState.IsJumping = false;
         }
 
         //If the player is not jumping already, activate jump
-        if (value.isPressed && !playerState.jumping)
+        if (value.isPressed && !playerState.IsJumping)
         {
             if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
             {
                 rb.velocity = new Vector3(rb.velocity.x, jumpForce);
 
-                playerState.jumping = true;
+                playerState.IsJumping = true;
             }
             else if (!Grounded() && airJumpCounter < maxAirJumps)
             {
-                playerState.jumping = true;
+                playerState.IsJumping = true;
                 airJumpCounter++;
 
                 rb.velocity = new Vector3(rb.velocity.x, jumpForce);
@@ -183,10 +183,10 @@ public class PlayerController : MonoBehaviour
     private void OnDash()
     {
         //Checks to see if the player can dash (cooldown is reset) and makes sure player is not currently dashing
-        if (canDash && !playerState.dashing)
+        if (canDash && !playerState.IsDashing)
         {
             //Update States
-            playerState.dashing = true;
+            playerState.IsDashing = true;
             canDash = false;
 
             //Cooldown Timer
@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
 
         //Dash movement has been completed
         yield return new WaitForSeconds(dashTime);
-        playerState.dashing = false;
+        playerState.IsDashing = false;
         rb.gravityScale = gravity;
 
         //Reset velocity, may need to be changed with implementation of phantom shift
@@ -266,7 +266,7 @@ public class PlayerController : MonoBehaviour
         //Checks grounded state to determine if player can jump again
         if (Grounded())
         {
-            playerState.jumping = false;
+            playerState.IsJumping = false;
             coyoteTimeCounter = coyoteTime;
             airJumpCounter = 0;
         }

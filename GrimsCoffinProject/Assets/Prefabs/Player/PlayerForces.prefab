@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6407083523203834289}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground Check Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7342308081699046411}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Front Wall Check Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,12 +74,12 @@ GameObject:
   - component: {fileID: 7867636029272909533}
   - component: {fileID: 2225502148986693817}
   - component: {fileID: 2855065712349528262}
-  - component: {fileID: 7058702446339624473}
+  - component: {fileID: 1960859601187753200}
   - component: {fileID: 5297759798866308537}
   - component: {fileID: -3555348475411842758}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
+  m_Layer: 6
+  m_Name: PlayerForces
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -222,11 +222,11 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &7058702446339624473
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!114 &1960859601187753200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,28 +235,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5754731874771024280}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65cb30aab1c135a4e90c2c25c78fdcf5, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f59d3263c108b940b49aa2e3c172821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  jumpForce: 7.5
-  jumpCancelForce: 2
-  jumpBufferFrames: 1
-  coyoteTime: 0.1
-  maxAirJumps: 1
-  groundCheckPoint: {fileID: 6407083523203834289}
-  groundCheckY: 0.2
-  groundCheckX: 0.5
+  Data: {fileID: 11400000, guid: 315d060423748df4399d5d8949eb2db7, type: 2}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  dashSpeed: 20
-  upwardsDashSpeed: 30
-  dashTime: 0.2
-  upwardsDashTime: 0.2
-  upDashCancelForce: 2
-  dashCooldown: 0.35
-  canDash: 0
+  groundCheckPoint: {fileID: 6407083523203834289}
+  groundCheckSize: {x: 0.49, y: 0.03}
+  frontWallCheckPoint: {fileID: 7342308081699046411}
+  backWallCheckPoint: {fileID: 3769127713801327265}
+  wallCheckSize: {x: 0.5, y: 1}
   maxHP: 0
   currentHP: 0
   maxSP: 0
@@ -312,7 +302,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3769127713801327265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 'Back Wall Check Point '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
