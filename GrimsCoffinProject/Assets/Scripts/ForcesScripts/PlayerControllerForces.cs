@@ -282,7 +282,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (rb.velocity.y > 0) 
         {
             //Debug.Log("Jump clamping: " + jumpClamp);
-            force = Mathf.Clamp(force * jumpClamp, force * 0.55f, force);
+            force = Mathf.Clamp(force * jumpClamp, force * 0.5f, force);
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
             jumpClamp = 0;
         }
@@ -396,7 +396,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
         else if (OnWall())
         {
-            airJumpCounter = 0;
+            //airJumpCounter = 0;
         }
     }
 
@@ -555,7 +555,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Check for Dash state
     private bool CanDash()
     {
-        if (!playerState.IsDashing && dashesLeft < Data.dashAmount && (LastOnGroundTime > 0 || OnWall()) && !dashRefilling)
+        if (!playerState.IsDashing && dashesLeft < Data.dashAmount && LastOnGroundTime > 0 && !dashRefilling) //(LastOnGroundTime > 0 || OnWall())
         {
             StartCoroutine(nameof(RefillDash), 1);
         }
