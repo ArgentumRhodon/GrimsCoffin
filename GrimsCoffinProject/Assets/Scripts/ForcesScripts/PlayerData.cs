@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     [Header("Gravity")]
-    [HideInInspector] public float gravityStrength; //Downwards force (gravity) needed for the desired jumpHeight and jumpTimeToApex
+    [HideInInspector] public float gravityStrength; //Downwards force needed for the desired jumpHeight and jumpTimeToApex
     [HideInInspector] public float gravityScale; //Strength of the player's gravity as a multiplier of gravity
                                                  
     [Space(5)]
@@ -35,7 +35,7 @@ public class PlayerData : ScriptableObject
     [Header("Jump")]
     public float jumpHeight; //Height of the player's jump
     public float jumpTimeToApex; //Time between applying the jump force and reaching the desired jump height. These values also control the player's gravity and jump force.
-    [HideInInspector] public float jumpForce; //The actual force applied (upwards) to the player when they jump.
+    [HideInInspector] public float jumpForce; //The actual force applied to the player when they jump.
 
     [Header("Both Jumps")]
     public float jumpCancelGravityMult; //Multiplier to increase gravity if the player releases thje jump button while still jumping
@@ -67,7 +67,7 @@ public class PlayerData : ScriptableObject
     [Space(5)]
     public float dashAttackTime;
     [Space(5)]
-    public float dashEndTime; //Time after you finish the inital drag phase, smoothing the transition back to idle (or any standard state)
+    public float dashEndTime; //Time after you finish the inital drag phase, smoothing the transition back to idle
     public Vector2 dashEndSpeed; //Slows down player, makes dash feel more responsive 
     [Range(0f, 1f)] public float dashEndRunLerp; //Slows the affect of player movement while dashing
     [Space(5)]

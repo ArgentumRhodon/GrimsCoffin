@@ -491,12 +491,13 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
-    //Check ground specific and return a bool
+    //Check ground specific collision and return a bool
     private bool Grounded()
     {
         return Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
     }
 
+    //Check wall specific collision and return a bool
     private bool OnWall()
     {
         return (((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)
@@ -512,7 +513,7 @@ public class PlayerControllerForces : MonoBehaviour
             Turn();
     }
 
-    //Helper method to set x direction to -1 or 1
+    //Set x direction to -1 or 1, even if using analog stick
     private int XInputDirection()
     {
         if (moveInput.x == 0)
@@ -523,6 +524,7 @@ public class PlayerControllerForces : MonoBehaviour
             return 1;
     }
 
+    //Checks for jump states
     private bool CanJump()
     {
         return LastOnGroundTime > 0 && !playerState.IsJumping;
@@ -539,6 +541,7 @@ public class PlayerControllerForces : MonoBehaviour
         return airJumpCounter < maxAirJumps && !Grounded();
     }
 
+    //Checks for jump cancel
     private bool CanJumpCancel()
     {
         return playerState.IsJumping && rb.velocity.y > 0;
@@ -549,6 +552,7 @@ public class PlayerControllerForces : MonoBehaviour
         return playerState.IsWallJumping && rb.velocity.y > 0;
     }
 
+    //Check for Dash state
     private bool CanDash()
     {
         if (!playerState.IsDashing && dashesLeft < Data.dashAmount && (LastOnGroundTime > 0 || OnWall()) && !dashRefilling)
@@ -559,11 +563,13 @@ public class PlayerControllerForces : MonoBehaviour
         return dashesLeft > 0;
     }
 
+    //Set gravity 
     public void SetGravityScale(float scale)
     {
         rb.gravityScale = scale;
     }
 
+    //Sleep for delaying movement
     private void Sleep(float duration)
     {
         //Method to help delay time for movement
