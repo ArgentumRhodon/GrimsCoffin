@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class PlayerStateList : MonoBehaviour
 {
-    //Variables control the various actions the player can perform at any time.
-    //These are fields which can are public allowing for other sctipts to read them
-    //but can only be privately written to.
+    //Variables control the actions the player can perform at any time.
     public bool IsFacingRight { get; set; }
     public bool IsJumping { get; set; }
     public bool IsWallJumping { get; set; }
