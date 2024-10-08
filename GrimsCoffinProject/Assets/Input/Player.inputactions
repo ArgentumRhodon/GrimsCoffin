@@ -49,7 +49,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -192,7 +192,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -214,7 +214,7 @@
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "Gamepad;Xbox;Playstation",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -236,7 +236,7 @@
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -356,7 +356,7 @@
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -367,7 +367,7 @@
                     "path": "<Gamepad>/rightStick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -378,7 +378,7 @@
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -389,7 +389,7 @@
                     "path": "<Gamepad>/rightStick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -400,7 +400,7 @@
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -411,7 +411,7 @@
                     "path": "<Gamepad>/rightStick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -422,7 +422,7 @@
                     "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Xbox;Playstation",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -433,7 +433,7 @@
                     "path": "<Gamepad>/rightStick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -444,7 +444,7 @@
                     "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Playstation;Xbox",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -609,7 +609,7 @@
                     "path": "*/{Submit}",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR;Playstation;Xbox",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -620,7 +620,7 @@
                     "path": "*/{Cancel}",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR;Playstation;Xbox",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -816,6 +816,28 @@
             "devices": [
                 {
                     "devicePath": "<XRController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Playstation",
+            "bindingGroup": "Playstation",
+            "devices": [
+                {
+                    "devicePath": "<DualShockGamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Xbox",
+            "bindingGroup": "Xbox",
+            "devices": [
+                {
+                    "devicePath": "<XInputController>",
                     "isOptional": false,
                     "isOR": false
                 }
