@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -184,6 +185,11 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter = jumpBufferCounter - Time.deltaTime * 10;
         }
+    }
+
+    private void OnPause()
+    {
+        UIManager.Instance.Pause();
     }
 
     //Method to run Dash IEnum
