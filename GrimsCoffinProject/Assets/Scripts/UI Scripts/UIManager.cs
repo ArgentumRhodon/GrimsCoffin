@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private PauseScreenBehavior pauseScript;
     [SerializeField] private Volume postProcessVolume;
+
+    [SerializeField] private bool isPaused = false;
 
     private void Awake()
     {

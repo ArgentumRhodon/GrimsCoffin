@@ -5,11 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PauseScreenBehavior : MonoBehaviour
 {
     [SerializeField] private Button resume;
     [SerializeField] private Button quit;
+
+    [SerializeField] private PlayerInput playerInput;
 
     private bool isPaused;
 
@@ -32,12 +35,23 @@ public class PauseScreenBehavior : MonoBehaviour
         this.gameObject.SetActive(isPaused);
 
         if (isPaused)
+        {
+            //Deactivate Player Control if paused
+            playerInput.DeactivateInput();
+
+            //Select resume button for controller navigation
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(resume.gameObject);
             Time.timeScale = 0.0f;
+        }
+            
 
         else
+        {
+            //Reactivate player control and unpause
+            playerInput.ActivateInput();
             Time.timeScale = 1.0f;
-
-        EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     private void QuitGame()
