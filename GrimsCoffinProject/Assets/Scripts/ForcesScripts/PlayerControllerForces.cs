@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class PlayerControllerForces : MonoBehaviour
 {
@@ -18,10 +19,13 @@ public class PlayerControllerForces : MonoBehaviour
     public float LastOnWallTime { get; private set; }
     public float LastOnWallRightTime { get; private set; }
     public float LastOnWallLeftTime { get; private set; }
+    public float LastJumpTime { get; private set; }
 
     //Jump
     private bool isJumpCancel;
     private bool isJumpFalling;
+    private int airJumpCounter = 0;
+    float jumpClamp;
 
     //Wall Jump
     private float wallJumpStartTime;
@@ -50,6 +54,7 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] private Vector2 wallCheckSize = new Vector2(0.5f, 1f);
 
     [Header("Player Stats")]
+    [SerializeField] private int maxAirJumps;
     [SerializeField] public float maxHP;
     [SerializeField] public float currentHP;
     [SerializeField] public float maxSP;
@@ -110,6 +115,12 @@ public class PlayerControllerForces : MonoBehaviour
         LastOnWallLeftTime -= Time.deltaTime;
         LastPressedJumpTime -= Time.deltaTime;
         LastPressedDashTime -= Time.deltaTime;
+        if (playerState.IsJumping)
+        {
+            LastJumpTime += Time.deltaTime;
+            //Debug.Log(LastJumpTime);
+        }
+           
 
         //Movement/Walking input
         moveInput = playerControls.Player.Move.ReadValue<Vector2>();
@@ -152,12 +163,49 @@ public class PlayerControllerForces : MonoBehaviour
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
         if (value.isPressed)
         {
+            jumpClamp = LastJumpTime;
             LastPressedJumpTime = Data.jumpInputBufferTime;
+            LastJumpTime = 0;
         }
         else if (!value.isPressed)
         {
             if (CanJumpCancel() || CanWallJumpCancel())
                 isJumpCancel = true;
+        }
+
+        if (!playerState.IsDashing && value.isPressed)
+        {
+            //Jump
+            if (CanJump() && LastPressedJumpTime > 0)
+            {
+                playerState.IsJumping = true;
+                playerState.IsWallJumping = false;
+                isJumpCancel = false;
+                isJumpFalling = false;
+                Jump();
+            }
+            //Wall Jump
+            else if (CanWallJump() && LastPressedJumpTime > 0)
+            {
+                playerState.IsWallJumping = true;
+                playerState.IsJumping = false;
+                isJumpCancel = false;
+                isJumpFalling = false;
+
+                wallJumpStartTime = Time.time;
+                lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
+
+                WallJump(lastWallJumpDir);
+            }
+            else if (CanDoubleJump())
+            {
+                playerState.IsJumping = true;
+                playerState.IsWallJumping = false;
+                isJumpCancel = false;
+                isJumpFalling = false;
+                airJumpCounter++;
+                Jump();
+            }
         }
     }
 
@@ -231,9 +279,20 @@ public class PlayerControllerForces : MonoBehaviour
         if (rb.velocity.y < 0)
             force -= rb.velocity.y;
 
-        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        if (rb.velocity.y > 0) 
+        {
+            //Debug.Log("Jump clamping: " + jumpClamp);
+            force = Mathf.Clamp(force * jumpClamp, force * 0.55f, force);
+            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            jumpClamp = 0;
+        }
+        else
+        {
+            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        }
     }
 
+    //Wall jump
     private void WallJump(int dir)
     {
         //Ensures we can't call wall jump multiple times from one press
@@ -271,10 +330,12 @@ public class PlayerControllerForces : MonoBehaviour
 
         SetGravityScale(0);
 
+        int direction = XInputDirection();
+
         //We keep the player's velocity at dash speed
         while (Time.time - startTime <= Data.dashAttackTime)
         {
-            rb.velocity = dir.normalized * Data.dashSpeed;
+            rb.velocity = new Vector2(direction * Data.dashSpeed,0);
             //Pauses the loop until the next frame
             yield return null;
         }
@@ -285,7 +346,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Reset movement back to close to the walking speed
         SetGravityScale(Data.gravityScale);
-        rb.velocity = Data.dashEndSpeed * dir.normalized;
+        rb.velocity = new Vector2(Data.dashEndSpeed.x * direction,0);
 
         while (Time.time - startTime <= Data.dashEndTime)
         {
@@ -313,6 +374,8 @@ public class PlayerControllerForces : MonoBehaviour
             playerState.IsJumping = false;
 
             isJumpFalling = true;
+
+            LastJumpTime = 0;
         }
 
         if (playerState.IsWallJumping && Time.time - wallJumpStartTime > Data.wallJumpTime)
@@ -327,30 +390,13 @@ public class PlayerControllerForces : MonoBehaviour
             isJumpFalling = false;
         }
 
-        if (!playerState.IsDashing)
+        if (Grounded())
         {
-            //Jump
-            if (CanJump() && LastPressedJumpTime > 0)
-            {
-                playerState.IsJumping = true;
-                playerState.IsWallJumping = false;
-                isJumpCancel = false;
-                isJumpFalling = false;
-                Jump();
-            }
-            //Wall Jump
-            else if (CanWallJump() && LastPressedJumpTime > 0)
-            {
-                playerState.IsWallJumping = true;
-                playerState.IsJumping = false;
-                isJumpCancel = false;
-                isJumpFalling = false;
-
-                wallJumpStartTime = Time.time;
-                lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
-
-                WallJump(lastWallJumpDir);
-            }
+            airJumpCounter = 0;
+        }
+        else if (OnWall())
+        {
+            airJumpCounter = 0;
         }
     }
 
@@ -419,6 +465,7 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Helper Methods ----------------------------------------------------------------------------------------------
+    //Check collisions on every side of the player
     private void CollisionChecks()
     {
         if (!playerState.IsDashing && !playerState.IsJumping)
@@ -444,10 +491,36 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    //Check ground specific and return a bool
+    private bool Grounded()
+    {
+        return Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
+    }
+
+    private bool OnWall()
+    {
+        return (((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)
+                    || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsFacingRight)) && !playerState.IsWallJumping)
+                    || (((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsFacingRight)
+                || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)) && !playerState.IsWallJumping);
+    }
+
+    //Check direction that the player should face
     public void CheckDirectionToFace(bool isMovingRight)
     {
         if (isMovingRight != playerState.IsFacingRight)
             Turn();
+    }
+
+    //Helper method to set x direction to -1 or 1
+    private int XInputDirection()
+    {
+        if (moveInput.x == 0)
+            return 0;
+        else if (moveInput.x < 0)
+            return -1;
+        else
+            return 1;
     }
 
     private bool CanJump()
@@ -459,6 +532,11 @@ public class PlayerControllerForces : MonoBehaviour
     {
         return LastPressedJumpTime > 0 && LastOnWallTime > 0 && LastOnGroundTime <= 0 && (!playerState.IsWallJumping ||
              (LastOnWallRightTime > 0 && lastWallJumpDir == 1) || (LastOnWallLeftTime > 0 && lastWallJumpDir == -1));
+    }
+
+    private bool CanDoubleJump()
+    {
+        return airJumpCounter < maxAirJumps && !Grounded();
     }
 
     private bool CanJumpCancel()
@@ -473,7 +551,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     private bool CanDash()
     {
-        if (!playerState.IsDashing && dashesLeft < Data.dashAmount && LastOnGroundTime > 0 && !dashRefilling)
+        if (!playerState.IsDashing && dashesLeft < Data.dashAmount && (LastOnGroundTime > 0 || OnWall()) && !dashRefilling)
         {
             StartCoroutine(nameof(RefillDash), 1);
         }

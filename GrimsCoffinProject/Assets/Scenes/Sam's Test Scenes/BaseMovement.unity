@@ -1710,8 +1710,28 @@ PrefabInstance:
       value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 7058702446339624473, guid: 31683ff5986314b4e9790493e70f5be9, type: 3}
+      propertyPath: dashCooldown
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058702446339624473, guid: 31683ff5986314b4e9790493e70f5be9, type: 3}
       propertyPath: jumpCancelForce
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058702446339624473, guid: 31683ff5986314b4e9790493e70f5be9, type: 3}
+      propertyPath: moveAction.m_Name
+      value: Move
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058702446339624473, guid: 31683ff5986314b4e9790493e70f5be9, type: 3}
+      propertyPath: moveAction.m_SingletonActionBindings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058702446339624473, guid: 31683ff5986314b4e9790493e70f5be9, type: 3}
+      propertyPath: moveAction.m_SingletonActionBindings.Array.data[0].m_Id
+      value: c025a142-e5b2-4047-b307-ae986ccd50c9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058702446339624473, guid: 31683ff5986314b4e9790493e70f5be9, type: 3}
+      propertyPath: moveAction.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Move
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
