@@ -13,7 +13,7 @@ Pull request template for Grim’s Coffin. Feel free to remove comments as you f
 ## Issue worked on
 <!---Paste in a link to the issue this PR addresses--->
 
-## Limk to Feature Devlog
+## Link to Feature Devlog
 <!---Paste in a link to the devlog documentation for this feature--->
 
 ## What Sprint is this due in?
