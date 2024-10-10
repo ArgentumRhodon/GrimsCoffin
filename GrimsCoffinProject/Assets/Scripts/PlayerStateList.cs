@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerStateList : MonoBehaviour
 {
-    public bool jumping = false;
-    public bool dashing = false;
+    //Variables control the actions the player can perform at any time.
+    public bool IsFacingRight { get; set; }
+    public bool IsJumping { get; set; }
+    public bool IsWallJumping { get; set; }
+    public bool IsDashing { get; set; }
+    public bool IsSliding { get; set; }
+
+
 }
