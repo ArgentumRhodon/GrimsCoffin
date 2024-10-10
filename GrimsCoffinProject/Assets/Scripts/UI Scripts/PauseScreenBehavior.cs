@@ -32,6 +32,7 @@ public class PauseScreenBehavior : MonoBehaviour
     public void Pause()
     {
         isPaused = !isPaused;
+        UIManager.Instance.gameUI.SetActive(!isPaused);
         this.gameObject.SetActive(isPaused);
 
         if (isPaused)
