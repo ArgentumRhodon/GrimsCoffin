@@ -54,6 +54,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float maxSP;
     [SerializeField] public float currentSP;
 
+    [Header("Player UI")]
+    [SerializeField] public InteractionPrompt interactionPrompt;
+
     //Singleton so the controller can be referenced across scripts
     public static PlayerController Instance;
 
@@ -119,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     //Jump
     private void OnJump()
-    {
+    {        
         jumpBufferCounter = jumpBufferFrames;
 
         if (rb.velocity.y > 0)

@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8535695293220815669}
   - component: {fileID: 3363892677307936462}
+  - component: {fileID: 8048996128954239004}
   m_Layer: 5
   m_Name: Interaction Prompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8535695293220815669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -58,6 +59,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8048996128954239004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3439051973177564116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cafc5682ea0fc2469cfe3c5b33bb70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionText: {fileID: 8997465983732475844}
+  promptIcon: {fileID: 2471543161428864782}
+  keyboardSprites:
+  - {fileID: 21300000, guid: 5006278be66334c4096cc0c2bc4e6142, type: 3}
+  - {fileID: 21300000, guid: 2d7454be7a684d746aef62292ea6ccf9, type: 3}
+  - {fileID: 21300000, guid: c3a78374cb92b424f9f7d820044845b1, type: 3}
+  - {fileID: 21300000, guid: 7d618da4800889648b1d20f1b7a2db6d, type: 3}
+  - {fileID: 21300000, guid: e8b36da429feda14fa2748049e1b5001, type: 3}
+  - {fileID: 21300000, guid: ae47e53ace3690c4abcfe015b1440372, type: 3}
+  playstationSprites:
+  - {fileID: 21300000, guid: 803374a0ffab1ea4bbea87b74c75fcbb, type: 3}
+  - {fileID: 21300000, guid: 26bf110d02332ab41a52303839e905e2, type: 3}
+  - {fileID: 21300000, guid: fbab41f035275fd4884aa242705bab63, type: 3}
+  - {fileID: 21300000, guid: 5de933204d0ae9a41a7a6723494fb017, type: 3}
+  - {fileID: 21300000, guid: 71f77dfb9c6648e44a0dafb0a27d8dfa, type: 3}
+  - {fileID: 21300000, guid: a83335bc0083d3b44b6c99f55e8167e5, type: 3}
+  xboxSprites:
+  - {fileID: 21300000, guid: 256c3a94c345be4478e9eed5ed38b394, type: 3}
+  - {fileID: 21300000, guid: 79c394e37c413954e95877889417fe71, type: 3}
+  - {fileID: 21300000, guid: 74aff3eedbf40af4c84bb8de309822a7, type: 3}
+  - {fileID: 21300000, guid: 5071e9173ae10754a87b848bfa4d9a84, type: 3}
+  - {fileID: 21300000, guid: b7e8b46bfc0795844b53bcfa01369dfa, type: 3}
+  - {fileID: 21300000, guid: c97488ea65b4b6b41aad7db5fd9b7b8e, type: 3}
 --- !u!1 &5220735769949744102
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,8 +306,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -0.000018358, y: -0.0000074506}
+  m_SizeDelta: {x: 215.6841, y: 75.8326}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7691491495901324179
 CanvasRenderer:
@@ -328,15 +364,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 46
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
