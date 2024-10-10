@@ -6,6 +6,7 @@ using UnityEngine.Playables;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -290,6 +291,20 @@ public class PlayerController : MonoBehaviour
         {
             canDash = true;
         }
+    private void OnPause()
+    {
+        UIManager.Instance.Pause();
+    }
+
+    //Method to run Dash IEnum
+    //private void OnDash()
+    //{
+    //    if (canDash && !dashed) 
+    //    {
+    //        dashed = true;
+    //        StartCoroutine(Dash());
+    //    }
+    //}
 
         //Update dash cooldown
         if (currentDashCooldown > 0)
