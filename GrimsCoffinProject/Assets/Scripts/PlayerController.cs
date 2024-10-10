@@ -291,11 +291,6 @@ public class PlayerController : MonoBehaviour
         {
             canDash = true;
         }
-    private void OnPause()
-    {
-        UIManager.Instance.Pause();
-    }
-
     //Method to run Dash IEnum
     //private void OnDash()
     //{
@@ -311,5 +306,9 @@ public class PlayerController : MonoBehaviour
         {
             currentDashCooldown = currentDashCooldown - Time.deltaTime;
         }
+    }
+    private void OnPause()
+    {
+        UIManager.Instance.Pause();
     }
 }

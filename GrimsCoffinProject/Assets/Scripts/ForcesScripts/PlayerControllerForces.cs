@@ -215,6 +215,12 @@ public class PlayerControllerForces : MonoBehaviour
         LastPressedDashTime = Data.dashInputBufferTime;
     }
 
+    private void OnPause()
+    {
+        UIManager.Instance.Pause();
+    }
+
+    //Movement Method Calculations ----------------------------------------------------------------------------------------------
     //Walking
     private void Walk(float lerpAmount)
     {
