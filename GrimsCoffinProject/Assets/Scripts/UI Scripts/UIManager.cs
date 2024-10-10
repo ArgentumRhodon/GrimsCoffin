@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PauseScreenBehavior pauseScript;
     [SerializeField] private Volume postProcessVolume;
 
-    [SerializeField] private bool isPaused = false;
+    [SerializeField] public GameObject gameUI;
 
     private void Awake()
     {
