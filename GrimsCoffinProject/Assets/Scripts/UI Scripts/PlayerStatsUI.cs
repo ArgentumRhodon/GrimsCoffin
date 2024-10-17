@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerStatsUI : MonoBehaviour
 {
-    public PlayerController player;
+    public PlayerControllerForces player;
 
     public RectTransform healthBar;
     public Image healthBarFill;
