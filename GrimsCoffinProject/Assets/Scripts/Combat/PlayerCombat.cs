@@ -26,6 +26,6 @@ public class PlayerCombat : MonoBehaviour
     private void OnAttack()
     {
         meleeStateMachine.SetNextState(new MeleeEntryState());
-        attackPressedTimer = 2;
+        attackPressedTimer = 2f;
     }
 }
