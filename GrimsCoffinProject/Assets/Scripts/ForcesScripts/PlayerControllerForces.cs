@@ -337,6 +337,14 @@ public class PlayerControllerForces : MonoBehaviour
         SetGravityScale(0);
 
         int direction = XInputDirection();
+        //If player is not moving / doesn't have direction, dash in the most recent input
+        if(direction == 0)
+        {
+            if (playerState.IsFacingRight)
+                direction = 1;
+            else
+                direction = -1;
+        }
 
         //We keep the player's velocity at dash speed
         while (Time.time - startTime <= Data.dashAttackTime)
