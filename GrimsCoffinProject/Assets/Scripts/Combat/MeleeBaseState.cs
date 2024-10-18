@@ -16,17 +16,17 @@ public class MeleeBaseState : CState
 
 
     //Cached hit collider component of this attack
-    //protected Collider2D hitCollider;
+    protected Collider2D hitCollider;
     //Cached already struck objects of said attack to avoid overlapping attacks on same target
-    //private List<Collider2D> collidersDamaged;
+    private List<Collider2D> collidersDamaged;
 
 
     public override void OnEnter(CStateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
         animator = _stateMachine.GetComponent<PlayerCombat>().scytheAnimator;
-        //collidersDamaged = new List<Collider2D>();
-        //hitCollider = _stateMachine.GetComponent<PlayerCombat>().hitbox;
+        collidersDamaged = new List<Collider2D>();
+        hitCollider = _stateMachine.GetComponent<PlayerCombat>().hitbox;
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
@@ -39,7 +39,7 @@ public class MeleeBaseState : CState
             Attack();
         }
 
-        if (_stateMachine.GetComponent<PlayerCombat>().attackPressedTimer > 0) //animator.GetFloat("AttackWindow.Open") > 0f &&
+        if (animator.GetFloat("AttackWindow.Open") > 0f)
         {
             shouldCombo = true;
         }
@@ -53,5 +53,24 @@ public class MeleeBaseState : CState
     protected void Attack()
     {
         //Attack the enemy, check for collisions
+        Collider2D[] collidersToDamage = new Collider2D[10];
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
+        int colliderCount = Physics2D.OverlapCollider(hitCollider, filter, collidersToDamage);
+
+        for (int i = 0; i < colliderCount; i++)
+        {
+            if (!collidersDamaged.Contains(collidersToDamage[i]))
+            {
+                TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
+
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
+                {
+                    Debug.Log("Enemy Has Taken: " + attackIndex + " Damage");
+                    collidersDamaged.Add(collidersToDamage[i]);
+                }
+            }
+        }
+
     }
 }

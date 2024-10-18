@@ -25,7 +25,10 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnAttack()
     {
-        meleeStateMachine.SetNextState(new MeleeEntryState());
-        attackPressedTimer = 2f;
+        if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
+        {
+            meleeStateMachine.SetNextState(new MeleeEntryState());
+            attackPressedTimer = 2f;
+        }   
     }
 }
