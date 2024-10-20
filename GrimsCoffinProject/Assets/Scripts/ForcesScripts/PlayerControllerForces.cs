@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -60,6 +59,8 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public float maxSP;
     [SerializeField] public float currentSP;
 
+    [Header("Player UI")]
+    [SerializeField] public InteractionPrompt interactionPrompt;
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -266,11 +267,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Used for player direction
     private void Turn()
     {
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-
         playerState.IsFacingRight = !playerState.IsFacingRight;
+        this.gameObject.GetComponent<SpriteRenderer>().flipX = !playerState.IsFacingRight;
+
     }
 
     //Jump
