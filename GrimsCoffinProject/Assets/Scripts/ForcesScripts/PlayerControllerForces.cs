@@ -92,12 +92,12 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Methods to make player controls work and to access it in the code
-    private void OnEnable()
+    public void OnEnable()
     {
         playerControls.Player.Enable();
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
         playerControls.Player.Disable();
     }

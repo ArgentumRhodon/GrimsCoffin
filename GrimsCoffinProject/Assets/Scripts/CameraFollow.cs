@@ -41,6 +41,7 @@ public class CameraFollow : MonoBehaviour
         Vector3 pos = transform.position;
         if (!isShifting)
         {
+            if(PlayerControllerForces.Instance.isActiveAndEnabled)
             pos = Vector3.Lerp(transform.position, PlayerControllerForces.Instance.transform.position + offset, followSpeed);
             if (clampX)
                 pos.x = xClamp;
