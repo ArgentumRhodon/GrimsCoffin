@@ -39,6 +39,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Input parameters
     private Vector2 moveInput;
 
+    // Animation Stuff
+    private Animator animator;
+
     public float LastPressedJumpTime { get; private set; }
     public float LastPressedDashTime { get; private set; }
 
@@ -105,6 +108,8 @@ public class PlayerControllerForces : MonoBehaviour
         playerState = GetComponent<PlayerStateList>();
         SetGravityScale(Data.gravityScale);
         playerState.IsFacingRight = true;
+
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -155,6 +160,8 @@ public class PlayerControllerForces : MonoBehaviour
         {
             Walk(Data.dashEndRunLerp);
         }
+
+        animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
     }
 
     //Input Methods ----------------------------------------------------------------------------------------------
