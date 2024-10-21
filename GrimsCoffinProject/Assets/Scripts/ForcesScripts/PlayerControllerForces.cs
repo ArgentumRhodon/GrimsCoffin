@@ -280,11 +280,13 @@ public class PlayerControllerForces : MonoBehaviour
         LastOnGroundTime = 0;
 
         //Increase the force applied if we are falling
+        //Debug.Log("Rb velocity " + rb.velocity.y);
         float force = Data.jumpForce;
-        if (rb.velocity.y < 0)
+        if (rb.velocity.y < 0.1f)
             force -= rb.velocity.y;
 
-        if (rb.velocity.y > 0) 
+        //Clamp to calculate whether the player is already jumping or not to make sure the forces don't stack too high
+        if (rb.velocity.y > 0.1f) 
         {
             //Debug.Log("Jump clamping: " + jumpClamp);
             force = Mathf.Clamp(force * jumpClamp, force * 0.5f, force);
