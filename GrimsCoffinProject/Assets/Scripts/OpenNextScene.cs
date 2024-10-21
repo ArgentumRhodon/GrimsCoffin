@@ -12,7 +12,7 @@ public class SceneController : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(nextSceneName))
         {
-            StartCoroutine(WaitAndLoad(0.6f));
+            StartCoroutine(WaitAndLoad(0.45f));
         }
         else
         {
