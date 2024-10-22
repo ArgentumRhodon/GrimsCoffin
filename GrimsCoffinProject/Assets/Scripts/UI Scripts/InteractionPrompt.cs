@@ -63,7 +63,7 @@ public class InteractionPrompt : MonoBehaviour
             case "Playstation":
                 promptIcon.sprite = playstationSprites[iconIndex];
                 break;
-            case "Xbox":
+            default:
                 promptIcon.sprite = xboxSprites[iconIndex];
                 break;
         }
