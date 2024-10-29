@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -40,6 +39,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Input parameters
     private Vector2 moveInput;
 
+    // Animation Stuff
+    private Animator animator;
+
     public float LastPressedJumpTime { get; private set; }
     public float LastPressedDashTime { get; private set; }
 
@@ -60,6 +62,8 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public float maxSP;
     [SerializeField] public float currentSP;
 
+    [Header("Player UI")]
+    [SerializeField] public InteractionPrompt interactionPrompt;
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -88,12 +92,12 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Methods to make player controls work and to access it in the code
-    private void OnEnable()
+    public void OnEnable()
     {
         playerControls.Player.Enable();
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
         playerControls.Player.Disable();
     }
@@ -104,6 +108,8 @@ public class PlayerControllerForces : MonoBehaviour
         playerState = GetComponent<PlayerStateList>();
         SetGravityScale(Data.gravityScale);
         playerState.IsFacingRight = true;
+
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -136,6 +142,9 @@ public class PlayerControllerForces : MonoBehaviour
         UpdateJumpVariables();
         UpdateDashVariables();
 
+        //Slide Check
+        UpdateSlideVariables();
+
         //Gravity check
         UpdateGravityVariables();
     }
@@ -154,6 +163,12 @@ public class PlayerControllerForces : MonoBehaviour
         {
             Walk(Data.dashEndRunLerp);
         }
+
+        //Handle Slide
+        if (playerState.IsSliding)
+            Slide();
+
+        animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
     }
 
     //Input Methods ----------------------------------------------------------------------------------------------
@@ -192,8 +207,12 @@ public class PlayerControllerForces : MonoBehaviour
                 isJumpCancel = false;
                 isJumpFalling = false;
 
+                //Set timer and direction of jump
                 wallJumpStartTime = Time.time;
                 lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
+
+                //Stops player from double jumping off wall
+                airJumpCounter = maxAirJumps; 
 
                 WallJump(lastWallJumpDir);
             }
@@ -224,8 +243,19 @@ public class PlayerControllerForces : MonoBehaviour
     //Walking
     private void Walk(float lerpAmount)
     {
+        //Get direction and normalize it to either 1 or -1 
+        int direction = XInputDirection();
+        if (direction != 0)
+        {
+            if (playerState.IsFacingRight)
+                direction = 1;
+            else
+                direction = -1;
+        }
+
         //Calculate the direction and our desired velocity
-        float targetSpeed = moveInput.x * Data.walkMaxSpeed;
+        float targetSpeed = direction * Data.walkMaxSpeed;
+        //float targetSpeed = moveInput.x * Data.walkMaxSpeed; <---------- used for walking at a slower pace
         //Smooth changes to direction and speed using a lerp function
         targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, lerpAmount);
 
@@ -266,11 +296,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Used for player direction
     private void Turn()
     {
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-
         playerState.IsFacingRight = !playerState.IsFacingRight;
+        this.gameObject.GetComponent<SpriteRenderer>().flipX = !playerState.IsFacingRight;
+
     }
 
     //Jump
@@ -281,15 +309,19 @@ public class PlayerControllerForces : MonoBehaviour
         LastOnGroundTime = 0;
 
         //Increase the force applied if we are falling
+        //Debug.Log("Rb velocity " + rb.velocity.y);
         float force = Data.jumpForce;
-        if (rb.velocity.y < 0)
+        if (rb.velocity.y < 0.01f)
+            force -= rb.velocity.y;
+        else if (rb.velocity.y > .1f)
             force -= rb.velocity.y;
 
-        if (rb.velocity.y > 0) 
+        //Clamp to calculate whether the player is already jumping or not to make sure the forces don't stack too high
+        if (CanDoubleJump()) 
         {
             //Debug.Log("Jump clamping: " + jumpClamp);
-            force = Mathf.Clamp(force * jumpClamp, force * 0.5f, force);
-            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            //force = Mathf.Clamp(force * jumpClamp, force * 0.5f, force);
+            rb.AddForce(Vector2.up * force * Data.doubleJumpMultiplier, ForceMode2D.Impulse);
             jumpClamp = 0;
         }
         else
@@ -320,6 +352,24 @@ public class PlayerControllerForces : MonoBehaviour
         //Use impulse to apply force instantly ignoring mass
         rb.AddForce(force, ForceMode2D.Impulse);
 
+    }
+
+    //Slide
+    private void Slide()
+    {
+        //Remove the remaining upwards Impulse to prevent upwards sliding
+        if (rb.velocity.y > 0)
+        {
+            rb.AddForce(-rb.velocity.y * Vector2.up, ForceMode2D.Impulse);
+        }
+
+        //Slide
+        float speedDif = Data.slideSpeed - rb.velocity.y;
+        float movement = speedDif * Data.slideAccel;
+        //Clamp the movement here to prevent any over corrections
+        movement = Mathf.Clamp(movement, -Mathf.Abs(speedDif) * (1 / Time.fixedDeltaTime), Mathf.Abs(speedDif) * (1 / Time.fixedDeltaTime));
+
+        rb.AddForce(movement * Vector2.up);
     }
 
     //Dash Coroutine
@@ -436,6 +486,14 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    private void UpdateSlideVariables()
+    {
+        if (CanSlide() && ((LastOnWallLeftTime > 0 && moveInput.x < 0) || (LastOnWallRightTime > 0 && moveInput.x > 0)))
+            playerState.IsSliding = true;
+        else
+            playerState.IsSliding = false;
+    }
+
     private void UpdateGravityVariables()
     {
         if (!isDashAttacking)
@@ -490,14 +548,13 @@ public class PlayerControllerForces : MonoBehaviour
                 LastOnGroundTime = Data.coyoteTime; //if so sets the lastGrounded to coyoteTime
             }
 
+            
             //Right Wall Check
-            if (((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)
-                    || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsFacingRight)) && !playerState.IsWallJumping)
+            if ((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight) && !playerState.IsWallJumping)
                 LastOnWallRightTime = Data.coyoteTime;
-
+              
             //Left Wall Check
-            if (((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsFacingRight)
-                || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)) && !playerState.IsWallJumping)
+            if ((Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsFacingRight) && !playerState.IsWallJumping)
                 LastOnWallLeftTime = Data.coyoteTime;
 
             //Two checks needed for both left and right walls since whenever the play turns the wall checkPoints swap sides
@@ -575,6 +632,15 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         return dashesLeft > 0;
+    }
+
+    //Check to see if the player is on the wall and is sliding
+    public bool CanSlide()
+    {
+        if (LastOnWallTime > 0 && !playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && LastOnGroundTime <= 0)
+            return true;
+        else
+            return false;
     }
 
     //Set gravity 

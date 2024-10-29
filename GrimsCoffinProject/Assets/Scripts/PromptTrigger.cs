@@ -30,9 +30,9 @@ public class PromptTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Show prompt if player enters the trigger
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        if (collision.gameObject.GetComponent<PlayerControllerForces>() != null)
         {
-            PlayerController.Instance.interactionPrompt.DisplayPrompt(iconIndex, interactionText, time);
+            PlayerControllerForces.Instance.interactionPrompt.DisplayPrompt(iconIndex, interactionText, time);
         }
     }
 }

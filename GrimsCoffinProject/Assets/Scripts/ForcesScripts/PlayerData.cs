@@ -52,7 +52,14 @@ public class PlayerData : ScriptableObject
     [Range(0f, 1.5f)] public float wallJumpTime; //Time after wall jumping the player's movement is slowed for.
     public bool doTurnOnWallJump; //Player will rotate to face wall jumping direction
 
+    [Header("Double Jumps")]
+    public float doubleJumpMultiplier; //Multiplier for impulse added on double jump
+
     [Space(20)]
+
+    [Header("Slide")]
+    public float slideSpeed;
+    public float slideAccel;
 
     [Header("Assists")]
     [Range(0.01f, 0.5f)] public float coyoteTime; //Grace period after falling off a platform, where you can still jump

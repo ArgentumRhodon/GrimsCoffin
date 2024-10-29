@@ -26,7 +26,7 @@ public class InteractionPrompt : MonoBehaviour
     void Start()
     {
         //Hide prompt and get control scheme
-        controlScheme = PlayerController.Instance.gameObject.GetComponent<PlayerInput>().currentControlScheme;
+        controlScheme = PlayerControllerForces.Instance.gameObject.GetComponent<PlayerInput>().currentControlScheme;
         HidePrompt();
     }
 
@@ -34,7 +34,7 @@ public class InteractionPrompt : MonoBehaviour
     void Update()
     {
         //Update control scheme in case player changes controller mid game
-        controlScheme = PlayerController.Instance.gameObject.GetComponent<PlayerInput>().currentControlScheme;
+        controlScheme = PlayerControllerForces.Instance.gameObject.GetComponent<PlayerInput>().currentControlScheme;
 
         //Reduce the timer 
         timer -= Time.deltaTime;
@@ -63,7 +63,7 @@ public class InteractionPrompt : MonoBehaviour
             case "Playstation":
                 promptIcon.sprite = playstationSprites[iconIndex];
                 break;
-            case "Xbox":
+            default:
                 promptIcon.sprite = xboxSprites[iconIndex];
                 break;
         }
