@@ -36,5 +36,6 @@ public class PlayerCombat : MonoBehaviour
             meleeStateMachine.RegisteredAttack = true;
             attackPressedTimer = 2f;
         }
+
     }
 }
