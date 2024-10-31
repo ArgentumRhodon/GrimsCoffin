@@ -29,12 +29,12 @@ public class PlayerCombat : MonoBehaviour
         if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
         {
             meleeStateMachine.SetNextState(new MeleeEntryState());
-            attackPressedTimer = 2f;
+            attackPressedTimer = 1f;
         } 
         else if (attackPressedTimer > 0)
         {
             meleeStateMachine.RegisteredAttack = true;
-            attackPressedTimer = 2f;
+            attackPressedTimer = 1f;
         }
 
     }

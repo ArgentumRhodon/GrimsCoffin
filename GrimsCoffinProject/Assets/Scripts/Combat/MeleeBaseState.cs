@@ -47,6 +47,7 @@ public class MeleeBaseState : CState
         if (_stateMachine.GetComponent<PlayerCombat>().attackPressedTimer > 0f)
         {
             shouldCombo = true;
+            Attack();
         }
     }
 
@@ -57,6 +58,7 @@ public class MeleeBaseState : CState
 
     protected void Attack()
     {
+        Debug.Log("Attack Swing");
         //Attack the enemy, check for collisions
         Collider2D[] collidersToDamage = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();
