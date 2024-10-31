@@ -9,7 +9,7 @@ public class MeleeBaseState : CState
     protected Animator animator;
 
     //Bool to check if it should continue the combo or not
-    protected bool shouldCombo;
+    protected bool shouldCombo; 
     //Index of sequence in attack
     protected int attackIndex;
 
@@ -34,12 +34,17 @@ public class MeleeBaseState : CState
         base.OnUpdate(_stateMachine);
         _stateMachine.GetComponent<PlayerCombat>().attackPressedTimer -= Time.deltaTime;
 
-        if (animator.GetFloat("Weapon.Active") > 0f)
+/*        if (animator.GetFloat("Weapon.Active") > 0f)
         {
             Attack();
-        }
+        }*/
 
-        if (animator.GetFloat("AttackWindow.Open") > 0f)
+/*        if (animator.GetFloat("AttackWindow.Open") > 0f)
+        {
+            shouldCombo = true;
+        }*/
+
+        if (_stateMachine.GetComponent<PlayerCombat>().attackPressedTimer > 0f)
         {
             shouldCombo = true;
         }

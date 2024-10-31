@@ -10,6 +10,7 @@ public class CStateMachine : MonoBehaviour
 
     public CState CurrentState { get; private set; }
     private CState nextState;
+    public bool RegisteredAttack { get; set; }
 
     // Update is called once per frame
     void Update()
@@ -62,7 +63,6 @@ public class CStateMachine : MonoBehaviour
     private void Awake()
     {
         SetNextStateToMain();
-
     }
 
 

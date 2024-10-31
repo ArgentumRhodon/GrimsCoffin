@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeComboState : MeleeBaseState
+public class MeleeFinisherState : MeleeBaseState
 {
     public override void OnEnter(CStateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
         //Set attack variables and animation
-        attackIndex = 2;
+        attackIndex = 3;
         duration = 0.5f;
-        animator.SetTrigger("PlayerAttack" + attackIndex);
+        animator.SetTrigger("Attack" + attackIndex);
         Debug.Log("Player Attack " + attackIndex);
     }
 
@@ -21,14 +21,7 @@ public class MeleeComboState : MeleeBaseState
 
         if (fixedtime >= duration)
         {
-            if (shouldCombo)
-            {
-                stateMachine.SetNextState(new MeleeFinisherState());
-            }
-            else
-            {
-                stateMachine.SetNextStateToMain();
-            }
+            stateMachine.SetNextStateToMain();
         }
     }
 }

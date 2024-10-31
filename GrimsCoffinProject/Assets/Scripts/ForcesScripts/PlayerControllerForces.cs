@@ -168,7 +168,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerState.IsSliding)
             Slide();
 
-        animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+        //animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
     }
 
     //Input Methods ----------------------------------------------------------------------------------------------
