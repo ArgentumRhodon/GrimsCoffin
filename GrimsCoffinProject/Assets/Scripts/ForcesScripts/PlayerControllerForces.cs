@@ -592,12 +592,13 @@ public class PlayerControllerForces : MonoBehaviour
     //Set x direction to -1 or 1, even if using analog stick
     private int XInputDirection()
     {
-        if (moveInput.x == 0)
-            return 0;
-        else if (moveInput.x < 0)
+        //Added deadzone to account for controller drift
+        if (moveInput.x < -0.1f)
             return -1;
-        else
+        else if (moveInput.x > 0.1f)
             return 1;
+        else
+            return 0;
     }
 
     //Checks for jump states
