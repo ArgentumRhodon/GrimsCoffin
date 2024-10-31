@@ -296,15 +296,20 @@ public class PlayerControllerForces : MonoBehaviour
     //Used for player direction
     private void Turn()
     {
+        //Scale of sprite
         //playerState.IsFacingRight = !playerState.IsFacingRight;
         //this.gameObject.GetComponent<SpriteRenderer>().flipX = !playerState.IsFacingRight;
+
+        //Transform local scale of object
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
         playerState.IsFacingRight = !playerState.IsFacingRight;
 
-        if (!playerState.IsFacingRight)
-            interactionPrompt.gameObject.transform.localScale = Vector2.left;
+        //Updates scale of UI so that it is always facing right
+        Vector3 tempScale = interactionPrompt.gameObject.GetComponentInChildren<Canvas>().transform.localScale;
+        tempScale.x *= -1;
+        interactionPrompt.gameObject.GetComponentInChildren<Canvas>().transform.localScale = tempScale;            
     }
 
     //Jump
