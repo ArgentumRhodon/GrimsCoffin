@@ -52,19 +52,19 @@ public class InteractionPrompt : MonoBehaviour
     /// <param name="iconIndex">Index for the control icon based off of the list of control sprites</param>
     /// <param name="text">Text for the interaction to be displayed to the player</param>
     /// <param name="timeToDisplay">Amount of time to display the prompt for (in seconds)</param>
-    public void DisplayPrompt(int iconIndex, string text, float timeToDisplay)
+    public void DisplayPrompt(InteractionName interaction, string text, float timeToDisplay)
     {
         //Change prompt to the according control scheme being used
         switch(controlScheme)
         {
             case "Keyboard&Mouse":
-                promptIcon.sprite = keyboardSprites[iconIndex];
+                promptIcon.sprite = keyboardSprites[(int) interaction];
                 break;
             case "Playstation":
-                promptIcon.sprite = playstationSprites[iconIndex];
+                promptIcon.sprite = playstationSprites[(int) interaction];
                 break;
             default:
-                promptIcon.sprite = xboxSprites[iconIndex];
+                promptIcon.sprite = xboxSprites[(int) interaction];
                 break;
         }
 
