@@ -44,4 +44,14 @@ public class PromptTrigger : MonoBehaviour
             PlayerControllerForces.Instance.interactionPrompt.DisplayPrompt(interaction, interactionText, time);
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //Hide prompt if prompt is for an interact
+        if (collision.gameObject.GetComponent<PlayerControllerForces>() != null && interaction == InteractionName.Interact)
+        {
+            PlayerControllerForces.Instance.interactionPrompt.interact = false;
+            PlayerControllerForces.Instance.interactionPrompt.HidePrompt();
+        }
+    }
 }

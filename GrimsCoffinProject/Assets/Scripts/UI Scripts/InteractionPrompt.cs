@@ -16,6 +16,8 @@ public class InteractionPrompt : MonoBehaviour
     [SerializeField] private List<Sprite> playstationSprites;
     [SerializeField] private List<Sprite> xboxSprites;
 
+    public bool interact = false;
+
     //String to keep track of player's input method
     private string controlScheme;
 
@@ -40,7 +42,7 @@ public class InteractionPrompt : MonoBehaviour
         timer -= Time.deltaTime;
 
         //If timer gets below 0, hide prompt
-        if (timer <= 0f)
+        if (timer <= 0f && !interact)
         {
             HidePrompt();
         }
@@ -54,6 +56,11 @@ public class InteractionPrompt : MonoBehaviour
     /// <param name="timeToDisplay">Amount of time to display the prompt for (in seconds)</param>
     public void DisplayPrompt(InteractionName interaction, string text, float timeToDisplay)
     {
+        if (interaction == InteractionName.Interact)
+            interact = true;
+        else
+            interact = false;
+
         //Change prompt to the according control scheme being used
         switch(controlScheme)
         {
