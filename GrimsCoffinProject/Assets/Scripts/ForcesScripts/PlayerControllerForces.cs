@@ -296,9 +296,15 @@ public class PlayerControllerForces : MonoBehaviour
     //Used for player direction
     private void Turn()
     {
+        //playerState.IsFacingRight = !playerState.IsFacingRight;
+        //this.gameObject.GetComponent<SpriteRenderer>().flipX = !playerState.IsFacingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
         playerState.IsFacingRight = !playerState.IsFacingRight;
-        this.gameObject.GetComponent<SpriteRenderer>().flipX = !playerState.IsFacingRight;
 
+        if (!playerState.IsFacingRight)
+            interactionPrompt.gameObject.transform.localScale = Vector2.left;
     }
 
     //Jump
