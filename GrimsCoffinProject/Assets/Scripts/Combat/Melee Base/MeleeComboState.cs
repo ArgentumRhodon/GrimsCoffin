@@ -23,7 +23,7 @@ public class MeleeComboState : MeleeBaseState
         {
             if (shouldCombo && _stateMachine.RegisteredAttack)
             {
-                stateMachine.SetNextState(new MeleeFinisherState());
+                stateMachine.SetNextState(new MeleeCombo2());
                 _stateMachine.RegisteredAttack = false;
             }
             else

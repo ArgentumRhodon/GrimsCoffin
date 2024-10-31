@@ -310,24 +310,29 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Increase the force applied if we are falling
         //Debug.Log("Rb velocity " + rb.velocity.y);
+
         float force = Data.jumpForce;
         if (rb.velocity.y < 0.01f)
             force -= rb.velocity.y;
         else if (rb.velocity.y > .1f)
             force -= rb.velocity.y;
 
+        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+
         //Clamp to calculate whether the player is already jumping or not to make sure the forces don't stack too high
-        if (CanDoubleJump()) 
+/*        if (CanDoubleJump()) 
         {
             //Debug.Log("Jump clamping: " + jumpClamp);
             //force = Mathf.Clamp(force * jumpClamp, force * 0.5f, force);
-            rb.AddForce(Vector2.up * force * Data.doubleJumpMultiplier, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            //rb.AddForce(Vector2.up * force * Data.doubleJumpMultiplier, ForceMode2D.Impulse);
             jumpClamp = 0;
         }
         else
         {
+            Debug.Log(rb.velocity.y);
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
-        }
+        }*/
     }
 
     //Wall jump
@@ -609,7 +614,8 @@ public class PlayerControllerForces : MonoBehaviour
 
     private bool CanDoubleJump()
     {
-        return airJumpCounter < maxAirJumps && !Grounded();
+        //Debug.Log("Air: " + airJumpCounter + ". Max: " + maxAirJumps + "!Grounded(): " + !Grounded());
+        return airJumpCounter <= maxAirJumps && !Grounded();
     }
 
     //Checks for jump cancel
