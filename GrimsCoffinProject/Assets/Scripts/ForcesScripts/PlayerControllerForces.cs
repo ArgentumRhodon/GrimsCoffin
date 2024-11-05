@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -36,14 +37,22 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 lastDashDir;
     private bool isDashAttacking;
 
+    //Attack
+    private bool canAerialCombo;
+    private bool isAerialCombo;
+
     //Input parameters
     private Vector2 moveInput;
 
     // Animation Stuff
     private Animator animator;
 
+
     public float LastPressedJumpTime { get; private set; }
     public float LastPressedDashTime { get; private set; }
+
+    public float LastComboTime { get; private set; }
+    public float LastAttackTime { get; private set; }
 
     //Positions used for state checks
     [Header("Tile Checks")]
@@ -70,6 +79,11 @@ public class PlayerControllerForces : MonoBehaviour
 
     //Reference to Player Input/Controls
     private PlayerControls playerControls;
+
+    //Time Variables
+    private float localDeltaTime;
+    private Time localTimeTest;
+    private bool isSleeping;
 
 
     private void Awake()
@@ -107,18 +121,48 @@ public class PlayerControllerForces : MonoBehaviour
         //Get player state and set default values
         playerState = GetComponent<PlayerStateList>();
         SetGravityScale(Data.gravityScale);
+
         playerState.IsFacingRight = true;
+        canAerialCombo = true;
 
         animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        //Update all timers
+        //Update all timers -----------------------------------
+        /*        if (!isSleeping)
+                {
+                    localDeltaTime = Time.deltaTime;
+                    //localTimeTest = Time.
+                }
+
+                //Collision Checks
+                LastOnGroundTime -= localDeltaTime;
+                LastOnWallTime -= localDeltaTime;
+                LastOnWallRightTime -= localDeltaTime;
+                LastOnWallLeftTime -= localDeltaTime;
+
+                //Movement
+                LastPressedJumpTime -= localDeltaTime;
+                LastPressedDashTime -= localDeltaTime;
+                if (playerState.IsJumping)
+                {
+                    LastJumpTime += localDeltaTime;
+                    //Debug.Log(LastJumpTime);
+                }
+
+                //Combat
+                LastComboTime -= localDeltaTime;
+                LastAttackTime -= localDeltaTime;*/
+
+        //Collision Checks
         LastOnGroundTime -= Time.deltaTime;
         LastOnWallTime -= Time.deltaTime;
         LastOnWallRightTime -= Time.deltaTime;
         LastOnWallLeftTime -= Time.deltaTime;
+
+        //Movement
         LastPressedJumpTime -= Time.deltaTime;
         LastPressedDashTime -= Time.deltaTime;
         if (playerState.IsJumping)
@@ -126,7 +170,10 @@ public class PlayerControllerForces : MonoBehaviour
             LastJumpTime += Time.deltaTime;
             //Debug.Log(LastJumpTime);
         }
-           
+
+        //Combat
+        LastComboTime -= Time.deltaTime;
+        LastAttackTime -= Time.deltaTime;
 
         //Movement/Walking input
         moveInput = playerControls.Player.Move.ReadValue<Vector2>();
@@ -144,6 +191,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Slide Check
         UpdateSlideVariables();
+
+        //Attack Check
+        UpdateAttackVariables();
 
         //Gravity check
         UpdateGravityVariables();
@@ -239,6 +289,18 @@ public class PlayerControllerForces : MonoBehaviour
         UIManager.Instance.Pause();
     }
 
+    private void OnAttack()
+    {
+        if (!Grounded())
+        {
+            if (canAerialCombo)
+            {
+                isAerialCombo = true;
+                Sleep(Data.comboSleepTime);
+                LastAttackTime = Data.attackBufferTime;
+            }
+        }
+    }
     //Movement Method Calculations ----------------------------------------------------------------------------------------------
     //Walking
     private void Walk(float lerpAmount)
@@ -510,12 +572,35 @@ public class PlayerControllerForces : MonoBehaviour
             playerState.IsSliding = false;
     }
 
+    private void UpdateAttackVariables()
+    {
+        if (isAerialCombo)
+        {
+           if(LastAttackTime < 0)
+           {
+                LastComboTime = Data.comboBufferTime;
+
+                canAerialCombo = false;
+                isAerialCombo = false;
+            }
+        }
+
+        if(LastComboTime < 0)
+        {
+            canAerialCombo = true;
+        }
+    }
+
     private void UpdateGravityVariables()
     {
         if (!isDashAttacking)
         {
             //Higher gravity if we've released the jump input or are falling
-            if (rb.velocity.y < 0 && moveInput.y < 0)
+            if (isAerialCombo)
+            {
+                SetGravityScale(0);
+            }
+            else if (rb.velocity.y < 0 && moveInput.y < 0)
             {
                 //Much higher gravity if holding down
                 SetGravityScale(Data.gravityScale * Data.fastFallGravityMult);
@@ -627,7 +712,7 @@ public class PlayerControllerForces : MonoBehaviour
     private bool CanDoubleJump()
     {
         //Debug.Log("Air: " + airJumpCounter + ". Max: " + maxAirJumps + "!Grounded(): " + !Grounded());
-        return airJumpCounter <= maxAirJumps && !Grounded();
+        return airJumpCounter <= maxAirJumps && !Grounded() && isAerialCombo;
     }
 
     //Checks for jump cancel
@@ -676,9 +761,12 @@ public class PlayerControllerForces : MonoBehaviour
 
     private IEnumerator PerformSleep(float duration)
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        localDeltaTime = 0;
+        isSleeping = true;
         yield return new WaitForSecondsRealtime(duration);
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
+        isSleeping = false;
     }
 
     private void OnDrawGizmosSelected()

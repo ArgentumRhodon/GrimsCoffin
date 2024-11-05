@@ -10,7 +10,7 @@ public class MeleeFinisherState : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 4;
-        duration = 0.5f;
+        duration = 0.2f;
         animator.SetTrigger("Attack" + attackIndex);
         Debug.Log("Player Attack " + attackIndex);
     }

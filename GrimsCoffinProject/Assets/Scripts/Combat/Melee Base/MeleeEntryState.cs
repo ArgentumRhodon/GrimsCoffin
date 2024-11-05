@@ -10,7 +10,7 @@ public class MeleeEntryState : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 1;
-        duration = 0.5f;
+        duration = 0.2f;
         animator.SetTrigger("Attack" + attackIndex);
         Debug.Log("Attack" + attackIndex);
     }

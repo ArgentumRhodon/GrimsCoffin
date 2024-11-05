@@ -82,6 +82,14 @@ public class PlayerData : ScriptableObject
     [Space(5)]
     [Range(0.01f, 0.5f)] public float dashInputBufferTime;
 
+    [Space(20)]
+
+    [Header("Attacks")]
+    public float comboSleepTime;
+    public float attackBufferTime;
+    public float comboBufferTime;
+    public float comboTotal;
+
 
     //Unity Callback, called when the inspector updates
     private void OnValidate()
