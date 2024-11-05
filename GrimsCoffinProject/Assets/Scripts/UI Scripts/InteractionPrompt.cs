@@ -24,6 +24,8 @@ public class InteractionPrompt : MonoBehaviour
     //Timer to keep track of how long prompt is visible
     private float timer = 0f;
 
+    public Interactable interactable;
+
     // Start is called before the first frame update
     void Start()
     {

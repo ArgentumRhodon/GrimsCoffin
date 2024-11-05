@@ -64,6 +64,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
+    public bool canInteract = false;
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -614,5 +615,13 @@ public class PlayerControllerForces : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(frontWallCheckPoint.position, wallCheckSize);
         Gizmos.DrawWireCube(backWallCheckPoint.position, wallCheckSize);
+    }
+
+    private void OnInteract()
+    {
+        if (interactionPrompt.interactable != null)
+        {
+            interactionPrompt.interactable.PerformInteraction();
+        }
     }
 }
