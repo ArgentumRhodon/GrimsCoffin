@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingEnemy : MonoBehaviour
+public class FlyingEnemy : Enemy
 {
     [SerializeField] private Transform target;
     [SerializeField] private float speed = 200f;
@@ -16,16 +16,10 @@ public class FlyingEnemy : MonoBehaviour
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
 
-    [SerializeField] private Transform enemyGFX;
-    [SerializeField] private GameObject enemy;
 
-    private Seeker seeker;
-    private Rigidbody2D rb;
-
-    void Start()
+    protected void Start()
     {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
+        base.Start();
 
         //Square range at start to make it easier to calculate later
         visionRange = visionRange * visionRange;
@@ -34,7 +28,7 @@ public class FlyingEnemy : MonoBehaviour
         //seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
 
-    void Update()
+    protected override void FixedUpdate()
     {
         if (path == null)
             return;

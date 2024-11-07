@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkingEnemy : MonoBehaviour
+public class WalkingEnemy : Enemy
 {
     [Header("Targets")]
     [SerializeField] private Transform playerTarget;
@@ -32,17 +32,9 @@ public class WalkingEnemy : MonoBehaviour
     private bool isGrounded = false;
     private bool reachedEndOfPath = false;
 
-    [Header("GameObjects")]
-    [SerializeField] private Transform enemyGFX;
-    [SerializeField] private GameObject enemy;
-
-    Seeker seeker;
-    Rigidbody2D rb;
-
-    void Start()
+    protected void Start()
     {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
+        base.Start();
 
         isIdle = true;
         currentTarget = patrol1;
@@ -54,7 +46,7 @@ public class WalkingEnemy : MonoBehaviour
         //seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         PathFollow();
     }

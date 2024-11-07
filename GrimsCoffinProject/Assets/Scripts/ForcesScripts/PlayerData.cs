@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player Data")]
 public class PlayerData : ScriptableObject
 {
+    public float deadzone;
+
     [Header("Gravity")]
     [HideInInspector] public float gravityStrength; //Downwards force needed for the desired jumpHeight and jumpTimeToApex
     [HideInInspector] public float gravityScale; //Strength of the player's gravity as a multiplier of gravity

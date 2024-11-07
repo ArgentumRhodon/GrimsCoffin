@@ -736,9 +736,9 @@ public class PlayerControllerForces : MonoBehaviour
     private int XInputDirection()
     {
         //Added deadzone to account for controller drift
-        if (moveInput.x < -0.1f)
+        if (moveInput.x < -Data.deadzone)
             return -1;
-        else if (moveInput.x > 0.1f)
+        else if (moveInput.x > Data.deadzone)
             return 1;
         else
             return 0;
