@@ -75,11 +75,11 @@ public class FlyingEnemy : Enemy
     {
         if (seeker.IsDone())
         {
-            float distance = Mathf.Pow((target.transform.position.x - enemy.transform.position.x), 2)
-                                + Mathf.Pow((target.transform.position.y - enemy.transform.position.y), 2);
+            float distance = Mathf.Pow((playerTarget.transform.position.x - enemy.transform.position.x), 2)
+                                + Mathf.Pow((playerTarget.transform.position.y - enemy.transform.position.y), 2);
 
             if (distance < visionRange)
-                seeker.StartPath(rb.position, target.position, OnPathComplete);
+                seeker.StartPath(rb.position, playerTarget.position, OnPathComplete);
         }
     }
 }

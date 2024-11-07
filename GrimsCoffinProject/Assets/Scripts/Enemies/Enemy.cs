@@ -14,7 +14,7 @@ public abstract class Enemy : MonoBehaviour
     [Header("GameObjects")]
     [SerializeField] protected Transform enemyGFX;
     [SerializeField] protected GameObject enemy;
-    [SerializeField] protected Transform target;
+    [SerializeField] protected Transform playerTarget;
 
     //Private references
     protected Seeker seeker;
@@ -26,7 +26,7 @@ public abstract class Enemy : MonoBehaviour
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        target = PlayerControllerForces.Instance.gameObject.transform;
+        playerTarget = PlayerControllerForces.Instance.gameObject.transform;
     }
 
     //Enemy should implement their own update functionality

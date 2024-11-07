@@ -6,7 +6,6 @@ using UnityEngine;
 public class WalkingEnemy : Enemy
 {
     [Header("Targets")]
-    [SerializeField] private Transform playerTarget;
     [SerializeField] private Transform patrol1;
     [SerializeField] private Transform patrol2;
 
