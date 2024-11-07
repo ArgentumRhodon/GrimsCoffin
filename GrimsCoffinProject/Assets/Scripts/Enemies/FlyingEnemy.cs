@@ -6,18 +6,14 @@ using UnityEngine;
 public class FlyingEnemy : Enemy
 {
     [SerializeField] private Transform target;
-    [SerializeField] private float speed = 200f;
     [SerializeField] private float nextWaypointDistance = 3f;
-
-    [Tooltip("Range of blocks that the unit can see")]
-    [SerializeField] private float visionRange;
 
     private Path path;
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
 
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
@@ -44,7 +40,7 @@ public class FlyingEnemy : Enemy
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
+        Vector2 force = direction * movementSpeed * Time.deltaTime;
 
         rb.AddForce(force);
 
