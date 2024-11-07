@@ -5,27 +5,52 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class PauseScreenBehavior : MonoBehaviour
 {
     [SerializeField] private Button resume;
     [SerializeField] private Button quit;
+    [SerializeField] private Button controlsBack;
+
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject controlsScreen;
+
+    [SerializeField] private GameObject keyboardControls;
+    [SerializeField] private GameObject xboxControls;
+    [SerializeField] private GameObject playstationControls;
 
     [SerializeField] private PlayerInput playerInput;
 
-    private bool isPaused;
+    public bool isPaused;
 
     // Start is called before the first frame update
     void Start()
     {
-        resume.onClick.AddListener(Pause);
-        quit.onClick.AddListener(QuitGame);
+  
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        switch (playerInput.currentControlScheme)
+        {
+            case "Keyboard&Mouse":
+                keyboardControls.SetActive(true);
+                xboxControls.SetActive(false);
+                playstationControls.SetActive(false);
+                break;
+            case "Xbox":
+                keyboardControls.SetActive(false);
+                xboxControls.SetActive(true);
+                playstationControls.SetActive(false);
+                break;
+            case "Playstation":
+                keyboardControls.SetActive(false);
+                xboxControls.SetActive(false);
+                playstationControls.SetActive(true);
+                break;
+        }
     }
 
     public void Pause()
@@ -54,10 +79,22 @@ public class PauseScreenBehavior : MonoBehaviour
         }
     }
 
-    private void QuitGame()
+    public void QuitGame()
     {
         Time.timeScale = 1.0f;
         EventSystem.current.SetSelectedGameObject(null);
         SceneManager.LoadScene("TitleScreen");
+    }
+
+    public void ToggleControls()
+    {
+        controlsScreen.SetActive(!controlsScreen.activeInHierarchy);
+        pauseMenu.SetActive(!pauseMenu.activeInHierarchy);
+
+        if (controlsScreen.activeInHierarchy)
+            EventSystem.current.SetSelectedGameObject(controlsBack.gameObject);
+
+        else
+            EventSystem.current.SetSelectedGameObject(resume.gameObject);
     }
 }
