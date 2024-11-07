@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class FlyingEnemy : Enemy
 {
-    [SerializeField] private Transform target;
     [SerializeField] private float speed = 200f;
     [SerializeField] private float nextWaypointDistance = 3f;
 

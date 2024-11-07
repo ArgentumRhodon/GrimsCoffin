@@ -224,6 +224,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5b82c57de7d6a4287bf4d4bea6d719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  damage: 0
+  movementSpeed: 0
+  visibilityRange: 0
+  enemyGFX: {fileID: 306406070249359398}
+  enemy: {fileID: 3807499083150570928}
+  target: {fileID: 0}
   playerTarget: {fileID: 0}
   patrol1: {fileID: 611994569677329174}
   patrol2: {fileID: 2099945926181616736}
@@ -235,8 +242,6 @@ MonoBehaviour:
   isIdle: 0
   jumpEnabled: 0
   visionRange: 0
-  enemyGFX: {fileID: 306406070249359398}
-  enemy: {fileID: 3807499083150570928}
 --- !u!1 &7947770583875705774
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +351,7 @@ Transform:
   m_GameObject: {fileID: 8497298018123173006}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.68, y: -8.38, z: -0.039862577}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
