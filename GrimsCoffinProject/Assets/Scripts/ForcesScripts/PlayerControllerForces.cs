@@ -307,6 +307,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (isSleeping)
             EndSleep();
         LastPressedDashTime = Data.dashInputBufferTime;
+        Debug.Log("Dash");
     }
 
     private void OnPause()
@@ -491,6 +492,7 @@ public class PlayerControllerForces : MonoBehaviour
     private IEnumerator StartDash(Vector2 dir)
     {
         //Dash check
+        Debug.Log("Dash");
         LastOnGroundTime = 0;
         LastPressedDashTime = 0;
 
