@@ -12,7 +12,7 @@ public class MeleeCombo2 : MeleeBaseState
         attackIndex = 3;
         duration = 0.2f;
         animator.SetTrigger("Attack" + attackIndex);
-        Debug.Log("Player Attack " + attackIndex);
+        //Debug.Log("Player Attack " + attackIndex);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

@@ -58,7 +58,7 @@ public class MeleeBaseState : CState
 
     protected void Attack()
     {
-        Debug.Log("Attack Swing");
+        //Debug.Log("Attack Swing");
         //Attack the enemy, check for collisions
         Collider2D[] collidersToDamage = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();

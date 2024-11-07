@@ -12,7 +12,7 @@ public class MeleeEntryState : MeleeBaseState
         attackIndex = 1;
         duration = 0.2f;
         animator.SetTrigger("Attack" + attackIndex);
-        Debug.Log("Attack" + attackIndex);
+        //Debug.Log("Attack" + attackIndex);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

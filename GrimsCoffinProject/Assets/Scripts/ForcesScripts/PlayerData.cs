@@ -89,6 +89,7 @@ public class PlayerData : ScriptableObject
     public float attackBufferTime;
     public float comboBufferTime;
     public float comboTotal;
+    public float aerialForce;
 
 
     //Unity Callback, called when the inspector updates
