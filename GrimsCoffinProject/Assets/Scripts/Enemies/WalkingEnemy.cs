@@ -7,11 +7,15 @@ public class WalkingEnemy : Enemy
 {
     [Header("Targets")]
     [SerializeField] private Transform playerTarget;
-    [SerializeField] private Transform patrol1;
-    [SerializeField] private Transform patrol2;
+    [SerializeField] private float wanderRange = 3f;
+
+    private Vector3 target1;
+    private Vector3 target2;
+    private Vector3 currentTarget;
 
     private bool patrolTarget;
-    private Transform currentTarget;
+    private Vector3 spawnLocation;
+
 
     [Header("Movement")]
     //[SerializeField] private float speed = 200f;
@@ -34,7 +38,12 @@ public class WalkingEnemy : Enemy
         base.Start();
 
         isIdle = true;
-        currentTarget = patrol1;
+
+        spawnLocation = this.transform.position;
+        target1 = this.transform.position + new Vector3(wanderRange, 0, 0);
+        target2 = this.transform.position + new Vector3(-wanderRange, 0, 0);
+
+        currentTarget = target1;
 
         //Square range at start to make it easier to calculate later
         visionRange = visionRange * visionRange;
@@ -63,7 +72,7 @@ public class WalkingEnemy : Enemy
             }
             else
             {
-                if (currentTarget.position == enemy.transform.position)
+                if (currentTarget == enemy.transform.position)
                 {
                     reachedEndOfPath = true;
                     return;
@@ -82,7 +91,7 @@ public class WalkingEnemy : Enemy
         //Used as a check for jumping
         isGrounded = Physics2D.Raycast(transform.position, -Vector3.up, GetComponent<Collider2D>().bounds.extents.y + jumpCheckOffset);
 
-        Vector2 targetPos = new Vector2(currentTarget.position.x, currentTarget.position.y);
+        Vector2 targetPos = new Vector2(currentTarget.x, currentTarget.y);
         Vector2 enemyPos = new Vector2(enemy.transform.position.x, enemy.transform.position.y);
 
         //Make sure direction is in x only
@@ -157,7 +166,7 @@ public class WalkingEnemy : Enemy
             currentWaypoint = 0;
             if (isIdle)
             {
-                float distance = Vector2.Distance(rb.position, currentTarget.position);
+                float distance = Vector2.Distance(rb.position, currentTarget);
                 if (patrolTarget && distance < 0.5f)
                 {
                     patrolTarget = false;
@@ -180,7 +189,7 @@ public class WalkingEnemy : Enemy
                 //Debug.Log("Tracking player");
                 currentWaypoint = 0;
                 seeker.StartPath(rb.position, playerTarget.position, OnPathComplete);
-                currentTarget = playerTarget;
+                currentTarget = playerTarget.transform.position;
             }
             //Move between the two idle targets
             else
@@ -189,14 +198,14 @@ public class WalkingEnemy : Enemy
                 if (patrolTarget)
                 {
                     currentWaypoint = 0;
-                    seeker.StartPath(rb.position, patrol1.position, OnPathComplete);
-                    currentTarget = patrol1;
+                    seeker.StartPath(rb.position, target1, OnPathComplete);
+                    currentTarget = target1;
                 }
                 else
                 {
                     currentWaypoint = 0;
-                    seeker.StartPath(rb.position, patrol2.position, OnPathComplete);
-                    currentTarget = patrol2;
+                    seeker.StartPath(rb.position, target2, OnPathComplete);
+                    currentTarget = target2;
                 }
             }
 
