@@ -14,7 +14,7 @@ public class WalkingEnemy : Enemy
     private Transform currentTarget;
 
     [Header("Movement")]
-    [SerializeField] private float speed = 200f;
+    //[SerializeField] private float speed = 200f;
     [SerializeField] private float nextWaypointDistance = 3f;
     [SerializeField] private float jumpNodeHeightRequirement = 0.8f;
     [SerializeField] private float jumpModifier = 0.3f;
@@ -24,15 +24,12 @@ public class WalkingEnemy : Enemy
     [SerializeField] private bool isIdle;
     [SerializeField] private bool jumpEnabled = true;
 
-    [Tooltip("Range of blocks that the unit can see")]
-    [SerializeField] private float visionRange;
-
     private Path path;
     private int currentWaypoint = 0;
     private bool isGrounded = false;
     private bool reachedEndOfPath = false;
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
@@ -60,7 +57,7 @@ public class WalkingEnemy : Enemy
         {
             if (!isIdle)
             {
-                Debug.Log("This is running");
+                //Debug.Log("This is running");
                 reachedEndOfPath = true;
                 return;
             }
@@ -98,7 +95,7 @@ public class WalkingEnemy : Enemy
 
         if (targetPos.x > enemyPos.x)
         {
-            force.x = 1 * speed * Time.deltaTime;
+            force.x = 1 * movementSpeed * Time.deltaTime;
 /*            if (isIdle)
             {
                 force.x = 1 * 75 * Time.deltaTime;
@@ -110,7 +107,7 @@ public class WalkingEnemy : Enemy
         }
         else
         {
-            force.x = -1 * speed * Time.deltaTime;
+            force.x = -1 * movementSpeed * Time.deltaTime;
 /*            if (isIdle)
             {
                 force.x = -1 * 75 * Time.deltaTime;
@@ -180,7 +177,7 @@ public class WalkingEnemy : Enemy
             currentWaypoint = 0;
             if (TargetInRange())
             {
-                Debug.Log("Tracking player");
+                //Debug.Log("Tracking player");
                 currentWaypoint = 0;
                 seeker.StartPath(rb.position, playerTarget.position, OnPathComplete);
                 currentTarget = playerTarget;
