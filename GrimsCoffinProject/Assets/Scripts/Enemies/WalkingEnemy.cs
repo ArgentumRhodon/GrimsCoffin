@@ -6,7 +6,6 @@ using UnityEngine;
 public class WalkingEnemy : Enemy
 {
     [Header("Targets")]
-    [SerializeField] private Transform playerTarget;
     [SerializeField] private float wanderRange = 3f;
 
     private Vector3 target1;
