@@ -73,6 +73,7 @@ public class MeleeBaseState : CState
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
                 {
+                    collidersToDamage[i].gameObject.GetComponent<Enemy>().TakeDamage();
                     Debug.Log("Enemy Has Taken: " + attackIndex + " Damage");
                     collidersDamaged.Add(collidersToDamage[i]);
                 }
