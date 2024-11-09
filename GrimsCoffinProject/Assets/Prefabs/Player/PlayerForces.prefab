@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 5481675086330141740}
   - component: {fileID: 3908579556561913604}
   - component: {fileID: 3338551163740125992}
+  - component: {fileID: 8792364512995316596}
   m_Layer: 6
   m_Name: PlayerForces
   m_TagString: Player
@@ -558,7 +559,10 @@ MonoBehaviour:
   currentHP: 100
   maxSP: 50
   currentSP: 50
+  invincibilityTimer: 0
+  hasInvincibility: 0
   interactionPrompt: {fileID: 4303321463941137360}
+  canInteract: 0
 --- !u!114 &5297759798866308537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,6 +654,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customName: Combat
+--- !u!114 &8792364512995316596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754731874771024280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1bd31e0094d7454d9adbafa33c5513f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _teamIndex: 1
 --- !u!1 &6693415044721484344
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2697631208148919790, guid: 97011276b258af543b8a31a42fb75a29, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 73
+      value: 80.7
       objectReference: {fileID: 0}
     - target: {fileID: 2697631208148919790, guid: 97011276b258af543b8a31a42fb75a29, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -804,6 +821,10 @@ PrefabInstance:
     - target: {fileID: 8535695293220815669, guid: 97011276b258af543b8a31a42fb75a29, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997465983732475844, guid: 97011276b258af543b8a31a42fb75a29, type: 3}
+      propertyPath: m_fontSize
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 8997465983732475844, guid: 97011276b258af543b8a31a42fb75a29, type: 3}
       propertyPath: m_HorizontalAlignment

@@ -10,6 +10,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float movementSpeed;
     [SerializeField] protected float visionRange;
+    [SerializeField] protected Collider2D hitbox;
 
     [Header("GameObjects")]
     [SerializeField] protected Transform enemyGFX;
@@ -19,6 +20,7 @@ public abstract class Enemy : MonoBehaviour
     //Private references
     protected Seeker seeker;
     protected Rigidbody2D rb;
+    private List<Collider2D> collidersDamaged;
 
 
     // Start is called before the first frame update
@@ -26,6 +28,8 @@ public abstract class Enemy : MonoBehaviour
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        hitbox = GetComponent<Collider2D>();
+        collidersDamaged = new List<Collider2D>();
         playerTarget = PlayerControllerForces.Instance.gameObject.transform;
     }
 
@@ -46,6 +50,27 @@ public abstract class Enemy : MonoBehaviour
 
         if (health < 0)
             DestroyEnemy();
+    }
+
+    protected void CheckCollisionWithPlayer()
+    {
+        Collider2D[] collidersToDamage = new Collider2D[10];
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
+        int colliderCount = Physics2D.OverlapCollider(hitbox, filter, collidersToDamage);
+
+        for (int i = 0; i < colliderCount; i++)
+        {
+            if (!collidersDamaged.Contains(collidersToDamage[i]))
+            {
+                TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
+
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility)
+                {
+                    PlayerControllerForces.Instance.TakeDamage(damage);
+                }
+            }
+        }
     }
 
 }

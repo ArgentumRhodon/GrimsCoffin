@@ -64,6 +64,7 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] private Transform frontWallCheckPoint;
     [SerializeField] private Transform backWallCheckPoint;
     [SerializeField] private Vector2 wallCheckSize = new Vector2(0.5f, 1f);
+    [SerializeField] public Vector2 respawnPoint;
 
     [Header("Player Stats")]
     [SerializeField] private int maxAirJumps;
@@ -71,6 +72,8 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public float currentHP;
     [SerializeField] public float maxSP;
     [SerializeField] public float currentSP;
+    [SerializeField] public float invincibilityTimer;
+    [SerializeField] public bool hasInvincibility;
 
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
@@ -127,6 +130,8 @@ public class PlayerControllerForces : MonoBehaviour
         playerState.IsFacingRight = true;
         canAerialCombo = true;
         isSleeping = false;
+
+        respawnPoint = this.transform.position; 
 
         animator = GetComponent<Animator>();
     }
@@ -233,6 +238,17 @@ public class PlayerControllerForces : MonoBehaviour
             }
         }
 
+        if (hasInvincibility)
+        {
+            this.GetComponent<SpriteRenderer>().color = Color.red;
+            invincibilityTimer -= Time.deltaTime;
+
+            if (invincibilityTimer <= 0)
+            {
+                hasInvincibility = false;
+                this.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
 
         //Handle Slide
         if (playerState.IsSliding)
@@ -340,6 +356,36 @@ public class PlayerControllerForces : MonoBehaviour
             attackCounter = 0;
         }
     }
+
+    public void TakeDamage(float damageTaken)
+    {
+        currentHP -= damageTaken;
+        invincibilityTimer = 2.0f;
+        hasInvincibility = true;
+
+        CheckForDeath();
+    }
+
+    private void CheckForDeath()
+    {
+        if (currentHP <= 0)
+        {
+            UIManager.Instance.HandlePlayerDeath();
+        }
+    }
+
+    public void Respawn()
+    {
+        Time.timeScale = 1.0f;
+        this.hasInvincibility = false;
+
+        currentHP = maxHP;
+        currentSP = maxSP;
+
+        if (respawnPoint != null)
+            this.gameObject.transform.position = respawnPoint;
+    }
+
     //Movement Method Calculations ----------------------------------------------------------------------------------------------
     //Walking
     private void Walk(float lerpAmount)

@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [SerializeField] public PauseScreenBehavior pauseScript;
+    [SerializeField] private GameObject deathScreen;
     [SerializeField] private Volume postProcessVolume;
 
     [SerializeField] public GameObject gameUI;
@@ -35,5 +36,11 @@ public class UIManager : MonoBehaviour
     {
         postProcessVolume.gameObject.GetComponent<Animator>().enabled = lowHealth;
         postProcessVolume.enabled = lowHealth;
+    }
+
+    public void HandlePlayerDeath()
+    {
+        deathScreen.SetActive(true);
+        Time.timeScale = 0.0f;
     }
 }
