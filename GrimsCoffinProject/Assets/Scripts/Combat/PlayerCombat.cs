@@ -15,6 +15,11 @@ public class PlayerCombat : MonoBehaviour
     void Start()
     {
         meleeStateMachine = GetComponent<CStateMachine>();
+
+        if(scytheAnimator == null)
+        {
+            scytheAnimator = GameObject.Find("Scythe").GetComponent<Animator>();
+        }
     }
 
     private void FixedUpdate()
