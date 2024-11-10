@@ -59,6 +59,8 @@ public class FlyingEnemy : Enemy
         {
             enemyGFX.localScale = new Vector3(-1, 1, 1);
         }
+
+        CheckCollisionWithPlayer();
     }
 
 

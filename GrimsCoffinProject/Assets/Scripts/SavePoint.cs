@@ -19,5 +19,6 @@ public class SavePoint : Interactable
     public override void PerformInteraction()
     {
         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.maxHP;
+        PlayerControllerForces.Instance.respawnPoint = this.transform.position;
     }
 }
