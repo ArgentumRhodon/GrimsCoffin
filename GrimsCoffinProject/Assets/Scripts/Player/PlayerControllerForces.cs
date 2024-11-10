@@ -46,8 +46,8 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 moveInput;
 
     // Animation Stuff
-    private Animator animator;
-
+    [SerializeField] private Animator animator_T; // Top
+    [SerializeField] private Animator animator_B; // Bottom
 
     public float LastPressedJumpTime { get; private set; }
     public float LastPressedDashTime { get; private set; }
@@ -132,8 +132,6 @@ public class PlayerControllerForces : MonoBehaviour
         isSleeping = false;
 
         respawnPoint = this.transform.position; 
-
-        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -240,13 +238,13 @@ public class PlayerControllerForces : MonoBehaviour
 
         if (hasInvincibility)
         {
-            this.GetComponent<SpriteRenderer>().color = Color.red;
+            SetSpriteColors(Color.red);
             invincibilityTimer -= Time.deltaTime;
 
             if (invincibilityTimer <= 0)
             {
                 hasInvincibility = false;
-                this.GetComponent<SpriteRenderer>().color = Color.white;
+                SetSpriteColors(Color.white);
             }
         }
 
@@ -254,7 +252,14 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerState.IsSliding)
             Slide();
 
-        //animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+        animator_T.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+        animator_B.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+    }
+
+    private void SetSpriteColors(Color color)
+    {
+        animator_T.gameObject.GetComponent<SpriteRenderer>().color = color;
+        animator_B.gameObject.GetComponent<SpriteRenderer>().color = color;
     }
 
     //Input Methods ----------------------------------------------------------------------------------------------
@@ -336,6 +341,11 @@ public class PlayerControllerForces : MonoBehaviour
     {
         //Combo attack counter
         attackCounter++;
+
+        animator_T.SetFloat("comboRatio", attackCounter / 4f);
+        animator_T.SetFloat("comboRatio", attackCounter / 4f);
+        animator_T.SetTrigger("Attack");
+        animator_B.SetTrigger("Attack");
 
         //Aerial attack
         if (!Grounded())
@@ -679,6 +689,9 @@ public class PlayerControllerForces : MonoBehaviour
         if (LastAttackTime < 0 && attackCounter > 0)
         {
             attackCounter = 0;
+
+            animator_T.SetFloat("comboRatio", 0);
+            animator_B.SetFloat("comboRatio", 0);
         }
 
         if (LastComboTime < 0)

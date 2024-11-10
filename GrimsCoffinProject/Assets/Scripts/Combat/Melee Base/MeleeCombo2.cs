@@ -11,7 +11,8 @@ public class MeleeCombo2 : MeleeBaseState
         //Set attack variables and animation
         attackIndex = 3;
         duration = 0.2f;
-        animator.SetTrigger("Attack" + attackIndex);
+        animator.SetTrigger("Attack");
+        animator.SetFloat("comboRatio", attackIndex / 4f);
         //Debug.Log("Player Attack " + attackIndex);
     }
 
