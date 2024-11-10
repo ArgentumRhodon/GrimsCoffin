@@ -29,7 +29,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5069608597748132985}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -60,13 +59,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6158210729881440940}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000012397766, y: 0.0000002886751, z: 0}
+  m_LocalPosition: {x: 0.62, y: 0.0000002886751, z: 0}
   m_LocalScale: {x: 1, y: 0.24215823, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5069608597748132985}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6753497335411184589
 BoxCollider2D:
@@ -147,7 +146,6 @@ RectTransform:
   - {fileID: 3300972360997246563}
   - {fileID: 2446163309713461528}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -178,6 +176,11 @@ MonoBehaviour:
   areaExiting: {fileID: 0}
   areaEntering: {fileID: 0}
   screenFade: {fileID: 0}
+  mainCam: {fileID: 0}
+  roomXMin: 0
+  roomXMax: 0
+  roomYMin: 0
+  roomYMax: 0
 --- !u!61 &5833802525339418404
 BoxCollider2D:
   m_ObjectHideFlags: 0

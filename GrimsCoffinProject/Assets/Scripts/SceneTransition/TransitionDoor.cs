@@ -17,6 +17,18 @@ public class TransitionDoor : MonoBehaviour
     [SerializeField]
     private Image screenFade;
 
+    [SerializeField]
+    private CameraFollow mainCam;
+
+    [SerializeField]
+    private float roomXMin;
+    [SerializeField]
+    private float roomXMax;
+    [SerializeField]
+    private float roomYMin;
+    [SerializeField]
+    private float roomYMax;
+
     private Vector3 spawnPos;
 
     public Vector3 SpawnPos
@@ -54,6 +66,7 @@ public class TransitionDoor : MonoBehaviour
         else
         {
             yield return FadeOut(0.5f);
+            mainCam.SetBorders(roomXMin, roomXMax, roomYMin, roomYMax);
             col.gameObject.transform.position = outDoor.SpawnPos;
             //yield return new WaitForSeconds(0.5f);
             Color start = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
@@ -70,6 +83,7 @@ public class TransitionDoor : MonoBehaviour
         
         yield return Fade(start, target, duration);
         areaExiting.SetActive(false);
+            
     }
     IEnumerator FadeOut(float duration)
     {
