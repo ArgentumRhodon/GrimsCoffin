@@ -2,12 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum InteractionName
+{
+    Move,
+    Jump,
+    Attack,
+    Interact,
+    Ability,
+    Dash
+}
 public class PromptTrigger : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D promptTrigger;
 
     //Index for control icon, reference the lists within the InteractionPrompt prefab for which index correlates to which icon
-    [SerializeField] private int iconIndex;
+    [SerializeField] private InteractionName interaction;
 
     //Text for what the interaction being prompted is
     [SerializeField] private string interactionText;
@@ -32,7 +41,22 @@ public class PromptTrigger : MonoBehaviour
         //Show prompt if player enters the trigger
         if (collision.gameObject.GetComponent<PlayerControllerForces>() != null)
         {
-            PlayerControllerForces.Instance.interactionPrompt.DisplayPrompt(iconIndex, interactionText, time);
+            PlayerControllerForces.Instance.interactionPrompt.DisplayPrompt(interaction, interactionText, time);
+            if (interaction == InteractionName.Interact)
+            {
+                PlayerControllerForces.Instance.interactionPrompt.interactable = this.gameObject.GetComponent<Interactable>();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //Hide prompt if prompt is for an interact
+        if (collision.gameObject.GetComponent<PlayerControllerForces>() != null && interaction == InteractionName.Interact)
+        {
+            PlayerControllerForces.Instance.interactionPrompt.interact = false;
+            PlayerControllerForces.Instance.interactionPrompt.HidePrompt();
+            PlayerControllerForces.Instance.interactionPrompt.interactable = null;
         }
     }
 }
