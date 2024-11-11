@@ -1392,11 +1392,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 62.7
+      value: -15.7
       objectReference: {fileID: 0}
     - target: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.5
+      value: -2.1
       objectReference: {fileID: 0}
     - target: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8923,8 +8923,8 @@ PolygonCollider2D:
       - {x: -0.40341344, y: -0.3888446}
       - {x: 0.29241252, y: -0.39011043}
       - {x: 0.29231256, y: 0.09436461}
-      - {x: 0.39323318, y: 0.09666479}
-      - {x: 0.39374572, y: 0.36520085}
+      - {x: 0.3968565, y: 0.09666479}
+      - {x: 0.39872795, y: 0.36520085}
   m_UseDelaunayMesh: 0
 --- !u!212 &857684615
 SpriteRenderer:
@@ -49640,7 +49640,7 @@ Transform:
   m_GameObject: {fileID: 1036461432}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 62.7, y: 22.5, z: -10}
+  m_LocalPosition: {x: -15.7, y: -2.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -130370,11 +130370,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 62.7
+      value: -14.956107
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.5
+      value: -2.102415
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -130581,8 +130581,16 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.40354386, y: 0.35968864}
-      - {x: -0.40495542, y: -0.41885608}
+    - - {x: -0.047144413, y: 0.36496064}
+      - {x: -0.04746481, y: 0.16976057}
+      - {x: -0.2897111, y: 0.16690557}
+      - {x: -0.2891395, y: 0.02836577}
+      - {x: -0.4032071, y: 0.026693594}
+      - {x: -0.40464538, y: -0.24784182}
+      - {x: -0.2900645, y: -0.24717483}
+      - {x: -0.16712469, y: -0.24832365}
+      - {x: -0.16717094, y: -0.2906334}
+      - {x: -0.16832168, y: -0.4162935}
       - {x: 0.36684352, y: -0.4146298}
       - {x: 0.36496136, y: 0.3579981}
   m_UseDelaunayMesh: 0
