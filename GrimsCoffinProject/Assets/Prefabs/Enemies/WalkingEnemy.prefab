@@ -239,14 +239,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  damage: 3
+  damage: 5
   movementSpeed: 100
   visionRange: 0
+  hitbox: {fileID: 0}
   enemyGFX: {fileID: 2766081874273627958}
   enemy: {fileID: 8497298018123173006}
   playerTarget: {fileID: 0}
-  patrol1: {fileID: 611994569677329174}
-  patrol2: {fileID: 2099945926181616736}
+  wanderRange: 3
   nextWaypointDistance: 0.5
   jumpNodeHeightRequirement: 0.8
   jumpModifier: 0.3
