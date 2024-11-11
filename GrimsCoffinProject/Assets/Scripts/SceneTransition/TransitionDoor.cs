@@ -75,14 +75,14 @@ public class TransitionDoor : MonoBehaviour
         if (!areaEntering.activeInHierarchy)
         {
             areaEntering.SetActive(true);
-            Room Enter = areaEntering.GetComponent<Room>();
-            Enter.RoomLive = true;
             yield return null;
         }
         else
         {
             yield return FadeOut(0.5f);
-            mainCam.SetBorders(roomXMin, roomXMax, roomYMin, roomYMax);
+            Room Enter = areaEntering.GetComponent<Room>();
+            Enter.RoomLive = true;
+            //mainCam.SetBorders(roomXMin, roomXMax, roomYMin, roomYMax);
             col.gameObject.transform.position = outDoor.SpawnPos;
             //yield return new WaitForSeconds(0.5f);
             Color start = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
