@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] protected float health;
+    [SerializeField] public float health;
     [SerializeField] protected float damage;
     [SerializeField] protected float movementSpeed;
     [SerializeField] protected float visionRange;
@@ -48,7 +48,7 @@ public abstract class Enemy : MonoBehaviour
     {
         health -= damage;
 
-        if (health < 0)
+        if (health <= 0)
             DestroyEnemy();
     }
 

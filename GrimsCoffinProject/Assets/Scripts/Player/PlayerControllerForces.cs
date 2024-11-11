@@ -373,6 +373,8 @@ public class PlayerControllerForces : MonoBehaviour
         invincibilityTimer = 2.0f;
         hasInvincibility = true;
 
+        UIManager.Instance.DamageVignette();
+
         CheckForDeath();
     }
 
