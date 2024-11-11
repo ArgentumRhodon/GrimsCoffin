@@ -53,7 +53,10 @@ public class WalkingEnemy : Enemy
 
     protected override void FixedUpdate()
     {
-        PathFollow();
+        if (!isSleeping)
+        {
+            PathFollow();          
+        }
         CheckCollisionWithPlayer();
     }
 
