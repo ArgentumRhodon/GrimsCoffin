@@ -39,7 +39,7 @@ public abstract class Enemy : MonoBehaviour
     //Destroy enemy, used for when it dies and when it despawns
     public virtual void DestroyEnemy()
     {
-        this.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this);
+        this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);
     }
 

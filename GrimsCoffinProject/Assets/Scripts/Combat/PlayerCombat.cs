@@ -16,7 +16,7 @@ public class PlayerCombat : MonoBehaviour
     {
         meleeStateMachine = GetComponent<CStateMachine>();
 
-        if(scytheAnimator == null)
+        if (scytheAnimator == null)
         {
             scytheAnimator = GameObject.Find("Scythe").GetComponent<Animator>();
         }
