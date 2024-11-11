@@ -12,8 +12,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        //TODO: Remove this line of code when rooms are built and utilizing this script
-        SpawnEnemies();
+
     }
 
     //Spawns enemies inside of the room with this script
