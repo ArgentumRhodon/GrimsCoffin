@@ -290,6 +290,7 @@ public class PlayerControllerForces : MonoBehaviour
             EndSleep();
         LastPressedDashTime = Data.dashInputBufferTime;
         Debug.Log("Dash");
+        Debug.Log("Dash");
     }
 
     private void OnPause()
@@ -338,6 +339,9 @@ public class PlayerControllerForces : MonoBehaviour
         currentHP -= damageTaken;
         invincibilityTimer = 2.0f;
         hasInvincibility = true;
+
+        UIManager.Instance.DamageVignette();
+        CameraShake.Instance.ShakeCamera(5, 4, .25f);
 
         CheckForDeath();
     }

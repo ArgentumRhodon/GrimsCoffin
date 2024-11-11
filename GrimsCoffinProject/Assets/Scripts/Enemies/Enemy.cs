@@ -7,7 +7,7 @@ using UnityEngine.Playables;
 public abstract class Enemy : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] protected float health;
+    [SerializeField] public float health;
     [SerializeField] protected float damage;
     [SerializeField] protected float movementSpeed;
     [SerializeField] protected float visionRange;
@@ -60,6 +60,7 @@ public abstract class Enemy : MonoBehaviour
         Sleep(0.5f);
 
         health -= damage;
+        CameraShake.Instance.ShakeCamera(4, 3, .2f);
 
         if (health <= 0)
             DestroyEnemy();

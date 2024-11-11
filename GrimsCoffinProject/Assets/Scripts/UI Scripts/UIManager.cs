@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] public PauseScreenBehavior pauseScript;
     [SerializeField] private GameObject deathScreen;
-    [SerializeField] private Volume postProcessVolume;
+    [SerializeField] private Volume lowHealthVignette;
+    [SerializeField] private Volume damageVignette;
 
     [SerializeField] public GameObject gameUI;
 
@@ -27,6 +29,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (damageVignette.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+        {
+            damageVignette.GetComponent<Animator>().enabled = false;
+            damageVignette.gameObject.SetActive(false);
+        }
+    }
+
     public void Pause()
     {
         pauseScript.Pause();
@@ -34,8 +45,14 @@ public class UIManager : MonoBehaviour
 
     public void LowHealthVignette(bool lowHealth)
     {
-        postProcessVolume.gameObject.GetComponent<Animator>().enabled = lowHealth;
-        postProcessVolume.enabled = lowHealth;
+        lowHealthVignette.gameObject.GetComponent<Animator>().enabled = lowHealth;
+        lowHealthVignette.enabled = lowHealth;
+    }
+
+    public void DamageVignette()
+    {
+        damageVignette.gameObject.SetActive(true);
+        damageVignette.GetComponent<Animator>().enabled = true;
     }
 
     public void HandlePlayerDeath()
