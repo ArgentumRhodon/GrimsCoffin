@@ -31,6 +31,11 @@ public class TransitionDoor : MonoBehaviour
 
     private Vector3 spawnPos;
 
+    [SerializeField]
+    private EnemyManager enterEnemyMgr;
+    [SerializeField]
+    private EnemyManager exitEnemyMgr;
+
     public Vector3 SpawnPos
     {
         get { return spawnPos; }
@@ -53,6 +58,15 @@ public class TransitionDoor : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(Transition(collision));
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            enterEnemyMgr.SpawnEnemies();
+            exitEnemyMgr.DeleteEnemies();
         }
     }
 
