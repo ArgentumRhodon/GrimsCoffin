@@ -375,7 +375,7 @@ public class PlayerControllerForces : MonoBehaviour
         hasInvincibility = true;
 
         UIManager.Instance.DamageVignette();
-        CameraShake.Instance.ShakeCamera(7, 5, .25f);
+        CameraShake.Instance.ShakeCamera(5, 4, .25f);
 
         CheckForDeath();
     }
