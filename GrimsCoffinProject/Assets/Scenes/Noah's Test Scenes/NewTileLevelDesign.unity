@@ -49591,6 +49591,7 @@ GameObject:
   - component: {fileID: 1036461434}
   - component: {fileID: 1036461433}
   - component: {fileID: 1036461435}
+  - component: {fileID: 1036461436}
   m_Layer: 0
   m_Name: FollowCam
   m_TagString: Untagged
@@ -49646,7 +49647,7 @@ Transform:
   m_GameObject: {fileID: 1036461432}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 66.2, y: 22.2, z: -10}
+  m_LocalPosition: {x: 75.3, y: 12.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49670,6 +49671,21 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 1971515071}
   m_ConfineScreenEdges: 1
   m_Damping: 0
+--- !u!114 &1036461436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036461432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8c357984ad0924c8ff769f75ed5732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Vcam: {fileID: 0}
+  shakeTimer: 0
+  cameraShake: {fileID: 0}
 --- !u!1001 &1049349497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128873,11 +128889,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2406e437cb177064db0e3fba36099eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1394500788 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7399055257594099030, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
-  m_PrefabInstance: {fileID: 1866543868}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1429619684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130132,7 +130143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1866543868}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579038521}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6867ba73de2fb2b429d464b517174d8f, type: 3}
   m_Name: 
@@ -130458,11 +130469,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 75.3
+      value: 63.34967
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.6
+      value: 12.5477085
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -131204,7 +131215,7 @@ MonoBehaviour:
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 1
-  m_FrequencyGain: 0
+  m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &2072389248
 PrefabInstance:
@@ -131465,3 +131476,5 @@ SceneRoots:
   - {fileID: 1082573158}
   - {fileID: 1669771901}
   - {fileID: 1772996435}
+  - {fileID: 1036461434}
+  - {fileID: 1871410048}
