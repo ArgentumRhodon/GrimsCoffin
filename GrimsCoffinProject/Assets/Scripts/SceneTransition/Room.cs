@@ -7,7 +7,7 @@ public class Room : MonoBehaviour
 {
     [SerializeField]
     private bool hasPlayer;
-    private bool RoomLive;
+    public bool RoomLive;
     [SerializeField] private GameObject Border;
     [SerializeField] private CinemachineVirtualCamera VCamera;
 
@@ -21,17 +21,20 @@ public class Room : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject.activeSelf)
+        if (RoomLive)
+        {
             Changeborder(Border);
+        }
+
     }
 
     private void Changeborder(GameObject border)
     {
-        if (!RoomLive) 
-        {
             CinemachineConfiner VConfiner = VCamera.GetComponent<CinemachineConfiner>();
             VConfiner.m_BoundingShape2D = border.GetComponent<PolygonCollider2D>();
-            RoomLive = true;
-        }
+    }
+    public void SetRoomLiveStatus(bool isActive)
+    {
+        RoomLive = isActive;
     }
 }

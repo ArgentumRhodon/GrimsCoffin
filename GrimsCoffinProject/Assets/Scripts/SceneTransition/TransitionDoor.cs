@@ -75,6 +75,8 @@ public class TransitionDoor : MonoBehaviour
         if (!areaEntering.activeInHierarchy)
         {
             areaEntering.SetActive(true);
+            Room Enter = areaEntering.GetComponent<Room>();
+            Enter.RoomLive = true;
             yield return null;
         }
         else
@@ -97,6 +99,8 @@ public class TransitionDoor : MonoBehaviour
         
         yield return Fade(start, target, duration);
         areaExiting.SetActive(false);
+        Room Exit = areaExiting.GetComponent<Room>();
+        Exit.RoomLive = false;
             
     }
     IEnumerator FadeOut(float duration)
