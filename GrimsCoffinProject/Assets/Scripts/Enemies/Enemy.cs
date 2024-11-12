@@ -47,7 +47,7 @@ public abstract class Enemy : MonoBehaviour
     public virtual void TakeDamage(float damage = 1)
     {
         health -= damage;
-        CameraShake.Instance.ShakeCamera(4, 3, .2f);
+        CameraShake.Instance.ShakeCamera(2.5f, 1.75f, .2f);
 
         if (health <= 0)
             DestroyEnemy();
