@@ -423,8 +423,6 @@ public class PlayerControllerForces : MonoBehaviour
     //Used for player direction
     private void Turn()
     {
-        if (Time.timeScale == 0)
-            return;
         //Scale of sprite
         //playerState.IsFacingRight = !playerState.IsFacingRight;
         //this.gameObject.GetComponent<SpriteRenderer>().flipX = !playerState.IsFacingRight;
