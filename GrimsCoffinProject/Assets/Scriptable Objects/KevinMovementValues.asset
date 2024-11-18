@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e01a605844dfe4f8f76d1eb38b81a5, type: 3}
+  m_Name: KevinMovementValues
+  m_EditorClassIdentifier: 
+  deadzone: 0.5
+  gravityStrength: -43.75
+  gravityScale: 4.459735
+  fallGravityMult: 2
+  maxFallSpeed: 15
+  fastFallGravityMult: 1.5
+  maxFastFallSpeed: 18
+  walkMaxSpeed: 10
+  walkAcceleration: 3
+  walkAccelAmount: 15
+  walkDecceleration: 3
+  walkDeccelAmount: 15
+  accelInAir: 1
+  deccelInAir: 1
+  doConserveMomentum: 0
+  jumpHeight: 3.5
+  jumpTimeToApex: 0.4
+  jumpForce: 17.5
+  jumpCancelGravityMult: 1.75
+  jumpHangGravityMult: 0.75
+  jumpHangTimeThreshold: 0
+  jumpHangAccelerationMult: 1
+  jumpHangMaxSpeedMult: 1
+  wallJumpForce: {x: 13, y: 15}
+  wallJumpRunLerp: 0.1
+  wallJumpTime: 0.2
+  doTurnOnWallJump: 1
+  doubleJumpMultiplier: 0.5
+  slideSpeed: 2
+  slideAccel: 2
+  coyoteTime: 0.491
+  jumpInputBufferTime: 0.2
+  dashAmount: 1
+  dashSpeed: 60
+  dashSleepTime: 0.05
+  dashAttackTime: 0.1
+  dashEndTime: 0.05
+  dashEndSpeed: {x: 5, y: 0}
+  dashEndRunLerp: 0.5
+  dashRefillTime: 0.2
+  dashInputBufferTime: 0.052
+  comboSleepTime: 0.5
+  attackBufferTime: 0.2
+  comboBufferTime: 0.2
+  comboTotal: 4
+  aerialForce: 2
