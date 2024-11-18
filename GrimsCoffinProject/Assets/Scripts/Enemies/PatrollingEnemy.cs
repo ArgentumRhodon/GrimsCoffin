@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkingEnemy : Enemy
+public class PatrollingEnemy : Enemy
 {
     [Header("Targets")]
     [SerializeField] private float wanderRange = 3f;
@@ -26,6 +26,7 @@ public class WalkingEnemy : Enemy
     [Header("Behavior")]
     [SerializeField] private bool isIdle;
     [SerializeField] private bool jumpEnabled = true;
+    [SerializeField] private bool isWalking;
 
     private Path path;
     private int currentWaypoint = 0;
@@ -34,13 +35,23 @@ public class WalkingEnemy : Enemy
 
     protected override void Start()
     {
+        Debug.Log("Floating enemy spawned");
         base.Start();
 
         isIdle = true;
 
         spawnLocation = this.transform.position;
-        target1 = this.transform.position + new Vector3(wanderRange, 0, 0);
-        target2 = this.transform.position + new Vector3(-wanderRange, 0, 0);
+        if (isWalking)
+        {
+            target1 = this.transform.position + new Vector3(wanderRange, 0, 0);
+            target2 = this.transform.position + new Vector3(-wanderRange, 0, 0);
+        }
+        else
+        {
+            target1 = this.transform.position + new Vector3(0, wanderRange, 0);
+            target2 = this.transform.position + new Vector3(0, -wanderRange, 0);
+        }
+    
 
         currentTarget = target1;
 
@@ -99,35 +110,39 @@ public class WalkingEnemy : Enemy
 
         //Make sure direction is in x only
         Vector2 direction = (targetPos - enemyPos).normalized;
-        direction.y = 0;
+
+        //Check to see if floating or walking
+        if (isWalking)
+            direction.y = 0;
+        else
+            direction.x = 0;
+
         Vector2 force = new Vector2();// = direction * speed * Time.deltaTime;
 
 
         //Issues with y movement, so only moving the x position
 
-        if (targetPos.x > enemyPos.x)
+        if (isWalking)
         {
-            force.x = 1 * movementSpeed * Time.deltaTime;
-/*            if (isIdle)
+            if (targetPos.x > enemyPos.x)
             {
-                force.x = 1 * 75 * Time.deltaTime;
+                force.x = 1 * movementSpeed * Time.deltaTime;
             }
             else
             {
-                force.x = 1 * speed * Time.deltaTime;
-            }*/
+                force.x = -1 * movementSpeed * Time.deltaTime;
+            }
         }
         else
         {
-            force.x = -1 * movementSpeed * Time.deltaTime;
-/*            if (isIdle)
+            if (targetPos.y > enemyPos.y)
             {
-                force.x = -1 * 75 * Time.deltaTime;
+                force.y = 1 * movementSpeed * Time.deltaTime;
             }
             else
             {
-                force.x = -1 * speed * Time.deltaTime;
-            }*/
+                force.y = -1 * movementSpeed * Time.deltaTime;
+            }
         }
 
         rb.AddForce(force);
