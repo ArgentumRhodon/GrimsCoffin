@@ -150,9 +150,12 @@ public class PlayerControllerForces : MonoBehaviour
             //Movement/Walking input
             moveInput = playerControls.Player.Move.ReadValue<Vector2>();
 
-            //Check direction of player
-            if (moveInput.x != 0)
-                CheckDirectionToFace(moveInput.x > 0);
+            //Check direction of player, compare it to deadzone to make sure the player doesn't flick back and forth
+            if(moveInput.x > Data.deadzone)
+                CheckDirectionToFace(true);
+            else if(moveInput.x < -Data.deadzone)
+                CheckDirectionToFace(false);
+            
 
             //Check if player hit ground or walls
             CollisionChecks();
@@ -230,18 +233,21 @@ public class PlayerControllerForces : MonoBehaviour
             EndSleep();
 
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
+        //Key Down, continue jumping
         if (value.isPressed)
         {
             jumpClamp = LastJumpTime;
             LastPressedJumpTime = Data.jumpInputBufferTime;
             LastJumpTime = 0;
         }
+        //Key Up, cancel jumping
         else if (!value.isPressed)
         {
             if (CanJumpCancel() || CanWallJumpCancel())
                 isJumpCancel = true;
         }
 
+        //Make sure the player is not dashing
         if (!playerState.IsDashing && value.isPressed)
         {
             //Jump
@@ -254,7 +260,7 @@ public class PlayerControllerForces : MonoBehaviour
                 Jump();
             }
             //Wall Jump
-            else if (CanWallJump() && LastPressedJumpTime > 0)
+            else if (CanWallJump() && LastPressedJumpTime > 0 )
             {
                 playerState.IsWallJumping = true;
                 playerState.IsJumping = false;
@@ -264,11 +270,12 @@ public class PlayerControllerForces : MonoBehaviour
                 //Set timer and direction of jump
                 wallJumpStartTime = Time.time;
                 lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
+                //Debug.Log("Last wall " + lastWallJumpDir);
+                //Debug.Log("XInput " + XInputDirection());
 
                 //Stops player from double jumping off wall
-                airJumpCounter = maxAirJumps; 
-
-                WallJump(lastWallJumpDir);
+                airJumpCounter = maxAirJumps;
+                WallJump(lastWallJumpDir);                
             }
             //Double jump
             else if (CanDoubleJump())
@@ -769,9 +776,12 @@ public class PlayerControllerForces : MonoBehaviour
         /*Debug.Log(//LastPressedJumpTime > 0); //&&
                   LastOnWallTime > 0);//  && LastOnGroundTime <= 0 && (!playerState.IsWallJumping ||
              //(LastOnWallRightTime > 0 && lastWallJumpDir == 1) || (LastOnWallLeftTime > 0 && lastWallJumpDir == -1)));*/
-
+        Debug.Log(XInputDirection());
         return LastPressedJumpTime > 0 && LastOnWallTime > 0 && LastOnGroundTime <= 0 && (!playerState.IsWallJumping ||
-             (LastOnWallRightTime > 0 && lastWallJumpDir == 1) || (LastOnWallLeftTime > 0 && lastWallJumpDir == -1));
+            //Left 
+            (LastOnWallRightTime > 0 && lastWallJumpDir == 1 && XInputDirection() == -1) || 
+            //Right
+            (LastOnWallLeftTime > 0 && lastWallJumpDir == -1 && XInputDirection() == 1));
     }
 
     private bool CanDoubleJump()
