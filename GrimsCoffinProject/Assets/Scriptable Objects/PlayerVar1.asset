@@ -13,29 +13,29 @@ MonoBehaviour:
   m_Name: PlayerVar1
   m_EditorClassIdentifier: 
   deadzone: 0.5
-  gravityStrength: -31.25
-  gravityScale: 3.185525
+  gravityStrength: -37.5
+  gravityScale: 3.8226297
   fallGravityMult: 2
   maxFallSpeed: 16
   fastFallGravityMult: 1.5
   maxFastFallSpeed: 18
-  walkMaxSpeed: 7
-  walkAcceleration: 7
+  walkMaxSpeed: 5
+  walkAcceleration: 5
   walkAccelAmount: 50
-  walkDecceleration: 7
+  walkDecceleration: 5
   walkDeccelAmount: 50
   accelInAir: 1
   deccelInAir: 1
   doConserveMomentum: 0
-  jumpHeight: 2.5
+  jumpHeight: 3
   jumpTimeToApex: 0.4
-  jumpForce: 12.5
+  jumpForce: 15
   jumpCancelGravityMult: 2.25
   jumpHangGravityMult: 0.75
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
-  wallJumpForce: {x: 13, y: 13}
+  wallJumpForce: {x: 18, y: 13}
   wallJumpRunLerp: 0.1
   wallJumpTime: 0.3
   doTurnOnWallJump: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
   coyoteTime: 0.491
   jumpInputBufferTime: 0.2
   dashAmount: 1
-  dashSpeed: 45
+  dashSpeed: 75
   dashSleepTime: 0.05
   dashAttackTime: 0.1
   dashEndTime: 0.05
