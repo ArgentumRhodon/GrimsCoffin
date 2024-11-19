@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09e01a605844dfe4f8f76d1eb38b81a5, type: 3}
-  m_Name: KevinMovementValues
+  m_Name: LucasMovementValues
   m_EditorClassIdentifier: 
   deadzone: 0.5
   gravityStrength: -43.75
@@ -35,23 +35,23 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
-  wallJumpForce: {x: 13, y: 15}
+  wallJumpForce: {x: 15, y: 16.5}
   wallJumpRunLerp: 0.1
   wallJumpTime: 0.2
-  doTurnOnWallJump: 1
+  doTurnOnWallJump: 0
   doubleJumpMultiplier: 0.5
   slideSpeed: 2
   slideAccel: 2
-  coyoteTime: 0.491
-  jumpInputBufferTime: 0.2
+  coyoteTime: 0.225
+  jumpInputBufferTime: 0.1
   dashAmount: 1
-  dashSpeed: 60
+  dashSpeed: 50
   dashSleepTime: 0.05
-  dashAttackTime: 0.1
+  dashAttackTime: 0.15
   dashEndTime: 0.05
   dashEndSpeed: {x: 5, y: 0}
   dashEndRunLerp: 0.5
-  dashRefillTime: 0.2
+  dashRefillTime: 0.5
   dashInputBufferTime: 0.052
   comboSleepTime: 0.5
   attackBufferTime: 0.2
