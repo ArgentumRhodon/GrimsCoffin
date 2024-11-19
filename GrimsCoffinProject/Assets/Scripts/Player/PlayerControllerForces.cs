@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.XR.GoogleVr;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
+using UnityEngine.Rendering;
 using UnityEngine.Windows;
 
 public class PlayerControllerForces : MonoBehaviour
@@ -17,9 +20,11 @@ public class PlayerControllerForces : MonoBehaviour
     //Timers
     public float LastOnGroundTime { get; private set; }
     public float LastOnWallTime { get; private set; }
+    public float LastHeldWallTime { get; private set; } 
     public float LastOnWallRightTime { get; private set; }
     public float LastOnWallLeftTime { get; private set; }
     public float LastJumpTime { get; private set; }
+    public float LastWallJumpTime { get; private set; }
 
     //Jump
     private bool isJumpCancel;
@@ -59,7 +64,6 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public Vector2 respawnPoint;
 
     [Header("Player Stats")]
-    [SerializeField] private int maxAirJumps;
     [SerializeField] public float maxHP;
     [SerializeField] public float currentHP;
     [SerializeField] public float maxSP;
@@ -124,36 +128,46 @@ public class PlayerControllerForces : MonoBehaviour
         //canAerialCombo = true;
         isSleeping = false;
 
-        respawnPoint = this.transform.position; 
+        respawnPoint = this.transform.position;
+
+        LastJumpTime = 0;
+        LastWallJumpTime = 0;
     }
 
     private void Update()
     {
-        //Update all timers -----------------------------------
+
         if (!isSleeping)
         {
+            //Update all timers -----------------------------------
             //Collision Checks
             LastOnGroundTime -= Time.deltaTime;
             LastOnWallTime -= Time.deltaTime;
+            LastHeldWallTime -= Time.deltaTime;
             LastOnWallRightTime -= Time.deltaTime;
             LastOnWallLeftTime -= Time.deltaTime;
 
             //Movement
             LastPressedJumpTime -= Time.deltaTime;
             LastPressedDashTime -= Time.deltaTime;
-            if (playerState.IsJumping)
-            {
-                LastJumpTime += Time.deltaTime;
-                //Debug.Log(LastJumpTime);
-            }
 
+            if (playerState.IsJumping)
+                LastJumpTime += Time.deltaTime;
+
+            LastWallJumpTime += Time.deltaTime;
+
+            //Movement values --------------------------------------
             //Movement/Walking input
             moveInput = playerControls.Player.Move.ReadValue<Vector2>();
 
-            //Check direction of player
-            if (moveInput.x != 0)
-                CheckDirectionToFace(moveInput.x > 0);
+            //Check direction of player, compare it to deadzone to make sure the player doesn't flick back and forth
+            if (moveInput.x > Data.deadzone)
+                CheckDirectionToFace(true);
+            else if (moveInput.x < -Data.deadzone)
+                CheckDirectionToFace(false);
 
+
+            //Variable Updates ----------------------------------------------
             //Check if player hit ground or walls
             CollisionChecks();
 
@@ -177,7 +191,7 @@ public class PlayerControllerForces : MonoBehaviour
         //End sleep if moving after combo
         if (isSleeping)
             if (moveInput.x != 0)
-                if(playerCombat.LastAttackTime < 0)
+                if (playerCombat.LastAttackTime < 0)
                     EndSleep();
 
         //Handle player walking, make sure the player doesn't walk while dashing
@@ -225,59 +239,70 @@ public class PlayerControllerForces : MonoBehaviour
     //Input Methods ----------------------------------------------------------------------------------------------
     //Jump Input
     private void OnJump(InputValue value)
-    {
+    {       
         if (isSleeping)
             EndSleep();
 
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
+        //Key Down, continue jumping
         if (value.isPressed)
         {
             jumpClamp = LastJumpTime;
             LastPressedJumpTime = Data.jumpInputBufferTime;
             LastJumpTime = 0;
         }
+        //Key Up, cancel jumping
         else if (!value.isPressed)
         {
             if (CanJumpCancel() || CanWallJumpCancel())
                 isJumpCancel = true;
         }
 
+        //Make sure the player is not dashing
         if (!playerState.IsDashing && value.isPressed)
         {
             //Jump
             if (CanJump() && LastPressedJumpTime > 0)
             {
+                //Set states
                 playerState.IsJumping = true;
                 playerState.IsWallJumping = false;
                 isJumpCancel = false;
                 isJumpFalling = false;
+
                 Jump();
             }
             //Wall Jump
             else if (CanWallJump() && LastPressedJumpTime > 0)
             {
+                //Set states
                 playerState.IsWallJumping = true;
                 playerState.IsJumping = false;
                 isJumpCancel = false;
                 isJumpFalling = false;
 
-                //Set timer and direction of jump
+                //Set timer and direction of wall jump
                 wallJumpStartTime = Time.time;
                 lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
 
                 //Stops player from double jumping off wall
-                airJumpCounter = maxAirJumps; 
+                if (!Data.resetJumpOnWall) 
+                    airJumpCounter = Data.maxAirJumps;
 
                 WallJump(lastWallJumpDir);
             }
             //Double jump
             else if (CanDoubleJump())
             {
+                //Set states
                 playerState.IsJumping = true;
                 playerState.IsWallJumping = false;
                 isJumpCancel = false;
                 isJumpFalling = false;
+
+                //Add to jump counter
                 airJumpCounter++;
+
                 Jump();
             }
         }
@@ -289,8 +314,6 @@ public class PlayerControllerForces : MonoBehaviour
         if (isSleeping)
             EndSleep();
         LastPressedDashTime = Data.dashInputBufferTime;
-        Debug.Log("Dash");
-        Debug.Log("Dash");
     }
 
     private void OnPause()
@@ -300,8 +323,11 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnAttack()
     {
+        if (playerState.IsDashing)
+            return;
+
         //Do not hit during combo
-        if(playerCombat.LastComboTime < 0){
+        if (playerCombat.LastComboTime < 0) {
             //Combo attack counter
             playerCombat.AttackCounter++;
             playerCombat.LastAttackTime = Data.attackBufferTime;
@@ -374,7 +400,7 @@ public class PlayerControllerForces : MonoBehaviour
         int direction = XInputDirection();
         if (direction != 0)
         {
-            if (playerState.IsFacingRight)
+            if (direction > 0)
                 direction = 1;
             else
                 direction = -1;
@@ -416,6 +442,10 @@ public class PlayerControllerForces : MonoBehaviour
         //Calculate force along x-axis to apply to thr player
         float movement = speedDif * accelRate;
 
+/*        //If you're not conserving momentum, make sure the movement doesn't add 
+        if (!Data.doConserveMomentum)
+            if (Mathf.Abs(movement) < Mathf.Abs(rb.velocity.x))
+                return;*/
         //Convert movement to a vector and apply it
         rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
     }
@@ -423,10 +453,6 @@ public class PlayerControllerForces : MonoBehaviour
     //Used for player direction
     private void Turn()
     {
-        //Scale of sprite
-        //playerState.IsFacingRight = !playerState.IsFacingRight;
-        //this.gameObject.GetComponent<SpriteRenderer>().flipX = !playerState.IsFacingRight;
-
         //Transform local scale of object
         Vector3 scale = transform.localScale;
         scale.x *= -1;
@@ -436,7 +462,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Updates scale of UI so that it is always facing right
         Vector3 tempScale = interactionPrompt.gameObject.GetComponentInChildren<Canvas>().transform.localScale;
         tempScale.x *= -1;
-        interactionPrompt.gameObject.GetComponentInChildren<Canvas>().transform.localScale = tempScale;            
+        interactionPrompt.gameObject.GetComponentInChildren<Canvas>().transform.localScale = tempScale;
     }
 
     //Jump
@@ -446,11 +472,9 @@ public class PlayerControllerForces : MonoBehaviour
         LastPressedJumpTime = 0;
         LastOnGroundTime = 0;
 
+        //Offset force 
         float force = Data.jumpForce;
-        if (rb.velocity.y < 0.01f)
-            force -= rb.velocity.y;
-        else if (rb.velocity.y > .1f)
-            force -= rb.velocity.y;
+        force = OffsetForce(force);
 
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
     }
@@ -460,6 +484,7 @@ public class PlayerControllerForces : MonoBehaviour
     {
         //Ensures we can't call wall jump multiple times from one press
         LastPressedJumpTime = 0;
+        LastWallJumpTime = 0;
         LastOnGroundTime = 0;
         LastOnWallRightTime = 0;
         LastOnWallLeftTime = 0;
@@ -467,15 +492,19 @@ public class PlayerControllerForces : MonoBehaviour
         //Perform Jump
         Vector2 force = new Vector2(Data.wallJumpForce.x, Data.wallJumpForce.y);
         force.x *= dir; //apply force in opposite direction of wall
-
-        if (Mathf.Sign(rb.velocity.x) != Mathf.Sign(force.x))
-            force.x -= rb.velocity.x;
-
-        if (rb.velocity.y < 0) //checks whether player is falling
-            force.y -= rb.velocity.y;
+        force = OffsetForce(force);
 
         //Use impulse to apply force instantly ignoring mass
         rb.AddForce(force, ForceMode2D.Impulse);
+
+        if (Data.doTurnOnWallJump)
+        {
+            if (dir > 0 && !playerState.IsFacingRight)
+                Turn();
+            else if (dir < 0 && playerState.IsFacingRight)
+                Turn();
+        }
+         
 
     }
 
@@ -483,40 +512,53 @@ public class PlayerControllerForces : MonoBehaviour
     private void Slide()
     {
         //Remove the remaining upwards Impulse to prevent upwards sliding
-        if (rb.velocity.y > 0)
+        if (rb.velocity.y >= 0)
         {
             rb.AddForce(-rb.velocity.y * Vector2.up, ForceMode2D.Impulse);
         }
 
         //Slide
-        float speedDif = Data.slideSpeed - rb.velocity.y;
-        float movement = speedDif * Data.slideAccel;
-        //Clamp the movement here to prevent any over corrections
-        movement = Mathf.Clamp(movement, -Mathf.Abs(speedDif) * (1 / Time.fixedDeltaTime), Mathf.Abs(speedDif) * (1 / Time.fixedDeltaTime));
+        /*float speedDif = Data.slideSpeed - rb.velocity.y;
+        float movement = speedDif * Data.slideAccel; */
+        float movement = Data.slideSpeed * Data.slideAccel;
+        movement = OffsetForce(movement);
 
-        rb.AddForce(movement * Vector2.up);
+        //Clamp the movement here to prevent any over corrections
+        //movement = Mathf.Clamp(movement, -Mathf.Abs(speedDif) * (1 / Time.fixedDeltaTime), Mathf.Abs(speedDif) * (1 / Time.fixedDeltaTime));
+
+        if(rb.velocity.y < movement)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, movement, 0));
+        }
+        else
+        {
+            rb.AddForce(movement * Vector2.up);
+        }
+
     }
 
     //Dash Coroutine
     private IEnumerator StartDash(Vector2 dir)
     {
-        //Dash check
-        Debug.Log("Dash");
+        //Dash timers
         LastOnGroundTime = 0;
         LastPressedDashTime = 0;
 
+        //Start time of the dash
         float startTime = Time.time;
 
+        //Update states
         dashesLeft--;
         isDashAttacking = true;
 
+        //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
-
         Sleep(0.1f);
 
+        //Get direction to dash in
         int direction = XInputDirection();
         //If player is not moving / doesn't have direction, dash in the most recent input
-        if(direction == 0)
+        if (direction == 0)
         {
             if (playerState.IsFacingRight)
                 direction = 1;
@@ -527,18 +569,17 @@ public class PlayerControllerForces : MonoBehaviour
         //We keep the player's velocity at dash speed
         while (Time.time - startTime <= Data.dashAttackTime)
         {
-            rb.velocity = new Vector2(direction * Data.dashSpeed,0);
+            rb.velocity = new Vector2(direction * Data.dashSpeed, 0);
             //Pauses the loop until the next frame
             yield return null;
         }
 
         startTime = Time.time;
-
         isDashAttacking = false;
 
         //Reset movement back to close to the walking speed
         SetGravityScale(Data.gravityScale);
-        rb.velocity = new Vector2(Data.dashEndSpeed.x * direction,0);
+        rb.velocity = new Vector2(Data.dashEndSpeed.x * direction, 0);
 
         while (Time.time - startTime <= Data.dashEndTime)
         {
@@ -586,9 +627,10 @@ public class PlayerControllerForces : MonoBehaviour
         {
             airJumpCounter = 0;
         }
-        else if (OnWall())
+        else if (Data.resetJumpOnWall && OnWall())
         {
-            //airJumpCounter = 0;
+            Debug.Log("Reseting wall jump");
+            airJumpCounter = 0;
         }
     }
 
@@ -616,18 +658,31 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void UpdateSlideVariables()
     {
-        if (CanSlide() && ((LastOnWallLeftTime > 0 && moveInput.x < 0) || (LastOnWallRightTime > 0 && moveInput.x > 0)))
-            playerState.IsSliding = true;
+        if (Data.mustHoldWallToJump)
+        {
+            if (CanSlide() && ((LastOnWallLeftTime > 0 && moveInput.x < -Data.deadzone) || (LastOnWallRightTime > 0 && moveInput.x > Data.deadzone)))
+                playerState.IsSliding = true;
+            else
+            {
+                playerState.IsSliding = false;
+                LastHeldWallTime = Data.coyoteTime;
+            }
+        }
         else
-            playerState.IsSliding = false;
+        {
+            if (CanSlide() && ((LastOnWallLeftTime > 0 && moveInput.x < Data.deadzone) || (LastOnWallRightTime > 0 && moveInput.x > -Data.deadzone)))
+                playerState.IsSliding = true;
+            else
+                playerState.IsSliding = false;
+        }
     }
 
     private void UpdateAttackVariables()
     {
         if (playerCombat.IsAerialCombo)
         {
-           if(playerCombat.LastAttackTime < 0)
-           {
+            if (playerCombat.LastAttackTime < 0)
+            {
                 playerCombat.LastComboTime = Data.comboSleepTime;
 
                 playerCombat.CanAerialCombo = false;
@@ -655,12 +710,23 @@ public class PlayerControllerForces : MonoBehaviour
         if (!isDashAttacking)
         {
             //Higher gravity if we've released the jump input or are falling
-/*            if (isAerialCombo)
+            /*            if (isAerialCombo)
+                        {
+                            SetGravityScale(0);
+                        }
+                        else*/
+            //No gravity if the player is sliding
+            if (playerState.IsSliding)
             {
                 SetGravityScale(0);
+
+                if ((XInputDirection() == -1 && playerState.IsFacingRight) || (XInputDirection() == 1 && !playerState.IsFacingRight))
+                {
+                    playerState.IsSliding = false;
+                    SetGravityScale(1);
+                }                   
             }
-            else*/
-            if (rb.velocity.y < 0 && moveInput.y < 0)
+            else if (rb.velocity.y < 0 && moveInput.y < 0)
             {
                 //Much higher gravity if holding down
                 SetGravityScale(Data.gravityScale * Data.fastFallGravityMult);
@@ -709,7 +775,7 @@ public class PlayerControllerForces : MonoBehaviour
                 LastOnGroundTime = Data.coyoteTime; //if so sets the lastGrounded to coyoteTime
             }
 
-            
+
             //Right Wall Check
             if ((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight) && !playerState.IsWallJumping)
                 LastOnWallRightTime = Data.coyoteTime;
@@ -742,8 +808,20 @@ public class PlayerControllerForces : MonoBehaviour
     //Check direction that the player should face
     public void CheckDirectionToFace(bool isMovingRight)
     {
+        /*Debug.Log("Coyote buffer" + Data.turnCoyoteBuffer);
+        Debug.Log(LastOnWallLeftTime);
+        Debug.Log(LastOnWallRightTime);*/
         if (isMovingRight != playerState.IsFacingRight)
-            Turn();
+        {
+            if (Data.doTurnOnWallJump)
+            {
+                if (Data.wallTurnBuffer < LastWallJumpTime)
+                    Turn();
+            }
+            else
+                Turn();
+
+        }
     }
 
     //Set x direction to -1 or 1, even if using analog stick
@@ -761,23 +839,38 @@ public class PlayerControllerForces : MonoBehaviour
     //Checks for jump states
     private bool CanJump()
     {
-        return LastOnGroundTime > 0 && !playerState.IsJumping;
+        return Data.canJump && LastOnGroundTime > 0 && !playerState.IsJumping;
     }
 
     private bool CanWallJump()
     {
-        /*Debug.Log(//LastPressedJumpTime > 0); //&&
-                  LastOnWallTime > 0);//  && LastOnGroundTime <= 0 && (!playerState.IsWallJumping ||
-             //(LastOnWallRightTime > 0 && lastWallJumpDir == 1) || (LastOnWallLeftTime > 0 && lastWallJumpDir == -1)));*/
-
-        return LastPressedJumpTime > 0 && LastOnWallTime > 0 && LastOnGroundTime <= 0 && (!playerState.IsWallJumping ||
-             (LastOnWallRightTime > 0 && lastWallJumpDir == 1) || (LastOnWallLeftTime > 0 && lastWallJumpDir == -1));
+        if (Data.canWallJump)
+        {
+            if (Data.mustHoldWallToJump)
+            {
+                return LastPressedJumpTime > 0 && LastOnWallTime > 0 && LastOnGroundTime <= 0 && ((!playerState.IsWallJumping && XInputDirection() != 0) ||
+                    //Left 
+                    (LastOnWallRightTime > 0 && lastWallJumpDir == 1 && (XInputDirection() == -1 || LastHeldWallTime > 0)) ||
+                    //Right
+                    (LastOnWallLeftTime > 0 && lastWallJumpDir == -1 && (XInputDirection() == 1 || LastHeldWallTime > 0)));
+            }
+            else
+            {
+                return LastPressedJumpTime > 0 && LastOnWallTime > 0 && LastOnGroundTime <= 0 && (!playerState.IsWallJumping ||
+                    //Left 
+                    (LastOnWallRightTime > 0 && lastWallJumpDir == 1) ||
+                    //Right
+                    (LastOnWallLeftTime > 0 && lastWallJumpDir == -1));
+            }
+        }
+        else
+            return false;
     }
 
     private bool CanDoubleJump()
     {
         //Debug.Log("Air: " + airJumpCounter + ". Max: " + maxAirJumps + "!Grounded(): " + !Grounded());
-        return airJumpCounter < maxAirJumps && !Grounded(); //&& isAerialCombo;
+        return Data.canDoubleJump && Data.canDoubleJump && airJumpCounter < Data.maxAirJumps && !Grounded(); //&& isAerialCombo;
     }
 
     //Checks for jump cancel
@@ -794,19 +887,29 @@ public class PlayerControllerForces : MonoBehaviour
     //Check for Dash state
     private bool CanDash()
     {
-        if (!playerState.IsDashing && dashesLeft < Data.dashAmount && LastOnGroundTime > 0 && !dashRefilling) //(LastOnGroundTime > 0 || OnWall())
+        if (Data.canDash)
         {
-            StartCoroutine(nameof(RefillDash), 1);
-        }
+            if (!playerState.IsDashing && dashesLeft < Data.dashAmount && LastOnGroundTime > 0 && !dashRefilling) //(LastOnGroundTime > 0 || OnWall())
+            {
+                StartCoroutine(nameof(RefillDash), 1);
+            }
 
-        return dashesLeft > 0;
+            return dashesLeft > 0;
+        }
+        else 
+            return false;
     }
 
     //Check to see if the player is on the wall and is sliding
     public bool CanSlide()
     {
-        if (LastOnWallTime > 0 && !playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && LastOnGroundTime <= 0)
-            return true;
+        if(Data.canSlide)
+        {
+            if (LastOnWallTime > 0 && !playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && LastOnGroundTime <= 0)
+                return true;
+            else
+                return false;
+        }
         else
             return false;
     }
@@ -816,6 +919,17 @@ public class PlayerControllerForces : MonoBehaviour
     {
         rb.gravityScale = scale;
     }
+
+    private Vector2 OffsetForce(Vector2 force)
+    {
+        return force -= rb.velocity;
+    }
+
+    private float OffsetForce(float force)
+    {
+        return force -= rb.velocity.y;
+    }
+
 
     //Sleep for delaying movement
     private void Sleep(float duration)

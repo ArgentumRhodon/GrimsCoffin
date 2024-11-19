@@ -35,11 +35,12 @@ public class PlayerData : ScriptableObject
     [Space(20)]
 
     [Header("Jump")]
+    public bool canJump;
     public float jumpHeight; //Height of the player's jump
     public float jumpTimeToApex; //Time between applying the jump force and reaching the desired jump height. These values also control the player's gravity and jump force.
     [HideInInspector] public float jumpForce; //The actual force applied to the player when they jump.
 
-    [Header("Both Jumps")]
+    [Header("All Jumps")]
     public float jumpCancelGravityMult; //Multiplier to increase gravity if the player releases thje jump button while still jumping
     [Range(0f, 1)] public float jumpHangGravityMult; //Reduces gravity while close to the apex (desired max height) of the jump
     public float jumpHangTimeThreshold; //Speeds (close to 0) where the player will experience extra "jump hang". The player's velocity.y is closest to 0 at the jump's apex (think of the gradient of a parabola or quadratic function)
@@ -48,20 +49,30 @@ public class PlayerData : ScriptableObject
     public float jumpHangMaxSpeedMult;
 
     [Header("Wall Jump")]
+    public bool canWallJump;
     public Vector2 wallJumpForce; //The actual force (this time set by us) applied to the player when wall jumping.
-    [Space(5)]
+    [Space(10)]
     [Range(0f, 1f)] public float wallJumpRunLerp; //Reduces the effect of player's movement while wall jumping.
     [Range(0f, 1.5f)] public float wallJumpTime; //Time after wall jumping the player's movement is slowed for.
+    public bool mustHoldWallToJump;
+    [Range(0.01f, 0.5f)] public float wallCoyoteTime; //Grace period after falling off a platform, where you can still jump
+    [Space(10)]
     public bool doTurnOnWallJump; //Player will rotate to face wall jumping direction
+    [Range(0f, 0.5f)] public float wallTurnBuffer;
 
-    [Header("Double Jumps")]
-    public float doubleJumpMultiplier; //Multiplier for impulse added on double jump
+    [Header("Extra Jumps")]
+    public bool canDoubleJump;
+    public bool resetJumpOnWall;
+    public float extraJumpMultiplier; //Multiplier for impulse added on double jump
+    public int maxAirJumps; //Amount of total jumps 
 
     [Space(20)]
 
     [Header("Slide")]
+    public bool canSlide;
     public float slideSpeed;
     public float slideAccel;
+
 
     [Header("Assists")]
     [Range(0.01f, 0.5f)] public float coyoteTime; //Grace period after falling off a platform, where you can still jump
@@ -70,6 +81,7 @@ public class PlayerData : ScriptableObject
     [Space(20)]
 
     [Header("Dash")]
+    public bool canDash;
     public int dashAmount;
     public float dashSpeed;
     public float dashSleepTime; //Duration for which the game freezes when we press dash but before we read directional input and apply a force
@@ -87,6 +99,7 @@ public class PlayerData : ScriptableObject
     [Space(20)]
 
     [Header("Attacks")]
+    public bool canAttack;
     public float comboSleepTime;
     public float attackBufferTime;
     public float comboBufferTime;
@@ -113,6 +126,5 @@ public class PlayerData : ScriptableObject
         //Variable ranges
         walkAcceleration = Mathf.Clamp(walkAcceleration, 0.01f, walkMaxSpeed);
         walkDecceleration = Mathf.Clamp(walkDecceleration, 0.01f, walkMaxSpeed);
-
     }
 }

@@ -16,9 +16,9 @@ MonoBehaviour:
   gravityStrength: -31.25
   gravityScale: 3.185525
   fallGravityMult: 2
-  maxFallSpeed: 16
-  fastFallGravityMult: 1.5
-  maxFastFallSpeed: 18
+  maxFallSpeed: 20
+  fastFallGravityMult: 2
+  maxFastFallSpeed: 25
   walkMaxSpeed: 7
   walkAcceleration: 7
   walkAccelAmount: 50
@@ -27,6 +27,7 @@ MonoBehaviour:
   accelInAir: 1
   deccelInAir: 1
   doConserveMomentum: 0
+  canJump: 1
   jumpHeight: 2.5
   jumpTimeToApex: 0.4
   jumpForce: 12.5
@@ -35,15 +36,24 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
-  wallJumpForce: {x: 13, y: 13}
+  canWallJump: 1
+  wallJumpForce: {x: 10, y: 15}
   wallJumpRunLerp: 0.1
   wallJumpTime: 0.3
+  mustHoldWallToJump: 1
+  wallCoyoteTime: 0.1
   doTurnOnWallJump: 1
-  doubleJumpMultiplier: 0.5
-  slideSpeed: 2
+  wallTurnBuffer: 0.2
+  canDoubleJump: 1
+  resetJumpOnWall: 1
+  extraJumpMultiplier: 0.75
+  maxAirJumps: 1
+  canSlide: 1
+  slideSpeed: -20
   slideAccel: 1
-  coyoteTime: 0.491
+  coyoteTime: 0.2
   jumpInputBufferTime: 0.2
+  canDash: 1
   dashAmount: 1
   dashSpeed: 45
   dashSleepTime: 0.05
@@ -53,6 +63,7 @@ MonoBehaviour:
   dashEndRunLerp: 0.5
   dashRefillTime: 0.2
   dashInputBufferTime: 0.052
+  canAttack: 1
   comboSleepTime: 0.5
   attackBufferTime: 0.4
   comboBufferTime: 0.2

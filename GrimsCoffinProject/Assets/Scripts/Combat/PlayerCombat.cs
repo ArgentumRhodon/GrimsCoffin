@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class PlayerCombat : MonoBehaviour
 {
     private CStateMachine meleeStateMachine;
+    private PlayerStateList playerState;
 
     public Collider2D hitbox;
     public Animator scytheAnimator;
@@ -41,6 +43,7 @@ public class PlayerCombat : MonoBehaviour
     {
         meleeStateMachine = GetComponent<CStateMachine>();
         canAerialCombo = true;
+        playerState = GetComponent<PlayerStateList>();
 
         if (scytheAnimator == null)
         {
@@ -60,8 +63,11 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnAttack()
     {
+        if (playerState.IsDashing)
+            return;
+
         //Check for player cooldown
-        if(LastComboTime < 0)
+        if (LastComboTime < 0)
         {
             //If idle, enter the entry state
             if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
