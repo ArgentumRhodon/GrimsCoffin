@@ -27,6 +27,7 @@ MonoBehaviour:
   accelInAir: 1
   deccelInAir: 1
   doConserveMomentum: 0
+  canJump: 1
   jumpHeight: 3.5
   jumpTimeToApex: 0.4
   jumpForce: 17.5
@@ -35,24 +36,34 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
+  canWallJump: 1
   wallJumpForce: {x: 13, y: 15}
   wallJumpRunLerp: 0.1
   wallJumpTime: 0.2
+  mustHoldWallToJump: 1
+  wallCoyoteTime: 0.01
   doTurnOnWallJump: 1
-  doubleJumpMultiplier: 0.5
-  slideSpeed: 2
-  slideAccel: 2
+  wallTurnBuffer: 0
+  canDoubleJump: 1
+  resetJumpOnWall: 0
+  extraJumpMultiplier: 0
+  maxAirJumps: 1
+  canSlide: 1
+  slideSpeed: -20
+  slideAccel: 1
   coyoteTime: 0.491
   jumpInputBufferTime: 0.2
+  canDash: 1
   dashAmount: 1
-  dashSpeed: 60
+  dashSpeed: 45
   dashSleepTime: 0.05
   dashAttackTime: 0.1
   dashEndTime: 0.05
   dashEndSpeed: {x: 5, y: 0}
-  dashEndRunLerp: 0.5
-  dashRefillTime: 0.2
+  dashEndRunLerp: 1
+  dashRefillTime: 0.4
   dashInputBufferTime: 0.052
+  canAttack: 1
   comboSleepTime: 0.5
   attackBufferTime: 0.2
   comboBufferTime: 0.2
