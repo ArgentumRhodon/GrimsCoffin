@@ -60,13 +60,13 @@ public class CStateMachine : MonoBehaviour
         nextState = mainStateType;
     }
 
-    private void Awake()
+    private void Start()
     {
         SetNextStateToMain();
     }
 
 
-    private void OnValidate()
+    private void Awake()
     {
         if (mainStateType == null)
         {
