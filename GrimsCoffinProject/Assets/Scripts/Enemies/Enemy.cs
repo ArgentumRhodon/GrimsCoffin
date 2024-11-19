@@ -60,7 +60,7 @@ public abstract class Enemy : MonoBehaviour
         Sleep(0.5f);
 
         health -= damage;
-        CameraShake.Instance.ShakeCamera(4, 3, .2f);
+        CameraShake.Instance.ShakeCamera(2.5f, 1.75f, .2f);
 
         if (health <= 0)
             DestroyEnemy();
