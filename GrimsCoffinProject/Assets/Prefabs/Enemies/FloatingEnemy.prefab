@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2099945926181616736
 Transform:
   m_ObjectHideFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3316753955891816540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.12, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &611994569677329174
 Transform:
   m_ObjectHideFlags: 0
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 3549309189933215741}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.75, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -287,7 +287,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.3454259, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.58285, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 8087008519769217846}
   - component: {fileID: 8690353384279187548}
   m_Layer: 0
-  m_Name: WalkingEnemy
+  m_Name: FloatingEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,21 +392,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   damage: 5
-  movementSpeed: 100
+  movementSpeed: 25
   visionRange: 0
   knockback: 0
   hitbox: {fileID: 0}
   enemyGFX: {fileID: 2766081874273627958}
   enemy: {fileID: 8497298018123173006}
   playerTarget: {fileID: 0}
-  wanderRange: 3
+  wanderRange: 2
   nextWaypointDistance: 0.5
   jumpNodeHeightRequirement: 0.8
   jumpModifier: 0.3
   jumpCheckOffset: 0.1
   isIdle: 0
   jumpEnabled: 0
-  isWalking: 1
+  isWalking: 0
 --- !u!61 &8087008519769217846
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -467,7 +467,7 @@ Rigidbody2D:
   m_Mass: 0.3
   m_LinearDrag: 1.5
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

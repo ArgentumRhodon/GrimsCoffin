@@ -80,7 +80,9 @@ public class TransitionDoor : MonoBehaviour
         else
         {
             yield return FadeOut(0.5f);
-            mainCam.SetBorders(roomXMin, roomXMax, roomYMin, roomYMax);
+            Room Enter = areaEntering.GetComponent<Room>();
+            Enter.RoomLive = true;
+            //mainCam.SetBorders(roomXMin, roomXMax, roomYMin, roomYMax);
             col.gameObject.transform.position = outDoor.SpawnPos;
             //yield return new WaitForSeconds(0.5f);
             Color start = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
@@ -97,6 +99,8 @@ public class TransitionDoor : MonoBehaviour
         
         yield return Fade(start, target, duration);
         areaExiting.SetActive(false);
+        Room Exit = areaExiting.GetComponent<Room>();
+        Exit.RoomLive = false;
             
     }
     IEnumerator FadeOut(float duration)

@@ -17,10 +17,9 @@ public class EnemySpawnPoint : MonoBehaviour
     /// </summary>
     /// <param name="room">The room to spawn the enemy in, used by the EnemyManager script</param>
     /// <returns></returns>
-    public Enemy SpawnEnemy(GameObject room)
+    public GameObject SpawnEnemy(GameObject room)
     {
         //Instatiates the enemy at the position of the spawn point with the room as the enemy's parent
-        Instantiate(enemyToSpawn.gameObject, this.transform.position, Quaternion.identity, room.transform);
-        return enemyToSpawn;
+        return Instantiate(enemyToSpawn.gameObject, this.transform.position, Quaternion.identity, room.transform);
     }
 }

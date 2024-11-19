@@ -12,7 +12,6 @@ public class FlyingEnemy : Enemy
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
 
-
     protected override void Start()
     {
         base.Start();
@@ -25,6 +24,15 @@ public class FlyingEnemy : Enemy
     }
 
     protected override void FixedUpdate()
+    {
+        if (!isSleeping)
+        {
+            PathFollow();
+        }
+
+        CheckCollisionWithPlayer();
+    }
+    private void PathFollow()
     {
         if (path == null)
             return;
@@ -59,10 +67,7 @@ public class FlyingEnemy : Enemy
         {
             enemyGFX.localScale = new Vector3(-1, 1, 1);
         }
-
-        CheckCollisionWithPlayer();
     }
-
 
     private void OnPathComplete(Path p)
     {

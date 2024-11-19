@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private List<EnemySpawnPoint> enemySpawns;
 
     //List of active enemies within the room
-    [SerializeField] private List<Enemy> activeEnemies;
+    [SerializeField] private List<GameObject> activeEnemies;
 
     private void Start()
     {
@@ -30,15 +30,16 @@ public class EnemyManager : MonoBehaviour
     //TODO: Tie this method to whenever the player exits the room
     public void DeleteEnemies()
     {
-        foreach (Enemy enemy in activeEnemies)
+        for (int i = 0; i < activeEnemies.Count; i++)
         {
-            enemy.DestroyEnemy();
+            activeEnemies[i].GetComponent<Enemy>().DestroyEnemy();
+            i--;
         }
     }
 
     //Remove an enemy from the list of active enemies
     //Used within the Enemy script whenever they are destroyed
-    public void RemoveActiveEnemy(Enemy enemyToRemove)
+    public void RemoveActiveEnemy(GameObject enemyToRemove)
     {
         activeEnemies.Remove(enemyToRemove);
     }

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09e01a605844dfe4f8f76d1eb38b81a5, type: 3}
-  m_Name: PlayerVar1
+  m_Name: Sliding
   m_EditorClassIdentifier: 
   deadzone: 0.5
   gravityStrength: -31.25
   gravityScale: 3.185525
   fallGravityMult: 2
-  maxFallSpeed: 20
-  fastFallGravityMult: 2
-  maxFastFallSpeed: 25
+  maxFallSpeed: 16
+  fastFallGravityMult: 1.5
+  maxFastFallSpeed: 18
   walkMaxSpeed: 7
   walkAcceleration: 7
   walkAccelAmount: 50
@@ -27,7 +27,6 @@ MonoBehaviour:
   accelInAir: 1
   deccelInAir: 1
   doConserveMomentum: 0
-  canJump: 1
   jumpHeight: 2.5
   jumpTimeToApex: 0.4
   jumpForce: 12.5
@@ -36,24 +35,15 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
-  canWallJump: 1
-  wallJumpForce: {x: 10, y: 15}
-  wallJumpRunLerp: 0.1
+  wallJumpForce: {x: 13, y: 13}
+  wallJumpRunLerp: 0.5
   wallJumpTime: 0.3
-  mustHoldWallToJump: 1
-  wallCoyoteTime: 0.1
   doTurnOnWallJump: 1
-  wallTurnBuffer: 0.2
-  canDoubleJump: 1
-  resetJumpOnWall: 1
-  extraJumpMultiplier: 0.75
-  maxAirJumps: 1
-  canSlide: 1
-  slideSpeed: -20
-  slideAccel: 1
-  coyoteTime: 0.2
+  doubleJumpMultiplier: 0.5
+  slideSpeed: 0
+  slideAccel: 0
+  coyoteTime: 0.491
   jumpInputBufferTime: 0.2
-  canDash: 1
   dashAmount: 1
   dashSpeed: 45
   dashSleepTime: 0.05
@@ -63,9 +53,8 @@ MonoBehaviour:
   dashEndRunLerp: 0.5
   dashRefillTime: 0.2
   dashInputBufferTime: 0.052
-  canAttack: 1
   comboSleepTime: 0.5
-  attackBufferTime: 0.4
+  attackBufferTime: 0.2
   comboBufferTime: 0.2
   comboTotal: 4
   aerialForce: 2
