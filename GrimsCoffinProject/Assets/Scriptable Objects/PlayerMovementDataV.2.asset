@@ -15,15 +15,15 @@ MonoBehaviour:
   deadzone: 0.5
   gravityStrength: -57.14286
   gravityScale: 5.82496
-  fallGravityMult: 2
+  fallGravityMult: 1.8
   maxFallSpeed: 22.5
   fastFallGravityMult: 1.5
   maxFastFallSpeed: 18
-  walkMaxSpeed: 13
+  walkMaxSpeed: 11.5
   walkAcceleration: 8
-  walkAccelAmount: 30.76923
+  walkAccelAmount: 34.782608
   walkDecceleration: 8
-  walkDeccelAmount: 30.76923
+  walkDeccelAmount: 34.782608
   accelInAir: 1
   deccelInAir: 1
   doConserveMomentum: 0
@@ -37,6 +37,7 @@ MonoBehaviour:
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
   canWallJump: 1
+  canWallJumpCancel: 0
   wallJumpForce: {x: 13, y: 15}
   wallJumpRunLerp: 0
   wallJumpTime: 0.2
