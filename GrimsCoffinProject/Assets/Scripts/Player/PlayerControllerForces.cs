@@ -73,7 +73,6 @@ public class PlayerControllerForces : MonoBehaviour
 
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
-    public bool canInteract = false;
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;

@@ -18,7 +18,11 @@ public class SavePoint : Interactable
 
     public override void PerformInteraction()
     {
+        if (Time.timeScale == 0)
+            return;
+
         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.maxHP;
         PlayerControllerForces.Instance.respawnPoint = this.transform.position;
+        UIManager.Instance.equilibriumPrompt.ToggleEnterPrompt();
     }
 }

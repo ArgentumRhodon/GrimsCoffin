@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [SerializeField] public PauseScreenBehavior pauseScript;
+    [SerializeField] public EquilibriumPrompt equilibriumPrompt;
+
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private Volume lowHealthVignette;
     [SerializeField] private Volume damageVignette;
