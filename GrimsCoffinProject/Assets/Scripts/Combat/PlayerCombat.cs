@@ -63,7 +63,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnAttack()
     {
-        if (playerState.IsDashing)
+        if (playerState.IsDashing || Time.timeScale == 0)
             return;
 
         //Check for player cooldown

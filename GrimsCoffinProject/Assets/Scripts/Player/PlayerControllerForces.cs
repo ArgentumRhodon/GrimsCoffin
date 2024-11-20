@@ -452,6 +452,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Used for player direction
     private void Turn()
     {
+        if (Time.timeScale == 0)
+            return;
+
         //Transform local scale of object
         Vector3 scale = transform.localScale;
         scale.x *= -1;
