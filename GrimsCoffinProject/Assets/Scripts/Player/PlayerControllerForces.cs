@@ -254,7 +254,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Key Up, cancel jumping
         else if (!value.isPressed)
         {
-            if (CanJumpCancel() || CanWallJumpCancel())
+            if (CanJumpCancel() || (Data.canWallJumpCancel && CanWallJumpCancel()))
                 isJumpCancel = true;
         }
 

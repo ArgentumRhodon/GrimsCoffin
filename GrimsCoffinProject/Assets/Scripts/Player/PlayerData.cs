@@ -50,6 +50,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Wall Jump")]
     public bool canWallJump;
+    public bool canWallJumpCancel;
     public Vector2 wallJumpForce; //The actual force (this time set by us) applied to the player when wall jumping.
     [Space(10)]
     [Range(0f, 1f)] public float wallJumpRunLerp; //Reduces the effect of player's movement while wall jumping.
