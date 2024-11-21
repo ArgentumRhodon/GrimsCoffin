@@ -710,11 +710,11 @@ public class PlayerControllerForces : MonoBehaviour
         if (!isDashAttacking)
         {
             //Higher gravity if we've released the jump input or are falling
-            /*            if (isAerialCombo)
+                        if (playerCombat.IsAerialCombo)
                         {
                             SetGravityScale(0);
                         }
-                        else*/
+                        else
             //No gravity if the player is sliding
             if (playerState.IsSliding)
             {
@@ -739,7 +739,6 @@ public class PlayerControllerForces : MonoBehaviour
                 float jumpRatio = rb.velocity.y / jumpVelocity;
                 float jumpCancelRatio = Data.jumpCancelGravityMult * jumpRatio;
                 float jumpCancelScale = Mathf.Clamp(Data.jumpCancelGravityMult * jumpCancelRatio, Data.fastFallGravityMult, Data.jumpCancelGravityMult);
-                Debug.Log(jumpCancelScale);
                 SetGravityScale(Data.gravityScale * jumpCancelScale);
                 rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -Data.maxFallSpeed));
             }
