@@ -30,7 +30,7 @@ public class PlayerControllerForces : MonoBehaviour
     private bool isJumpCancel;
     private bool isJumpFalling;
     private int airJumpCounter = 0;
-    float jumpClamp;
+    private float jumpVelocity;
 
     //Wall Jump
     private float wallJumpStartTime;
@@ -247,14 +247,13 @@ public class PlayerControllerForces : MonoBehaviour
         //Key Down, continue jumping
         if (value.isPressed)
         {
-            jumpClamp = LastJumpTime;
             LastPressedJumpTime = Data.jumpInputBufferTime;
             LastJumpTime = 0;
         }
         //Key Up, cancel jumping
         else if (!value.isPressed)
         {
-            if (CanJumpCancel() || CanWallJumpCancel())
+            if (CanJumpCancel() || (Data.canWallJumpCancel && CanWallJumpCancel()))
                 isJumpCancel = true;
         }
 
@@ -477,6 +476,7 @@ public class PlayerControllerForces : MonoBehaviour
         force = OffsetForce(force);
 
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        jumpVelocity = rb.velocity.y;
     }
 
     //Wall jump
@@ -710,11 +710,11 @@ public class PlayerControllerForces : MonoBehaviour
         if (!isDashAttacking)
         {
             //Higher gravity if we've released the jump input or are falling
-            /*            if (isAerialCombo)
+                        if (playerCombat.IsAerialCombo)
                         {
                             SetGravityScale(0);
                         }
-                        else*/
+                        else
             //No gravity if the player is sliding
             if (playerState.IsSliding)
             {
@@ -736,7 +736,10 @@ public class PlayerControllerForces : MonoBehaviour
             else if (isJumpCancel)
             {
                 //Higher gravity if jump button released
-                SetGravityScale(Data.gravityScale * Data.jumpCancelGravityMult);
+                float jumpRatio = rb.velocity.y / jumpVelocity;
+                float jumpCancelRatio = Data.jumpCancelGravityMult * jumpRatio;
+                float jumpCancelScale = Mathf.Clamp(Data.jumpCancelGravityMult * jumpCancelRatio, Data.fastFallGravityMult, Data.jumpCancelGravityMult);
+                SetGravityScale(Data.gravityScale * jumpCancelScale);
                 rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -Data.maxFallSpeed));
             }
             else if ((playerState.IsJumping || playerState.IsWallJumping || isJumpFalling) && Mathf.Abs(rb.velocity.y) < Data.jumpHangTimeThreshold)

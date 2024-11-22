@@ -31,6 +31,9 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        if (damageVignette == null)
+            return;
+
         if (damageVignette.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
         {
             damageVignette.GetComponent<Animator>().enabled = false;
@@ -45,6 +48,9 @@ public class UIManager : MonoBehaviour
 
     public void LowHealthVignette(bool lowHealth)
     {
+        if (lowHealthVignette == null)
+            return;
+
         lowHealthVignette.gameObject.GetComponent<Animator>().enabled = lowHealth;
         lowHealthVignette.enabled = lowHealth;
     }
