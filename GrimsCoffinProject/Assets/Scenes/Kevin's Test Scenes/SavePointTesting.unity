@@ -565,6 +565,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2406e437cb177064db0e3fba36099eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &178055311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5299318684820721064, guid: 7e8d23adec2c095448270ed9c10f49d3, type: 3}
+  m_PrefabInstance: {fileID: 1082573158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &230486643 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4212684786881643978, guid: b184d5e207a2eba40bf1938bd2524876, type: 3}
@@ -49946,21 +49951,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1849330921157196222, guid: 7e8d23adec2c095448270ed9c10f49d3, type: 3}
+      propertyPath: spiritUI
+      value: 
+      objectReference: {fileID: 1863953471}
     - target: {fileID: 2627686090822270941, guid: 7e8d23adec2c095448270ed9c10f49d3, type: 3}
       propertyPath: SpiritUI
       value: 
       objectReference: {fileID: 1863953471}
+    - target: {fileID: 4899741667252100522, guid: 7e8d23adec2c095448270ed9c10f49d3, type: 3}
+      propertyPath: spiritUI
+      value: 
+      objectReference: {fileID: 1863953471}
+    - target: {fileID: 4899741667252100522, guid: 7e8d23adec2c095448270ed9c10f49d3, type: 3}
+      propertyPath: spiritObject
+      value: 
+      objectReference: {fileID: 178055311}
     - target: {fileID: 5299318684820721064, guid: 7e8d23adec2c095448270ed9c10f49d3, type: 3}
       propertyPath: m_Name
       value: Spirit
       objectReference: {fileID: 0}
     - target: {fileID: 7640566926546664160, guid: 7e8d23adec2c095448270ed9c10f49d3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 259.99
+      value: -14.34
       objectReference: {fileID: 0}
     - target: {fileID: 7640566926546664160, guid: 7e8d23adec2c095448270ed9c10f49d3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17
+      value: -2.94
       objectReference: {fileID: 0}
     - target: {fileID: 7640566926546664160, guid: 7e8d23adec2c095448270ed9c10f49d3, type: 3}
       propertyPath: m_LocalPosition.z

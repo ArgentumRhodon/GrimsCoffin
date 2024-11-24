@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 667177677743225872}
   - component: {fileID: 6123450553440155704}
   - component: {fileID: 2771389208162537455}
-  - component: {fileID: 2627686090822270941}
+  - component: {fileID: 1849330921157196222}
   m_Layer: 0
   m_Name: Interaction Prompt Trigger
   m_TagString: Untagged
@@ -95,7 +95,7 @@ MonoBehaviour:
   interaction: 3
   interactionText: Interact
   time: 0
---- !u!114 &2627686090822270941
+--- !u!114 &1849330921157196222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9bedd0cd57dff349b912caea323f69c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpiritUI: {fileID: 0}
-  Spirit: {fileID: 5299318684820721064}
+  spiritUI: {fileID: 0}
+  spiritID: 0
 --- !u!1 &5299318684820721064
 GameObject:
   m_ObjectHideFlags: 0
