@@ -204,10 +204,10 @@ public class PlayerControllerForces : MonoBehaviour
                 else
                     Walk(1);
             }
-            else if (isDashAttacking)
+/*            else if (isDashAttacking)
             {
                 Walk(Data.dashEndRunLerp);
-            }
+            }*/
         }
 
         if (hasInvincibility)
@@ -544,9 +544,6 @@ public class PlayerControllerForces : MonoBehaviour
         LastOnGroundTime = 0;
         LastPressedDashTime = 0;
 
-        //Start time of the dash
-        float startTime = Time.time;
-
         //Update states
         dashesLeft--;
         isDashAttacking = true;
@@ -566,25 +563,27 @@ public class PlayerControllerForces : MonoBehaviour
                 direction = -1;
         }
 
-        //We keep the player's velocity at dash speed
-        while (Time.time - startTime <= Data.dashAttackTime)
-        {
-            rb.velocity = new Vector2(direction * Data.dashSpeed, 0);
-            //Pauses the loop until the next frame
-            yield return null;
-        }
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        float force = direction * Data.dashSpeed;
+        OffsetForce(force);
+        rb.AddForce(Vector2.right * force, ForceMode2D.Impulse);
+        yield return new WaitForSecondsRealtime(Data.dashAttackTime);
 
-        startTime = Time.time;
+        //No longer dashing
         isDashAttacking = false;
 
         //Reset movement back to close to the walking speed
         SetGravityScale(Data.gravityScale);
+
+
+        //OffsetForce(direction);
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        force = Data.dashEndSpeed.x * direction;
+        OffsetForce(force);
+        rb.AddForce(Vector2.right * force, ForceMode2D.Impulse);
         rb.velocity = new Vector2(Data.dashEndSpeed.x * direction, 0);
 
-        while (Time.time - startTime <= Data.dashEndTime)
-        {
-            yield return null;
-        }
+        yield return new WaitForSecondsRealtime(Data.dashEndTime);
 
         //Dash over
         playerState.IsDashing = false;
