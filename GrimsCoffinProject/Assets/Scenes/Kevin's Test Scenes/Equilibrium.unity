@@ -504,6 +504,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.029
       objectReference: {fileID: 0}
+    - target: {fileID: 9121772345614433815, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
+      propertyPath: interactionText
+      value: Interact
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -835,6 +839,10 @@ PrefabInstance:
     - target: {fileID: 856169698987487715, guid: f4a004e00ab730d439117e2833d9d6ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787397257723873366, guid: f4a004e00ab730d439117e2833d9d6ea, type: 3}
+      propertyPath: inEquilibrium
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3792,8 +3800,8 @@ RectTransform:
   - {fileID: 113711801}
   - {fileID: 71615577}
   - {fileID: 1466636796}
-  - {fileID: 4428216182390423361}
   - {fileID: 936587700}
+  - {fileID: 4428216182390423361}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4165,7 +4173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3511725866868283471, guid: a6a97c91b4bfced438b196539a3c9e1b, type: 3}
       propertyPath: m_text
-      value: "Exit \nEquilibrium?"
+      value: Return to the Drift?
       objectReference: {fileID: 0}
     - target: {fileID: 4239926424229030139, guid: a6a97c91b4bfced438b196539a3c9e1b, type: 3}
       propertyPath: m_Pivot.x
@@ -4363,6 +4371,10 @@ PrefabInstance:
     - target: {fileID: 1994732691585857305, guid: 23aab86635497ef46bac870ab152edfa, type: 3}
       propertyPath: m_Name
       value: Area Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 7544504829230695504, guid: 23aab86635497ef46bac870ab152edfa, type: 3}
+      propertyPath: m_text
+      value: Equilibrium
       objectReference: {fileID: 0}
     - target: {fileID: 7544504829230695504, guid: 23aab86635497ef46bac870ab152edfa, type: 3}
       propertyPath: m_fontStyle

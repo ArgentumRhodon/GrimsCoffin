@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class AreaText : MonoBehaviour
 {
-    [SerializeField] string areaName;
-
     // Start is called before the first frame update
     void Start()
     {
-        this.GetComponent<TextMeshProUGUI>().text = areaName;
+        
     }
 
     // Update is called once per frame

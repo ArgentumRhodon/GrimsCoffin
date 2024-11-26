@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spirit : Interactable
 {
-    [SerializeField] private SpiritCollectUI spiritUI;
+    private SpiritCollectUI spiritUI;
     
     [SerializeField] public SpiritName spiritID;
 
@@ -16,7 +16,7 @@ public class Spirit : Interactable
     // Start is called before the first frame update
     void Start()
     {
-        
+        spiritUI = UIManager.Instance.gameUI.GetComponentInChildren<SpiritCollectUI>();
     }
 
     // Update is called once per frame
@@ -27,8 +27,10 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
-        spiritUI.ShowSpiritCollectedText();
-        Debug.Log(spiritID.ToString());
+        if (spiritUI != null)
+            spiritUI.ShowSpiritCollectedText();
+        
+        Debug.Log("Spirit Collected: " + spiritID.ToString());
         PlayerPrefs.SetInt(spiritID.ToString(), 1);
         Destroy(this.gameObject.transform.parent.gameObject);
     }

@@ -5,7 +5,9 @@ using UnityEngine;
 public class SpiritSpawnPoint : MonoBehaviour
 {
     [SerializeField] private GameObject spiritPrefab;
-    [SerializeField] private Spirit spiritToSpawn;
+    [SerializeField] private bool inEquilibrium;
+
+    private Spirit spiritToSpawn;
 
     private void Start()
     {
@@ -14,11 +16,13 @@ public class SpiritSpawnPoint : MonoBehaviour
 
     public void SpawnSpirit()
     {
-        if (SpiritCollected())
+        //Spawn Spirit in Equilibrium if it's collected, Spawn it in the Drift if it isn't
+        if ((SpiritCollected() && inEquilibrium) || (!SpiritCollected() && !inEquilibrium))
         {
             Debug.Log("Spawning Spirit");
             Instantiate(spiritPrefab, this.transform.position, Quaternion.identity);
         }
+
     }
 
     private bool SpiritCollected()
