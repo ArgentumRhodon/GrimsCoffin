@@ -73,7 +73,6 @@ public class PlayerControllerForces : MonoBehaviour
 
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
-    public bool canInteract = false;
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -452,6 +451,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Used for player direction
     private void Turn()
     {
+        if (Time.timeScale == 0)
+            return;
+
         //Transform local scale of object
         Vector3 scale = transform.localScale;
         scale.x *= -1;
