@@ -6,6 +6,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera Vcam;
+    [SerializeField] private CinemachineBrain CameraControl;
     private CinemachineFramingTransposer VCamFramingTransposer;
     private Coroutine transitionCoroutine;
 
@@ -53,6 +54,21 @@ public class CameraManager : MonoBehaviour
         float targetScreenY = 0.5f;
         StartScreenYTransition(targetScreenY, 0.5f);
     }
+
+    public void ChangeCamera(CinemachineVirtualCamera Cam) 
+    {
+        CameraControl.ActiveVirtualCamera.Priority = 9;
+        Cam.Priority = 10;
+    }
+    public void ResetCamera()
+    {
+        CameraControl.ActiveVirtualCamera.Priority = 9;
+        Vcam.Priority = 10;
+    }
+
+
+
+
 
     private void StartScreenYTransition(float targetScreenY, float duration)
     {
