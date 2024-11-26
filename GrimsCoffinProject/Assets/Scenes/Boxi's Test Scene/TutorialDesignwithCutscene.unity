@@ -676,7 +676,7 @@ PrefabInstance:
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: mainCam
       value: 
-      objectReference: {fileID: 1741771013}
+      objectReference: {fileID: 0}
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: roomXMax
       value: 59.5
@@ -1004,7 +1004,7 @@ PrefabInstance:
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: mainCam
       value: 
-      objectReference: {fileID: 1741771013}
+      objectReference: {fileID: 0}
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: roomXMax
       value: 59.5
@@ -9228,7 +9228,7 @@ PrefabInstance:
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: mainCam
       value: 
-      objectReference: {fileID: 1741771013}
+      objectReference: {fileID: 0}
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: roomXMax
       value: 15.5
@@ -9381,17 +9381,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
   m_PrefabInstance: {fileID: 584877821}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1741771013 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5161707832729600314, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
-  m_PrefabInstance: {fileID: 1866543868}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6867ba73de2fb2b429d464b517174d8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!20 &1741771016 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 916537071340474138, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
@@ -9456,7 +9445,7 @@ PrefabInstance:
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: mainCam
       value: 
-      objectReference: {fileID: 1741771013}
+      objectReference: {fileID: 0}
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: roomXMax
       value: 132.5
@@ -9726,6 +9715,10 @@ PrefabInstance:
       propertyPath: deadzone
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8515530029650655982, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9740,17 +9733,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1866543874 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8515530029650655982, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
-  m_PrefabInstance: {fileID: 1866543868}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4561a8a87d77f9442aea92054e26fa1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1979620341
@@ -9768,7 +9750,7 @@ PrefabInstance:
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: mainCam
       value: 
-      objectReference: {fileID: 1741771013}
+      objectReference: {fileID: 0}
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: roomXMax
       value: 132.5
@@ -9955,7 +9937,7 @@ PrefabInstance:
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: mainCam
       value: 
-      objectReference: {fileID: 1741771013}
+      objectReference: {fileID: 0}
     - target: {fileID: 4307974711853067314, guid: 36b4b78d9a91ebe4486680ab62f31161, type: 3}
       propertyPath: roomXMax
       value: 168.5
@@ -10137,6 +10119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2117058707}
   - component: {fileID: 2117058706}
+  - component: {fileID: 2117058708}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10176,6 +10159,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2117058708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117058705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4561a8a87d77f9442aea92054e26fa1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Vcam: {fileID: 476029831}
+  CameraControl: {fileID: 1866543870}
+  deadzone: 0.25
 --- !u!1 &2122313898
 GameObject:
   m_ObjectHideFlags: 0
@@ -10438,7 +10436,7 @@ PrefabInstance:
     - target: {fileID: 5922179322101973035, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
       propertyPath: CamManager
       value: 
-      objectReference: {fileID: 1866543874}
+      objectReference: {fileID: 0}
     - target: {fileID: 6246220732509532369, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
       propertyPath: m_Name
       value: Virtual Camera
@@ -10562,7 +10560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4711f74a72589394a8d94a237f51928d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraManager: {fileID: 1866543874}
+  cameraManager: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
