@@ -47,19 +47,19 @@ public class CameraManager : MonoBehaviour
     public void LookDown()
     {
         float targetScreenY = 0.25f;
-        StartScreenYTransition(targetScreenY, 0.15f);
+        StartScreenYTransition(targetScreenY, 0.1f);
     }
 
     public void LookUp()
     {
-        float targetScreenY = 0.8f;
-        StartScreenYTransition(targetScreenY, 0.15f);
+        float targetScreenY = 0.75f;
+        StartScreenYTransition(targetScreenY, 0.1f);
     }
 
     public void Reset()
     {
         float targetScreenY = 0.5f;
-        StartScreenYTransition(targetScreenY, 0.15f);
+        StartScreenYTransition(targetScreenY, 0.1f);
     }
 
     public void ChangeCamera(CinemachineVirtualCamera Cam) 
