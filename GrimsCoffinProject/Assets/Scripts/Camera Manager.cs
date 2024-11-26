@@ -7,8 +7,29 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera Vcam;
     [SerializeField] private CinemachineBrain CameraControl;
+    [SerializeField] private float deadzone;
     private CinemachineFramingTransposer VCamFramingTransposer;
     private Coroutine transitionCoroutine;
+
+    public float Deadzone
+    {
+        get { return deadzone; }
+    }
+
+    public static CameraManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -21,38 +42,24 @@ public class CameraManager : MonoBehaviour
         Reset();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            LookDown();
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            LookUp();
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reset();
-        }
-    }
+
 
     public void LookDown()
     {
         float targetScreenY = 0.25f;
-        StartScreenYTransition(targetScreenY, 0.5f);
+        StartScreenYTransition(targetScreenY, 0.15f);
     }
 
     public void LookUp()
     {
         float targetScreenY = 0.8f;
-        StartScreenYTransition(targetScreenY, 0.5f);
+        StartScreenYTransition(targetScreenY, 0.15f);
     }
 
     public void Reset()
     {
         float targetScreenY = 0.5f;
-        StartScreenYTransition(targetScreenY, 0.5f);
+        StartScreenYTransition(targetScreenY, 0.15f);
     }
 
     public void ChangeCamera(CinemachineVirtualCamera Cam) 
@@ -60,13 +67,11 @@ public class CameraManager : MonoBehaviour
         CameraControl.ActiveVirtualCamera.Priority = 9;
         Cam.Priority = 10;
     }
-    public void ResetCamera()
+    public void CameraReset()
     {
         CameraControl.ActiveVirtualCamera.Priority = 9;
         Vcam.Priority = 10;
     }
-
-
 
 
 

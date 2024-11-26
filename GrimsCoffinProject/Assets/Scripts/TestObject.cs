@@ -19,8 +19,6 @@ public class TestObject : Interactable
 
     public override void PerformInteraction()
     {
-        cameraManager.LookDown();
-        //cameraManager.LookUp();
-        //cameraManager.Reset();
+        
     }
 }

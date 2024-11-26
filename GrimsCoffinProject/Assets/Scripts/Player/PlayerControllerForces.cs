@@ -360,6 +360,23 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    public void OnCameraLook(InputValue value)
+    {
+        Debug.Log("Camera Look " + value);
+        if (value.Get<Vector2>().y > CameraManager.Instance.Deadzone)
+        {
+            CameraManager.Instance.LookUp();
+        }
+        else if (value.Get<Vector2>().y < -CameraManager.Instance.Deadzone)
+        {
+            CameraManager.Instance.LookDown();
+        }
+        else
+        {
+            CameraManager.Instance.Reset();
+        }
+    }
+
     public void TakeDamage(float damageTaken)
     {
         currentHP -= damageTaken;

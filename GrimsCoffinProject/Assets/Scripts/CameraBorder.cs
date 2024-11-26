@@ -10,10 +10,11 @@ public class CameraBorder : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.tag == "Player")
         CamManager.ChangeCamera(Vcam);
     }
     public void OnTriggerExit2D(Collider2D collision)
     {
-        CamManager.ResetCamera();
+        CamManager.CameraReset();
     }
 }
