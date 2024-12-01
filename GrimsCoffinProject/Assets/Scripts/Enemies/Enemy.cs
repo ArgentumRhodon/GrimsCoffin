@@ -29,6 +29,11 @@ public abstract class Enemy : MonoBehaviour
     protected float localDeltaTime;
     protected bool isSleeping;
 
+    public EnemyManager EnemyMgr
+    {
+        get { return enemyMgr; }
+        set { enemyMgr = value; }
+    }
 
     // Start is called before the first frame update
     protected virtual void Start()
