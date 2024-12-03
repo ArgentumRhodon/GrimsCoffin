@@ -184,9 +184,6 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Attack Check
-        UpdateAttackVariables();
-
         //End sleep if moving after combo
         if (isSleeping)
             if (moveInput.x != 0)
@@ -225,6 +222,9 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerState.IsSliding)
             Slide();
 
+        //Attack Check
+        UpdateAttackVariables();
+
         animator_T.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
         animator_B.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
     }
@@ -238,9 +238,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Input Methods ----------------------------------------------------------------------------------------------
     //Jump Input
     private void OnJump(InputValue value)
-    {       
-        if (isSleeping)
-            EndSleep();
+    {
+        /*if (isSleeping)
+            EndSleep();*/
 
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
         //Key Down, continue jumping
@@ -330,7 +330,7 @@ public class PlayerControllerForces : MonoBehaviour
             playerCombat.AttackCounter++;
             playerCombat.LastAttackTime = Data.attackBufferTime;
 
-            Debug.Log(playerCombat.AttackCounter);
+            //Debug.Log(playerCombat.AttackCounter);
 
             animator_T.SetFloat("comboRatio", playerCombat.AttackCounter / 4f);
             animator_T.SetFloat("comboRatio", playerCombat.AttackCounter / 4f);
@@ -729,13 +729,12 @@ public class PlayerControllerForces : MonoBehaviour
         if (!isDashAttacking)
         {
             //Higher gravity if we've released the jump input or are falling
-                        if (playerCombat.IsAerialCombo)
-                        {
-                            SetGravityScale(0);
-                        }
-                        else
+            if (playerCombat.IsAerialCombo)
+            {
+                SetGravityScale(0);
+            }
             //No gravity if the player is sliding
-            if (playerState.IsSliding)
+            else if(playerState.IsSliding)
             {
                 SetGravityScale(0);
 
