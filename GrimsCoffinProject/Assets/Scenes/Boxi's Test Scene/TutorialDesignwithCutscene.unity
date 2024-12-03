@@ -9645,7 +9645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -37.41
+      value: -36.91
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10140,6 +10140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseScript: {fileID: 113711802}
+  equilibriumPrompt: {fileID: 0}
   deathScreen: {fileID: 0}
   lowHealthVignette: {fileID: 1271310618}
   damageVignette: {fileID: 0}
@@ -10299,7 +10300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1004791294727693520, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -37.41
+      value: -36.91
       objectReference: {fileID: 0}
     - target: {fileID: 1004791294727693520, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10337,6 +10338,26 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1643611084}
+    - target: {fileID: 7796081792188066066, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
+      propertyPath: m_BiasX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796081792188066066, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
+      propertyPath: m_BiasY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796081792188066066, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
+      propertyPath: m_SoftZoneWidth
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796081792188066066, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
+      propertyPath: m_SoftZoneHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796081792188066066, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
+      propertyPath: m_TrackedObjectOffset.y
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10436,10 +10457,26 @@ PrefabInstance:
     - target: {fileID: 5922179322101973035, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
       propertyPath: CamManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2117058708}
     - target: {fileID: 6246220732509532369, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
       propertyPath: m_Name
       value: Virtual Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471642694187875901, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
+      propertyPath: m_Size.x
+      value: 10.757282
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471642694187875901, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
+      propertyPath: m_Size.y
+      value: 11.145264
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471642694187875901, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.14566612
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471642694187875901, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.01782608
       objectReference: {fileID: 0}
     - target: {fileID: 8982144487734878723, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10447,7 +10484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8982144487734878723, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -33.61
+      value: -37.01
       objectReference: {fileID: 0}
     - target: {fileID: 8982144487734878723, guid: 23bd8e12e5bf78f439420b22087d01af, type: 3}
       propertyPath: m_LocalPosition.z
