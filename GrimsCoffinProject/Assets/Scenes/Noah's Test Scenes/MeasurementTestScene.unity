@@ -1161,6 +1161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseScript: {fileID: 328030540}
+  equilibriumPrompt: {fileID: 0}
   deathScreen: {fileID: 0}
   lowHealthVignette: {fileID: 0}
   damageVignette: {fileID: 0}
@@ -4493,17 +4494,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1055734401}
   m_SourcePrefab: {fileID: 100100000, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
---- !u!114 &936170979 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5161707832729600314, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
-  m_PrefabInstance: {fileID: 936170978}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1055734398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6867ba73de2fb2b429d464b517174d8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!20 &936170980 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 916537071340474138, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
@@ -31784,7 +31774,7 @@ PrefabInstance:
     - target: {fileID: 3382586989326072763, guid: cfa77973ef756a04aa080487dd2dab61, type: 3}
       propertyPath: mainCam
       value: 
-      objectReference: {fileID: 936170979}
+      objectReference: {fileID: 0}
     - target: {fileID: 3382586989326072763, guid: cfa77973ef756a04aa080487dd2dab61, type: 3}
       propertyPath: outDoor
       value: 

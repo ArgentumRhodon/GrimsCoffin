@@ -9,7 +9,7 @@ public class MeleeComboState : MeleeBaseState
         base.OnEnter(_stateMachine);
 
         //Set attack variables and animation
-        attackIndex = 2;
+        attackIndex = 1;
         duration = 0.2f;
         animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 4f);
