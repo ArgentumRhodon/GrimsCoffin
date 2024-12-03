@@ -15,8 +15,13 @@ public class CameraManager : MonoBehaviour
     {
         get { return deadzone; }
     }
+    
+    public CinemachineVirtualCamera VCam
+    {
+        get { return Vcam; }
+    }
 
-    public static CameraManager Instance { get; private set; }
+    public static CameraManager Instance;
 
     private void Awake()
     {
@@ -42,7 +47,19 @@ public class CameraManager : MonoBehaviour
         Reset();
     }
 
+    private void Update()
+    {
+        /*if (PlayerControllerForces.Instance != null)
+        {
+            if (!PlayerControllerForces.Instance.playerState.IsFacingRight)
+            {
+                Vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.x *= -1;
+            }
 
+            else
+                Vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.x *= -1;
+        }*/
+    }
 
     public void LookDown()
     {
@@ -100,6 +117,34 @@ public class CameraManager : MonoBehaviour
         }
 
         VCamFramingTransposer.m_ScreenY = targetScreenY;
+        transitionCoroutine = null;
+    }
+
+    public void StartScreenXOffset(float targetOffsetX, float duration)
+    {
+        if (transitionCoroutine != null)
+        {
+            StopCoroutine(transitionCoroutine);
+        }
+        transitionCoroutine = StartCoroutine(ScreenXOffsetCoroutine(targetOffsetX, duration));
+    }
+
+    private IEnumerator ScreenXOffsetCoroutine(float targetScreenX, float duration)
+    {
+        float initialScreenX = VCamFramingTransposer.m_TrackedObjectOffset.x; 
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            t = t * t * (3f - 2f * t);
+
+            VCamFramingTransposer.m_TrackedObjectOffset.x = Mathf.Lerp(initialScreenX, targetScreenX, t);
+            yield return null;
+        }
+
+        VCamFramingTransposer.m_TrackedObjectOffset.x = targetScreenX;
         transitionCoroutine = null;
     }
 }
