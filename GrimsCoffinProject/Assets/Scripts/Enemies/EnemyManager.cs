@@ -13,10 +13,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private bool isArena;
 
-    public List<Enemy> ActiveEnemies
-    {
-        get { return activeEnemies; }
-    }
+   
 
     private void Start()
     {
@@ -51,6 +48,7 @@ public class EnemyManager : MonoBehaviour
     {
         activeEnemies.Remove(enemyToRemove);
         Debug.Log("Removed");
+        Debug.Log(activeEnemies);
         if(isArena && activeEnemies.Count == 0)
         {
             this.GetComponent<ArenaManager>().CombatEnd();
