@@ -6,12 +6,15 @@ public class SpiritSpawnPoint : MonoBehaviour
 {
     [SerializeField] private GameObject spiritPrefab;
     [SerializeField] private bool inEquilibrium;
+    [SerializeField] int spiritID;
 
     private Spirit spiritToSpawn;
 
-    private void Start()
+
+    private void Awake()
     {
         spiritToSpawn = spiritPrefab.GetComponentInChildren<Spirit>();
+        spiritToSpawn.spiritID = (Spirit.SpiritName)spiritID;
     }
 
     public void SpawnSpirit()
@@ -20,7 +23,8 @@ public class SpiritSpawnPoint : MonoBehaviour
         if ((SpiritCollected() && inEquilibrium) || (!SpiritCollected() && !inEquilibrium))
         {
             Debug.Log("Spawning Spirit");
-            Instantiate(spiritPrefab, this.transform.position, Quaternion.identity);
+            GameObject spirit = Instantiate(spiritPrefab, this.transform.position, Quaternion.identity);
+            spirit.GetComponentInChildren<Spirit>().spiritID = (Spirit.SpiritName)spiritID;
         }
 
     }

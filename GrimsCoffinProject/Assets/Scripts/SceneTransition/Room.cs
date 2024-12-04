@@ -16,7 +16,7 @@ public class Room : MonoBehaviour
     {
         if (!hasPlayer)
             this.gameObject.SetActive(false);
-        if (hasPlayer)
+        if (hasPlayer && this.GetComponent<EnemyManager>() != null)
         {
             this.GetComponent<EnemyManager>().SpawnEnemies();
         }

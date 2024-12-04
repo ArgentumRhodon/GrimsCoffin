@@ -20,10 +20,10 @@ public class EquilibriumPrompt : MonoBehaviour
         Time.timeScale = 1;
 
         if (insideEquilibrium)
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
 
         else
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
     }
 
     public void ToggleEnterPrompt()
