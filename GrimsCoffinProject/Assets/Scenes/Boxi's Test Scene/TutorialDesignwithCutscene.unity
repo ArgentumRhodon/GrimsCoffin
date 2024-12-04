@@ -9645,7 +9645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -34.14
+      value: -36.91
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10275,6 +10275,7 @@ GameObject:
   - component: {fileID: 8730293068174301322}
   - component: {fileID: 839663300714999645}
   - component: {fileID: 8730293068174301323}
+  - component: {fileID: 8730293068174301324}
   m_Layer: 0
   m_Name: Interaction Prompt Trigger
   m_TagString: Untagged
@@ -10300,7 +10301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1004791294727693520, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -34.14
+      value: -36.91
       objectReference: {fileID: 0}
     - target: {fileID: 1004791294727693520, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10360,7 +10361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7796081792188066066, guid: 6facea66d3ee8c348ba60a9565282288, type: 3}
       propertyPath: m_TrackedObjectOffset.y
-      value: 3.27
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10602,6 +10603,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraManager: {fileID: 2117058708}
+--- !u!114 &8730293068174301324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975032585314997316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4626a2fdd0355247a2bbbfe50b41ffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneName: CutScene
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
