@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -15,7 +16,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     //Rigidbody and player state
     public Rigidbody2D rb { get; private set; }
-    private PlayerStateList playerState;
+    public PlayerStateList playerState;
 
     //Timers
     public float LastOnGroundTime { get; private set; }
@@ -184,9 +185,6 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Attack Check
-        UpdateAttackVariables();
-
         //End sleep if moving after combo
         if (isSleeping)
             if (moveInput.x != 0)
@@ -225,8 +223,15 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerState.IsSliding)
             Slide();
 
+        //Attack Check
+        UpdateAttackVariables();
+
         animator_T.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
         animator_B.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+
+        /*CheckIdle();
+        if (playerState.IsIdle)
+            ResetPlayerOffset();*/
     }
 
     private void SetSpriteColors(Color color)
@@ -238,9 +243,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Input Methods ----------------------------------------------------------------------------------------------
     //Jump Input
     private void OnJump(InputValue value)
-    {       
-        if (isSleeping)
-            EndSleep();
+    {
+        /*if (isSleeping)
+            EndSleep();*/
 
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
         //Key Down, continue jumping
@@ -330,7 +335,7 @@ public class PlayerControllerForces : MonoBehaviour
             playerCombat.AttackCounter++;
             playerCombat.LastAttackTime = Data.attackBufferTime;
 
-            Debug.Log(playerCombat.AttackCounter);
+            //Debug.Log(playerCombat.AttackCounter);
 
             animator_T.SetFloat("comboRatio", playerCombat.AttackCounter / 4f);
             animator_T.SetFloat("comboRatio", playerCombat.AttackCounter / 4f);
@@ -463,6 +468,15 @@ public class PlayerControllerForces : MonoBehaviour
                 return;*/
         //Convert movement to a vector and apply it
         rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
+
+        //Center Camera
+        if (direction == 0)
+        {
+            ResetPlayerOffset();
+        }
+        else
+            CameraManager.Instance.StartScreenXOffset(0.2f * -direction, 0.2f);
+    
     }
 
     //Used for player direction
@@ -471,11 +485,12 @@ public class PlayerControllerForces : MonoBehaviour
         if (Time.timeScale == 0)
             return;
 
-        //Transform local scale of object
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
         playerState.IsFacingRight = !playerState.IsFacingRight;
+        float cameraOffset = Data.cameraOffset * -1;
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
 
         //Updates scale of UI so that it is always facing right
         Vector3 tempScale = interactionPrompt.gameObject.GetComponentInChildren<Canvas>().transform.localScale;
@@ -729,13 +744,12 @@ public class PlayerControllerForces : MonoBehaviour
         if (!isDashAttacking)
         {
             //Higher gravity if we've released the jump input or are falling
-                        if (playerCombat.IsAerialCombo)
-                        {
-                            SetGravityScale(0);
-                        }
-                        else
+            if (playerCombat.IsAerialCombo)
+            {
+                SetGravityScale(0);
+            }
             //No gravity if the player is sliding
-            if (playerState.IsSliding)
+            else if(playerState.IsSliding)
             {
                 SetGravityScale(0);
 
@@ -827,6 +841,21 @@ public class PlayerControllerForces : MonoBehaviour
                 || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)) && !playerState.IsWallJumping);
     }
 
+    private void CheckIdle()
+    {
+        if(!playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && !playerState.IsSliding && !playerState.IsWalking)
+            playerState.IsIdle = true;
+        else
+            playerState.IsIdle = false;
+    }
+
+    private void ResetPlayerOffset()
+    {
+        float dir = (playerState.IsFacingRight) ? 1 : -1;
+        float cameraOffset = Data.cameraOffset * dir;
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
+    }
+
     //Check direction that the player should face
     public void CheckDirectionToFace(bool isMovingRight)
     {
@@ -842,7 +871,6 @@ public class PlayerControllerForces : MonoBehaviour
             }
             else
                 Turn();
-
         }
     }
 
