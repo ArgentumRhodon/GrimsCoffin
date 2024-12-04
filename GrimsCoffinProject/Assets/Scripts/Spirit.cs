@@ -30,13 +30,12 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
-        if (spiritUI != null)
-        {
-            spiritUI.ShowSpiritCollectedText();
+        PlayerPrefs.SetInt((spiritID.ToString()), 1);
+       
+        spiritUI.ShowSpiritCollectedText();
 
-            Debug.Log("Spirit Collected: " + spiritID.ToString());
-            PlayerPrefs.SetInt(spiritID.ToString(), 1);
-            Destroy(this.gameObject.transform.parent.gameObject);
-        }         
+         //Debug.Log("Spirit Collected: " + spiritID.ToString());
+            
+         Destroy(this.gameObject.transform.parent.gameObject);       
     }
 }

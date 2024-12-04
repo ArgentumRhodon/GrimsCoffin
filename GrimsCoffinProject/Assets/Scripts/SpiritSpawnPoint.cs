@@ -25,12 +25,15 @@ public class SpiritSpawnPoint : MonoBehaviour
             Debug.Log("Spawning Spirit");
             GameObject spirit = Instantiate(spiritPrefab, this.transform.position, Quaternion.identity);
             spirit.GetComponentInChildren<Spirit>().spiritID = (Spirit.SpiritName)spiritID;
+            Debug.Log("SPIRIT ID: " + spirit.GetComponentInChildren<Spirit>().spiritID);
+
         }
 
     }
 
     private bool SpiritCollected()
     {
+        //Debug.Log(spiritToSpawn.spiritID.ToString());
         if (PlayerPrefs.GetInt(spiritToSpawn.spiritID.ToString()) == 1)
         {
             Debug.Log("Spirit Collected");
