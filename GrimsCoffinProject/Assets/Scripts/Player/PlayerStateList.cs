@@ -10,9 +10,6 @@ public class PlayerStateList : MonoBehaviour
     public bool IsWallJumping { get; set; }
     public bool IsDashing { get; set; }
     public bool IsSliding { get; set; }
-    public bool IsWalking {  get; set; }
-    public bool IsIdle { get; set; }
-   
 
 
 }

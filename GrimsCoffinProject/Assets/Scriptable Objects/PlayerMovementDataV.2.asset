@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: PlayerMovementDataV.2
   m_EditorClassIdentifier: 
   deadzone: 0.5
-  cameraOffset: 0.5
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -42,8 +41,8 @@ MonoBehaviour:
   wallJumpForce: {x: 13, y: 15}
   wallJumpRunLerp: 0
   wallJumpTime: 0.2
-  mustHoldWallToJump: 0
-  wallCoyoteTime: 0.1
+  mustHoldWallToJump: 1
+  wallCoyoteTime: 0.01
   doTurnOnWallJump: 1
   wallTurnBuffer: 0
   canDoubleJump: 1
@@ -53,7 +52,7 @@ MonoBehaviour:
   canSlide: 1
   slideSpeed: -20
   slideAccel: 1
-  coyoteTime: 0.2
+  coyoteTime: 0.491
   jumpInputBufferTime: 0.2
   canDash: 1
   dashAmount: 1
