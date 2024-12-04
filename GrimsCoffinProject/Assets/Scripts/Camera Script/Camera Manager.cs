@@ -1,5 +1,6 @@
 using Cinemachine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -8,21 +9,14 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineBrain CameraControl;
     [SerializeField] private float deadzone;
     private CinemachineFramingTransposer VCamFramingTransposer;
-
-    private Coroutine xTransitionCoroutine;
-    private Coroutine yTransitionCoroutine;
+    private Coroutine transitionCoroutine;
 
     public float Deadzone
     {
         get { return deadzone; }
     }
 
-    public CinemachineVirtualCamera VCam
-    {
-        get { return Vcam; }
-    }
-
-    public static CameraManager Instance;
+    public static CameraManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -30,6 +24,7 @@ public class CameraManager : MonoBehaviour
         {
             Destroy(this);
         }
+
         else
         {
             Instance = this;
@@ -47,104 +42,64 @@ public class CameraManager : MonoBehaviour
         Reset();
     }
 
-    private void Update()
+
+
+    public void LookDown()
     {
-        /*if (PlayerControllerForces.Instance != null)
-        {
-            if (!PlayerControllerForces.Instance.playerState.IsFacingRight)
-            {
-                Vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.x *= -1;
-            }
-            else
-            {
-                Vcam.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.x *= -1;
-            }
-        }*/
+        float targetScreenY = 0.25f;
+        StartScreenYTransition(targetScreenY, 0.1f);
     }
 
     public void LookUp()
     {
-        StartScreenYOffset(4.5f, 0.2f);
-        //Debug.Log("Up");
-    }
-
-    public void LookDown()
-    {
-        StartScreenYOffset(-4.5f, 0.2f);
-        //Debug.Log("Down");
+        float targetScreenY = 0.75f;
+        StartScreenYTransition(targetScreenY, 0.1f);
     }
 
     public void Reset()
     {
-        StartScreenYOffset(0.5f, 0.2f);
-        //Debug.Log("Reset");
+        float targetScreenY = 0.5f;
+        StartScreenYTransition(targetScreenY, 0.1f);
     }
 
-    public void ChangeCamera(CinemachineVirtualCamera Cam)
+    public void ChangeCamera(CinemachineVirtualCamera Cam) 
     {
         CameraControl.ActiveVirtualCamera.Priority = 9;
         Cam.Priority = 10;
     }
-
     public void CameraReset()
     {
         CameraControl.ActiveVirtualCamera.Priority = 9;
         Vcam.Priority = 10;
     }
 
-    public void StartScreenXOffset(float targetOffsetX, float duration)
+
+
+    private void StartScreenYTransition(float targetScreenY, float duration)
     {
-        if (xTransitionCoroutine != null)
+        if (transitionCoroutine != null)
         {
-            StopCoroutine(xTransitionCoroutine);
+            StopCoroutine(transitionCoroutine);
         }
-        xTransitionCoroutine = StartCoroutine(ScreenXOffsetCoroutine(targetOffsetX, duration));
+        transitionCoroutine = StartCoroutine(ScreenYTransitionCoroutine(targetScreenY, duration));
     }
 
-    private IEnumerator ScreenXOffsetCoroutine(float targetScreenX, float duration)
+    private IEnumerator ScreenYTransitionCoroutine(float targetScreenY, float duration)
     {
-        float initialScreenX = VCamFramingTransposer.m_TrackedObjectOffset.x;
+        float initialScreenY = VCamFramingTransposer.m_ScreenY;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
-            t = t * t * (3f - 2f * t); 
+            t = t * t * (3f - 2f * t);
 
-            VCamFramingTransposer.m_TrackedObjectOffset.x = Mathf.Lerp(initialScreenX, targetScreenX, t);
+            VCamFramingTransposer.m_ScreenY = Mathf.Lerp(initialScreenY, targetScreenY, t);
             yield return null;
         }
 
-        VCamFramingTransposer.m_TrackedObjectOffset.x = targetScreenX;
-        xTransitionCoroutine = null;
-    }
-
-    public void StartScreenYOffset(float targetOffsetY, float duration)
-    {
-        if (yTransitionCoroutine != null)
-        {
-            StopCoroutine(yTransitionCoroutine);
-        }
-        yTransitionCoroutine = StartCoroutine(ScreenYOffsetCoroutine(targetOffsetY, duration));
-    }
-
-    private IEnumerator ScreenYOffsetCoroutine(float targetScreenY, float duration)
-    {
-        float initialScreenY = VCamFramingTransposer.m_TrackedObjectOffset.y;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / duration);
-            t = t * t * (3f - 2f * t); 
-
-            VCamFramingTransposer.m_TrackedObjectOffset.y = Mathf.Lerp(initialScreenY, targetScreenY, t);
-            yield return null;
-        }
-
-        VCamFramingTransposer.m_TrackedObjectOffset.y = targetScreenY;
-        yTransitionCoroutine = null;
+        VCamFramingTransposer.m_ScreenY = targetScreenY;
+        transitionCoroutine = null;
     }
 }
