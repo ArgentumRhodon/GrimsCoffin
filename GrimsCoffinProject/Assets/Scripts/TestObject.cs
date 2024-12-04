@@ -19,6 +19,6 @@ public class TestObject : Interactable
 
     public override void PerformInteraction()
     {
-        
+
     }
 }
