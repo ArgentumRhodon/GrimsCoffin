@@ -9,7 +9,8 @@ public enum InteractionName
     Attack,
     Interact,
     Ability,
-    Dash
+    Dash,
+    Look
 }
 public class PromptTrigger : MonoBehaviour
 {
