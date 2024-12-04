@@ -7,14 +7,21 @@ public class PlayerCombat : MonoBehaviour
 {
     private CStateMachine meleeStateMachine;
     private PlayerStateList playerState;
+    public PlayerData Data;
 
     public Collider2D hitbox;
     public Animator scytheAnimator;
 
+    // Player Animation Stuff
+    public Animator animator_T; // Top
+    public Animator animator_B; // Bottom
+
     //Timers
     public float attackPressedTimer = 0;
     public float LastComboTime { get; set; }
-    public float LastAttackTime { get; set; }
+    [SerializeField] private float lastAttackTime; 
+    
+    public float LastAttackTime { get { return lastAttackTime; } set { lastAttackTime = value; } }
 
     //Attack
     private bool canAerialCombo;
@@ -44,6 +51,7 @@ public class PlayerCombat : MonoBehaviour
         meleeStateMachine = GetComponent<CStateMachine>();
         canAerialCombo = true;
         playerState = GetComponent<PlayerStateList>();
+        Data = GetComponent<PlayerControllerForces>().Data;
 
         if (scytheAnimator == null)
         {
@@ -73,13 +81,14 @@ public class PlayerCombat : MonoBehaviour
             if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
             {
                 meleeStateMachine.SetNextState(new MeleeEntryState());
-                attackPressedTimer = 1f;
+                attackPressedTimer = 1.4f;
+                LastAttackTime = Data.attackBufferTime;
             }
             //If not idle, register attack to move to next state
             else if (attackPressedTimer > 0)
             {
                 meleeStateMachine.RegisteredAttack = true;
-                attackPressedTimer = 1f;
+                LastAttackTime = Data.attackBufferTime;
             }
         }
     }

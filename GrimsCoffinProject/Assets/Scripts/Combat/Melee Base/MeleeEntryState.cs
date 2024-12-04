@@ -10,10 +10,14 @@ public class MeleeEntryState : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 0;
-        duration = 0.2f;
+        duration = .35f;
         animator.SetTrigger("Attack");
-        animator.SetFloat("comboRatio", attackIndex / 4f);
-        //Debug.Log("Attack" + attackIndex);
+        animator.SetFloat("comboRatio", attackIndex / 3f);
+        playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
+        playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
+        playerAnimator_T.SetTrigger("Attack");
+        playerAnimator_B.SetTrigger("Attack");
+        Debug.Log("Attack" + attackIndex);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
@@ -22,6 +26,7 @@ public class MeleeEntryState : MeleeBaseState
 
         //Check timing to see if the player should combo or not
         if (fixedtime >= duration)
+        //if(playerCombat.LastAttackTime > 0)
         {
             if (shouldCombo && _stateMachine.RegisteredAttack)
             {

@@ -10,10 +10,14 @@ public class MeleeCombo2 : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 2;
-        duration = 0.2f;
+        duration = .35f;
         animator.SetTrigger("Attack");
-        animator.SetFloat("comboRatio", attackIndex / 4f);
-        //Debug.Log("Player Attack " + attackIndex);
+        animator.SetFloat("comboRatio", attackIndex / 3f);
+        playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
+        playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
+        playerAnimator_T.SetTrigger("Attack");
+        playerAnimator_B.SetTrigger("Attack");
+        Debug.Log("Player Attack " + attackIndex);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
@@ -21,7 +25,9 @@ public class MeleeCombo2 : MeleeBaseState
         base.OnUpdate(_stateMachine);
 
         if (fixedtime >= duration)
+        //if (playerCombat.LastAttackTime > 0)
         {
+            Debug.Log(_stateMachine.RegisteredAttack);
             if (shouldCombo && _stateMachine.RegisteredAttack)
             {
                 stateMachine.SetNextState(new MeleeFinisherState());

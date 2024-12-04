@@ -328,14 +328,10 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerCombat.LastComboTime < 0) {
             //Combo attack counter
             playerCombat.AttackCounter++;
-            playerCombat.LastAttackTime = Data.attackBufferTime;
+           /* playerCombat.LastAttackTime = Data.attackBufferTime;*/
 
             //Debug.Log(playerCombat.AttackCounter);
-
-            animator_T.SetFloat("comboRatio", playerCombat.AttackCounter / 4f);
-            animator_T.SetFloat("comboRatio", playerCombat.AttackCounter / 4f);
-            animator_T.SetTrigger("Attack");
-            animator_B.SetTrigger("Attack");
+            
 
             //Aerial attack
             if (!Grounded())
@@ -347,13 +343,6 @@ public class PlayerControllerForces : MonoBehaviour
                     EndSleep();
                     Sleep(Data.comboSleepTime);
                 }
-            }
-
-            //Reset combo attack counter after a time delay
-            if (playerCombat.AttackCounter >= 4)
-            {
-                playerCombat.LastComboTime = Data.comboSleepTime;
-                playerCombat.AttackCounter = 0;
             }
         }
     }
@@ -698,6 +687,14 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void UpdateAttackVariables()
     {
+/*        //Reset combo attack counter after a time delay
+        if (playerCombat.AttackCounter >= Data.comboTotal)
+        {
+            playerCombat.LastComboTime = Data.comboSleepTime;
+            playerCombat.AttackCounter = 0;
+        }
+*/
+        //If player is in the air, check to reset the aerial combo
         if (playerCombat.IsAerialCombo)
         {
             if (playerCombat.LastAttackTime < 0)
