@@ -10,7 +10,10 @@ public class Spirit : Interactable
 
     public enum SpiritName
     {
-        Test = 0,
+        Spirit1 = 1,
+        Spirit2 = 2,
+        Spirit3 = 3,
+        Spirit4 = 4,
     }
 
     // Start is called before the first frame update
@@ -28,10 +31,14 @@ public class Spirit : Interactable
     public override void PerformInteraction()
     {
         if (spiritUI != null)
+        {
+            PlayerPrefs.SetInt((spiritID.ToString()), 1);
+
             spiritUI.ShowSpiritCollectedText();
-        
-        Debug.Log("Spirit Collected: " + spiritID.ToString());
-        PlayerPrefs.SetInt(spiritID.ToString(), 1);
-        Destroy(this.gameObject.transform.parent.gameObject);
+
+            //Debug.Log("Spirit Collected: " + spiritID.ToString());
+
+            Destroy(this.gameObject.transform.parent.gameObject);
+        } 
     }
 }

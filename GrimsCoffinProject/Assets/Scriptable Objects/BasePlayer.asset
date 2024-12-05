@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e01a605844dfe4f8f76d1eb38b81a5, type: 3}
   m_Name: BasePlayer
   m_EditorClassIdentifier: 
+  deadzone: 0
   gravityStrength: -28
   gravityScale: 2.8542302
   fallGravityMult: 2
@@ -26,6 +27,7 @@ MonoBehaviour:
   accelInAir: 1
   deccelInAir: 1
   doConserveMomentum: 0
+  canJump: 0
   jumpHeight: 3.5
   jumpTimeToApex: 0.5
   jumpForce: 14
@@ -34,15 +36,25 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
+  canWallJump: 0
+  canWallJumpCancel: 0
   wallJumpForce: {x: 10, y: 14}
   wallJumpRunLerp: 0.1
   wallJumpTime: 0.3
+  mustHoldWallToJump: 0
+  wallCoyoteTime: 0.01
   doTurnOnWallJump: 0
-  doubleJumpMultiplier: 0.75
+  wallTurnBuffer: 0
+  canDoubleJump: 0
+  resetJumpOnWall: 0
+  extraJumpMultiplier: 0
+  maxAirJumps: 0
+  canSlide: 0
   slideSpeed: -0.75
   slideAccel: 0.25
   coyoteTime: 0.2
   jumpInputBufferTime: 0.2
+  canDash: 0
   dashAmount: 1
   dashSpeed: 35
   dashSleepTime: 0.05
@@ -52,3 +64,9 @@ MonoBehaviour:
   dashEndRunLerp: 0.5
   dashRefillTime: 0.3
   dashInputBufferTime: 0.1
+  canAttack: 0
+  comboSleepTime: 0
+  attackBufferTime: 0
+  comboBufferTime: 0
+  comboTotal: 0
+  aerialForce: 0
