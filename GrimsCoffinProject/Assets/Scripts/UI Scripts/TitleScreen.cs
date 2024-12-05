@@ -69,4 +69,11 @@ public class TitleScreen : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(start);
 
     }
+    public void ResetData()
+    {
+        PlayerPrefs.SetInt("Spirit1", 0);
+        PlayerPrefs.SetInt("Spirit2", 0);
+        PlayerPrefs.SetInt("Spirit3", 0);
+        PlayerPrefs.SetInt("Spirit4", 0);
+    }
 }
