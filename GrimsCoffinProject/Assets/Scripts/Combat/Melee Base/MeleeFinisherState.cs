@@ -28,8 +28,7 @@ public class MeleeFinisherState : MeleeBaseState
         //if (playerCombat.LastAttackTime > 0)
         {
             stateMachine.SetNextStateToMain();
-            playerCombat.LastComboTime = playerCombat.Data.comboSleepTime;
-            playerCombat.AttackCounter = 0;
+            playerCombat.ResetCombo();
         }
     }
 }
