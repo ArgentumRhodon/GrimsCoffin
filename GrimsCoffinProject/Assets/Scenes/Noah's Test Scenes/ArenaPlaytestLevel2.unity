@@ -1024,6 +1024,10 @@ PrefabInstance:
       propertyPath: maxSP
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1960859601187753200, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+      propertyPath: currentHP
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.601776
@@ -1351,8 +1355,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 916537071340474138, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 916537071340474138, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: orthographic size
       value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 916537071340474138, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.6981132
+      objectReference: {fileID: 0}
+    - target: {fileID: 916537071340474138, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.55523413
+      objectReference: {fileID: 0}
+    - target: {fileID: 916537071340474138, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.46431115
       objectReference: {fileID: 0}
     - target: {fileID: 1933030890750523246, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_RenderPostProcessing
@@ -2981,7 +3001,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.56078434, g: 0.95686275, b: 1, a: 1}
   m_Origin: {x: -56, y: -80, z: 0}
   m_Size: {x: 507, y: 119, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -107995,7 +108015,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5613208, g: 0.9571848, b: 1, a: 1}
   m_Origin: {x: -56, y: -80, z: 0}
   m_Size: {x: 507, y: 119, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
