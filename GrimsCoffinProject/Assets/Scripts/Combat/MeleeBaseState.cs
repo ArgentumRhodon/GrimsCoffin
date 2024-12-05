@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,16 @@ public class MeleeBaseState : CState
     [SerializeField] protected float duration;
     protected Animator animator;
 
+    // Player Animation Stuff
+    protected Animator playerAnimator_T; // Top
+    protected Animator playerAnimator_B; // Bottom
+
     //Bool to check if it should continue the combo or not
     protected bool shouldCombo; 
     //Index of sequence in attack
     protected int attackIndex;
 
+    protected PlayerCombat playerCombat;
 
 
     //Cached hit collider component of this attack
@@ -24,27 +30,30 @@ public class MeleeBaseState : CState
     public override void OnEnter(CStateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
-        animator = _stateMachine.GetComponent<PlayerCombat>().scytheAnimator;
+        playerCombat = _stateMachine.GetComponent<PlayerCombat>();
+        animator = playerCombat.scytheAnimator;
+        playerAnimator_T = playerCombat.animator_T;
+        playerAnimator_B = playerCombat.animator_B;
         collidersDamaged = new List<Collider2D>();
-        hitCollider = _stateMachine.GetComponent<PlayerCombat>().hitbox;
+        hitCollider = playerCombat.hitbox;
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
     {
         base.OnUpdate(_stateMachine);
-        _stateMachine.GetComponent<PlayerCombat>().attackPressedTimer -= Time.deltaTime;
+        //_stateMachine.GetComponent<PlayerCombat>().attackPressedTimer -= Time.deltaTime;
 
-/*        if (animator.GetFloat("Weapon.Active") > 0f)
-        {
-            Attack();
-        }*/
+        /*        if (animator.GetFloat("Weapon.Active") > 0f)
+                {
+                    Attack();
+                }*/
 
-/*        if (animator.GetFloat("AttackWindow.Open") > 0f)
-        {
-            shouldCombo = true;
-        }*/
-
-        if (_stateMachine.GetComponent<PlayerCombat>().attackPressedTimer > 0f)
+        /*        if (animator.GetFloat("AttackWindow.Open") > 0f)
+                {
+                    shouldCombo = true;
+                }*/
+        //Debug.Log(_stateMachine.GetComponent<PlayerCombat>().LastAttackTime);
+        if (_stateMachine.GetComponent<PlayerCombat>().LastAttackTime > 0f)
         {
             shouldCombo = true;
             Attack();

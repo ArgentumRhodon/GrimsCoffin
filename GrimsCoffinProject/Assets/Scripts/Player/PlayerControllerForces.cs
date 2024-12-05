@@ -196,7 +196,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Handle player walking, make sure the player doesn't walk while dashing
         if (!isSleeping)
         {
-            if (!playerState.IsDashing)
+            if (!playerState.IsDashing && !playerState.IsAttacking)
             {
                 if (playerState.IsWallJumping)
                     Walk(Data.wallJumpRunLerp);
@@ -206,6 +206,10 @@ public class PlayerControllerForces : MonoBehaviour
             else if (isDashAttacking)
             {
                 Walk(Data.dashEndRunLerp);
+            }
+            if(playerState.IsAttacking && Grounded())
+            {
+                Walk(1);
             }
         }
 
@@ -257,7 +261,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         //Make sure the player is not dashing
-        if (!playerState.IsDashing && value.isPressed)
+        if (!playerState.IsDashing && !playerState.IsAttacking && value.isPressed)
         {
             //Jump
             if (CanJump() && LastPressedJumpTime > 0)
@@ -267,6 +271,10 @@ public class PlayerControllerForces : MonoBehaviour
                 playerState.IsWallJumping = false;
                 isJumpCancel = false;
                 isJumpFalling = false;
+
+                //If mid attack, stop the combo
+                if (playerCombat.LastAttackTime > 0)
+                    EndCombo();
 
                 Jump();
             }
@@ -287,6 +295,10 @@ public class PlayerControllerForces : MonoBehaviour
                 if (!Data.resetJumpOnWall) 
                     airJumpCounter = Data.maxAirJumps;
 
+                //If mid attack, stop the combo
+                if (playerCombat.LastAttackTime > 0)
+                    EndCombo();
+
                 WallJump(lastWallJumpDir);
             }
             //Double jump
@@ -300,6 +312,10 @@ public class PlayerControllerForces : MonoBehaviour
 
                 //Add to jump counter
                 airJumpCounter++;
+
+                //If mid attack, stop the combo
+                if (playerCombat.LastAttackTime > 0)
+                    EndCombo();
 
                 Jump();
             }
@@ -328,7 +344,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerCombat.LastComboTime < 0) {
             //Combo attack counter
             playerCombat.AttackCounter++;
-            playerCombat.LastAttackTime = Data.attackBufferTime;
+           /* playerCombat.LastAttackTime = Data.attackBufferTime;*/
 
             Debug.Log(playerCombat.AttackCounter);
 
@@ -345,15 +361,24 @@ public class PlayerControllerForces : MonoBehaviour
                     //Debug.Log(playerCombat.AttackCounter > 1);
                     playerCombat.IsAerialCombo = true;
                     EndSleep();
-                    Sleep(Data.comboSleepTime);
+
+                    if (playerCombat.AttackCounter != Data.comboTotal)
+                        Sleep(Data.comboSleepTime);
+                    else
+                        Sleep(Data.comboSleepTime/2);
                 }
             }
-
-            //Reset combo attack counter after a time delay
-            if (playerCombat.AttackCounter >= 4)
+            else
             {
-                playerCombat.LastComboTime = Data.comboSleepTime;
-                playerCombat.AttackCounter = 0;
+                //Potential ground combat hitstop
+
+/*                if (playerCombat.AttackCounter == Data.comboTotal)
+                    Sleep(Data.comboSleepTime / 2);
+                else if (playerCombat.AttackCounter > 2)
+                {
+                    EndSleep();
+                    Sleep(Data.comboSleepTime);
+                }*/
             }
         }
     }
@@ -563,6 +588,9 @@ public class PlayerControllerForces : MonoBehaviour
         LastOnGroundTime = 0;
         LastPressedDashTime = 0;
 
+        //Reset gravity
+        SetGravityScale(1);
+
         //Start time of the dash
         float startTime = Time.time;
 
@@ -592,6 +620,12 @@ public class PlayerControllerForces : MonoBehaviour
             //Pauses the loop until the next frame
             yield return null;
         }
+
+/*                //Offset force 
+        float force = Data.jumpForce;
+        force = OffsetForce(force);
+
+        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);*/
 
         startTime = Time.time;
         isDashAttacking = false;
@@ -666,6 +700,11 @@ public class PlayerControllerForces : MonoBehaviour
             else
                 lastDashDir = playerState.IsFacingRight ? Vector2.right : Vector2.left;
 
+            //If mid attack, stop the combo
+            if (playerCombat.LastAttackTime > 0)
+                EndCombo();
+
+            //Set states
             playerState.IsDashing = true;
             playerState.IsJumping = false;
             playerState.IsWallJumping = false;
@@ -698,11 +737,17 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void UpdateAttackVariables()
     {
+        if(playerCombat.LastAttackTime > 0)
+            playerState.IsAttacking = true;
+        else
+            playerState.IsAttacking = false;
+
+        //If player is in the air, check to reset the aerial combo
         if (playerCombat.IsAerialCombo)
         {
             if (playerCombat.LastAttackTime < 0)
             {
-                playerCombat.LastComboTime = Data.comboSleepTime;
+                playerCombat.ResetCombo();
 
                 playerCombat.CanAerialCombo = false;
                 playerCombat.IsAerialCombo = false;
@@ -827,6 +872,21 @@ public class PlayerControllerForces : MonoBehaviour
                 || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)) && !playerState.IsWallJumping);
     }
 
+    private void CheckIdle()
+    {
+        if(!playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && !playerState.IsSliding && !playerState.IsWalking && !playerState.IsAttacking)
+            playerState.IsIdle = true;
+        else
+            playerState.IsIdle = false;
+    }
+
+    private void ResetPlayerOffset()
+    {
+        float dir = (playerState.IsFacingRight) ? 1 : -1;
+        float cameraOffset = Data.cameraOffset * dir;
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
+    }
+
     //Check direction that the player should face
     public void CheckDirectionToFace(bool isMovingRight)
     {
@@ -861,12 +921,12 @@ public class PlayerControllerForces : MonoBehaviour
     //Checks for jump states
     private bool CanJump()
     {
-        return Data.canJump && LastOnGroundTime > 0 && !playerState.IsJumping;
+        return Data.canJump && LastOnGroundTime > 0 && !playerState.IsJumping && CanBreakCombo();
     }
 
     private bool CanWallJump()
     {
-        if (Data.canWallJump)
+        if (Data.canWallJump && CanBreakCombo())
         {
             if (Data.mustHoldWallToJump)
             {
@@ -891,8 +951,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     private bool CanDoubleJump()
     {
-        //Debug.Log("Air: " + airJumpCounter + ". Max: " + maxAirJumps + "!Grounded(): " + !Grounded());
-        return Data.canDoubleJump && Data.canDoubleJump && airJumpCounter < Data.maxAirJumps && !Grounded(); //&& isAerialCombo;
+        return Data.canDoubleJump && Data.canDoubleJump && airJumpCounter < Data.maxAirJumps && !Grounded() && CanBreakCombo();
     }
 
     //Checks for jump cancel
@@ -909,7 +968,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Check for Dash state
     private bool CanDash()
     {
-        if (Data.canDash)
+        if (Data.canDash && CanBreakCombo())
         {
             if (!playerState.IsDashing && dashesLeft < Data.dashAmount && LastOnGroundTime > 0 && !dashRefilling) //(LastOnGroundTime > 0 || OnWall())
             {
@@ -920,6 +979,19 @@ public class PlayerControllerForces : MonoBehaviour
         }
         else 
             return false;
+    }
+
+    private bool CanBreakCombo(float breakMult = 9/10f)
+    {
+        //Debug.Log(Data.attackBufferTime);
+        return playerCombat.LastAttackTime < Data.attackBufferTime * breakMult;
+    }
+
+    private void EndCombo()
+    {
+        playerCombat.ResetCombo();
+        EndSleep();
+        //rb.velocity = Vector2.zero;
     }
 
     //Check to see if the player is on the wall and is sliding
@@ -965,6 +1037,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Method to stop the coroutine from running 
         StopCoroutine(nameof(PerformSleep));
         SetGravityScale(1);
+        //rb.velocity = Vector2.zero;
         isSleeping = false;
     }
 

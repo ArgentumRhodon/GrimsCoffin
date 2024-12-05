@@ -31,83 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4894866827985537568}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2372034098364147713
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8782363810017068422}
-  - component: {fileID: 1980135757057900548}
-  m_Layer: 0
-  m_Name: Hitbox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8782363810017068422
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2372034098364147713}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.837, y: -0.153, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3644147072456269995}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1980135757057900548
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2372034098364147713}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.030176401, y: -0.05307722}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.897325, y: 1.7696214}
-  m_EdgeRadius: 0
 --- !u!1 &4778124298218969766
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +73,7 @@ GameObject:
   - component: {fileID: 3644147072456269995}
   - component: {fileID: 6355982355014223675}
   - component: {fileID: 4929932698530573072}
+  - component: {fileID: 7568753305882926414}
   m_Layer: 0
   m_Name: Scythe
   m_TagString: Untagged
@@ -169,8 +93,7 @@ Transform:
   m_LocalPosition: {x: -0.375, y: -0.187, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8782363810017068422}
+  m_Children: []
   m_Father: {fileID: 4894866827985537568}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6355982355014223675
@@ -246,6 +169,51 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &7568753305882926414
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5297061223688076639}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.9666193, y: -0.2030772}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3, y: 3}
+    newSize: {x: 3, y: 3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.096211, y: 1.7696214}
+  m_EdgeRadius: 0
 --- !u!1 &5754731874771024280
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +364,6 @@ MonoBehaviour:
   invincibilityTimer: 0
   hasInvincibility: 0
   interactionPrompt: {fileID: 4303321463941137360}
-  canInteract: 0
 --- !u!114 &5297759798866308537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,9 +439,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b33bab15da98234996f94a9ac3aff78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 1980135757057900548}
+  Data: {fileID: 0}
+  hitbox: {fileID: 7568753305882926414}
   scytheAnimator: {fileID: 4929932698530573072}
+  animator_T: {fileID: 8317159216238193831}
+  animator_B: {fileID: 3128556383560729049}
   attackPressedTimer: 0
+  lastAttackTime: 0
 --- !u!114 &3338551163740125992
 MonoBehaviour:
   m_ObjectHideFlags: 0

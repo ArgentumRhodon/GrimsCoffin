@@ -1161,6 +1161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseScript: {fileID: 328030540}
+  equilibriumPrompt: {fileID: 0}
   deathScreen: {fileID: 0}
   lowHealthVignette: {fileID: 0}
   damageVignette: {fileID: 0}
@@ -1526,11 +1527,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7084655446754543120, guid: de664976753e3124f9024b5d608c9aa1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3.8599854
+      value: 3.8598633
       objectReference: {fileID: 0}
     - target: {fileID: 7084655446754543120, guid: de664976753e3124f9024b5d608c9aa1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.8599854
+      value: -3.8598633
       objectReference: {fileID: 0}
     - target: {fileID: 7084655446754543120, guid: de664976753e3124f9024b5d608c9aa1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2170,6 +2171,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454257556}
   m_CullTransparentMesh: 1
+--- !u!95 &463958383 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8317159216238193831, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+  m_PrefabInstance: {fileID: 491838782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &465914408
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,6 +2322,14 @@ PrefabInstance:
       propertyPath: Data
       value: 
       objectReference: {fileID: 11400000, guid: 56db3d8cbea456748a72ec4714f32446, type: 2}
+    - target: {fileID: 3908579556561913604, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+      propertyPath: animator_B
+      value: 
+      objectReference: {fileID: 1710162240}
+    - target: {fileID: 3908579556561913604, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+      propertyPath: animator_T
+      value: 
+      objectReference: {fileID: 463958383}
     - target: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.601776
@@ -4493,17 +4507,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1055734401}
   m_SourcePrefab: {fileID: 100100000, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
---- !u!114 &936170979 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5161707832729600314, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
-  m_PrefabInstance: {fileID: 936170978}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1055734398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6867ba73de2fb2b429d464b517174d8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!20 &936170980 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 916537071340474138, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
@@ -7321,6 +7324,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660693783}
   m_CullTransparentMesh: 1
+--- !u!95 &1710162240 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3128556383560729049, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+  m_PrefabInstance: {fileID: 491838782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1720189467
 GameObject:
   m_ObjectHideFlags: 0
@@ -31784,7 +31792,7 @@ PrefabInstance:
     - target: {fileID: 3382586989326072763, guid: cfa77973ef756a04aa080487dd2dab61, type: 3}
       propertyPath: mainCam
       value: 
-      objectReference: {fileID: 936170979}
+      objectReference: {fileID: 0}
     - target: {fileID: 3382586989326072763, guid: cfa77973ef756a04aa080487dd2dab61, type: 3}
       propertyPath: outDoor
       value: 
