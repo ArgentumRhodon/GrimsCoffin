@@ -96,6 +96,7 @@ public class PlayerCombat : MonoBehaviour
     public void ResetCombo()
     {
         LastComboTime = Data.comboSleepTime;
+        //LastAttackTime = 0;
         AttackCounter = 0;
     }
 }
