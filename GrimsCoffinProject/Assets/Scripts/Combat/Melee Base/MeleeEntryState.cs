@@ -17,7 +17,7 @@ public class MeleeEntryState : MeleeBaseState
         playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetTrigger("Attack");
         playerAnimator_B.SetTrigger("Attack");
-        Debug.Log("Attack" + attackIndex);
+        //Debug.Log("Attack" + attackIndex);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

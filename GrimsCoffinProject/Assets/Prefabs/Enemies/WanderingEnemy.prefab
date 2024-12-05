@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2099945926181616736}
   - component: {fileID: 5538462227444751791}
   - component: {fileID: 1173121043766967824}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AirChecker
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,6 +93,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  checkForPlayer: 0
 --- !u!1 &3549309189933215741
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,9 +105,9 @@ GameObject:
   - component: {fileID: 611994569677329174}
   - component: {fileID: 8676923370421229510}
   - component: {fileID: 1886048952643663415}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallChecker
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,8 +121,8 @@ Transform:
   m_GameObject: {fileID: 3549309189933215741}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.61, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.9106249, z: 1}
+  m_LocalPosition: {x: 0.61, y: 0.118, z: 0}
+  m_LocalScale: {x: 0.3, y: 1.0762944, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8118269365197450966}
@@ -186,6 +187,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  checkForPlayer: 1
 --- !u!1 &5040207954117929056
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +199,7 @@ GameObject:
   - component: {fileID: 9130563791093799290}
   - component: {fileID: 3586887203461140376}
   - component: {fileID: 537033287070866992}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBarBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +275,7 @@ GameObject:
   - component: {fileID: 3407560699989084000}
   - component: {fileID: 7002027812155477713}
   - component: {fileID: 2154996361825490015}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2766081874273627958}
   - component: {fileID: 2324798841581014839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpriteGFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +436,7 @@ GameObject:
   - component: {fileID: 6768535377640168006}
   - component: {fileID: 8087008519769217846}
   - component: {fileID: 8690353384279187548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WanderingEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -583,7 +585,7 @@ GameObject:
   - component: {fileID: 6300002166680873610}
   - component: {fileID: 6415240362883771926}
   - component: {fileID: 3595105039798285725}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6,6 +6,7 @@ using UnityEngine;
 public class GroundChecker : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private bool checkForPlayer;
 
     private bool isColliding = true;
     public bool IsColliding
@@ -16,8 +17,12 @@ public class GroundChecker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.tag);
-        if (collision.gameObject.layer == 3 || collision.tag == "Enemy")
+        //Debug.Log(collision.CompareTag("Enemy"));
+        if (collision.gameObject.layer == 3)
+        {
+            IsColliding = true;
+        }
+        if(checkForPlayer && collision.gameObject.tag == "Enemy")
         {
             IsColliding = true;
         }
@@ -26,7 +31,12 @@ public class GroundChecker : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         //3 is the layer for ground
-        if (collision.gameObject.layer == 3 || collision.tag == "Enemy")
+        //Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.layer == 3)
+        {
+            IsColliding = false;
+        }
+        if (checkForPlayer && collision.gameObject.tag == "Enemy")
         {
             IsColliding = false;
         }
@@ -34,7 +44,12 @@ public class GroundChecker : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 3 || collision.tag == "Enemy")
+        //Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.layer == 3)
+        {
+            IsColliding = true;
+        }
+        if (checkForPlayer && collision.gameObject.tag == "Enemy")
         {
             IsColliding = true;
         }

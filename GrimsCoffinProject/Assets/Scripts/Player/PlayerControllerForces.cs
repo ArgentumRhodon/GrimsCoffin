@@ -124,6 +124,7 @@ public class PlayerControllerForces : MonoBehaviour
         SetGravityScale(Data.gravityScale);
 
         playerState.IsFacingRight = true;
+        playerState.IsIdle = true;
         //canAerialCombo = true;
         isSleeping = false;
 
@@ -203,10 +204,6 @@ public class PlayerControllerForces : MonoBehaviour
                 else
                     Walk(1);
             }
-            else if (isDashAttacking)
-            {
-                Walk(Data.dashEndRunLerp);
-            }
             if(playerState.IsAttacking && Grounded())
             {
                 Walk(1);
@@ -231,6 +228,13 @@ public class PlayerControllerForces : MonoBehaviour
 
         animator_T.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
         animator_B.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+
+        CheckIdle();     
+        if (playerState.IsIdle)
+        {
+            ResetPlayerOffset();         
+        }
+            
     }
 
     private void SetSpriteColors(Color color)
@@ -242,10 +246,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Input Methods ----------------------------------------------------------------------------------------------
     //Jump Input
     private void OnJump(InputValue value)
-    {       
-        if (isSleeping)
-            EndSleep();
-
+    {
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
         //Key Down, continue jumping
         if (value.isPressed)
@@ -261,6 +262,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         //Make sure the player is not dashing
+        //Debug.Log(playerState.IsAttacking);
         if (!playerState.IsDashing && !playerState.IsAttacking && value.isPressed)
         {
             //Jump
@@ -343,15 +345,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Do not hit during combo
         if (playerCombat.LastComboTime < 0) {
             //Combo attack counter
-            playerCombat.AttackCounter++;
-           /* playerCombat.LastAttackTime = Data.attackBufferTime;*/
-
-            Debug.Log(playerCombat.AttackCounter);
-
-            animator_T.SetFloat("comboRatio", playerCombat.AttackCounter / 4f);
-            animator_T.SetFloat("comboRatio", playerCombat.AttackCounter / 4f);
-            animator_T.SetTrigger("Attack");
-            animator_B.SetTrigger("Attack");
+            playerCombat.AttackCounter++;    
 
             //Aerial attack
             if (!Grounded())
@@ -370,8 +364,7 @@ public class PlayerControllerForces : MonoBehaviour
             }
             else
             {
-                //Potential ground combat hitstop
-
+                //Potential ground combat hitstop - NEEDS FIXING
 /*                if (playerCombat.AttackCounter == Data.comboTotal)
                     Sleep(Data.comboSleepTime / 2);
                 else if (playerCombat.AttackCounter > 2)
@@ -385,7 +378,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     public void OnCameraLook(InputValue value)
     {
-        Debug.Log("Camera Look " + value);
+        //Debug.Log("Camera Look " + value.Get<Vector2>().y);
         if (value.Get<Vector2>().y > CameraManager.Instance.Deadzone)
         {
             CameraManager.Instance.LookUp();
@@ -446,6 +439,12 @@ public class PlayerControllerForces : MonoBehaviour
                 direction = -1;
         }
 
+        if (direction == 0)
+            playerState.IsWalking = false;
+        else
+            playerState.IsWalking = true;
+
+
         //Calculate the direction and our desired velocity
         float targetSpeed = direction * Data.walkMaxSpeed;
         //float targetSpeed = moveInput.x * Data.walkMaxSpeed; <---------- used for walking at a slower pace
@@ -468,26 +467,18 @@ public class PlayerControllerForces : MonoBehaviour
             targetSpeed *= Data.jumpHangMaxSpeedMult;
         }
 
-
-        //Conserve Momentum
-        //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
-        if (Data.doConserveMomentum && Mathf.Abs(rb.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && LastOnGroundTime < 0)
-        {
-            //Prevent any deceleration from happening/conserve momentum
-            accelRate = 0;
-        }
-
         //Calculate difference between current velocity and desired velocity
         float speedDif = targetSpeed - rb.velocity.x;
         //Calculate force along x-axis to apply to thr player
         float movement = speedDif * accelRate;
 
-/*        //If you're not conserving momentum, make sure the movement doesn't add 
-        if (!Data.doConserveMomentum)
-            if (Mathf.Abs(movement) < Mathf.Abs(rb.velocity.x))
-                return;*/
-        //Convert movement to a vector and apply it
         rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
+
+        if (direction != 0)
+        {
+            float cameraOffset = Data.cameraWalkOffset * direction;
+            CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
+        }
     }
 
     //Used for player direction
@@ -517,7 +508,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Offset force 
         float force = Data.jumpForce;
-        force = OffsetForce(force);
+        force = OffsetYForce(force);
 
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         jumpVelocity = rb.velocity.y;
@@ -562,13 +553,8 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         //Slide
-        /*float speedDif = Data.slideSpeed - rb.velocity.y;
-        float movement = speedDif * Data.slideAccel; */
         float movement = Data.slideSpeed * Data.slideAccel;
-        movement = OffsetForce(movement);
-
-        //Clamp the movement here to prevent any over corrections
-        //movement = Mathf.Clamp(movement, -Mathf.Abs(speedDif) * (1 / Time.fixedDeltaTime), Mathf.Abs(speedDif) * (1 / Time.fixedDeltaTime));
+        movement = OffsetYForce(movement);
 
         if(rb.velocity.y < movement)
         {
@@ -588,9 +574,6 @@ public class PlayerControllerForces : MonoBehaviour
         LastOnGroundTime = 0;
         LastPressedDashTime = 0;
 
-        //Reset gravity
-        SetGravityScale(1);
-
         //Start time of the dash
         float startTime = Time.time;
 
@@ -600,8 +583,11 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
+        rb.velocity = Vector2.zero;
         Sleep(0.1f);
 
+        yield return new WaitForSecondsRealtime(0.1f);
+        
         //Get direction to dash in
         int direction = XInputDirection();
         //If player is not moving / doesn't have direction, dash in the most recent input
@@ -612,32 +598,25 @@ public class PlayerControllerForces : MonoBehaviour
             else
                 direction = -1;
         }
+       
+        rb.AddForce(Vector2.right * direction * Data.dashSpeed, ForceMode2D.Impulse);
+        //Debug.Log("Start velocity: " + rb.velocity.x);
 
-        //We keep the player's velocity at dash speed
-        while (Time.time - startTime <= Data.dashAttackTime)
-        {
-            rb.velocity = new Vector2(direction * Data.dashSpeed, 0);
-            //Pauses the loop until the next frame
-            yield return null;
-        }
+        yield return new WaitForSecondsRealtime(Data.dashAttackTime);
 
-/*                //Offset force 
-        float force = Data.jumpForce;
-        force = OffsetForce(force);
+        //Debug.Log("End velocity: " + rb.velocity.x);
 
-        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);*/
-
-        startTime = Time.time;
+        //startTime = Time.time;
         isDashAttacking = false;
 
         //Reset movement back to close to the walking speed
         SetGravityScale(Data.gravityScale);
         rb.velocity = new Vector2(Data.dashEndSpeed.x * direction, 0);
 
-        while (Time.time - startTime <= Data.dashEndTime)
-        {
-            yield return null;
-        }
+        yield return new WaitForSecondsRealtime(Data.dashEndTime);
+
+        float endTime = Time.time;
+        //Debug.Log("Total Dash Time: " + (endTime - startTime));
 
         //Dash over
         playerState.IsDashing = false;
@@ -682,7 +661,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
         else if (Data.resetJumpOnWall && OnWall())
         {
-            Debug.Log("Reseting wall jump");
+            //Debug.Log("Reseting wall jump");
             airJumpCounter = 0;
         }
     }
@@ -691,9 +670,6 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (CanDash() && LastPressedDashTime > 0)
         {
-            //Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
-            Sleep(Data.dashSleepTime);
-
             //If not direction pressed, dash forward
             if (moveInput != Vector2.zero)
                 lastDashDir = moveInput;
@@ -702,7 +678,7 @@ public class PlayerControllerForces : MonoBehaviour
 
             //If mid attack, stop the combo
             if (playerCombat.LastAttackTime > 0)
-                EndCombo();
+                EndCombo();      
 
             //Set states
             playerState.IsDashing = true;
@@ -738,7 +714,7 @@ public class PlayerControllerForces : MonoBehaviour
     private void UpdateAttackVariables()
     {
         if(playerCombat.LastAttackTime > 0)
-            playerState.IsAttacking = true;
+            playerState.IsAttacking = true;         
         else
             playerState.IsAttacking = false;
 
@@ -771,7 +747,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void UpdateGravityVariables()
     {
-        if (!isDashAttacking)
+        if (!playerState.IsDashing)
         {
             //Higher gravity if we've released the jump input or are falling
                         if (playerCombat.IsAerialCombo)
@@ -981,7 +957,7 @@ public class PlayerControllerForces : MonoBehaviour
             return false;
     }
 
-    private bool CanBreakCombo(float breakMult = 9/10f)
+    private bool CanBreakCombo(float breakMult = 2/3f)
     {
         //Debug.Log(Data.attackBufferTime);
         return playerCombat.LastAttackTime < Data.attackBufferTime * breakMult;
@@ -989,9 +965,10 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void EndCombo()
     {
+        Debug.Log("Ending Combo");
         playerCombat.ResetCombo();
+        playerState.IsAttacking = false;
         EndSleep();
-        //rb.velocity = Vector2.zero;
     }
 
     //Check to see if the player is on the wall and is sliding
@@ -1019,11 +996,15 @@ public class PlayerControllerForces : MonoBehaviour
         return force -= rb.velocity;
     }
 
-    private float OffsetForce(float force)
+    private float OffsetYForce(float force)
     {
         return force -= rb.velocity.y;
     }
 
+    private float OffsetXForce(float force)
+    {
+        return force -= rb.velocity.x;
+    }
 
     //Sleep for delaying movement
     private void Sleep(float duration)

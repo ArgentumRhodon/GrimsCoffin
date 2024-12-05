@@ -35,7 +35,6 @@ public class PatrollingEnemy : Enemy
 
     protected override void Start()
     {
-        Debug.Log("Floating enemy spawned");
         base.Start();
 
         isIdle = true;

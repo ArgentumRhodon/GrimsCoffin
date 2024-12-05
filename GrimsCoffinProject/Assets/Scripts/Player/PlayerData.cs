@@ -7,6 +7,7 @@ public class PlayerData : ScriptableObject
 {
     public float deadzone;
     public float cameraOffset;
+    public float cameraWalkOffset;
 
     [Header("Gravity")]
     [HideInInspector] public float gravityStrength; //Downwards force needed for the desired jumpHeight and jumpTimeToApex
