@@ -581,6 +581,13 @@ public class PlayerControllerForces : MonoBehaviour
         dashesLeft--;
         isDashAttacking = true;
 
+        //Become invincible and make sprite transparent while dashing
+        hasInvincibility = true;
+        Color tmp = animator_T.GetComponent<SpriteRenderer>().color;
+        tmp.a = 0.5f;
+        animator_T.GetComponent<SpriteRenderer>().color = tmp;
+        animator_B.GetComponent<SpriteRenderer>().color = tmp;
+
         //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
         rb.velocity = Vector2.zero;
@@ -620,6 +627,10 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Dash over
         playerState.IsDashing = false;
+        hasInvincibility = false;
+        tmp.a = 1f;
+        animator_T.GetComponent<SpriteRenderer>().color = tmp;
+        animator_B.GetComponent<SpriteRenderer>().color = tmp;
     }
 
     //Delay period between dashes
