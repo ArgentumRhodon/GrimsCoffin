@@ -11,10 +11,11 @@ public class SpiritSpawnPoint : MonoBehaviour
     private Spirit spiritToSpawn;
 
 
-    private void Awake()
+    private void Start()
     {
         spiritToSpawn = spiritPrefab.GetComponentInChildren<Spirit>();
         spiritToSpawn.spiritID = (Spirit.SpiritName)spiritID;
+        SpawnSpirit();
     }
 
     public void SpawnSpirit()
@@ -25,8 +26,6 @@ public class SpiritSpawnPoint : MonoBehaviour
             Debug.Log("Spawning Spirit");
             GameObject spirit = Instantiate(spiritPrefab, this.transform.position, Quaternion.identity);
             spirit.GetComponentInChildren<Spirit>().spiritID = (Spirit.SpiritName)spiritID;
-            Debug.Log("SPIRIT ID: " + spirit.GetComponentInChildren<Spirit>().spiritID);
-
         }
 
     }

@@ -15,13 +15,14 @@ public class LoadCutscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<PlayerControllerForces>() != null)
         {
-            //SceneManager.LoadScene();
+            SceneManager.LoadScene(4);
         }
+    }
 }
