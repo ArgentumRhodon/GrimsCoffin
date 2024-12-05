@@ -9,7 +9,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineBrain CameraControl;
     [SerializeField] private float deadzone;
     private CinemachineFramingTransposer VCamFramingTransposer;
-    private Coroutine transitionCoroutine;
+    private Coroutine transitionCoroutineX;
+    private Coroutine transitionCoroutineY;
 
     public float Deadzone
     {
@@ -58,6 +59,7 @@ public class CameraManager : MonoBehaviour
 
     public void Reset()
     {
+        Debug.Log("Camera Reset is running");
         float targetScreenY = 0.5f;
         StartScreenYTransition(targetScreenY, 0.1f);
     }
@@ -77,11 +79,11 @@ public class CameraManager : MonoBehaviour
 
     private void StartScreenYTransition(float targetScreenY, float duration)
     {
-        if (transitionCoroutine != null)
+        if (transitionCoroutineY != null)
         {
-            StopCoroutine(transitionCoroutine);
+            StopCoroutine(transitionCoroutineY);
         }
-        transitionCoroutine = StartCoroutine(ScreenYTransitionCoroutine(targetScreenY, duration));
+        transitionCoroutineY = StartCoroutine(ScreenYTransitionCoroutine(targetScreenY, duration));
     }
 
     private IEnumerator ScreenYTransitionCoroutine(float targetScreenY, float duration)
@@ -100,16 +102,16 @@ public class CameraManager : MonoBehaviour
         }
 
         VCamFramingTransposer.m_ScreenY = targetScreenY;
-        transitionCoroutine = null;
+        transitionCoroutineY = null;
     }
 
     public void StartScreenXOffset(float targetOffsetX, float duration)
     {
-        if (transitionCoroutine != null)
+        if (transitionCoroutineX != null)
         {
-            StopCoroutine(transitionCoroutine);
+            StopCoroutine(transitionCoroutineX);
         }
-        transitionCoroutine = StartCoroutine(ScreenXOffsetCoroutine(targetOffsetX, duration));
+        transitionCoroutineX = StartCoroutine(ScreenXOffsetCoroutine(targetOffsetX, duration));
     }
     private IEnumerator ScreenXOffsetCoroutine(float targetScreenX, float duration)
     {
@@ -124,6 +126,6 @@ public class CameraManager : MonoBehaviour
             yield return null;
         }
         VCamFramingTransposer.m_TrackedObjectOffset.x = targetScreenX;
-        transitionCoroutine = null;
+        transitionCoroutineX = null;
     }
 }

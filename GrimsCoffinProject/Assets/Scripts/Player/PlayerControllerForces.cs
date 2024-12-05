@@ -124,6 +124,7 @@ public class PlayerControllerForces : MonoBehaviour
         SetGravityScale(Data.gravityScale);
 
         playerState.IsFacingRight = true;
+        playerState.IsIdle = true;
         //canAerialCombo = true;
         isSleeping = false;
 
@@ -228,9 +229,12 @@ public class PlayerControllerForces : MonoBehaviour
         animator_T.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
         animator_B.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
 
-        CheckIdle();
+        CheckIdle();     
         if (playerState.IsIdle)
-            ResetPlayerOffset();
+        {
+            ResetPlayerOffset();         
+        }
+            
     }
 
     private void SetSpriteColors(Color color)
@@ -374,7 +378,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     public void OnCameraLook(InputValue value)
     {
-        Debug.Log("Camera Look " + value);
+        //Debug.Log("Camera Look " + value.Get<Vector2>().y);
         if (value.Get<Vector2>().y > CameraManager.Instance.Deadzone)
         {
             CameraManager.Instance.LookUp();
@@ -435,6 +439,12 @@ public class PlayerControllerForces : MonoBehaviour
                 direction = -1;
         }
 
+        if (direction == 0)
+            playerState.IsWalking = false;
+        else
+            playerState.IsWalking = true;
+
+
         //Calculate the direction and our desired velocity
         float targetSpeed = direction * Data.walkMaxSpeed;
         //float targetSpeed = moveInput.x * Data.walkMaxSpeed; <---------- used for walking at a slower pace
@@ -463,6 +473,12 @@ public class PlayerControllerForces : MonoBehaviour
         float movement = speedDif * accelRate;
 
         rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
+
+        if (direction != 0)
+        {
+            float cameraOffset = Data.cameraWalkOffset * direction;
+            CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
+        }
     }
 
     //Used for player direction
@@ -645,7 +661,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
         else if (Data.resetJumpOnWall && OnWall())
         {
-            Debug.Log("Reseting wall jump");
+            //Debug.Log("Reseting wall jump");
             airJumpCounter = 0;
         }
     }

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: PlayerMovementDataV.2
   m_EditorClassIdentifier: 
   deadzone: 0.5
+  cameraOffset: 0.5
+  cameraWalkOffset: 0
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -56,9 +58,9 @@ MonoBehaviour:
   jumpInputBufferTime: 0.2
   canDash: 1
   dashAmount: 1
-  dashSpeed: 80
+  dashSpeed: 100
   dashSleepTime: 0.05
-  dashAttackTime: 0.1
+  dashAttackTime: 0.06
   dashEndTime: 0.05
   dashEndSpeed: {x: 5, y: 0}
   dashEndRunLerp: 1

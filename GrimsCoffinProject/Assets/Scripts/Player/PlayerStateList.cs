@@ -12,5 +12,6 @@ public class PlayerStateList : MonoBehaviour
     public bool IsSliding { get; set; }
     public bool IsWalking {  get; set; }
     public bool IsAttacking { get; set; }
+    public bool IsLooking {  get; set; }
     public bool IsIdle { get; set; }
 }

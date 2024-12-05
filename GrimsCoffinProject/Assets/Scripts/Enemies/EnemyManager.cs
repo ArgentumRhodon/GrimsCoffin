@@ -47,8 +47,8 @@ public class EnemyManager : MonoBehaviour
     public void RemoveActiveEnemy(GameObject enemyToRemove)
     {
         activeEnemies.Remove(enemyToRemove);
-        Debug.Log("Removed");
-        Debug.Log(activeEnemies);
+        //Debug.Log("Removed");
+        //Debug.Log(activeEnemies);
         if(isArena && activeEnemies.Count == 0)
         {
             this.GetComponent<ArenaManager>().CombatEnd();
