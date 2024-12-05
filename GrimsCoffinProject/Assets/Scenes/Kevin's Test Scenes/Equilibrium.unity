@@ -890,6 +890,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1960859601187753200, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+      propertyPath: Data
+      value: 
+      objectReference: {fileID: 11400000, guid: 143b7257370a7734cb3597d6db098291, type: 2}
+    - target: {fileID: 1960859601187753200, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+      propertyPath: maxHP
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960859601187753200, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+      propertyPath: maxSP
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -19.24
@@ -3869,7 +3881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vcam: {fileID: 302209498}
   CameraControl: {fileID: 1866543872}
-  deadzone: 0
+  deadzone: 0.25
 --- !u!1001 &2120612259
 PrefabInstance:
   m_ObjectHideFlags: 0
