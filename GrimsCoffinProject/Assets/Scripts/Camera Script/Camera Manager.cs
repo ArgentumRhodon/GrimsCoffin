@@ -102,4 +102,28 @@ public class CameraManager : MonoBehaviour
         VCamFramingTransposer.m_ScreenY = targetScreenY;
         transitionCoroutine = null;
     }
+
+    public void StartScreenXOffset(float targetOffsetX, float duration)
+    {
+        if (transitionCoroutine != null)
+        {
+            StopCoroutine(transitionCoroutine);
+        }
+        transitionCoroutine = StartCoroutine(ScreenXOffsetCoroutine(targetOffsetX, duration));
+    }
+    private IEnumerator ScreenXOffsetCoroutine(float targetScreenX, float duration)
+    {
+        float initialScreenX = VCamFramingTransposer.m_TrackedObjectOffset.x;
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            t = t * t * (3f - 2f * t);
+            VCamFramingTransposer.m_TrackedObjectOffset.x = Mathf.Lerp(initialScreenX, targetScreenX, t);
+            yield return null;
+        }
+        VCamFramingTransposer.m_TrackedObjectOffset.x = targetScreenX;
+        transitionCoroutine = null;
+    }
 }
