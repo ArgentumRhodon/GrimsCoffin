@@ -76,11 +76,9 @@ public class CutsceneManager : MonoBehaviour
     {
         isFading = true;
 
-        // Start both fade-outs at the same time
         Coroutine sentenceFade = StartCoroutine(FadeTextAlpha(dialogueText, 1f, 0f, fadeDuration));
         Coroutine indicatorFade = StartCoroutine(FadeTextAlpha(indicatorText, 1f, 0f, fadeDuration));
 
-        // Wait for both to finish
         yield return sentenceFade;
         yield return indicatorFade;
 
@@ -92,7 +90,6 @@ public class CutsceneManager : MonoBehaviour
         }
         else
         {
-            // End the cutscene
             sceneController.LoadNextScene();
         }
 
@@ -103,12 +100,10 @@ public class CutsceneManager : MonoBehaviour
     {
         dialogueText.text = sentence;
         SetTextAlpha(dialogueText, 0f);
-        SetTextAlpha(indicatorText, 0f); // ensure indicator starts hidden
+        SetTextAlpha(indicatorText, 0f);
 
-        // Fade in the sentence first
         yield return StartCoroutine(FadeTextAlpha(dialogueText, 0f, 1f, fadeDuration));
 
-        // After the sentence is fully visible, fade in the indicator text
         yield return StartCoroutine(FadeTextAlpha(indicatorText, 0f, 1f, fadeDuration));
     }
 
