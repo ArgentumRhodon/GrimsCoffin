@@ -48,6 +48,7 @@ MonoBehaviour:
   doTurnOnWallJump: 1
   wallTurnBuffer: 0
   canDoubleJump: 1
+  preserveDoubleJump: 1
   resetJumpOnWall: 0
   extraJumpMultiplier: 0
   maxAirJumps: 1
@@ -69,6 +70,6 @@ MonoBehaviour:
   canAttack: 1
   comboSleepTime: 0.3
   attackBufferTime: 0.5
-  comboBufferTime: 0.5
+  comboAerialTime: 0.15
   comboTotal: 4
-  aerialForce: 2
+  aerialForce: 5

@@ -296,7 +296,7 @@ public class PlayerControllerForces : MonoBehaviour
                 lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
 
                 //Stops player from double jumping off wall
-                if (!Data.resetJumpOnWall) 
+                if (!Data.preserveDoubleJump)
                     airJumpCounter = Data.maxAirJumps;
 
                 //If mid attack, stop the combo
@@ -339,29 +339,27 @@ public class PlayerControllerForces : MonoBehaviour
         UIManager.Instance.Pause();
     }
 
-    private void OnAttack()
+    public void StartAttack()
     {
         if (playerState.IsDashing)
             return;
 
         //Do not hit during combo
         if (playerCombat.LastComboTime < 0) {
-            //Combo attack counter
-            playerCombat.AttackCounter++;    
+            //Combo attack counter           
 
             //Aerial attack
             if (!Grounded())
             {
                 if (playerCombat.CanAerialCombo)
                 {
-                    //Debug.Log(playerCombat.AttackCounter > 1);
                     playerCombat.IsAerialCombo = true;
                     EndSleep();
 
-                    if (playerCombat.AttackCounter != Data.comboTotal)
-                        Sleep(Data.comboSleepTime);
+                    if (playerCombat.AttackCounter < Data.comboTotal)
+                        Sleep(Data.comboAerialTime);
                     else
-                        Sleep(Data.comboSleepTime/2);
+                        Sleep(Data.comboAerialTime/2);
                 }
             }
             else
@@ -980,7 +978,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void EndCombo()
     {
-        Debug.Log("Ending Combo");
+        //Debug.Log("Ending Combo");
         playerCombat.ResetCombo();
         playerState.IsAttacking = false;
         EndSleep();

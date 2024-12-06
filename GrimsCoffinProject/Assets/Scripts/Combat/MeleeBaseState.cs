@@ -57,6 +57,9 @@ public class MeleeBaseState : CState
         {
             shouldCombo = true;
             Attack();
+
+            if(playerCombat.AttackCounter >= PlayerControllerForces.Instance.Data.comboTotal)
+                playerCombat.ResetCombo();
         }
     }
 

@@ -77,6 +77,8 @@ public class PlayerCombat : MonoBehaviour
         //Check for player cooldown
         if (LastComboTime < 0)
         {
+            attackCounter++;
+
             //If idle, enter the entry state
             if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
             {
@@ -90,13 +92,14 @@ public class PlayerCombat : MonoBehaviour
                 meleeStateMachine.RegisteredAttack = true;
                 LastAttackTime = Data.attackBufferTime;
             }
+
+            PlayerControllerForces.Instance.StartAttack();
         }
     }
 
     public void ResetCombo()
     {
         LastComboTime = Data.comboSleepTime;
-        //LastAttackTime = 0;
         AttackCounter = 0;
     }
 }
