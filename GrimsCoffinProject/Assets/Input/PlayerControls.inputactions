@@ -471,6 +471,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Skip Cutscene",
+                    "type": "Button",
+                    "id": "7d897f1d-167a-4e3b-9bff-fde8533d0be3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -911,6 +920,28 @@
                     "processors": "",
                     "groups": "Gamepad;Playstation;Xbox",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad38e7d9-4fba-4853-8dd0-888614b448c3",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Xbox;Playstation;Keyboard&Mouse",
+                    "action": "Skip Cutscene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "462a32f0-8147-4b89-af60-0ba2038d2ccc",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Xbox;Playstation;Keyboard&Mouse",
+                    "action": "Skip Cutscene",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
