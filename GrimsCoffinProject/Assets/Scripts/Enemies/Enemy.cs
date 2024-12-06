@@ -92,7 +92,8 @@ public abstract class Enemy : MonoBehaviour
             {
                 TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
 
-                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility)
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility
+                    && !PlayerControllerForces.Instance.hasDashInvincibility)
                 {
                     PlayerControllerForces.Instance.TakeDamage(damage);
                 }

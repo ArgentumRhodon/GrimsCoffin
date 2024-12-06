@@ -70,6 +70,7 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public float currentSP;
     [SerializeField] public float invincibilityTimer;
     [SerializeField] public bool hasInvincibility;
+    [SerializeField] public bool hasDashInvincibility;
 
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
@@ -211,7 +212,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         if (hasInvincibility)
-        {
+        {          
             SetSpriteColors(Color.red);
             invincibilityTimer -= Time.deltaTime;
 
@@ -237,8 +238,9 @@ public class PlayerControllerForces : MonoBehaviour
             
     }
 
-    private void SetSpriteColors(Color color)
+    private void SetSpriteColors(Color color, float transparency = 1)
     {
+        color.a = transparency;
         animator_T.gameObject.GetComponent<SpriteRenderer>().color = color;
         animator_B.gameObject.GetComponent<SpriteRenderer>().color = color;
     }
@@ -582,11 +584,11 @@ public class PlayerControllerForces : MonoBehaviour
         isDashAttacking = true;
 
         //Become invincible and make sprite transparent while dashing
-        hasInvincibility = true;
+        hasDashInvincibility = true;
         Color tmp = animator_T.GetComponent<SpriteRenderer>().color;
         tmp.a = 0.5f;
         animator_T.GetComponent<SpriteRenderer>().color = tmp;
-        animator_B.GetComponent<SpriteRenderer>().color = tmp;
+        animator_B.GetComponent<SpriteRenderer>().color = tmp;      
 
         //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
@@ -627,10 +629,12 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Dash over
         playerState.IsDashing = false;
-        hasInvincibility = false;
+        hasDashInvincibility = false;
+        tmp = animator_T.GetComponent<SpriteRenderer>().color;
         tmp.a = 1f;
         animator_T.GetComponent<SpriteRenderer>().color = tmp;
         animator_B.GetComponent<SpriteRenderer>().color = tmp;
+        //Debug.Log("Current Transparency2: " + animator_T.GetComponent<SpriteRenderer>().color.a);
     }
 
     //Delay period between dashes
