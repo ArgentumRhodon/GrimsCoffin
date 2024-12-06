@@ -16,6 +16,10 @@ public class PlayerCombat : MonoBehaviour
     public Animator animator_T; // Top
     public Animator animator_B; // Bottom
 
+    //Queue
+    private Queue<string> commands = new Queue<string>();
+    private int attackQueueTotal;
+
     //Timers
     public float attackPressedTimer = 0;
     public float LastComboTime { get; set; }
@@ -74,32 +78,59 @@ public class PlayerCombat : MonoBehaviour
         if (playerState.IsDashing || Time.timeScale == 0)
             return;
 
+        
+
         //Check for player cooldown
-        if (LastComboTime < 0)
+        if (LastComboTime < 0 && attackQueueTotal != Data.comboTotal)
         {
-            attackCounter++;
-
-            //If idle, enter the entry state
-            if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
+            if (attackCounter < Data.comboTotal)
             {
-                meleeStateMachine.SetNextState(new MeleeEntryState());
-                attackPressedTimer = 1.4f;
-                LastAttackTime = Data.attackBufferTime;
+                commands.Enqueue("Attack");
+                Attack();
             }
-            //If not idle, register attack to move to next state
-            else if (attackPressedTimer > 0)
-            {
-                meleeStateMachine.RegisteredAttack = true;
-                LastAttackTime = Data.attackBufferTime;
-            }
-
-            PlayerControllerForces.Instance.StartAttack();
         }
+
+
+        //TryAddAttack();
+    }
+
+    private void Attack()
+    {
+        //Add to counter
+        attackCounter++;
+
+        //If idle, enter the entry state
+        if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
+        {
+            meleeStateMachine.SetNextState(new MeleeEntryState());
+            attackPressedTimer = 1.4f;
+            LastAttackTime = Data.attackBufferTime;
+        }
+        //If not idle, register attack to move to next state
+        else if (attackPressedTimer > 0)
+        {
+            meleeStateMachine.RegisteredAttack = true;
+            LastAttackTime = Data.attackBufferTime;
+        }
+
+        PlayerControllerForces.Instance.StartAttack();
     }
 
     public void ResetCombo()
     {
         LastComboTime = Data.comboSleepTime;
         AttackCounter = 0;
+    }
+
+    private void TryAddAttack()
+    {
+
+
+    }
+
+    private void RunNextCommand(string command)
+    {
+        string cmd = commands.Dequeue();
+        Debug.Log(cmd);
     }
 }
