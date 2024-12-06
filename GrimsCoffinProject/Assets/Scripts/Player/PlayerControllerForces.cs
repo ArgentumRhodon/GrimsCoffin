@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
 
 public class PlayerControllerForces : MonoBehaviour
@@ -133,6 +134,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
+
+        if (PlayerPrefs.GetInt("RespawnPointSet") == 1 && SceneManager.GetActiveScene().name != "Equilibrium")
+            SpawnAtLastRestPoint();
     }
 
     private void Update()
@@ -1085,5 +1089,19 @@ public class PlayerControllerForces : MonoBehaviour
         {
             interactionPrompt.interactable.PerformInteraction();
         }
+    }
+
+    private void SpawnAtLastRestPoint()
+    {
+        Debug.Log("Spawning at Rest Point");
+        Vector3 newSpawn = new Vector3(
+            PlayerPrefs.GetFloat("XSpawnPos"),
+            PlayerPrefs.GetFloat("YSpawnPos"),
+            0);
+
+        this.gameObject.transform.position = newSpawn;
+        respawnPoint = newSpawn;
+   
+        currentHP = maxHP;
     }
 }
