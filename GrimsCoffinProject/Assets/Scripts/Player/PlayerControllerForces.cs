@@ -135,7 +135,7 @@ public class PlayerControllerForces : MonoBehaviour
         LastJumpTime = 0;
         LastWallJumpTime = 0;
 
-        if (PlayerPrefs.GetInt("RespawnPointSet") == 1 && SceneManager.GetActiveScene().name != "Equilibrium")
+        if (PlayerPrefs.GetInt("RespawnPointSet") == 1 && SceneManager.GetActiveScene().name == PlayerPrefs.GetString("SceneSave"))
             SpawnAtLastRestPoint();
     }
 

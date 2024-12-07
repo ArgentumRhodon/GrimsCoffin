@@ -71,6 +71,7 @@ public class TitleScreen : MonoBehaviour
     }
     public void ResetData()
     {
+        PlayerPrefs.SetInt("RespawnPointSet", 0);
         PlayerPrefs.SetInt("Spirit1", 0);
         PlayerPrefs.SetInt("Spirit2", 0);
         PlayerPrefs.SetInt("Spirit3", 0);

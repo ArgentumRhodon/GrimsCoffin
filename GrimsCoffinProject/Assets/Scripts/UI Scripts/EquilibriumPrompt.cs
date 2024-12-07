@@ -55,6 +55,7 @@ public class EquilibriumPrompt : MonoBehaviour
     private void SavePlayerSpawn()
     {
         PlayerPrefs.SetInt("RespawnPointSet", 1);
+        PlayerPrefs.SetString("SceneSave", SceneManager.GetActiveScene().name);
         PlayerPrefs.SetFloat("XSpawnPos", PlayerControllerForces.Instance.gameObject.transform.position.x);
         PlayerPrefs.SetFloat("YSpawnPos", PlayerControllerForces.Instance.gameObject.transform.position.y);
     }
