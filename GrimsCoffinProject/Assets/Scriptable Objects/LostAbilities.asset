@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: LostAbilities
   m_EditorClassIdentifier: 
   deadzone: 0.5
-  cameraOffset: 0.5
-  cameraWalkOffset: 0.25
+  cameraOffset: 0.6
+  cameraWalkOffset: 0.1
+  cameraDashOffset: -1
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -68,6 +69,7 @@ MonoBehaviour:
   dashRefillTime: 0.4
   dashInputBufferTime: 0.052
   canAttack: 1
+  canTurnDuringCombo: 0
   comboSleepTime: 0.3
   attackBufferTime: 0.3
   comboAerialTime: 0.15

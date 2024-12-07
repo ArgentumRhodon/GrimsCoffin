@@ -847,12 +847,20 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (isMovingRight != playerState.IsFacingRight)
         {
+            //Don't turn if player is mid combo
+            if (playerCombat.IsComboing && !Data.canTurnDuringCombo)
+            {
+                return;
+            }
+
             //Check for wall jumping and where it automatically turns the player
             if (Data.doTurnOnWallJump)
             {
+                //Buffer to make sure turning looks smooth
                 if (Data.wallTurnBuffer < LastWallJumpTime)
                     Turn();
             }
+            //Default, just turn
             else
                 Turn();
         }
@@ -1016,6 +1024,7 @@ public class PlayerControllerForces : MonoBehaviour
                 else
                     direction = -1;
             }
+
 
             rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
             rb.AddForce(new Vector2(direction, 0) * Data.aerialForce, ForceMode2D.Impulse);

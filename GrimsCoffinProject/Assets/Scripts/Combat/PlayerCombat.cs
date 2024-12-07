@@ -30,6 +30,7 @@ public class PlayerCombat : MonoBehaviour
     //Attack
     [SerializeField] private bool canAerialCombo;
     [SerializeField] private bool isAerialCombo;
+    [SerializeField] private bool isComboing;
     [SerializeField] private int attackClickCounter;
     [SerializeField] private int attackQueueLeft;
     [SerializeField] private int currentAttackAmount;
@@ -44,6 +45,12 @@ public class PlayerCombat : MonoBehaviour
     {
         get { return isAerialCombo; }
         set { isAerialCombo = value; }
+    }
+
+    public bool IsComboing
+    {
+        get { return isComboing; }
+        set { isComboing = value; }
     }
 
     public int AttackClickCounter
@@ -131,6 +138,8 @@ public class PlayerCombat : MonoBehaviour
     private void ComboAttack()
     {
         meleeStateMachine.RegisteredAttack = true;
+        isComboing = true;
+
         AttackDurationTime = Data.attackBufferTime;
              
         PlayerControllerForces.Instance.StartAttack();
@@ -143,6 +152,7 @@ public class PlayerCombat : MonoBehaviour
         LastComboTime = Data.comboSleepTime;
         attackClickCounter = 0;
         currentAttackAmount = 0;
+        isComboing = false;
 
         QueueTimer = 0;
         attackDurationTime = 0;

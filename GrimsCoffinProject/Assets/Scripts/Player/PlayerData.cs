@@ -105,6 +105,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Attacks")]
     public bool canAttack;
+    public bool canTurnDuringCombo;
     public float comboSleepTime; //Sleep time after combo
     public float attackBufferTime; //Attack buffer to track if the player should stay in the combo or not
     public float comboAerialTime; //Time player is in the air
