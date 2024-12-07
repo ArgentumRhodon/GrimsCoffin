@@ -17,6 +17,7 @@ public class MeleeBaseState : CState
     protected bool shouldCombo; 
     //Index of sequence in attack
     protected int attackIndex;
+    protected float attackDamage;
 
     protected PlayerCombat playerCombat;
 
@@ -70,7 +71,7 @@ public class MeleeBaseState : CState
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
                 {
-                    collidersToDamage[i].gameObject.GetComponent<Enemy>().TakeDamage();
+                    collidersToDamage[i].gameObject.GetComponent<Enemy>().TakeDamage(attackDamage);
                     //Debug.Log("Enemy Has Taken: " + attackIndex + " Damage");
                     collidersDamaged.Add(collidersToDamage[i]);
                 }
