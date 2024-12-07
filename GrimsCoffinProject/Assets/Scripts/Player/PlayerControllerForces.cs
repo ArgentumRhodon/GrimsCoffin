@@ -190,13 +190,10 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Attack Check
-        UpdateAttackVariables();
-
         //End sleep if moving after combo
         if (isSleeping)
             if (moveInput.x != 0)
-                if (playerCombat.LastAttackTime < 0)
+                if (playerCombat.ShouldResetCombo())
                     EndSleep();
 
         //Handle player walking, make sure the player doesn't walk while dashing
@@ -281,7 +278,7 @@ public class PlayerControllerForces : MonoBehaviour
                 isJumpFalling = false;
 
                 //If mid attack, stop the combo
-                if (playerCombat.LastAttackTime > 0)
+                if (playerCombat.AttackDurationTime > 0)
                     EndCombo();
 
                 Jump();
@@ -304,7 +301,7 @@ public class PlayerControllerForces : MonoBehaviour
                     airJumpCounter = Data.maxAirJumps;
 
                 //If mid attack, stop the combo
-                if (playerCombat.LastAttackTime > 0)
+                if (playerCombat.AttackDurationTime > 0)
                     EndCombo();
 
                 WallJump(lastWallJumpDir);
@@ -322,7 +319,7 @@ public class PlayerControllerForces : MonoBehaviour
                 airJumpCounter++;
 
                 //If mid attack, stop the combo
-                if (playerCombat.LastAttackTime > 0)
+                if (playerCombat.AttackDurationTime > 0)
                     EndCombo();
 
                 Jump();
@@ -349,10 +346,9 @@ public class PlayerControllerForces : MonoBehaviour
             return;
 
         //Do not hit during combo
-        if (playerCombat.LastComboTime < 0) {
-            //Combo attack counter           
-
-            //Aerial attack
+        if (playerCombat.LastComboTime < 0) 
+        {
+            //Aerial attack sleep / hitstop 
             if (!Grounded())
             {
                 if (playerCombat.CanAerialCombo)
@@ -360,7 +356,7 @@ public class PlayerControllerForces : MonoBehaviour
                     playerCombat.IsAerialCombo = true;
                     EndSleep();
 
-                    if (playerCombat.AttackCounter < Data.comboTotal)
+                    if (playerCombat.AttackClickCounter < Data.comboTotal)
                         Sleep(Data.comboAerialTime);
                     else
                         Sleep(Data.comboAerialTime/2);
@@ -694,7 +690,7 @@ public class PlayerControllerForces : MonoBehaviour
                 lastDashDir = playerState.IsFacingRight ? Vector2.right : Vector2.left;
 
             //If mid attack, stop the combo
-            if (playerCombat.LastAttackTime > 0)
+            if (playerCombat.AttackDurationTime > 0)
                 EndCombo();      
 
             //Set states
@@ -728,52 +724,17 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
-    private void UpdateAttackVariables()
-    {
-        if(playerCombat.LastAttackTime > 0)
-            playerState.IsAttacking = true;         
-        else
-            playerState.IsAttacking = false;
-
-        //If player is in the air, check to reset the aerial combo
-        if (playerCombat.IsAerialCombo)
-        {
-            if (playerCombat.LastAttackTime < 0)
-            {
-                playerCombat.ResetCombo();
-
-                playerCombat.CanAerialCombo = false;
-                playerCombat.IsAerialCombo = false;
-            }
-        }
-
-        //Reset combo if they have not attacked in a specific amount of time
-        if (playerCombat.LastAttackTime < 0 && playerCombat.AttackCounter > 0)
-        {
-            playerCombat.AttackCounter = 0;
-
-            animator_T.SetFloat("comboRatio", 0);
-            animator_B.SetFloat("comboRatio", 0);
-        }
-
-        if (playerCombat.LastComboTime < 0)
-        {
-            playerCombat.CanAerialCombo = true;
-        }
-    }
-
     private void UpdateGravityVariables()
     {
         if (!playerState.IsDashing)
         {
             //Higher gravity if we've released the jump input or are falling
-                        if (playerCombat.IsAerialCombo)
-                        {
-                            SetGravityScale(0);
-                        }
-                        else
+            if (playerCombat.IsAerialCombo && playerCombat.AttackDurationTime > 0)
+            {
+                SetGravityScale(0);
+            }
             //No gravity if the player is sliding
-            if (playerState.IsSliding)
+            else if (playerState.IsSliding)
             {
                 SetGravityScale(0);
 
@@ -977,7 +938,7 @@ public class PlayerControllerForces : MonoBehaviour
     private bool CanBreakCombo(float breakMult = 2/3f)
     {
         //Debug.Log(Data.attackBufferTime);
-        return playerCombat.LastAttackTime < Data.attackBufferTime * breakMult;
+        return playerCombat.AttackDurationTime < Data.attackBufferTime * breakMult;
     }
 
     private void EndCombo()
@@ -1041,6 +1002,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     private IEnumerator PerformSleep(float duration)
     {
+        Debug.Log("Performing sleep, duration: " + duration);
         //Sleeping
         SetGravityScale(0);
         isSleeping = true;

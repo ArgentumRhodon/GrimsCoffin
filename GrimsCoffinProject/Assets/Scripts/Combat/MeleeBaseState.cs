@@ -41,25 +41,11 @@ public class MeleeBaseState : CState
     public override void OnUpdate(CStateMachine _stateMachine)
     {
         base.OnUpdate(_stateMachine);
-        //_stateMachine.GetComponent<PlayerCombat>().attackPressedTimer -= Time.deltaTime;
 
-        /*        if (animator.GetFloat("Weapon.Active") > 0f)
-                {
-                    Attack();
-                }*/
-
-        /*        if (animator.GetFloat("AttackWindow.Open") > 0f)
-                {
-                    shouldCombo = true;
-                }*/
-        //Debug.Log(_stateMachine.GetComponent<PlayerCombat>().LastAttackTime);
-        if (_stateMachine.GetComponent<PlayerCombat>().LastAttackTime > 0f)
+        if (playerCombat.AttackDurationTime > 0f)
         {
-            shouldCombo = true;
+            //Check for collisions
             Attack();
-
-            if(playerCombat.AttackCounter >= PlayerControllerForces.Instance.Data.comboTotal)
-                playerCombat.ResetCombo();
         }
     }
 
@@ -70,7 +56,6 @@ public class MeleeBaseState : CState
 
     protected void Attack()
     {
-        //Debug.Log("Attack Swing");
         //Attack the enemy, check for collisions
         Collider2D[] collidersToDamage = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();
@@ -86,7 +71,7 @@ public class MeleeBaseState : CState
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
                 {
                     collidersToDamage[i].gameObject.GetComponent<Enemy>().TakeDamage();
-                    Debug.Log("Enemy Has Taken: " + attackIndex + " Damage");
+                    //Debug.Log("Enemy Has Taken: " + attackIndex + " Damage");
                     collidersDamaged.Add(collidersToDamage[i]);
                 }
             }

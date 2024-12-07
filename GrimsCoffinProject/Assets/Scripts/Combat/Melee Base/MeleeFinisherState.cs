@@ -10,7 +10,9 @@ public class MeleeFinisherState : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 3;
-        duration = .35f;
+        playerCombat.AttackDurationTime = .35f;
+
+        //Animations
         animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
@@ -24,11 +26,9 @@ public class MeleeFinisherState : MeleeBaseState
     {
         base.OnUpdate(_stateMachine);
 
-        if (fixedtime >= duration)
-        //if (playerCombat.LastAttackTime > 0)
+        if (playerCombat.ShouldResetCombo())
         {
-            stateMachine.SetNextStateToMain();
-            playerCombat.ResetCombo();
+            stateMachine.SetNextStateToMain();        
         }
     }
 }
