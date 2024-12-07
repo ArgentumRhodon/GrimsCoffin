@@ -152,6 +152,7 @@ public class PlayerCombat : MonoBehaviour
         LastComboTime = Data.comboSleepTime;
         attackClickCounter = 0;
         currentAttackAmount = 0;
+        attackQueueLeft = 0;
         isComboing = false;
 
         QueueTimer = 0;
