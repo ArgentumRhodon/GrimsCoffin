@@ -5,10 +5,12 @@ using UnityEngine.Playables;
 
 public class PlayerCombat : MonoBehaviour
 {
+    //References to needed items
     private CStateMachine meleeStateMachine;
     private PlayerStateList playerState;
     public PlayerData Data;
 
+    //Scythe objects
     public Collider2D hitbox;
     public Animator scytheAnimator;
 
@@ -17,14 +19,13 @@ public class PlayerCombat : MonoBehaviour
     public Animator animator_B; // Bottom
 
     //Timers
-    public float attackPressedTimer = 0;
-    public float LastComboTime { get; set; }
-
+    private float lastComboTime;
     [SerializeField] private float attackDurationTime;
     [SerializeField] private float queueTimer;
 
     public float AttackDurationTime { get { return attackDurationTime; } set { attackDurationTime = value; } }
     public float QueueTimer { get { return queueTimer; } set { queueTimer = value; } }
+    public float LastComboTime { get { return lastComboTime; } set { lastComboTime = value; } }
 
     //Attack
     [SerializeField] private bool canAerialCombo;
@@ -73,13 +74,13 @@ public class PlayerCombat : MonoBehaviour
         UpdateAttackVariables();
 
         //Check to see if it should move on to the next combo
-        if (currentAttackAmount < Data.comboTotal && attackQueueLeft > 0 && attackDurationTime < 0)
+        if (currentAttackAmount < Data.comboTotal && attackQueueLeft > 0 && AttackDurationTime < 0)
         {
             ComboAttack();
             attackQueueLeft--;
 
             if(attackQueueLeft > 0)
-                queueTimer = Data.attackBufferTime;
+                QueueTimer = Data.attackBufferTime;
         }
     }
 
@@ -92,11 +93,11 @@ public class PlayerCombat : MonoBehaviour
         //Check for combo timer, if the click amount is less then combo total 
         if (LastComboTime < 0 && attackClickCounter < Data.comboTotal &&
             //Check if the attack counter is above, make sure the queue timer still allows for adding an attack
-            ((attackClickCounter > 0 && queueTimer > 0) || attackClickCounter == 0))
+            ((attackClickCounter > 0 && QueueTimer > 0) || attackClickCounter == 0))
         {
             //Add to the click counter
             attackClickCounter++;
-            queueTimer = Data.attackBufferTime;
+            QueueTimer = Data.attackBufferTime;
 
             //Continue the combo queue
             if (attackClickCounter > 1)
@@ -143,33 +144,29 @@ public class PlayerCombat : MonoBehaviour
         attackClickCounter = 0;
         currentAttackAmount = 0;
 
-        queueTimer = 0;
+        QueueTimer = 0;
         attackDurationTime = 0;
     }
 
     public bool ShouldResetCombo()
     {
         //return attackDurationTime < 0 && queueTimer < 0;// && attackQueueLeft == 0;
-        return attackDurationTime < 0 && queueTimer < 0 && attackQueueLeft == 0;
+        return AttackDurationTime < 0 && QueueTimer < 0 && attackQueueLeft == 0;
 
     }
 
     //Update timers in FixedUpdate
     private void UpdateTimers()
     {
-        if (attackPressedTimer > 0)
-            attackPressedTimer -= Time.deltaTime;
-
-        //Combat Timers
         LastComboTime -= Time.deltaTime;
         AttackDurationTime -= Time.deltaTime;
-        queueTimer -= Time.deltaTime;
+        QueueTimer -= Time.deltaTime;
     }
 
     //Updates all stats in FixedUpdate
     private void UpdateAttackVariables()
     {
-        if (attackDurationTime > 0)
+        if (AttackDurationTime > 0)
             playerState.IsAttacking = true;           
         else
             playerState.IsAttacking = false;    

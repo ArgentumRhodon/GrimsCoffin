@@ -593,8 +593,8 @@ public class PlayerControllerForces : MonoBehaviour
         rb.velocity = Vector2.zero;
         Sleep(0.1f);
 
-        yield return new WaitForSecondsRealtime(0.1f);
-        
+        yield return new WaitForSecondsRealtime(0.1f);             
+
         //Get direction to dash in
         int direction = XInputDirection();
         //If player is not moving / doesn't have direction, dash in the most recent input
@@ -607,13 +607,14 @@ public class PlayerControllerForces : MonoBehaviour
         }
        
         rb.AddForce(Vector2.right * direction * Data.dashSpeed, ForceMode2D.Impulse);
-        //Debug.Log("Start velocity: " + rb.velocity.x);
+        
+        //Update camera
+        float cameraOffset = Data.cameraDashOffset * direction;
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.05f);
 
         yield return new WaitForSecondsRealtime(Data.dashAttackTime);
 
-        //Debug.Log("End velocity: " + rb.velocity.x);
-
-        //startTime = Time.time;
+        //Stop dash
         isDashAttacking = false;
 
         //Reset movement back to close to the walking speed
@@ -841,14 +842,12 @@ public class PlayerControllerForces : MonoBehaviour
         CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
     }
 
-    //Check direction that the player should face
+    //Check direction that the player should face and execute it 
     public void CheckDirectionToFace(bool isMovingRight)
     {
-        /*Debug.Log("Coyote buffer" + Data.turnCoyoteBuffer);
-        Debug.Log(LastOnWallLeftTime);
-        Debug.Log(LastOnWallRightTime);*/
         if (isMovingRight != playerState.IsFacingRight)
         {
+            //Check for wall jumping and where it automatically turns the player
             if (Data.doTurnOnWallJump)
             {
                 if (Data.wallTurnBuffer < LastWallJumpTime)
@@ -856,7 +855,6 @@ public class PlayerControllerForces : MonoBehaviour
             }
             else
                 Turn();
-
         }
     }
 
@@ -1002,7 +1000,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     private IEnumerator PerformSleep(float duration)
     {
-        Debug.Log("Performing sleep, duration: " + duration);
+        //Debug.Log("Performing sleep, duration: " + duration);
         //Sleeping
         SetGravityScale(0);
         isSleeping = true;
