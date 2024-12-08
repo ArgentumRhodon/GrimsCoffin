@@ -20,6 +20,8 @@ public class CStateMachine : MonoBehaviour
             SetState(nextState);
         }
 
+        //Debug.Log(CurrentState);
+
         if (CurrentState != null)
             CurrentState.OnUpdate(this);
     }

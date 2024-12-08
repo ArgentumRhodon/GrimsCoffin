@@ -60,7 +60,7 @@ public abstract class Enemy : MonoBehaviour
         Sleep(0.5f);
 
         health -= damage;
-        CameraShake.Instance.ShakeCamera(2.5f, 1.75f, .2f);
+        CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
 
         if (health <= 0)
             DestroyEnemy();
@@ -92,7 +92,8 @@ public abstract class Enemy : MonoBehaviour
             {
                 TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
 
-                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility)
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility
+                    && !PlayerControllerForces.Instance.hasDashInvincibility)
                 {
                     PlayerControllerForces.Instance.TakeDamage(damage);
                 }

@@ -5,10 +5,12 @@ using UnityEngine.Playables;
 
 public class PlayerCombat : MonoBehaviour
 {
+    //References to needed items
     private CStateMachine meleeStateMachine;
     private PlayerStateList playerState;
     public PlayerData Data;
 
+    //Scythe objects
     public Collider2D hitbox;
     public Animator scytheAnimator;
 
@@ -17,16 +19,21 @@ public class PlayerCombat : MonoBehaviour
     public Animator animator_B; // Bottom
 
     //Timers
-    public float attackPressedTimer = 0;
-    public float LastComboTime { get; set; }
-    [SerializeField] private float lastAttackTime; 
-    
-    public float LastAttackTime { get { return lastAttackTime; } set { lastAttackTime = value; } }
+    private float lastComboTime;
+    [SerializeField] private float attackDurationTime;
+    [SerializeField] private float queueTimer;
+
+    public float AttackDurationTime { get { return attackDurationTime; } set { attackDurationTime = value; } }
+    public float QueueTimer { get { return queueTimer; } set { queueTimer = value; } }
+    public float LastComboTime { get { return lastComboTime; } set { lastComboTime = value; } }
 
     //Attack
-    private bool canAerialCombo;
-    private bool isAerialCombo;
-    private int attackCounter;
+    [SerializeField] private bool canAerialCombo;
+    [SerializeField] private bool isAerialCombo;
+    [SerializeField] private bool isComboing;
+    [SerializeField] private int attackClickCounter;
+    [SerializeField] private int attackQueueLeft;
+    [SerializeField] private int currentAttackAmount;
 
     public bool CanAerialCombo
     {
@@ -40,16 +47,21 @@ public class PlayerCombat : MonoBehaviour
         set { isAerialCombo = value; }
     }
 
-    public int AttackCounter
+    public bool IsComboing
     {
-        get { return attackCounter; }
-        set { attackCounter = value; }
+        get { return isComboing; }
+        set { isComboing = value; }
+    }
+
+    public int AttackClickCounter
+    {
+        get { return attackClickCounter; }
+        set { attackClickCounter = value; }
     }
 
     void Start()
     {
         meleeStateMachine = GetComponent<CStateMachine>();
-        canAerialCombo = true;
         playerState = GetComponent<PlayerStateList>();
         Data = GetComponent<PlayerControllerForces>().Data;
 
@@ -57,46 +69,139 @@ public class PlayerCombat : MonoBehaviour
         {
             scytheAnimator = GameObject.Find("Scythe").GetComponent<Animator>();
         }
+
+        canAerialCombo = true;
+        isAerialCombo = false;
     }
 
     private void FixedUpdate()
     {
-        if(attackPressedTimer > 0) 
-            attackPressedTimer -= Time.deltaTime;
+        //Update proper values
+        UpdateTimers();
+        UpdateAttackVariables();
 
-        //Combat
-        LastComboTime -= Time.deltaTime;
-        LastAttackTime -= Time.deltaTime;
+        //Check to see if it should move on to the next combo
+        if (currentAttackAmount < Data.comboTotal && attackQueueLeft > 0 && AttackDurationTime < 0)
+        {
+            ComboAttack();
+            attackQueueLeft--;
+
+            if(attackQueueLeft > 0)
+                QueueTimer = Data.attackBufferTime;
+        }
     }
 
     private void OnAttack()
     {
+        //Debug.Log("Attack is running");
         if (playerState.IsDashing || Time.timeScale == 0)
             return;
-
-        //Check for player cooldown
-        if (LastComboTime < 0)
+      
+        //Check for combo timer, if the click amount is less then combo total 
+        if (LastComboTime < 0 && attackClickCounter < Data.comboTotal &&
+            //Check if the attack counter is above, make sure the queue timer still allows for adding an attack
+            ((attackClickCounter > 0 && QueueTimer > 0) || attackClickCounter == 0))
         {
-            //If idle, enter the entry state
-            if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
+            //Add to the click counter
+            attackClickCounter++;
+            QueueTimer = Data.attackBufferTime;
+
+            //Continue the combo queue
+            if (attackClickCounter > 1)
             {
-                meleeStateMachine.SetNextState(new MeleeEntryState());
-                attackPressedTimer = 1.4f;
-                LastAttackTime = Data.attackBufferTime;
+                //Debug.Log("Should be adding to the combo queue timer");
+                attackQueueLeft++;
             }
-            //If not idle, register attack to move to next state
-            else if (attackPressedTimer > 0)
+            //Run the first attack and add to the combo queue
+            else
             {
-                meleeStateMachine.RegisteredAttack = true;
-                LastAttackTime = Data.attackBufferTime;
+                Attack();
             }
         }
     }
 
+    //Base single attack
+    private void Attack()
+    {
+        //If idle, enter the entry state
+        if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
+        {
+            meleeStateMachine.SetNextState(new MeleeEntryState());
+            AttackDurationTime = Data.attackBufferTime;
+
+            PlayerControllerForces.Instance.StartAttack();
+            currentAttackAmount++;
+        }
+    }
+
+    //Combo attack, handles everything after the first attack
+    private void ComboAttack()
+    {
+        meleeStateMachine.RegisteredAttack = true;
+        isComboing = true;
+
+        AttackDurationTime = Data.attackBufferTime;
+             
+        PlayerControllerForces.Instance.StartAttack();
+        currentAttackAmount++;
+    }
+
+    //Reset combo stats
     public void ResetCombo()
     {
         LastComboTime = Data.comboSleepTime;
-        //LastAttackTime = 0;
-        AttackCounter = 0;
+        attackClickCounter = 0;
+        currentAttackAmount = 0;
+        attackQueueLeft = 0;
+        isComboing = false;
+
+        QueueTimer = 0;
+        attackDurationTime = 0;
+    }
+
+    public bool ShouldResetCombo()
+    {
+        //return attackDurationTime < 0 && queueTimer < 0;// && attackQueueLeft == 0;
+        return AttackDurationTime < 0 && QueueTimer < 0 && attackQueueLeft == 0;
+
+    }
+
+    //Update timers in FixedUpdate
+    private void UpdateTimers()
+    {
+        LastComboTime -= Time.deltaTime;
+        AttackDurationTime -= Time.deltaTime;
+        QueueTimer -= Time.deltaTime;
+    }
+
+    //Updates all stats in FixedUpdate
+    private void UpdateAttackVariables()
+    {
+        if (AttackDurationTime > 0)
+            playerState.IsAttacking = true;           
+        else
+            playerState.IsAttacking = false;    
+
+        //Reset combo if they have not attacked in a specific amount of time
+        if (ShouldResetCombo() && AttackClickCounter > 0)
+        {
+            AttackClickCounter = 0;
+            ResetCombo();
+
+            animator_T.SetFloat("comboRatio", 0);
+            animator_B.SetFloat("comboRatio", 0);
+
+            //Update aerial combo values
+            if(isAerialCombo)
+            {
+                canAerialCombo = false;
+                isAerialCombo = false;
+            }
+        }
+
+        if (LastComboTime < 0)
+        {
+            canAerialCombo = true;
+        }
     }
 }

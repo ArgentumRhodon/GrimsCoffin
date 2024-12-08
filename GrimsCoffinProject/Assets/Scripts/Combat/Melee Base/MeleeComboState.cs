@@ -10,7 +10,10 @@ public class MeleeComboState : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 1;
-        duration = .35f;
+        attackDamage = 4;
+        playerCombat.AttackDurationTime = .35f;
+
+        //Animations
         animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
@@ -24,18 +27,14 @@ public class MeleeComboState : MeleeBaseState
     {
         base.OnUpdate(_stateMachine);
 
-        if (fixedtime >= duration)
-        //if (playerCombat.LastAttackTime > 0)
+        if (_stateMachine.RegisteredAttack)
         {
-            if (shouldCombo && _stateMachine.RegisteredAttack)
-            {
-                stateMachine.SetNextState(new MeleeCombo2());
-                _stateMachine.RegisteredAttack = false;
-            }
-            else
-            {
-                stateMachine.SetNextStateToMain();
-            }
+            stateMachine.SetNextState(new MeleeCombo2());
+            _stateMachine.RegisteredAttack = false;
         }
+        else if (playerCombat.ShouldResetCombo())
+        {
+            stateMachine.SetNextStateToMain();
+        }      
     }
 }

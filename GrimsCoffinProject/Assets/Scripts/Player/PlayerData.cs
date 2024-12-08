@@ -8,6 +8,7 @@ public class PlayerData : ScriptableObject
     public float deadzone;
     public float cameraOffset;
     public float cameraWalkOffset;
+    public float cameraDashOffset;
 
     [Header("Gravity")]
     [HideInInspector] public float gravityStrength; //Downwards force needed for the desired jumpHeight and jumpTimeToApex
@@ -65,6 +66,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Extra Jumps")]
     public bool canDoubleJump;
+    public bool preserveDoubleJump;
     public bool resetJumpOnWall;
     public float extraJumpMultiplier; //Multiplier for impulse added on double jump
     public int maxAirJumps; //Amount of total jumps 
@@ -103,10 +105,11 @@ public class PlayerData : ScriptableObject
 
     [Header("Attacks")]
     public bool canAttack;
-    public float comboSleepTime;
-    public float attackBufferTime;
-    public float comboBufferTime;
-    public float comboTotal;
+    public bool canTurnDuringCombo;
+    public float comboSleepTime; //Sleep time after combo
+    public float attackBufferTime; //Attack buffer to track if the player should stay in the combo or not
+    public float comboAerialTime; //Time player is in the air
+    public float comboTotal; //Length of the combo
     public float aerialForce;
 
 

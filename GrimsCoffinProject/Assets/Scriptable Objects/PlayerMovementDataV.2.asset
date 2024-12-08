@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: PlayerMovementDataV.2
   m_EditorClassIdentifier: 
   deadzone: 0.5
-  cameraOffset: 0.5
-  cameraWalkOffset: 0
+  cameraOffset: 0.6
+  cameraWalkOffset: -0.1
+  cameraDashOffset: -1
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -48,6 +49,7 @@ MonoBehaviour:
   doTurnOnWallJump: 1
   wallTurnBuffer: 0
   canDoubleJump: 1
+  preserveDoubleJump: 1
   resetJumpOnWall: 0
   extraJumpMultiplier: 0
   maxAirJumps: 1
@@ -67,8 +69,9 @@ MonoBehaviour:
   dashRefillTime: 0.4
   dashInputBufferTime: 0.052
   canAttack: 1
+  canTurnDuringCombo: 1
   comboSleepTime: 0.3
   attackBufferTime: 0.5
-  comboBufferTime: 0.5
+  comboAerialTime: 0.15
   comboTotal: 4
-  aerialForce: 2
+  aerialForce: 5

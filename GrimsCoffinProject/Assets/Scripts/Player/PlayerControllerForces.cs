@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
 
 public class PlayerControllerForces : MonoBehaviour
@@ -70,6 +71,7 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public float currentSP;
     [SerializeField] public float invincibilityTimer;
     [SerializeField] public bool hasInvincibility;
+    [SerializeField] public bool hasDashInvincibility;
 
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
@@ -132,6 +134,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
+
+        if (PlayerPrefs.GetInt("RespawnPointSet") == 1 && SceneManager.GetActiveScene().name == PlayerPrefs.GetString("SceneSave"))
+            SpawnAtLastRestPoint();
     }
 
     private void Update()
@@ -185,13 +190,10 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Attack Check
-        UpdateAttackVariables();
-
         //End sleep if moving after combo
         if (isSleeping)
             if (moveInput.x != 0)
-                if (playerCombat.LastAttackTime < 0)
+                if (playerCombat.ShouldResetCombo())
                     EndSleep();
 
         //Handle player walking, make sure the player doesn't walk while dashing
@@ -211,7 +213,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         if (hasInvincibility)
-        {
+        {          
             SetSpriteColors(Color.red);
             invincibilityTimer -= Time.deltaTime;
 
@@ -237,8 +239,9 @@ public class PlayerControllerForces : MonoBehaviour
             
     }
 
-    private void SetSpriteColors(Color color)
+    private void SetSpriteColors(Color color, float transparency = 1)
     {
+        color.a = transparency;
         animator_T.gameObject.GetComponent<SpriteRenderer>().color = color;
         animator_B.gameObject.GetComponent<SpriteRenderer>().color = color;
     }
@@ -275,7 +278,7 @@ public class PlayerControllerForces : MonoBehaviour
                 isJumpFalling = false;
 
                 //If mid attack, stop the combo
-                if (playerCombat.LastAttackTime > 0)
+                if (playerCombat.AttackDurationTime > 0)
                     EndCombo();
 
                 Jump();
@@ -294,11 +297,11 @@ public class PlayerControllerForces : MonoBehaviour
                 lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
 
                 //Stops player from double jumping off wall
-                if (!Data.resetJumpOnWall) 
+                if (!Data.preserveDoubleJump)
                     airJumpCounter = Data.maxAirJumps;
 
                 //If mid attack, stop the combo
-                if (playerCombat.LastAttackTime > 0)
+                if (playerCombat.AttackDurationTime > 0)
                     EndCombo();
 
                 WallJump(lastWallJumpDir);
@@ -316,7 +319,7 @@ public class PlayerControllerForces : MonoBehaviour
                 airJumpCounter++;
 
                 //If mid attack, stop the combo
-                if (playerCombat.LastAttackTime > 0)
+                if (playerCombat.AttackDurationTime > 0)
                     EndCombo();
 
                 Jump();
@@ -337,29 +340,26 @@ public class PlayerControllerForces : MonoBehaviour
         UIManager.Instance.Pause();
     }
 
-    private void OnAttack()
+    public void StartAttack()
     {
         if (playerState.IsDashing)
             return;
 
         //Do not hit during combo
-        if (playerCombat.LastComboTime < 0) {
-            //Combo attack counter
-            playerCombat.AttackCounter++;    
-
-            //Aerial attack
+        if (playerCombat.LastComboTime < 0) 
+        {
+            //Aerial attack sleep / hitstop 
             if (!Grounded())
             {
                 if (playerCombat.CanAerialCombo)
                 {
-                    //Debug.Log(playerCombat.AttackCounter > 1);
                     playerCombat.IsAerialCombo = true;
                     EndSleep();
 
-                    if (playerCombat.AttackCounter != Data.comboTotal)
-                        Sleep(Data.comboSleepTime);
+                    if (playerCombat.AttackClickCounter < Data.comboTotal)
+                        Sleep(Data.comboAerialTime);
                     else
-                        Sleep(Data.comboSleepTime/2);
+                        Sleep(Data.comboAerialTime/2);
                 }
             }
             else
@@ -581,13 +581,20 @@ public class PlayerControllerForces : MonoBehaviour
         dashesLeft--;
         isDashAttacking = true;
 
+        //Become invincible and make sprite transparent while dashing
+        hasDashInvincibility = true;
+        Color tmp = animator_T.GetComponent<SpriteRenderer>().color;
+        tmp.a = 0.5f;
+        animator_T.GetComponent<SpriteRenderer>().color = tmp;
+        animator_B.GetComponent<SpriteRenderer>().color = tmp;      
+
         //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
         rb.velocity = Vector2.zero;
         Sleep(0.1f);
 
-        yield return new WaitForSecondsRealtime(0.1f);
-        
+        yield return new WaitForSecondsRealtime(0.1f);             
+
         //Get direction to dash in
         int direction = XInputDirection();
         //If player is not moving / doesn't have direction, dash in the most recent input
@@ -600,13 +607,14 @@ public class PlayerControllerForces : MonoBehaviour
         }
        
         rb.AddForce(Vector2.right * direction * Data.dashSpeed, ForceMode2D.Impulse);
-        //Debug.Log("Start velocity: " + rb.velocity.x);
+        
+        //Update camera
+        float cameraOffset = Data.cameraDashOffset * direction;
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.05f);
 
         yield return new WaitForSecondsRealtime(Data.dashAttackTime);
 
-        //Debug.Log("End velocity: " + rb.velocity.x);
-
-        //startTime = Time.time;
+        //Stop dash
         isDashAttacking = false;
 
         //Reset movement back to close to the walking speed
@@ -620,6 +628,12 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Dash over
         playerState.IsDashing = false;
+        hasDashInvincibility = false;
+        tmp = animator_T.GetComponent<SpriteRenderer>().color;
+        tmp.a = 1f;
+        animator_T.GetComponent<SpriteRenderer>().color = tmp;
+        animator_B.GetComponent<SpriteRenderer>().color = tmp;
+        //Debug.Log("Current Transparency2: " + animator_T.GetComponent<SpriteRenderer>().color.a);
     }
 
     //Delay period between dashes
@@ -677,7 +691,7 @@ public class PlayerControllerForces : MonoBehaviour
                 lastDashDir = playerState.IsFacingRight ? Vector2.right : Vector2.left;
 
             //If mid attack, stop the combo
-            if (playerCombat.LastAttackTime > 0)
+            if (playerCombat.AttackDurationTime > 0)
                 EndCombo();      
 
             //Set states
@@ -711,52 +725,17 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
-    private void UpdateAttackVariables()
-    {
-        if(playerCombat.LastAttackTime > 0)
-            playerState.IsAttacking = true;         
-        else
-            playerState.IsAttacking = false;
-
-        //If player is in the air, check to reset the aerial combo
-        if (playerCombat.IsAerialCombo)
-        {
-            if (playerCombat.LastAttackTime < 0)
-            {
-                playerCombat.ResetCombo();
-
-                playerCombat.CanAerialCombo = false;
-                playerCombat.IsAerialCombo = false;
-            }
-        }
-
-        //Reset combo if they have not attacked in a specific amount of time
-        if (playerCombat.LastAttackTime < 0 && playerCombat.AttackCounter > 0)
-        {
-            playerCombat.AttackCounter = 0;
-
-            animator_T.SetFloat("comboRatio", 0);
-            animator_B.SetFloat("comboRatio", 0);
-        }
-
-        if (playerCombat.LastComboTime < 0)
-        {
-            playerCombat.CanAerialCombo = true;
-        }
-    }
-
     private void UpdateGravityVariables()
     {
         if (!playerState.IsDashing)
         {
             //Higher gravity if we've released the jump input or are falling
-                        if (playerCombat.IsAerialCombo)
-                        {
-                            SetGravityScale(0);
-                        }
-                        else
+            if (playerCombat.IsAerialCombo && playerCombat.AttackDurationTime > 0)
+            {
+                SetGravityScale(0);
+            }
             //No gravity if the player is sliding
-            if (playerState.IsSliding)
+            else if (playerState.IsSliding)
             {
                 SetGravityScale(0);
 
@@ -863,22 +842,27 @@ public class PlayerControllerForces : MonoBehaviour
         CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
     }
 
-    //Check direction that the player should face
+    //Check direction that the player should face and execute it 
     public void CheckDirectionToFace(bool isMovingRight)
     {
-        /*Debug.Log("Coyote buffer" + Data.turnCoyoteBuffer);
-        Debug.Log(LastOnWallLeftTime);
-        Debug.Log(LastOnWallRightTime);*/
         if (isMovingRight != playerState.IsFacingRight)
         {
+            //Don't turn if player is mid combo
+            if (playerCombat.IsComboing && !Data.canTurnDuringCombo)
+            {
+                return;
+            }
+
+            //Check for wall jumping and where it automatically turns the player
             if (Data.doTurnOnWallJump)
             {
+                //Buffer to make sure turning looks smooth
                 if (Data.wallTurnBuffer < LastWallJumpTime)
                     Turn();
             }
+            //Default, just turn
             else
                 Turn();
-
         }
     }
 
@@ -960,12 +944,12 @@ public class PlayerControllerForces : MonoBehaviour
     private bool CanBreakCombo(float breakMult = 2/3f)
     {
         //Debug.Log(Data.attackBufferTime);
-        return playerCombat.LastAttackTime < Data.attackBufferTime * breakMult;
+        return playerCombat.AttackDurationTime < Data.attackBufferTime * breakMult;
     }
 
     private void EndCombo()
     {
-        Debug.Log("Ending Combo");
+        //Debug.Log("Ending Combo");
         playerCombat.ResetCombo();
         playerState.IsAttacking = false;
         EndSleep();
@@ -1024,6 +1008,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     private IEnumerator PerformSleep(float duration)
     {
+        //Debug.Log("Performing sleep, duration: " + duration);
         //Sleeping
         SetGravityScale(0);
         isSleeping = true;
@@ -1039,6 +1024,7 @@ public class PlayerControllerForces : MonoBehaviour
                 else
                     direction = -1;
             }
+
 
             rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
             rb.AddForce(new Vector2(direction, 0) * Data.aerialForce, ForceMode2D.Impulse);
@@ -1072,5 +1058,19 @@ public class PlayerControllerForces : MonoBehaviour
         {
             interactionPrompt.interactable.PerformInteraction();
         }
+    }
+
+    private void SpawnAtLastRestPoint()
+    {
+        Debug.Log("Spawning at Rest Point");
+        Vector3 newSpawn = new Vector3(
+            PlayerPrefs.GetFloat("XSpawnPos"),
+            PlayerPrefs.GetFloat("YSpawnPos"),
+            0);
+
+        this.gameObject.transform.position = newSpawn;
+        respawnPoint = newSpawn;
+   
+        currentHP = maxHP;
     }
 }
