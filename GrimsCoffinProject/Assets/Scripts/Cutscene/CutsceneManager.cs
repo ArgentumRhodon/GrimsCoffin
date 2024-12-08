@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -21,6 +23,12 @@ public class CutsceneManager : MonoBehaviour
     private int currentSentenceIndex = 0;
     private bool isFading = false;
     private bool cutsceneActive = false;
+
+    [SerializeField] private List<Sprite> continuePromptIcons;
+    [SerializeField] private List<Sprite> skipPromptIcons;
+
+    [SerializeField] private Image continuePrompt;
+    [SerializeField] private Image skipPrompt;
 
     void Awake()
     {
@@ -58,6 +66,25 @@ public class CutsceneManager : MonoBehaviour
         {
             SkipCutsceneImmediately();
         }
+
+        if (continuePromptIcons != null)
+        {
+            switch (playerInput.currentControlScheme)
+            {
+                case "Keyboard&Mouse":
+                    continuePrompt.sprite = continuePromptIcons[0];
+                    skipPrompt.sprite = skipPromptIcons[0];
+                    break;
+                case "Playstation":
+                    continuePrompt.sprite = continuePromptIcons[1];
+                    skipPrompt.sprite = skipPromptIcons[1];
+                    break;
+                default:
+                    continuePrompt.sprite = continuePromptIcons[2];
+                    skipPrompt.sprite = skipPromptIcons[2];
+                    break;
+            }
+        }
     }
 
     public void StartCutscene()
@@ -77,10 +104,10 @@ public class CutsceneManager : MonoBehaviour
         isFading = true;
 
         Coroutine sentenceFade = StartCoroutine(FadeTextAlpha(dialogueText, 1f, 0f, fadeDuration));
-        Coroutine indicatorFade = StartCoroutine(FadeTextAlpha(indicatorText, 1f, 0f, fadeDuration));
+        //Coroutine indicatorFade = StartCoroutine(FadeTextAlpha(indicatorText, 1f, 0f, fadeDuration));
 
         yield return sentenceFade;
-        yield return indicatorFade;
+        //yield return indicatorFade;
 
         currentSentenceIndex++;
 
@@ -100,11 +127,11 @@ public class CutsceneManager : MonoBehaviour
     {
         dialogueText.text = sentence;
         SetTextAlpha(dialogueText, 0f);
-        SetTextAlpha(indicatorText, 0f);
+        //SetTextAlpha(indicatorText, 0f);
 
         yield return StartCoroutine(FadeTextAlpha(dialogueText, 0f, 1f, fadeDuration));
 
-        yield return StartCoroutine(FadeTextAlpha(indicatorText, 0f, 1f, fadeDuration));
+        //yield return StartCoroutine(FadeTextAlpha(indicatorText, 0f, 1f, fadeDuration));
     }
 
     IEnumerator FadeTextAlpha(TextMeshProUGUI textElement, float startAlpha, float endAlpha, float duration)
@@ -146,15 +173,15 @@ public class CutsceneManager : MonoBehaviour
         string currentScheme = playerInput.currentControlScheme;
         if (currentScheme.Contains("Keyboard&Mouse"))
         {
-            indicatorText.text = "click to continue";
+            indicatorText.text = " to continue";
         }
         else if (currentScheme.Contains("Xbox"))
         {
-            indicatorText.text = "press A to continue";
+            indicatorText.text = "press\t to continue";
         }
         else if (currentScheme.Contains("PlayStation"))
         {
-            indicatorText.text = "press B to continue";
+            indicatorText.text = "press\t to continue";
         }
     }
 
@@ -165,11 +192,11 @@ public class CutsceneManager : MonoBehaviour
         string currentScheme = playerInput.currentControlScheme;
         if (currentScheme.Contains("Keyboard&Mouse"))
         {
-            skipText.text = "press esc to skip";
+            skipText.text = "press\tto skip";
         }
         else
         {
-            skipText.text = "press start to skip";
+            skipText.text = "press\tto skip";
         }
     }
 
