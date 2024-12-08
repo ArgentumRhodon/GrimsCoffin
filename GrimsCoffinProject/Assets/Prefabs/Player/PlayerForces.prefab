@@ -363,6 +363,7 @@ MonoBehaviour:
   currentSP: 50
   invincibilityTimer: 0
   hasInvincibility: 0
+  hasDashInvincibility: 0
   interactionPrompt: {fileID: 4303321463941137360}
 --- !u!114 &5297759798866308537
 MonoBehaviour:
@@ -444,8 +445,14 @@ MonoBehaviour:
   scytheAnimator: {fileID: 4929932698530573072}
   animator_T: {fileID: 8317159216238193831}
   animator_B: {fileID: 3128556383560729049}
-  attackPressedTimer: 0
-  lastAttackTime: 0
+  attackDurationTime: 0
+  queueTimer: 0
+  canAerialCombo: 0
+  isAerialCombo: 0
+  isComboing: 0
+  attackClickCounter: 0
+  attackQueueLeft: 0
+  currentAttackAmount: 0
 --- !u!114 &3338551163740125992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,7 +563,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 99f5c615b63f5c441a4c1dfcca99c046, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -662,7 +669,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 99f5c615b63f5c441a4c1dfcca99c046, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
