@@ -1027,7 +1027,7 @@ public class PlayerControllerForces : MonoBehaviour
 
 
             rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
-            rb.AddForce(new Vector2(direction, 0) * Data.aerialForce, ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(direction, 0) * Data.comboAerialPForce, ForceMode2D.Impulse);
         }
 
         yield return new WaitForSecondsRealtime(duration / 8);

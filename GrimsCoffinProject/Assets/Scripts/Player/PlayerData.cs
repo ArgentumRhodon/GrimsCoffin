@@ -113,16 +113,63 @@ public class PlayerData : ScriptableObject
     [Header("General Attacks")]
     public bool canAttack;
 
-    [Space(20)]
+    [Space(10)]
 
-
+    [Header("Main Combo Attack")]
     public bool canTurnDuringCombo;
     public float comboSleepTime; //Sleep time after combo
     public float attackBufferTime; //Attack buffer to track if the player should stay in the combo or not
     public float comboAerialTime; //Time player is in the air
     public float comboTotal; //Length of the combo
-    public float aerialForce;
+    public float comboAerialPForce;
 
+    [Space(15)]
+
+    public float combo1Damage;
+    public float combo2Damage;
+    public float combo3Damage;
+    public float combo4Damage;
+
+    [Space(15)]
+
+    [Header("Ground Up Attack")]
+    public float groundUpwardPForce;
+    public float groundUpwardEForce;
+
+    [Space(15)]
+
+    public float groundUpDamage;
+
+    [Space(15)]
+
+    [Header("Ground Down Attack")]
+    public float groundDownwardPForce;
+    public float groundDownwardEForce;
+    public float gdHoldDuration;
+
+    [Space(15)]
+
+    public float groundDownDamage;
+
+    [Space(15)]
+
+    [Header("Aerial Up Attack")]
+    public float hookPlayerForce;
+
+    [Space(15)]
+
+    public float aerialUpDamage;
+
+    [Space(15)]
+
+    [Header("Aerial Down Attack")]
+    public float aerialDownwardPForce;
+    public float aerialDownwardEForce;
+
+    [Space(15)]
+
+    public float aerialDownDamage;
+    public float aerialImpactDamage;
 
     //Unity Callback, called when the inspector updates
     private void OnValidate()
