@@ -43,7 +43,7 @@ public class PlayerData : ScriptableObject
     public float jumpTimeToApex; //Time between applying the jump force and reaching the desired jump height. These values also control the player's gravity and jump force.
     [HideInInspector] public float jumpForce; //The actual force applied to the player when they jump.
 
-    [Space(5)]
+    [Space(10)]
 
     [Header("All Jumps")]
     public float jumpCancelGravityMult; //Multiplier to increase gravity if the player releases thje jump button while still jumping
@@ -53,7 +53,7 @@ public class PlayerData : ScriptableObject
     public float jumpHangAccelerationMult;
     public float jumpHangMaxSpeedMult;
 
-    [Space(5)]
+    [Space(10)]
 
     [Header("Wall Jump")]
     public bool canWallJump;
@@ -68,7 +68,7 @@ public class PlayerData : ScriptableObject
     public bool doTurnOnWallJump; //Player will rotate to face wall jumping direction
     [Range(0f, 0.5f)] public float wallTurnBuffer;
 
-    [Space(5)]
+    [Space(10)]
 
     [Header("Extra Jumps")]
     public bool canDoubleJump;
@@ -110,8 +110,12 @@ public class PlayerData : ScriptableObject
 
     [Space(20)]
 
-    [Header("Attacks")]
+    [Header("General Attacks")]
     public bool canAttack;
+
+    [Space(20)]
+
+
     public bool canTurnDuringCombo;
     public float comboSleepTime; //Sleep time after combo
     public float attackBufferTime; //Attack buffer to track if the player should stay in the combo or not
