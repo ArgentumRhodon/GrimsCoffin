@@ -10,10 +10,16 @@ public class PlayerData : ScriptableObject
     public float cameraWalkOffset;
     public float cameraDashOffset;
 
-    [Header("Gravity")]
+    [Header("Player Stats")]
+    public float maxHP;
+    public float maxSP;
+    public Vector2 respawnPoint;
+
     [HideInInspector] public float gravityStrength; //Downwards force needed for the desired jumpHeight and jumpTimeToApex
     [HideInInspector] public float gravityScale; //Strength of the player's gravity as a multiplier of gravity
-                                                 
+    
+    [Header("Gravity")]
+
     [Space(5)]
     public float fallGravityMult; //Multiplier to the player's gravityScale when falling
     public float maxFallSpeed; //Maximum fall speed of the player when falling

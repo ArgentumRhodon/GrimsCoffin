@@ -62,12 +62,9 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] private Transform frontWallCheckPoint;
     [SerializeField] private Transform backWallCheckPoint;
     [SerializeField] private Vector2 wallCheckSize = new Vector2(0.5f, 1f);
-    [SerializeField] public Vector2 respawnPoint;
 
     [Header("Player Stats")]
-    [SerializeField] public float maxHP;
     [SerializeField] public float currentHP;
-    [SerializeField] public float maxSP;
     [SerializeField] public float currentSP;
     [SerializeField] public float invincibilityTimer;
     [SerializeField] public bool hasInvincibility;
@@ -130,7 +127,7 @@ public class PlayerControllerForces : MonoBehaviour
         //canAerialCombo = true;
         isSleeping = false;
 
-        respawnPoint = this.transform.position;
+        Data.respawnPoint = this.transform.position;
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
@@ -418,11 +415,11 @@ public class PlayerControllerForces : MonoBehaviour
         Time.timeScale = 1.0f;
         this.hasInvincibility = false;
 
-        currentHP = maxHP;
-        currentSP = maxSP;
+        currentHP = Data.maxHP;
+        currentSP = Data.maxSP;
 
-        if (respawnPoint != null)
-            this.gameObject.transform.position = respawnPoint;
+        if (Data.respawnPoint != null)
+            this.gameObject.transform.position = Data.respawnPoint;
     }
 
     //Movement Method Calculations ----------------------------------------------------------------------------------------------
@@ -1069,8 +1066,8 @@ public class PlayerControllerForces : MonoBehaviour
             0);
 
         this.gameObject.transform.position = newSpawn;
-        respawnPoint = newSpawn;
+        Data.respawnPoint = newSpawn;
    
-        currentHP = maxHP;
+        currentHP = Data.maxHP;
     }
 }
