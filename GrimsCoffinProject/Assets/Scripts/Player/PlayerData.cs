@@ -43,6 +43,8 @@ public class PlayerData : ScriptableObject
     public float jumpTimeToApex; //Time between applying the jump force and reaching the desired jump height. These values also control the player's gravity and jump force.
     [HideInInspector] public float jumpForce; //The actual force applied to the player when they jump.
 
+    [Space(5)]
+
     [Header("All Jumps")]
     public float jumpCancelGravityMult; //Multiplier to increase gravity if the player releases thje jump button while still jumping
     [Range(0f, 1)] public float jumpHangGravityMult; //Reduces gravity while close to the apex (desired max height) of the jump
@@ -50,6 +52,8 @@ public class PlayerData : ScriptableObject
     [Space(0.5f)]
     public float jumpHangAccelerationMult;
     public float jumpHangMaxSpeedMult;
+
+    [Space(5)]
 
     [Header("Wall Jump")]
     public bool canWallJump;
@@ -63,6 +67,8 @@ public class PlayerData : ScriptableObject
     [Space(10)]
     public bool doTurnOnWallJump; //Player will rotate to face wall jumping direction
     [Range(0f, 0.5f)] public float wallTurnBuffer;
+
+    [Space(5)]
 
     [Header("Extra Jumps")]
     public bool canDoubleJump;
@@ -78,6 +84,7 @@ public class PlayerData : ScriptableObject
     public float slideSpeed;
     public float slideAccel;
 
+    [Space(20)]
 
     [Header("Assists")]
     [Range(0.01f, 0.5f)] public float coyoteTime; //Grace period after falling off a platform, where you can still jump
