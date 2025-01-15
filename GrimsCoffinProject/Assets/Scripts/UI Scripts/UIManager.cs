@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
 
     public void HandlePlayerDeath()
     {
+        PersistentDataManager.Instance.ToggleFirstSpawn(true);
         deathScreen.SetActive(true);
         Time.timeScale = 0.0f;
     }

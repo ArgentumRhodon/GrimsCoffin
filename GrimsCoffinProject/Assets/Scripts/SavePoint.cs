@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SavePoint : Interactable
 {
-    [SerializeField] private Vector3 position;
-    [SerializeField] private int roomIndex;
-    private string sceneName;
+    public Vector3 position;
+    public int roomIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        sceneName = SceneManager.GetActiveScene().name;
         position = gameObject.transform.parent.transform.parent.transform.position;
     }
 

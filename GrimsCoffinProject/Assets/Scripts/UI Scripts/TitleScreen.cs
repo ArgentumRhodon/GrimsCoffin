@@ -21,7 +21,7 @@ public class TitleScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        PersistentDataManager.Instance.ToggleFirstSpawn(true);
     }
 
     // Update is called once per frame

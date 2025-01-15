@@ -132,8 +132,11 @@ public class PlayerControllerForces : MonoBehaviour
         LastJumpTime = 0;
         LastWallJumpTime = 0;
 
-        if (PlayerPrefs.GetInt("RespawnPointSet") == 1 && SceneManager.GetActiveScene().name == PlayerPrefs.GetString("SceneSave"))
+        if (PersistentDataManager.Instance.FirstSpawn)
+        {
             SpawnAtLastRestPoint();
+            PersistentDataManager.Instance.ToggleFirstSpawn(false);
+        }
     }
 
     private void Update()
