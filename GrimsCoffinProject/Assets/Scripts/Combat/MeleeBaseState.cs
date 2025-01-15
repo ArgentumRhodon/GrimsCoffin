@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class MeleeBaseState : CState
 {
@@ -20,7 +21,6 @@ public class MeleeBaseState : CState
     protected float attackDamage;
 
     protected PlayerCombat playerCombat;
-
 
     //Cached hit collider component of this attack
     protected Collider2D hitCollider;
@@ -71,12 +71,30 @@ public class MeleeBaseState : CState
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
                 {
-                    collidersToDamage[i].gameObject.GetComponent<Enemy>().TakeDamage(attackDamage);
+                    Debug.Log("Attack registered");
+                    Vector2 knockbackForce = KnockbackForce(collidersToDamage[i].gameObject.GetComponent<Enemy>().transform.position);
+                    collidersToDamage[i].gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
                     //Debug.Log("Enemy Has Taken: " + attackIndex + " Damage");
                     collidersDamaged.Add(collidersToDamage[i]);
                 }
             }
         }
+    }
 
+    protected virtual Vector2 KnockbackForce(Vector2 enemyPos)
+    {
+        //Check direction for knockback
+        int direction;
+        if (IsPlayerOnRight(enemyPos))
+            direction = -1;
+        else
+            direction = 1;
+
+        return new Vector2(direction, 0);
+    }
+
+    protected bool IsPlayerOnRight(Vector2 enemyPos)
+    {
+        return playerCombat.gameObject.transform.position.x > enemyPos.x;
     }
 }

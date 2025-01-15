@@ -10,8 +10,8 @@ public class MeleeComboState : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 1;
-        attackDamage = 4;
-        playerCombat.AttackDurationTime = .35f;
+        attackDamage = playerCombat.Data.combo2Damage;
+        playerCombat.AttackDurationTime = playerCombat.Data.comboAttackDuration;
 
         //Animations
         animator.SetTrigger("Attack");

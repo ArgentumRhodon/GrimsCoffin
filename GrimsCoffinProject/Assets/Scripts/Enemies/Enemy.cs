@@ -11,7 +11,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float movementSpeed;
     [SerializeField] protected float visionRange;
-    [SerializeField] protected float knockback;
+    [SerializeField] [Range(0f, 5f)] protected float knockbackMult;
     [SerializeField] protected Collider2D hitbox;
 
     [Header("GameObjects")]
@@ -53,11 +53,11 @@ public abstract class Enemy : MonoBehaviour
     }
 
     //Take damage and if below zero, destroy the enemy
-    public virtual void TakeDamage(float damage = 1)
+    public virtual void TakeDamage(Vector2 knockbackForce, float damage = 1)
     {
         //Delay enemy movement
         CheckPlayerLoc();
-        Sleep(0.5f);
+        Sleep(0.5f, knockbackForce);
 
         health -= damage;
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
@@ -66,17 +66,11 @@ public abstract class Enemy : MonoBehaviour
             DestroyEnemy();
     }
 
-    protected virtual void Knockback()
+    protected virtual void Knockback(Vector2 knockbackForce)
     {
         //Check direction for knockback
-        int direction;
-        if (isPlayerOnRight)
-            direction = -1;
-        else
-            direction = 1;
-
         rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
-        rb.AddForce(new Vector2(direction, 0) * knockback, ForceMode2D.Impulse);
+        rb.AddForce(knockbackForce * knockbackMult, ForceMode2D.Impulse);
     }
 
     protected void CheckCollisionWithPlayer()
@@ -101,7 +95,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected void CheckPlayerLoc()
+    private void CheckPlayerLoc()
     {
         if(playerTarget.position.x > transform.position.x)
             isPlayerOnRight = true;
@@ -109,11 +103,10 @@ public abstract class Enemy : MonoBehaviour
             isPlayerOnRight = false;
     }
 
-
-    private void Sleep(float duration)
+    private void Sleep(float duration, Vector2 knockbackForce)
     {
         //Method to help delay time for movement
-        StartCoroutine(nameof(PerformSleep), duration);
+        StartCoroutine(PerformSleep(duration, knockbackForce));
     }
 
     private void EndSleep()
@@ -123,17 +116,17 @@ public abstract class Enemy : MonoBehaviour
         isSleeping = false;
     }
 
-    private IEnumerator PerformSleep(float duration)
+    private IEnumerator PerformSleep(float duration, Vector2 knockbackForce)
     {
         //Sleeping
         isSleeping = true;
 
         //Deal knockback impulse
-        Knockback();
+        Knockback(knockbackForce);
         yield return new WaitForSecondsRealtime(duration / 8);
 
         //Reset impulse from combat
-        if (knockback != 0)
+        if (knockbackMult != 0)
             rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
 
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
@@ -141,5 +134,4 @@ public abstract class Enemy : MonoBehaviour
    
         isSleeping = false;
     }
-
 }
