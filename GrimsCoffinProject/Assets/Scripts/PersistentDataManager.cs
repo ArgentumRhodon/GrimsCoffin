@@ -1,12 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance { get; private set; }
 
-    List<Spirit> spirits;
+    public Vector2 SpawnPoint { get { return new Vector2(PlayerPrefs.GetFloat("XSpawnPos"), PlayerPrefs.GetFloat("YSpawnPos")); } }
+    public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave"); } }
+    public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 0); } }
+
+    public float MaxHP { get { return PlayerPrefs.GetFloat("MaxHP"); } }
+    public float MaxSP { get { return PlayerPrefs.GetFloat("MaxSP"); } }
+    public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier"); } }
+
+    public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump") == 1; } }
+    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash") == 1; } }
+    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump") == 1; } }
+
 
     private void Awake()
     {
@@ -25,15 +37,10 @@ public class PersistentDataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        PlayerControllerForces.Instance.Data.maxHP = MaxHP;
+        PlayerControllerForces.Instance.Data.maxSP = MaxSP;
+        //PlayerControllerForces.Instance.Data.damageMultiplier = MaxHP;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public bool SpiritCollected(Spirit spirit)
     {
@@ -57,8 +64,32 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
     }
 
-    public void SetSpawnLocation()
+    public void SaveGame(SavePoint saveLocation)
     {
+        PlayerPrefs.SetFloat("XSpawnPos", saveLocation.position.x);
+        PlayerPrefs.SetFloat("YSpawnPos", saveLocation.position.y);
+        PlayerPrefs.SetFloat("RoomIndex", saveLocation.roomIndex);
+        PlayerPrefs.SetString("SceneSave", SceneManager.GetActiveScene().name);
+    }
 
+    public void ContinueGame()
+    {
+        SceneManager.LoadScene(LastSavedScene);
+    }
+
+    public void ResetSaveData()
+    {
+        //PlayerPrefs.SetString("SceneSave", "IntroScene");
+        //PlayerPrefs.SetFloat("XSpawnPos", 0);
+        //PlayerPrefs.SetFloat("YSpawnPos", 0);
+        //PlayerPrefs.SetInt("RoomIndex", 0);
+
+        PlayerPrefs.SetFloat("MaxHP", 125);
+        PlayerPrefs.SetFloat("MaxSP", 0);
+        PlayerPrefs.SetFloat("DamageMultiplier", 1);
+
+        PlayerPrefs.SetString("DashSpirit", "Uncollected");
+        PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
+        PlayerPrefs.SetString("HealthSpirit", "Uncollected");
     }
 }
