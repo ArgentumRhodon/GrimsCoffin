@@ -10,8 +10,8 @@ public class MeleeFinisherState : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 3;
-        attackDamage = 10;
-        playerCombat.AttackDurationTime = .35f;
+        attackDamage = playerCombat.Data.combo4Damage;
+        playerCombat.AttackDurationTime = playerCombat.Data.comboAttackDuration;
 
         //Animations
         animator.SetTrigger("Attack");
