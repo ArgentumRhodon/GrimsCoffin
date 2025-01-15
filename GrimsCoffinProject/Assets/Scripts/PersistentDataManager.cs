@@ -10,15 +10,15 @@ public class PersistentDataManager : MonoBehaviour
     public Vector2 SpawnPoint { get { return new Vector2(PlayerPrefs.GetFloat("XSpawnPos"), PlayerPrefs.GetFloat("YSpawnPos")); } }
     public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave"); } }
     public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 0); } }
-    public bool FirstSpawn { get { return PlayerPrefs.GetInt("FirstSpawn") == 1; } }
+    public bool FirstSpawn { get { return PlayerPrefs.GetInt("FirstSpawn", 0) == 1; } }
 
-    public float MaxHP { get { return PlayerPrefs.GetFloat("MaxHP"); } }
-    public float MaxSP { get { return PlayerPrefs.GetFloat("MaxSP"); } }
+    public float MaxHP { get { return PlayerPrefs.GetFloat("MaxHP", 125); } }
+    public float MaxSP { get { return PlayerPrefs.GetFloat("MaxSP", 0); } }
     public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier"); } }
 
-    public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump") == 1; } }
-    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash") == 1; } }
-    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump") == 1; } }
+    public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 1) == 1; } }
+    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 1) == 1; } }
+    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 1) == 1; } }
 
     [SerializeField] private List<Room> rooms;
 
@@ -52,7 +52,7 @@ public class PersistentDataManager : MonoBehaviour
     public bool SpiritCollected(Spirit spirit)
     {
         //Debug.Log(spiritToSpawn.spiritID.ToString());
-        if (PlayerPrefs.GetString(spirit.spiritID.ToString()) != "Uncollected")
+        if (PlayerPrefs.GetString(spirit.spiritID.ToString(), "Uncollected") != "Uncollected")
         {
             Debug.Log("Spirit Collected");
             return true;
