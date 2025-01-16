@@ -13,7 +13,6 @@ public class MeleeEntryState : MeleeBaseState
         attackDamage = playerCombat.Data.combo1Damage;
         playerCombat.AttackDurationTime = playerCombat.Data.comboAttackDuration;
 
-
         animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);

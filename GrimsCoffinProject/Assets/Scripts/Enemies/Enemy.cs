@@ -33,6 +33,7 @@ public abstract class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        //Get components for later reference
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<Collider2D>();
@@ -45,13 +46,6 @@ public abstract class Enemy : MonoBehaviour
     //Enemy should implement their own update functionality
     protected abstract void FixedUpdate();
 
-    //Destroy enemy, used for when it dies and when it despawns
-    public virtual void DestroyEnemy()
-    {
-        this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
-        Destroy(this.gameObject);
-    }
-
     //Take damage and if below zero, destroy the enemy
     public virtual void TakeDamage(Vector2 knockbackForce, float damage = 1)
     {
@@ -59,20 +53,18 @@ public abstract class Enemy : MonoBehaviour
         CheckPlayerLoc();
         Sleep(0.5f, knockbackForce);
 
+        //Remove health
         health -= damage;
+
+        //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
 
+        //Enemy death calculation
         if (health <= 0)
             DestroyEnemy();
     }
 
-    protected virtual void Knockback(Vector2 knockbackForce)
-    {
-        //Check direction for knockback
-        rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
-        rb.AddForce(knockbackForce * knockbackMult, ForceMode2D.Impulse);
-    }
-
+    //Damage player if colliding with the enemy
     protected void CheckCollisionWithPlayer()
     {
         Collider2D[] collidersToDamage = new Collider2D[10];
@@ -95,6 +87,9 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    //Helper methods ----------------------------------------------
+
+    //Check player location, used when player takes damage (may not be needed since knockback is calculated in the combat scripts)
     private void CheckPlayerLoc()
     {
         if(playerTarget.position.x > transform.position.x)
@@ -103,6 +98,24 @@ public abstract class Enemy : MonoBehaviour
             isPlayerOnRight = false;
     }
 
+    //Destroy enemy, used for when it dies and when it despawns
+    public virtual void DestroyEnemy()
+    {
+        this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
+        Destroy(this.gameObject);
+    }
+
+    //Add knockback to the enemy based off a given force
+    protected virtual void Knockback(Vector2 knockbackForce)
+    {
+        //Reset current velocity to make sure it doesn't stack
+        rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
+
+        //Impulse force using the knockbackForce parameter, consider knockbackMult, don't apply knockback if 0
+        rb.AddForce(knockbackForce * knockbackMult, ForceMode2D.Impulse);
+    }
+
+    //Sleep methods to run, end, and execute the sleep coroutine
     private void Sleep(float duration, Vector2 knockbackForce)
     {
         //Method to help delay time for movement
@@ -130,7 +143,6 @@ public abstract class Enemy : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
 
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
-
    
         isSleeping = false;
     }

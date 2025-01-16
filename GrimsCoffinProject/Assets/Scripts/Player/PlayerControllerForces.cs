@@ -810,7 +810,7 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Check ground specific collision and return a bool
-    private bool Grounded()
+    public bool Grounded()
     {
         return Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
     }
