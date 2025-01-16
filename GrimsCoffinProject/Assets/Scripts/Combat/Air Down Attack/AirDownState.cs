@@ -16,12 +16,12 @@ public class AirDownState : MeleeBaseState
         attackDamage = playerCombat.Data.aerialDownDamage;
         playerCombat.AttackDurationTime = playerCombat.Data.aDownAttackDuration;
 
-        animator.SetTrigger("Attack");
+/*        animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetTrigger("Attack");
-        playerAnimator_B.SetTrigger("Attack");
+        playerAnimator_B.SetTrigger("Attack");*/
     }
 
     //Continue downwards attack until player is on ground
@@ -30,7 +30,7 @@ public class AirDownState : MeleeBaseState
         base.OnUpdate(_stateMachine);
 
         //If player is on the ground, end it
-        if (PlayerControllerForces.Instance.Grounded())
+        if (PlayerControllerForces.Instance.Grounded() && playerCombat.AttackDurationTime < 0)
         {
             stateMachine.SetNextStateToMain();
         }

@@ -13,24 +13,19 @@ public class AirUpState : MeleeBaseState
         attackDamage = playerCombat.Data.aerialUpDamage;
         playerCombat.AttackDurationTime = playerCombat.Data.aUpAttackDuration;
 
-        animator.SetTrigger("Attack");
+/*        animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetTrigger("Attack");
-        playerAnimator_B.SetTrigger("Attack");
+        playerAnimator_B.SetTrigger("Attack");*/
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
     {
         base.OnUpdate(_stateMachine);
 
-        if (_stateMachine.RegisteredAttack)
-        {
-            stateMachine.SetNextState(new MeleeComboState());
-            _stateMachine.RegisteredAttack = false;
-        }
-        else if (playerCombat.ShouldResetCombo())
+        if (playerCombat.AttackDurationTime < 0)
         {
             stateMachine.SetNextStateToMain();
         }

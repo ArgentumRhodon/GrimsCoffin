@@ -16,12 +16,12 @@ public class GroundDownState : MeleeBaseState
         attackDamage = playerCombat.Data.groundDownDamage;
         playerCombat.AttackDurationTime = playerCombat.Data.gDownAttackDuration;
 
-        animator.SetTrigger("Attack");
+/*        animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetTrigger("Attack");
-        playerAnimator_B.SetTrigger("Attack");
+        playerAnimator_B.SetTrigger("Attack");*/
     }
 
     //Continue downwards attack until player is on ground
