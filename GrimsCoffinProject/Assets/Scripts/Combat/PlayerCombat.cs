@@ -5,9 +5,18 @@ using UnityEngine.Playables;
 
 public class PlayerCombat : MonoBehaviour
 {
+    protected enum AttackDirection 
+    { 
+        None, 
+        Up, 
+        Down
+    }
+
+
     //References to needed items
     private CStateMachine meleeStateMachine;
     private PlayerStateList playerState;
+    private PlayerControllerForces playerController;
     public PlayerData Data;
 
     //Scythe objects
@@ -35,6 +44,12 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private int attackQueueLeft;
     [SerializeField] private int currentAttackAmount;
 
+    [SerializeField] private List<AttackDirection> attackQueue;
+
+
+    private AttackDirection attackDirection;
+
+    //Get Setters
     public bool CanAerialCombo
     {
         get { return canAerialCombo;}
@@ -63,7 +78,8 @@ public class PlayerCombat : MonoBehaviour
     {
         meleeStateMachine = GetComponent<CStateMachine>();
         playerState = GetComponent<PlayerStateList>();
-        Data = GetComponent<PlayerControllerForces>().Data;
+        playerController = GetComponent<PlayerControllerForces>();
+        Data = playerController.Data;
 
         if (scytheAnimator == null)
         {
@@ -86,9 +102,10 @@ public class PlayerCombat : MonoBehaviour
             ComboAttack();
             attackQueueLeft--;
 
-            if(attackQueueLeft > 0)
+            if (attackQueueLeft > 0)
                 QueueTimer = Data.attackBufferTime;
         }
+        
     }
 
     private void OnAttack()
@@ -96,32 +113,113 @@ public class PlayerCombat : MonoBehaviour
         //Debug.Log("Attack is running");
         if (playerState.IsDashing || Time.timeScale == 0)
             return;
-      
+
+        switch (attackDirection)
+        {
+            case AttackDirection.Up:
+                UpAttackCheck();
+                break;
+            case AttackDirection.Down:
+                DownAttackCheck();
+                break;
+            case AttackDirection.None:
+                BaseAttackCheck();
+                break;
+        }
+
+
+
+
+        /*//Check for combo timer, if the click amount is less then combo total 
+        if (LastComboTime < 0 && attackClickCounter < Data.comboTotal &&
+            //Check if the attack counter is above, make sure the queue timer still allows for adding an attack
+            ((attackClickCounter > 0 && QueueTimer > 0) || attackClickCounter == 0))
+        {
+            attackDirection = CheckAttackDirection();
+
+            if (attackDirection == AttackDirection.None)
+            {
+                //Add to the click counter
+                attackClickCounter++;
+                QueueTimer = Data.attackBufferTime;
+
+                //Continue the combo queue
+                if (attackClickCounter > 1)
+                {
+                    //Debug.Log("Should be adding to the combo queue timer");
+                    attackQueueLeft++;
+                }
+                //Run the first attack and add to the combo queue
+                else
+                {
+                    BaseAttack();
+                }
+            }
+            else if (!isComboing)
+            {
+                switch (attackDirection)
+                {
+                    case AttackDirection.Up:
+                        UpAttack();
+                        break;
+                    case AttackDirection.Down:
+                        DownAttack();
+                        break;
+                }
+            }
+        }*/
+
+
+    }
+
+
+    //Attack Checks to see if/when an attack should execute
+    private void BaseAttackCheck()
+    {
         //Check for combo timer, if the click amount is less then combo total 
         if (LastComboTime < 0 && attackClickCounter < Data.comboTotal &&
             //Check if the attack counter is above, make sure the queue timer still allows for adding an attack
             ((attackClickCounter > 0 && QueueTimer > 0) || attackClickCounter == 0))
         {
-            //Add to the click counter
-            attackClickCounter++;
-            QueueTimer = Data.attackBufferTime;
+            attackDirection = CheckAttackDirection();
 
-            //Continue the combo queue
-            if (attackClickCounter > 1)
+            if (attackDirection == AttackDirection.None)
             {
-                //Debug.Log("Should be adding to the combo queue timer");
-                attackQueueLeft++;
-            }
-            //Run the first attack and add to the combo queue
-            else
-            {
-                Attack();
+                //Add to the click counter
+                attackClickCounter++;
+                QueueTimer = Data.attackBufferTime;
+
+                //Continue the combo queue
+                if (attackClickCounter > 1)
+                {
+                    //Debug.Log("Should be adding to the combo queue timer");
+                    attackQueueLeft++;
+                    attackQueue.Add(AttackDirection.None);
+                }
+                //Run the first attack and add to the combo queue
+                else if(attackDurationTime < 0)
+                {
+                    BaseAttack();
+                }
             }
         }
     }
 
+    private void UpAttackCheck()
+    {
+
+    }
+
+    private void DownAttackCheck()
+    {
+
+    }
+
+
+    //Execute Attacks ------------------------------------------------------------------------
+    #region Attack Executions
     //Base single attack
-    private void Attack()
+    private void BaseAttack()
     {
         //If idle, enter the entry state
         if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
@@ -146,6 +244,54 @@ public class PlayerCombat : MonoBehaviour
         currentAttackAmount++;
     }
 
+    private void UpAttack()
+    {
+        if (playerController.Grounded())
+        {
+            Debug.Log("Up Ground Attack");
+            //meleeStateMachine.SetNextState(new GroundUpState());
+            AttackDurationTime = Data.gUpAttackDuration;
+
+            //PlayerControllerForces.Instance.StartAttack();
+        }
+        else
+        {
+            Debug.Log("Up Aerial Attack");
+            //meleeStateMachine.SetNextState(new AirUpState());
+            AttackDurationTime = Data.aUpAttackDuration;
+
+            //PlayerControllerForces.Instance.StartAttack();
+        }
+    }
+
+    private void DownAttack()
+    {
+        if (playerController.Grounded())
+        {
+            Debug.Log("Down Ground Attack");
+            //meleeStateMachine.SetNextState(new GroundDownState());
+            AttackDurationTime = Data.gDownAttackDuration;
+
+            //PlayerControllerForces.Instance.StartAttack();
+        }
+        else
+        {
+            Debug.Log("Down Aerial Attack");
+            //meleeStateMachine.SetNextState(new AirDownState());
+            AttackDurationTime = Data.aDownAttackDuration;
+
+            //PlayerControllerForces.Instance.StartAttack();
+        }
+    }
+    #endregion
+
+
+    //Interrupt combo with another attack
+    protected void InterruptCombo(AttackDirection nextAttackDir)
+    {
+
+    }
+    
     //Reset combo stats
     public void ResetCombo()
     {
@@ -163,6 +309,22 @@ public class PlayerCombat : MonoBehaviour
     {
         //return attackDurationTime < 0 && queueTimer < 0;// && attackQueueLeft == 0;
         return AttackDurationTime < 0 && QueueTimer < 0 && attackQueueLeft == 0;
+    }
+
+    protected AttackDirection CheckAttackDirection()
+    {
+        //Debug.Log("Checking attack direction: " + playerController.MoveInput.y);
+        if (playerController.MoveInput.y > Data.attackDirectionDeadzone)// && BelowXDeadzone())
+            return AttackDirection.Up;
+        else if (playerController.MoveInput.y < -Data.attackDirectionDeadzone)// && BelowXDeadzone())
+            return AttackDirection.Down;
+        else
+            return AttackDirection.None;
+    }
+
+    private bool BelowXDeadzone()
+    {
+        return playerController.MoveInput.x < Data.deadzone && playerController.MoveInput.x > -Data.deadzone;
     }
 
     //Update timers in FixedUpdate

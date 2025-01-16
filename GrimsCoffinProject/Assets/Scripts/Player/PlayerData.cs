@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     public float deadzone;
+    public float attackDirectionDeadzone;
     public float cameraOffset;
     public float cameraWalkOffset;
     public float cameraDashOffset;
