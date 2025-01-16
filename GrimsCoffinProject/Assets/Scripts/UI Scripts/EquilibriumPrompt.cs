@@ -39,14 +39,18 @@ public class EquilibriumPrompt : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(yesButton);
+
             Time.timeScale = 0;
 
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
+            if (UIManager.Instance.areaText.activeInHierarchy)
+                UIManager.Instance.areaText.SetActive(false);
         }
 
         else
         {
             EventSystem.current.SetSelectedGameObject(null);
+
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
             Time.timeScale = 1;
         }

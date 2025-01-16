@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Volume damageVignette;
 
     [SerializeField] public GameObject gameUI;
+    [SerializeField] public GameObject areaText;
 
     private void Awake()
     {
