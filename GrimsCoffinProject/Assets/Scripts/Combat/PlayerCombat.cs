@@ -41,9 +41,8 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private bool isAerialCombo;
     [SerializeField] private bool isComboing;
     [SerializeField] private int attackClickCounter;
-    [SerializeField] private int attackQueueLeft;
+    [SerializeField] private int comboQueueLeft;
     [SerializeField] private int currentAttackAmount;
-
     [SerializeField] private List<AttackDirection> attackQueue;
 
 
@@ -97,15 +96,32 @@ public class PlayerCombat : MonoBehaviour
         UpdateAttackVariables();
 
         //Check to see if it should move on to the next combo
-        if (currentAttackAmount < Data.comboTotal && attackQueueLeft > 0 && AttackDurationTime < 0)
+        if (currentAttackAmount < Data.comboTotal && comboQueueLeft > 0 && AttackDurationTime < 0)
         {
-            ComboAttack();
-            attackQueueLeft--;
+            if (attackQueue[0] == AttackDirection.None)
+            {
+                ComboAttack();
+                comboQueueLeft--;
+                attackQueue.RemoveAt(0);
 
-            if (attackQueueLeft > 0)
-                QueueTimer = Data.attackBufferTime;
+                if (comboQueueLeft > 0)
+                    QueueTimer = Data.attackBufferTime;
+            }
+            else
+            {
+                switch (attackQueue[0])
+                {
+                    case AttackDirection.Up:
+                        UpAttack();
+                        break;
+                    case AttackDirection.Down:
+                        DownAttack();
+                        break;
+                }
+                attackQueue.RemoveAt(0);
+                ResetCombo();
+            }
         }
-        
     }
 
     private void OnAttack()
@@ -113,6 +129,8 @@ public class PlayerCombat : MonoBehaviour
         //Debug.Log("Attack is running");
         if (playerState.IsDashing || Time.timeScale == 0)
             return;
+
+        attackDirection = CheckAttackDirection();
 
         switch (attackDirection)
         {
@@ -126,9 +144,6 @@ public class PlayerCombat : MonoBehaviour
                 BaseAttackCheck();
                 break;
         }
-
-
-
 
         /*//Check for combo timer, if the click amount is less then combo total 
         if (LastComboTime < 0 && attackClickCounter < Data.comboTotal &&
@@ -173,7 +188,7 @@ public class PlayerCombat : MonoBehaviour
     }
 
 
-    //Attack Checks to see if/when an attack should execute
+    //Attack Checks to see if/when an attack should execute -----------------------------
     private void BaseAttackCheck()
     {
         //Check for combo timer, if the click amount is less then combo total 
@@ -181,38 +196,49 @@ public class PlayerCombat : MonoBehaviour
             //Check if the attack counter is above, make sure the queue timer still allows for adding an attack
             ((attackClickCounter > 0 && QueueTimer > 0) || attackClickCounter == 0))
         {
-            attackDirection = CheckAttackDirection();
+            //Add to the click counter
+            attackClickCounter++;
+            QueueTimer = Data.attackBufferTime;
 
-            if (attackDirection == AttackDirection.None)
+            //Continue the combo queue
+            if (attackClickCounter > 1)
             {
-                //Add to the click counter
-                attackClickCounter++;
-                QueueTimer = Data.attackBufferTime;
-
-                //Continue the combo queue
-                if (attackClickCounter > 1)
-                {
-                    //Debug.Log("Should be adding to the combo queue timer");
-                    attackQueueLeft++;
-                    attackQueue.Add(AttackDirection.None);
-                }
-                //Run the first attack and add to the combo queue
-                else if(attackDurationTime < 0)
-                {
-                    BaseAttack();
-                }
+                //Debug.Log("Should be adding to the combo queue timer");
+                comboQueueLeft++;
+                attackQueue.Add(AttackDirection.None);
             }
+            //Run the first attack and add to the combo queue
+            else if (attackDurationTime < 0)
+            {
+                BaseAttack();
+            }           
         }
     }
 
     private void UpAttackCheck()
     {
-
+        //If the player is currently comboing, interrupt it
+        if (isComboing)
+        {
+            InterruptCombo(AttackDirection.Up);
+        }
+        else if(attackDurationTime < 0)
+        {
+            UpAttack();
+        }
     }
 
     private void DownAttackCheck()
     {
-
+        //If the player is currently comboing, interrupt it
+        if (isComboing)
+        {
+            InterruptCombo(AttackDirection.Down);
+        }
+        else if (attackDurationTime < 0)
+        {
+            DownAttack();
+        }
     }
 
 
@@ -221,6 +247,7 @@ public class PlayerCombat : MonoBehaviour
     //Base single attack
     private void BaseAttack()
     {
+        Debug.Log("Base Attack");
         //If idle, enter the entry state
         if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
         {
@@ -235,6 +262,7 @@ public class PlayerCombat : MonoBehaviour
     //Combo attack, handles everything after the first attack
     private void ComboAttack()
     {
+        Debug.Log("Combo Attack");
         meleeStateMachine.RegisteredAttack = true;
         isComboing = true;
 
@@ -289,7 +317,9 @@ public class PlayerCombat : MonoBehaviour
     //Interrupt combo with another attack
     protected void InterruptCombo(AttackDirection nextAttackDir)
     {
-
+        attackQueue.Clear();
+        comboQueueLeft = 0;
+        attackQueue.Add(nextAttackDir);
     }
     
     //Reset combo stats
@@ -298,7 +328,7 @@ public class PlayerCombat : MonoBehaviour
         LastComboTime = Data.comboSleepTime;
         attackClickCounter = 0;
         currentAttackAmount = 0;
-        attackQueueLeft = 0;
+        comboQueueLeft = 0;
         isComboing = false;
 
         QueueTimer = 0;
@@ -308,7 +338,7 @@ public class PlayerCombat : MonoBehaviour
     public bool ShouldResetCombo()
     {
         //return attackDurationTime < 0 && queueTimer < 0;// && attackQueueLeft == 0;
-        return AttackDurationTime < 0 && QueueTimer < 0 && attackQueueLeft == 0;
+        return AttackDurationTime < 0 && QueueTimer < 0 && comboQueueLeft == 0;
     }
 
     protected AttackDirection CheckAttackDirection()
