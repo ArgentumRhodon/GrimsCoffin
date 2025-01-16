@@ -1,3 +1,4 @@
+using Pathfinding.Ionic.Zip;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,12 @@ public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance { get; private set; }
 
-    public Vector2 SpawnPoint { get { return new Vector2(PlayerPrefs.GetFloat("XSpawnPos"), PlayerPrefs.GetFloat("YSpawnPos")); } }
-    public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave"); } }
+    public Vector2 SpawnPoint { get { return new Vector2(PlayerPrefs.GetFloat("XSpawnPos", defaultXPos), PlayerPrefs.GetFloat("YSpawnPos", defaultYPos)); } }
+    public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave", defaultSceneName); } }
     public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 0); } }
     public bool FirstSpawn { get { return PlayerPrefs.GetInt("FirstSpawn", 0) == 1; } }
 
-    public float MaxHP { get { return PlayerPrefs.GetFloat("MaxHP", 125); } }
+    public float MaxHP { get { return PlayerPrefs.GetFloat("MaxHP", defaultHP); } }
     public float MaxSP { get { return PlayerPrefs.GetFloat("MaxSP", 0); } }
     public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier"); } }
 
@@ -20,8 +21,15 @@ public class PersistentDataManager : MonoBehaviour
     public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 1) == 1; } }
     public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 1) == 1; } }
 
+    public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
+
     [SerializeField] private List<Room> rooms;
 
+    [SerializeField] private float defaultXPos = -16;
+    [SerializeField] private float defaultYPos = -1.7f;
+    [SerializeField] private string defaultSceneName = "NewGame";
+
+    [SerializeField] private float defaultHP = 125;
 
     private void Awake()
     {
@@ -40,6 +48,9 @@ public class PersistentDataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.GetActiveScene().name == "CutScene")
+            TransitionToDenialArea();
+
         /*PlayerControllerForces.Instance.Data.maxHP = MaxHP;
         PlayerControllerForces.Instance.Data.maxSP = MaxSP;
 
@@ -76,12 +87,8 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetFloat("XSpawnPos", saveLocation.position.x);
         PlayerPrefs.SetFloat("YSpawnPos", saveLocation.position.y);
         PlayerPrefs.SetFloat("RoomIndex", saveLocation.roomIndex);
+        PlayerPrefs.SetInt("FirstTimeDenial", 0);
         PlayerPrefs.SetString("SceneSave", SceneManager.GetActiveScene().name);
-    }
-
-    public void ContinueGame()
-    {
-        SceneManager.LoadScene(LastSavedScene);
     }
 
     public void ToggleFirstSpawn(bool toggle)
@@ -95,14 +102,18 @@ public class PersistentDataManager : MonoBehaviour
 
     public void ResetSaveData()
     {
-        //PlayerPrefs.SetString("SceneSave", "IntroScene");
-        //PlayerPrefs.SetFloat("XSpawnPos", 0);
-        //PlayerPrefs.SetFloat("YSpawnPos", 0);
+        PlayerPrefs.SetString("SceneSave", defaultSceneName);
+        PlayerPrefs.SetFloat("XSpawnPos", defaultXPos);
+        PlayerPrefs.SetFloat("YSpawnPos", defaultYPos);
         //PlayerPrefs.SetInt("RoomIndex", 0);
 
-        PlayerPrefs.SetFloat("MaxHP", 125);
+        PlayerPrefs.SetFloat("MaxHP", defaultHP);
         PlayerPrefs.SetFloat("MaxSP", 0);
         PlayerPrefs.SetFloat("DamageMultiplier", 1);
+
+        PlayerPrefs.SetInt("CanDoubleJump", 1);
+        PlayerPrefs.SetInt("CanWallJump", 1);
+        PlayerPrefs.SetInt("CanDash", 1);
 
         PlayerPrefs.SetString("DashSpirit", "Uncollected");
         PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
@@ -114,7 +125,7 @@ public class PersistentDataManager : MonoBehaviour
         for (int i = 0; i < rooms.Count; i++)
         {
             if (rooms[i].hasPlayer)
-                PlayerPrefs.SetInt("LastSavedRoom", i);
+                PlayerPrefs.SetInt("RoomIndex", i);
         }
     }
 
@@ -127,5 +138,16 @@ public class PersistentDataManager : MonoBehaviour
                 rooms[i].hasPlayer = true;
             }
         }
+    }
+
+    private void TransitionToDenialArea()
+    {
+        Debug.Log("Transition to Denial");
+        PlayerPrefs.SetInt("FirstTimeDenial", 1);
+        PlayerPrefs.SetString("SceneSave", "ArenaPlaytestLevel2");
+        PlayerPrefs.SetFloat("MaxHP", 50);
+        PlayerPrefs.SetInt("CanDoubleJump", 0);
+        PlayerPrefs.SetInt("CanWallJump", 0);
+        PlayerPrefs.SetInt("CanDash", 0);
     }
 }

@@ -653,6 +653,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rooms:
   - {fileID: 699899454}
+  defaultXPos: -16
+  defaultYPos: -1.7
+  defaultSceneName: NewGame
+  defaultHP: 125
 --- !u!1001 &283110253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1030,7 +1034,7 @@ PrefabInstance:
     - target: {fileID: 1960859601187753200, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: Data
       value: 
-      objectReference: {fileID: 11400000, guid: 143b7257370a7734cb3597d6db098291, type: 2}
+      objectReference: {fileID: 11400000, guid: 56db3d8cbea456748a72ec4714f32446, type: 2}
     - target: {fileID: 1960859601187753200, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: maxHP
       value: 50
@@ -105925,9 +105929,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7544504829230695504, guid: 23aab86635497ef46bac870ab152edfa, type: 3}
       propertyPath: m_text
-      value: 'The Drift
-
-'
+      value: The Enkar Frostlands
+      objectReference: {fileID: 0}
+    - target: {fileID: 7544504829230695504, guid: 23aab86635497ef46bac870ab152edfa, type: 3}
+      propertyPath: m_fontSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7544504829230695504, guid: 23aab86635497ef46bac870ab152edfa, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

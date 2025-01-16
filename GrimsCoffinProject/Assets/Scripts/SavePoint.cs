@@ -26,7 +26,11 @@ public class SavePoint : Interactable
             return;
 
         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
-        PlayerControllerForces.Instance.Data.respawnPoint = this.transform.position;
+        if (SceneManager.GetActiveScene().name != "Equilibrium")
+        {
+            PersistentDataManager.Instance.SaveGame(this);
+        }
+
         UIManager.Instance.equilibriumPrompt.ToggleEnterPrompt();
     }
 }

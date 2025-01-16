@@ -129,6 +129,12 @@ public class PlayerControllerForces : MonoBehaviour
 
         Data.respawnPoint = this.transform.position;
 
+        Data.maxHP = PersistentDataManager.Instance.MaxHP;
+        Data.maxSP = PersistentDataManager.Instance.MaxSP;
+        Data.canDoubleJump = PersistentDataManager.Instance.CanDoubleJump;
+        Data.canWallJump = PersistentDataManager.Instance.CanWallJump;
+        Data.canDash = PersistentDataManager.Instance.CanDash;
+
         LastJumpTime = 0;
         LastWallJumpTime = 0;
 
@@ -1070,7 +1076,8 @@ public class PlayerControllerForces : MonoBehaviour
 
         this.gameObject.transform.position = newSpawn;
         Data.respawnPoint = newSpawn;
-   
-        currentHP = Data.maxHP;
+        
+        if (!PersistentDataManager.Instance.FirstTimeInDenial)
+            currentHP = Data.maxHP;
     }
 }

@@ -9,7 +9,8 @@ using UnityEngine.InputSystem;
 public class TitleScreen : MonoBehaviour
 {
     [SerializeField] private GameObject controlsScreen;
-    [SerializeField] private GameObject start;
+    [SerializeField] private GameObject newGame;
+    [SerializeField] private GameObject continueButton;
     [SerializeField] private GameObject back;
 
     [SerializeField] private GameObject keyboardControls;
@@ -22,6 +23,11 @@ public class TitleScreen : MonoBehaviour
     void Start()
     {
         PersistentDataManager.Instance.ToggleFirstSpawn(true);
+
+        if (PersistentDataManager.Instance.LastSavedScene == "NewGame")
+            continueButton.GetComponent<Button>().interactable = false;
+        else
+            continueButton.GetComponent<Button>().interactable = true;
     }
 
     // Update is called once per frame
@@ -47,9 +53,15 @@ public class TitleScreen : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void NewGame()
     {
-        SceneManager.LoadScene(1);
+        PersistentDataManager.Instance.ResetSaveData();
+        PersistentDataManager.Instance.ToggleFirstSpawn(false);
+        SceneManager.LoadScene("ArenaPlaytestLevel");
+    }
+    public void ContinueGame()
+    {
+        SceneManager.LoadScene(PersistentDataManager.Instance.LastSavedScene);
     }
 
     public void QuitGame()
@@ -66,15 +78,7 @@ public class TitleScreen : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(back);
 
         else
-            EventSystem.current.SetSelectedGameObject(start);
+            EventSystem.current.SetSelectedGameObject(newGame);
 
-    }
-    public void ResetData()
-    {
-        PlayerPrefs.SetInt("RespawnPointSet", 0);
-        PlayerPrefs.SetInt("Spirit1", 0);
-        PlayerPrefs.SetInt("Spirit2", 0);
-        PlayerPrefs.SetInt("Spirit3", 0);
-        PlayerPrefs.SetInt("Spirit4", 0);
     }
 }

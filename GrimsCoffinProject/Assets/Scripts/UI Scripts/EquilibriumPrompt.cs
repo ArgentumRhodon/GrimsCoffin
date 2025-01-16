@@ -21,13 +21,13 @@ public class EquilibriumPrompt : MonoBehaviour
 
         if (insideEquilibrium)
         {
-            SceneManager.LoadScene(2);
+            PersistentDataManager.Instance.ToggleFirstSpawn(true);
+            SceneManager.LoadScene(PersistentDataManager.Instance.LastSavedScene);
         }
 
         else
         {
             SceneManager.LoadScene(3);
-            SavePlayerSpawn();
         }
     }
 
@@ -50,13 +50,5 @@ public class EquilibriumPrompt : MonoBehaviour
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
             Time.timeScale = 1;
         }
-    }
-
-    private void SavePlayerSpawn()
-    {
-        PlayerPrefs.SetInt("RespawnPointSet", 1);
-        PlayerPrefs.SetString("SceneSave", SceneManager.GetActiveScene().name);
-        PlayerPrefs.SetFloat("XSpawnPos", PlayerControllerForces.Instance.gameObject.transform.position.x);
-        PlayerPrefs.SetFloat("YSpawnPos", PlayerControllerForces.Instance.gameObject.transform.position.y);
     }
 }
