@@ -163,7 +163,6 @@ public class PlayerCombat : MonoBehaviour
     {
         //return attackDurationTime < 0 && queueTimer < 0;// && attackQueueLeft == 0;
         return AttackDurationTime < 0 && QueueTimer < 0 && attackQueueLeft == 0;
-
     }
 
     //Update timers in FixedUpdate

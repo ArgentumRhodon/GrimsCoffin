@@ -63,6 +63,8 @@ public class MeleeBaseState : CState
         filter.useTriggers = true;
         int colliderCount = Physics2D.OverlapCollider(hitCollider, filter, collidersToDamage);
 
+        //Debug.Log("Attack is running");
+
         for (int i = 0; i < colliderCount; i++)
         {
             if (!collidersDamaged.Contains(collidersToDamage[i]))
@@ -71,7 +73,7 @@ public class MeleeBaseState : CState
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
                 {
-                    Debug.Log("Attack registered");
+                    //Debug.Log("Attack registered");
                     Vector2 knockbackForce = KnockbackForce(collidersToDamage[i].gameObject.GetComponent<Enemy>().transform.position);
                     collidersToDamage[i].gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
                     //Debug.Log("Enemy Has Taken: " + attackIndex + " Damage");

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundUpState : MeleeBaseState
+public class AirUpState : MeleeBaseState
 {
     public override void OnEnter(CStateMachine _stateMachine)
     {
@@ -10,8 +10,8 @@ public class GroundUpState : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 2; //Not a combo so may not need this
-        attackDamage = playerCombat.Data.groundUpDamage;
-        playerCombat.AttackDurationTime = playerCombat.Data.gUpAttackDuration;
+        attackDamage = playerCombat.Data.aerialUpDamage;
+        playerCombat.AttackDurationTime = playerCombat.Data.aUpAttackDuration;
 
         animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);
