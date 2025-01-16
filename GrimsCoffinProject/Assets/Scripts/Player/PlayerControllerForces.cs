@@ -11,6 +11,8 @@ using UnityEngine.Windows;
 
 public class PlayerControllerForces : MonoBehaviour
 {
+    //Data & Variables --------------------------------------------------------------------------------------------
+    #region Data & Variables
     //Scriptable object which holds all data on player movement parameters
     public PlayerData Data;
 
@@ -21,7 +23,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Timers
     public float LastOnGroundTime { get; private set; }
     public float LastOnWallTime { get; private set; }
-    public float LastHeldWallTime { get; private set; } 
+    public float LastHeldWallTime { get; private set; }
     public float LastOnWallRightTime { get; private set; }
     public float LastOnWallLeftTime { get; private set; }
     public float LastJumpTime { get; private set; }
@@ -45,6 +47,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     //Input parameters
     private Vector2 moveInput;
+    public Vector2 MoveInput { get {return moveInput; } }
 
     // Animation Stuff
     [SerializeField] private Animator animator_T; // Top
@@ -83,8 +86,10 @@ public class PlayerControllerForces : MonoBehaviour
     //Time Variables
     private float localDeltaTime;
     private bool isSleeping;
+    #endregion
 
-
+    //Runtime Methods ---------------------------------------------------------------------------------------------
+    #region Runtime
     private void Awake()
     {
         //Set rigidbody
@@ -103,17 +108,6 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Set player controls to new input
         playerControls = new PlayerControls();
-    }
-
-    //Methods to make player controls work and to access it in the code
-    public void OnEnable()
-    {
-        playerControls.Player.Enable();
-    }
-
-    public void OnDisable()
-    {
-        playerControls.Player.Disable();
     }
 
     private void Start()
@@ -235,15 +229,11 @@ public class PlayerControllerForces : MonoBehaviour
         }
             
     }
+    #endregion
 
-    private void SetSpriteColors(Color color, float transparency = 1)
-    {
-        color.a = transparency;
-        animator_T.gameObject.GetComponent<SpriteRenderer>().color = color;
-        animator_B.gameObject.GetComponent<SpriteRenderer>().color = color;
-    }
+    //Input Methods -----------------------------------------------------------------------------------------------
+    #region Input Methods and Events
 
-    //Input Methods ----------------------------------------------------------------------------------------------
     //Jump Input
     private void OnJump(InputValue value)
     {
@@ -390,6 +380,14 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    private void OnInteract()
+    {
+        if (interactionPrompt.interactable != null)
+        {
+            interactionPrompt.interactable.PerformInteraction();
+        }
+    }
+
     public void TakeDamage(float damageTaken)
     {
         currentHP -= damageTaken;
@@ -400,14 +398,6 @@ public class PlayerControllerForces : MonoBehaviour
         CameraShake.Instance.ShakeCamera(5, 4, .25f);
 
         CheckForDeath();
-    }
-
-    private void CheckForDeath()
-    {
-        if (currentHP <= 0)
-        {
-            UIManager.Instance.HandlePlayerDeath();
-        }
     }
 
     public void Respawn()
@@ -421,8 +411,11 @@ public class PlayerControllerForces : MonoBehaviour
         if (Data.respawnPoint != null)
             this.gameObject.transform.position = Data.respawnPoint;
     }
+    #endregion
 
-    //Movement Method Calculations ----------------------------------------------------------------------------------------------
+    //Movement Method Calculations --------------------------------------------------------------------------------
+    #region Movement Calculations
+
     //Walking
     private void Walk(float lerpAmount)
     {
@@ -641,8 +634,12 @@ public class PlayerControllerForces : MonoBehaviour
         dashRefilling = false;
         dashesLeft = Mathf.Min(Data.dashAmount, dashesLeft + 1);
     }
+    #endregion
 
     //Methods to update movement variables ------------------------------------------------------------------------
+    #region Movement Variable Updates
+
+    //Variables used for every type of jump
     private void UpdateJumpVariables()
     {
         if (playerState.IsJumping && rb.velocity.y < 0)
@@ -677,6 +674,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    //Dash variables
     private void UpdateDashVariables()
     {
         if (CanDash() && LastPressedDashTime > 0)
@@ -701,6 +699,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    //Variables for wall sliding
     private void UpdateSlideVariables()
     {
         if (Data.mustHoldWallToJump)
@@ -722,6 +721,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    //Updates the gravity based on the state of the player
     private void UpdateGravityVariables()
     {
         if (!playerState.IsDashing)
@@ -781,8 +781,10 @@ public class PlayerControllerForces : MonoBehaviour
             SetGravityScale(0);
         }
     }
+    #endregion
 
-    //Helper Methods ----------------------------------------------------------------------------------------------
+    //Status Checkers ---------------------------------------------------------------------------------------------
+    #region Statuses & Checkers
     //Check collisions on every side of the player
     private void CollisionChecks()
     {
@@ -824,19 +826,13 @@ public class PlayerControllerForces : MonoBehaviour
                 || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)) && !playerState.IsWallJumping);
     }
 
+    //Check if the player is not doing anything and set the state to idle
     private void CheckIdle()
     {
-        if(!playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && !playerState.IsSliding && !playerState.IsWalking && !playerState.IsAttacking)
+        if (!playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && !playerState.IsSliding && !playerState.IsWalking && !playerState.IsAttacking)
             playerState.IsIdle = true;
         else
             playerState.IsIdle = false;
-    }
-
-    private void ResetPlayerOffset()
-    {
-        float dir = (playerState.IsFacingRight) ? 1 : -1;
-        float cameraOffset = Data.cameraOffset * dir;
-        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
     }
 
     //Check direction that the player should face and execute it 
@@ -861,18 +857,6 @@ public class PlayerControllerForces : MonoBehaviour
             else
                 Turn();
         }
-    }
-
-    //Set x direction to -1 or 1, even if using analog stick
-    private int XInputDirection()
-    {
-        //Added deadzone to account for controller drift
-        if (moveInput.x < -Data.deadzone)
-            return -1;
-        else if (moveInput.x > Data.deadzone)
-            return 1;
-        else
-            return 0;
     }
 
     //Checks for jump states
@@ -934,28 +918,21 @@ public class PlayerControllerForces : MonoBehaviour
 
             return dashesLeft > 0;
         }
-        else 
+        else
             return false;
     }
 
-    private bool CanBreakCombo(float breakMult = 2/3f)
+    //Check if the player is able to break combo after enough time
+    private bool CanBreakCombo(float breakMult = 2 / 3f)
     {
         //Debug.Log(Data.attackBufferTime);
         return playerCombat.AttackDurationTime < Data.attackBufferTime * breakMult;
     }
 
-    private void EndCombo()
-    {
-        //Debug.Log("Ending Combo");
-        playerCombat.ResetCombo();
-        playerState.IsAttacking = false;
-        EndSleep();
-    }
-
     //Check to see if the player is on the wall and is sliding
     public bool CanSlide()
     {
-        if(Data.canSlide)
+        if (Data.canSlide)
         {
             if (LastOnWallTime > 0 && !playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && LastOnGroundTime <= 0)
                 return true;
@@ -966,12 +943,66 @@ public class PlayerControllerForces : MonoBehaviour
             return false;
     }
 
+    //Check health for death
+    private void CheckForDeath()
+    {
+        if (currentHP <= 0)
+        {
+            UIManager.Instance.HandlePlayerDeath();
+        }
+    }
+    #endregion
+
+    //Helper Methods ----------------------------------------------------------------------------------------------
+    #region Helper Methods
+    //Set colors of the sprite, along with the transparency
+    private void SetSpriteColors(Color color, float transparency = 1)
+    {
+        color.a = transparency;
+        animator_T.gameObject.GetComponent<SpriteRenderer>().color = color;
+        animator_B.gameObject.GetComponent<SpriteRenderer>().color = color;
+    }
+
+    //Set x direction to -1 or 1, even if using analog stick
+    private int XInputDirection()
+    {
+        //Added deadzone to account for controller drift
+        if (moveInput.x < -Data.deadzone)
+            return -1;
+        else if (moveInput.x > Data.deadzone)
+            return 1;
+        else
+            return 0;
+    }
+
+    //Set x direction to -1 or 1, even if using analog stick
+    public int YInputDirection()
+    {
+        //Deadzone to account for controller drift
+        if (moveInput.y < -Data.deadzone)
+            return -1;
+        else if (moveInput.y > Data.deadzone)
+            return 1;
+        else
+            return 0;
+    }
+
+    //End combo and update the associated states
+    private void EndCombo()
+    {
+        //Debug.Log("Ending Combo");
+        playerCombat.ResetCombo();
+        playerState.IsAttacking = false;
+        EndSleep();
+    }
+
     //Set gravity 
     public void SetGravityScale(float scale)
     {
         rb.gravityScale = scale;
     }
 
+    //Offset force to make sure there isn't extra force added to specific movements
     private Vector2 OffsetForce(Vector2 force)
     {
         return force -= rb.velocity;
@@ -985,6 +1016,14 @@ public class PlayerControllerForces : MonoBehaviour
     private float OffsetXForce(float force)
     {
         return force -= rb.velocity.x;
+    }
+
+    //Reset the player camera offset
+    private void ResetPlayerOffset()
+    {
+        float dir = (playerState.IsFacingRight) ? 1 : -1;
+        float cameraOffset = Data.cameraOffset * dir;
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
     }
 
     //Sleep for delaying movement
@@ -1040,6 +1079,7 @@ public class PlayerControllerForces : MonoBehaviour
         isSleeping = false;
     }
 
+    //Wall collision check gizmos
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
@@ -1049,14 +1089,18 @@ public class PlayerControllerForces : MonoBehaviour
         Gizmos.DrawWireCube(backWallCheckPoint.position, wallCheckSize);
     }
 
-    private void OnInteract()
+    //Methods to make player controls work and to access it in the code
+    public void OnEnable()
     {
-        if (interactionPrompt.interactable != null)
-        {
-            interactionPrompt.interactable.PerformInteraction();
-        }
+        playerControls.Player.Enable();
     }
 
+    public void OnDisable()
+    {
+        playerControls.Player.Disable();
+    }
+
+    //Respawn and update statuses
     private void SpawnAtLastRestPoint()
     {
         Debug.Log("Spawning at Rest Point");
@@ -1070,4 +1114,5 @@ public class PlayerControllerForces : MonoBehaviour
    
         currentHP = Data.maxHP;
     }
+    #endregion
 }
