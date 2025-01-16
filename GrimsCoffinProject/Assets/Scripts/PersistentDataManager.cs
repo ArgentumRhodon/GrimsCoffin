@@ -77,6 +77,7 @@ public class PersistentDataManager : MonoBehaviour
         if (spirit.spiritState != Spirit.SpiritState.Idle)
         {
             spirit.spiritState++;
+            StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
         }
 
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
@@ -89,6 +90,8 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetFloat("RoomIndex", saveLocation.roomIndex);
         PlayerPrefs.SetInt("FirstTimeDenial", 0);
         PlayerPrefs.SetString("SceneSave", SceneManager.GetActiveScene().name);
+
+        StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
     }
 
     public void ToggleFirstSpawn(bool toggle)
@@ -126,6 +129,7 @@ public class PersistentDataManager : MonoBehaviour
         {
             if (rooms[i].hasPlayer)
                 PlayerPrefs.SetInt("RoomIndex", i);
+            StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
         }
     }
 

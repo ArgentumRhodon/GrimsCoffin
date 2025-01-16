@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] public GameObject gameUI;
     [SerializeField] public GameObject areaText;
+    [SerializeField] private GameObject saveIcon;
 
     private void Awake()
     {
@@ -69,5 +70,18 @@ public class UIManager : MonoBehaviour
         PersistentDataManager.Instance.ToggleFirstSpawn(true);
         deathScreen.SetActive(true);
         Time.timeScale = 0.0f;
+    }
+
+    public IEnumerator ShowSaveIcon(float seconds)
+    {
+        saveIcon.SetActive(true);
+
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < seconds)
+        {
+            yield return null;
+        }
+
+        saveIcon.SetActive(false);
     }
 }
