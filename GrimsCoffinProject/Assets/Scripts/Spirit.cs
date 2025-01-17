@@ -6,14 +6,22 @@ public class Spirit : Interactable
 {
     private SpiritCollectUI spiritUI;
     
-    [SerializeField] public SpiritName spiritID;
+    [SerializeField] public SpiritID spiritID;
 
-    public enum SpiritName
+    public enum SpiritID
     {
         Spirit1 = 1,
         Spirit2 = 2,
         Spirit3 = 3,
         Spirit4 = 4,
+    }
+
+    [SerializeField] public SpiritState spiritState;
+    public enum SpiritState
+    {
+        Uncollected = 0,
+        Collected = 1,
+        Idle = 2,
     }
 
     // Start is called before the first frame update
@@ -32,7 +40,7 @@ public class Spirit : Interactable
     {
         if (spiritUI != null)
         {
-            PlayerPrefs.SetInt((spiritID.ToString()), 1);
+            PersistentDataManager.Instance.UpdateSpiritState(this);
 
             spiritUI.ShowSpiritCollectedText();
 

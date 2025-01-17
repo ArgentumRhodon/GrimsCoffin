@@ -62,12 +62,9 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] private Transform frontWallCheckPoint;
     [SerializeField] private Transform backWallCheckPoint;
     [SerializeField] private Vector2 wallCheckSize = new Vector2(0.5f, 1f);
-    [SerializeField] public Vector2 respawnPoint;
 
     [Header("Player Stats")]
-    [SerializeField] public float maxHP;
     [SerializeField] public float currentHP;
-    [SerializeField] public float maxSP;
     [SerializeField] public float currentSP;
     [SerializeField] public float invincibilityTimer;
     [SerializeField] public bool hasInvincibility;
@@ -130,13 +127,22 @@ public class PlayerControllerForces : MonoBehaviour
         //canAerialCombo = true;
         isSleeping = false;
 
-        respawnPoint = this.transform.position;
+        Data.respawnPoint = this.transform.position;
+
+        Data.maxHP = PersistentDataManager.Instance.MaxHP;
+        Data.maxSP = PersistentDataManager.Instance.MaxSP;
+        Data.canDoubleJump = PersistentDataManager.Instance.CanDoubleJump;
+        Data.canWallJump = PersistentDataManager.Instance.CanWallJump;
+        Data.canDash = PersistentDataManager.Instance.CanDash;
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
 
-        if (PlayerPrefs.GetInt("RespawnPointSet") == 1 && SceneManager.GetActiveScene().name == PlayerPrefs.GetString("SceneSave"))
+        if (PersistentDataManager.Instance.FirstSpawn)
+        {
             SpawnAtLastRestPoint();
+            PersistentDataManager.Instance.ToggleFirstSpawn(false);
+        }
     }
 
     private void Update()
@@ -418,11 +424,11 @@ public class PlayerControllerForces : MonoBehaviour
         Time.timeScale = 1.0f;
         this.hasInvincibility = false;
 
-        currentHP = maxHP;
-        currentSP = maxSP;
+        currentHP = Data.maxHP;
+        currentSP = Data.maxSP;
 
-        if (respawnPoint != null)
-            this.gameObject.transform.position = respawnPoint;
+        if (Data.respawnPoint != null)
+            this.gameObject.transform.position = Data.respawnPoint;
     }
 
     //Movement Method Calculations ----------------------------------------------------------------------------------------------
@@ -1027,7 +1033,7 @@ public class PlayerControllerForces : MonoBehaviour
 
 
             rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
-            rb.AddForce(new Vector2(direction, 0) * Data.aerialForce, ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(direction, 0) * Data.comboAerialPForce, ForceMode2D.Impulse);
         }
 
         yield return new WaitForSecondsRealtime(duration / 8);
@@ -1069,8 +1075,9 @@ public class PlayerControllerForces : MonoBehaviour
             0);
 
         this.gameObject.transform.position = newSpawn;
-        respawnPoint = newSpawn;
-   
-        currentHP = maxHP;
+        Data.respawnPoint = newSpawn;
+        
+        if (!PersistentDataManager.Instance.FirstTimeInDenial)
+            currentHP = Data.maxHP;
     }
 }
