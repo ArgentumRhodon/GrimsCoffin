@@ -3832,6 +3832,7 @@ GameObject:
   - component: {fileID: 2117058706}
   - component: {fileID: 2117058708}
   - component: {fileID: 2117058709}
+  - component: {fileID: 2117058710}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3858,6 +3859,7 @@ MonoBehaviour:
   damageVignette: {fileID: 1772996436}
   gameUI: {fileID: 1863953469}
   areaText: {fileID: 8183291775625397402}
+  saveIcon: {fileID: 0}
 --- !u!4 &2117058707
 Transform:
   m_ObjectHideFlags: 0
@@ -3906,6 +3908,20 @@ MonoBehaviour:
   defaultYPos: -3
   defaultSceneName: NewGame
   defaultHP: 125
+--- !u!114 &2117058710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117058705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35956553ed0b624b807e7f7b5d5306c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues: []
+  dialogueFileName: Dialogue.json
 --- !u!1001 &2120612259
 PrefabInstance:
   m_ObjectHideFlags: 0

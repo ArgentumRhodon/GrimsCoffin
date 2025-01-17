@@ -7,6 +7,7 @@ public class Spirit : Interactable
     private SpiritCollectUI spiritUI;
     
     [SerializeField] public SpiritID spiritID;
+    [SerializeField] public DialogueManager dialogueManager;
 
     public enum SpiritID
     {
@@ -28,6 +29,7 @@ public class Spirit : Interactable
     void Start()
     {
         spiritUI = UIManager.Instance.gameUI.GetComponentInChildren<SpiritCollectUI>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
     // Update is called once per frame
@@ -40,6 +42,8 @@ public class Spirit : Interactable
     {
         if (spiritUI != null)
         {
+            dialogueManager.ShowDialogueForSpirit(spiritID,spiritState);
+            
             PersistentDataManager.Instance.UpdateSpiritState(this);
 
             spiritUI.ShowSpiritCollectedText();
