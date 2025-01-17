@@ -40,6 +40,7 @@ public class DialogueManager : MonoBehaviour
         // If a matching dialogue is found, display its content
         if (dialogue != null)
         {
+            UIManager.Instance.ToggleDialogueUI(true);
             Debug.Log(dialogue.DialogueContent);
         }
         else

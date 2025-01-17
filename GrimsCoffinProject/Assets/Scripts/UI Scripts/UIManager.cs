@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject fullMapUI;
     [SerializeField] private List<GameObject> mapRooms;
+    [SerializeField] private GameObject dialogueUI;
 
     private void Awake()
     {
@@ -86,6 +87,22 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0;
         else
             Time.timeScale = 1;
+    }
+    public void ToggleDialogueUI(bool toggle)
+    {
+        if (toggle)
+        {
+            dialogueUI.SetActive(true);
+            gameUI.SetActive(false);
+            PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            dialogueUI.SetActive(false);
+            gameUI.SetActive(true);
+            Time.timeScale = 1;
+        }
     }
 
     public IEnumerator ShowSaveIcon(float seconds)
