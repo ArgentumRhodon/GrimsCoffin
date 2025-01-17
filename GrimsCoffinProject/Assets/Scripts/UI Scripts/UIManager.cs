@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<GameObject> mapRooms;
     [SerializeField] public GameObject dialogueUI;
 
+    [SerializeField] public PlayerInput playerInput;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -97,13 +99,15 @@ public class UIManager : MonoBehaviour
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
 
             dialogueUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
-            Time.timeScale = 0;
+            Time.timeScale = 1;
+            playerInput.SwitchCurrentActionMap("Dialogue");
         }
         else
         {
             dialogueUI.GetComponent<Animator>().SetBool("ToggleDialogue", false);
             gameUI.SetActive(true);
             Time.timeScale = 1;
+            playerInput.SwitchCurrentActionMap("Player");
         }
     }
 
