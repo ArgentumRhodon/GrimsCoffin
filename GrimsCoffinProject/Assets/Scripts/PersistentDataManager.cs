@@ -8,27 +8,38 @@ public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance { get; private set; }
 
+    //Last Saved Location to spawn the player at when loading the game
     public Vector2 SpawnPoint { get { return new Vector2(PlayerPrefs.GetFloat("XSpawnPos", defaultXPos), PlayerPrefs.GetFloat("YSpawnPos", defaultYPos)); } }
+
+    //Last Saved Scene the player was in when they saved the game
     public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave", defaultSceneName); } }
+
+    //Last Saved Room the player was in when they saved the game
     public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 0); } }
+
+    //Whether or not this is the player's first time spawning into the game
     public bool FirstSpawn { get { return PlayerPrefs.GetInt("FirstSpawn", 0) == 1; } }
 
+    //Player Stat Values
     public float MaxHP { get { return PlayerPrefs.GetFloat("MaxHP", defaultHP); } }
     public float MaxSP { get { return PlayerPrefs.GetFloat("MaxSP", 0); } }
     public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier"); } }
 
+    //Player Ability Unlocks
     public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 1) == 1; } }
     public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 1) == 1; } }
     public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 1) == 1; } }
 
+    //Whether or not the Player is entering the Denial Area Scene for the first time
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
 
+    //List of rooms in the scene
     [SerializeField] private List<Room> rooms;
 
+    //Default values to spawn the player at when a New Game is started
     [SerializeField] private float defaultXPos = -16;
     [SerializeField] private float defaultYPos = -1.7f;
     [SerializeField] private string defaultSceneName = "NewGame";
-
     [SerializeField] private float defaultHP = 125;
 
     private void Awake()
@@ -48,6 +59,7 @@ public class PersistentDataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //If the player is in the cutscene between Onboarding and Denial Area, transition their stats
         if (SceneManager.GetActiveScene().name == "CutScene")
             TransitionToDenialArea();
 
@@ -60,6 +72,7 @@ public class PersistentDataManager : MonoBehaviour
         //PlayerControllerForces.Instance.Data.damageMultiplier = MaxHP;
     }
 
+    //Returns whether a spirit is collected or not (for spawning them in The Drift vs. Equilibrium)
     public bool SpiritCollected(Spirit spirit)
     {
         //Debug.Log(spiritToSpawn.spiritID.ToString());
@@ -72,6 +85,8 @@ public class PersistentDataManager : MonoBehaviour
         else
             return false;
     }
+
+    //Updates a Spirit's state (i.e. collecting or talking to the spirit)
     public void UpdateSpiritState(Spirit spirit)
     {
         if (spirit.spiritState != Spirit.SpiritState.Idle)
@@ -83,6 +98,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
     }
 
+    //Saves the user's location information when they use a Save Point
     public void SaveGame(SavePoint saveLocation)
     {
         PlayerPrefs.SetFloat("XSpawnPos", saveLocation.position.x);
@@ -94,6 +110,7 @@ public class PersistentDataManager : MonoBehaviour
         StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
     }
 
+    //Toggles whether the user is spawning for the first time or not
     public void ToggleFirstSpawn(bool toggle)
     {
         if (toggle)
@@ -103,26 +120,32 @@ public class PersistentDataManager : MonoBehaviour
             PlayerPrefs.SetInt("FirstSpawn", 0);
     }
 
+    //Reset the save data to the default values (i.e. player starts a new game)
     public void ResetSaveData()
     {
+        //Reset scene and location data
         PlayerPrefs.SetString("SceneSave", defaultSceneName);
         PlayerPrefs.SetFloat("XSpawnPos", defaultXPos);
         PlayerPrefs.SetFloat("YSpawnPos", defaultYPos);
         //PlayerPrefs.SetInt("RoomIndex", 0);
-
+        
+        //Reset Player Stats
         PlayerPrefs.SetFloat("MaxHP", defaultHP);
         PlayerPrefs.SetFloat("MaxSP", 0);
         PlayerPrefs.SetFloat("DamageMultiplier", 1);
 
+        //Reset Player Abilities
         PlayerPrefs.SetInt("CanDoubleJump", 1);
         PlayerPrefs.SetInt("CanWallJump", 1);
         PlayerPrefs.SetInt("CanDash", 1);
 
+        //Reset Spirit Data
         PlayerPrefs.SetString("DashSpirit", "Uncollected");
         PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
     }
 
+    //Save the room index based on the currently loaded room (for when the user saves/leaves the area to a different scene
     public void SaveRoom()
     {
         for (int i = 0; i < rooms.Count; i++)
@@ -133,6 +156,7 @@ public class PersistentDataManager : MonoBehaviour
         }
     }
 
+    //Load the last room the player was in when returning to the Last Saved Scene
     public void LoadRoom()
     {
         for (int i = 0; i < rooms.Count; i++)
@@ -144,11 +168,16 @@ public class PersistentDataManager : MonoBehaviour
         }
     }
 
+    //Transition between Onboarding Level and Denial Area
     private void TransitionToDenialArea()
     {
-        Debug.Log("Transition to Denial");
+        //Set first time in Denial (so player starts at Low HP)
         PlayerPrefs.SetInt("FirstTimeDenial", 1);
+
+        //Auto save the Denial Level (i.e. if the player quits after the cutscene they will load into the denial area instead of onboarding
         PlayerPrefs.SetString("SceneSave", "ArenaPlaytestLevel2");
+
+        //Reduce Player Stats and Remove Abilities
         PlayerPrefs.SetFloat("MaxHP", 50);
         PlayerPrefs.SetInt("CanDoubleJump", 0);
         PlayerPrefs.SetInt("CanWallJump", 0);
