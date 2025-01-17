@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject areaText;
     [SerializeField] private GameObject saveIcon;
 
+    [SerializeField] private GameObject fullMapUI;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -70,6 +72,19 @@ public class UIManager : MonoBehaviour
         PersistentDataManager.Instance.ToggleFirstSpawn(true);
         deathScreen.SetActive(true);
         Time.timeScale = 0.0f;
+    }
+
+    public void ToggleMap()
+    {
+        bool mapActive = !fullMapUI.activeInHierarchy;
+
+        gameUI.SetActive(!mapActive);
+        fullMapUI.SetActive(mapActive);
+
+        if (mapActive)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
     }
 
     public IEnumerator ShowSaveIcon(float seconds)
