@@ -32,7 +32,7 @@ public class Spirit : Interactable
         spiritUI = UIManager.Instance.gameUI.GetComponentInChildren<SpiritCollectUI>();
         dialogueManager = FindObjectOfType<DialogueManager>();
 
-        spiritState. = PersistentDataManager.Instance.GetSpiritState(this);
+        spiritState = PersistentDataManager.Instance.GetSpiritState(this);
     }
 
     // Update is called once per frame
@@ -43,10 +43,10 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
-        if (spiritUI != null)
+        dialogueManager.ShowDialogueForSpirit(spiritID, spiritState);
+
+        if (spiritState == SpiritState.Uncollected)
         {
-            dialogueManager.ShowDialogueForSpirit(spiritID,spiritState);
-            
             PersistentDataManager.Instance.UpdateSpiritState(this);
 
             spiritUI.ShowSpiritCollectedText();
@@ -54,6 +54,10 @@ public class Spirit : Interactable
             //Debug.Log("Spirit Collected: " + spiritID.ToString());
 
             Destroy(this.gameObject.transform.parent.gameObject);
-        } 
+        }
+        else if (spiritState == SpiritState.Collected)
+        {
+            PersistentDataManager.Instance.UpdateSpiritState(this);
+        }
     }
 }
