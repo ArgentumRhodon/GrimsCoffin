@@ -6,7 +6,7 @@ using Cinemachine;
 public class Room : MonoBehaviour
 {
     [SerializeField]
-    private bool hasPlayer;
+    public bool hasPlayer;
     public bool RoomLive;
     [SerializeField] private GameObject Border;
     [SerializeField] private CinemachineVirtualCamera VCamera;
