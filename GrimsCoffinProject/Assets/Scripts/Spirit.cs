@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spirit : Interactable
@@ -30,6 +31,8 @@ public class Spirit : Interactable
     {
         spiritUI = UIManager.Instance.gameUI.GetComponentInChildren<SpiritCollectUI>();
         dialogueManager = FindObjectOfType<DialogueManager>();
+
+        spiritState. = PersistentDataManager.Instance.GetSpiritState(this);
     }
 
     // Update is called once per frame
