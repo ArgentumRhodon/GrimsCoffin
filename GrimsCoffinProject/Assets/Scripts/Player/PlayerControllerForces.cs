@@ -327,42 +327,6 @@ public class PlayerControllerForces : MonoBehaviour
         UIManager.Instance.Pause();
     }
 
-    public void StartAttack()
-    {
-        if (playerState.IsDashing)
-            return;
-
-        //Do not hit during combo
-        if (playerCombat.LastComboTime < 0) 
-        {
-            //Aerial attack sleep / hitstop 
-            if (!Grounded())
-            {
-                if (playerCombat.CanAerialCombo)
-                {
-                    playerCombat.IsAerialCombo = true;
-                    EndSleep();
-
-                    if (playerCombat.AttackClickCounter < Data.comboTotal)
-                        Sleep(Data.comboAerialTime);
-                    else
-                        Sleep(Data.comboAerialTime/2);
-                }
-            }
-            else
-            {
-                //Potential ground combat hitstop - NEEDS FIXING
-/*                if (playerCombat.AttackCounter == Data.comboTotal)
-                    Sleep(Data.comboSleepTime / 2);
-                else if (playerCombat.AttackCounter > 2)
-                {
-                    EndSleep();
-                    Sleep(Data.comboSleepTime);
-                }*/
-            }
-        }
-    }
-
     public void OnCameraLook(InputValue value)
     {
         //Debug.Log("Camera Look " + value.Get<Vector2>().y);
@@ -410,6 +374,68 @@ public class PlayerControllerForces : MonoBehaviour
 
         if (Data.respawnPoint != null)
             this.gameObject.transform.position = Data.respawnPoint;
+    }
+
+    //Calculate physics for attacks ---------------------------------------------
+    public void ExecuteBasicAttack()
+    {
+        //Do not hit during combo
+        if (playerCombat.LastComboTime < 0)
+        {
+            //Aerial attack sleep / hitstop 
+            if (!Grounded())
+            {
+                if (playerCombat.CanAerialCombo)
+                {
+                    playerCombat.IsAerialCombo = true;
+                    EndSleep();
+
+                    if (playerCombat.AttackClickCounter < Data.comboTotal)
+                        Sleep(Data.comboAerialTime);
+                    else
+                        Sleep(Data.comboAerialTime / 2);
+                }
+            }
+            else
+            {
+                //Potential ground combat hitstop - NEEDS FIXING
+                /*                if (playerCombat.AttackCounter == Data.comboTotal)
+                                    Sleep(Data.comboSleepTime / 2);
+                                else if (playerCombat.AttackCounter > 2)
+                                {
+                                    EndSleep();
+                                    Sleep(Data.comboSleepTime);
+                                }*/
+            }
+        }
+    }
+
+    //Calculate physics for attacks ---------------------------------------------
+    public void ExecuteUpAttack()
+    {
+        //Aerial attack check
+        if (Grounded())
+        {
+            Sleep(Data.gUpAttackDuration);
+        }
+        else
+        {
+            Sleep(Data.aUpAttackDuration);
+        }
+    }
+
+    //Calculate physics for attacks ---------------------------------------------
+    public void ExecuteDownAttack()
+    {
+        //Aerial attack check
+        if (Grounded())
+        {
+
+        }
+        else
+        {
+
+        }
     }
     #endregion
 
@@ -634,6 +660,8 @@ public class PlayerControllerForces : MonoBehaviour
         dashRefilling = false;
         dashesLeft = Mathf.Min(Data.dashAmount, dashesLeft + 1);
     }
+
+
     #endregion
 
     //Methods to update movement variables ------------------------------------------------------------------------
@@ -1078,6 +1106,8 @@ public class PlayerControllerForces : MonoBehaviour
         SetGravityScale(1);
         isSleeping = false;
     }
+
+    
 
     //Wall collision check gizmos
     private void OnDrawGizmosSelected()

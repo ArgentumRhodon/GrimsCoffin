@@ -143,7 +143,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Ground Up Attack")]
     public float groundUpwardPForce;
-    public float groundUpwardEForce;
+    public Vector2 groundUpwardEForce;
     public float gUpAttackDuration; //How long the duration of the attack should take
 
     [Space(15)]

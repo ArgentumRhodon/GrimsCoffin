@@ -5,7 +5,7 @@ using UnityEngine.Playables;
 
 public class PlayerCombat : MonoBehaviour
 {
-    protected enum AttackDirection 
+    public enum AttackDirection 
     { 
         None, 
         Up, 
@@ -189,6 +189,7 @@ public class PlayerCombat : MonoBehaviour
 
 
     //Attack Checks to see if/when an attack should execute -----------------------------
+    #region Attack Checks
     private void BaseAttackCheck()
     {
         //Check for combo timer, if the click amount is less then combo total 
@@ -240,9 +241,9 @@ public class PlayerCombat : MonoBehaviour
             DownAttack();
         }
     }
+    #endregion
 
-
-    //Execute Attacks ------------------------------------------------------------------------
+    //Execute Attacks -------------------------------------------------------------------
     #region Attack Executions
     //Base single attack
     private void BaseAttack()
@@ -254,7 +255,7 @@ public class PlayerCombat : MonoBehaviour
             meleeStateMachine.SetNextState(new MeleeEntryState());
             AttackDurationTime = Data.attackBufferTime;
 
-            PlayerControllerForces.Instance.StartAttack();
+            PlayerControllerForces.Instance.ExecuteBasicAttack();
             currentAttackAmount++;
         }
     }
@@ -268,7 +269,7 @@ public class PlayerCombat : MonoBehaviour
 
         AttackDurationTime = Data.attackBufferTime;
              
-        PlayerControllerForces.Instance.StartAttack();
+        PlayerControllerForces.Instance.ExecuteBasicAttack();
         currentAttackAmount++;
     }
 
@@ -313,7 +314,8 @@ public class PlayerCombat : MonoBehaviour
     }
     #endregion
 
-
+    //Helper Methods --------------------------------------------------------------------
+    #region Helper Methods
     //Interrupt combo with another attack
     protected void InterruptCombo(AttackDirection nextAttackDir)
     {
@@ -356,7 +358,10 @@ public class PlayerCombat : MonoBehaviour
     {
         return playerController.MoveInput.x < Data.deadzone && playerController.MoveInput.x > -Data.deadzone;
     }
+    #endregion
 
+    //Timer and Variable Updates --------------------------------------------------------
+    #region Timer and Variable Updates
     //Update timers in FixedUpdate
     private void UpdateTimers()
     {
@@ -395,4 +400,5 @@ public class PlayerCombat : MonoBehaviour
             canAerialCombo = true;
         }
     }
+    #endregion
 }
