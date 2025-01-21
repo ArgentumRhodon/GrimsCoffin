@@ -156,6 +156,7 @@ public class PlayerData : ScriptableObject
     [Header("Ground Down Attack")]
     public float groundDownwardPForce;
     public float groundDownwardEForce;
+    [Range(0.01f, 2f)] public float gDownWalkModifier;
     public float gdHoldDuration;
     public float gDownAttackDuration; //How long the duration of the attack should take
 

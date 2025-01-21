@@ -12,28 +12,22 @@ public class GroundDownState : MeleeBaseState
         base.OnEnter(_stateMachine);
 
         //Set attack variables and animation
-        attackIndex = 2; //Not a combo so may not need this
+        attackIndex = 3;
         attackDamage = playerCombat.Data.groundDownDamage;
-        playerCombat.AttackDurationTime = playerCombat.Data.gDownAttackDuration;
+        //playerCombat.AttackDurationTime = playerCombat.Data.gDownAttackDuration;
 
-/*        animator.SetTrigger("Attack");
+        animator.SetTrigger("GroundDown");
         animator.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetTrigger("Attack");
-        playerAnimator_B.SetTrigger("Attack");*/
+        playerAnimator_B.SetTrigger("Attack");
     }
 
     //Continue downwards attack until player is on ground
     public override void OnUpdate(CStateMachine _stateMachine)
     {
         base.OnUpdate(_stateMachine);
-
-        //Reset state after timer
-        if (playerCombat.AttackDurationTime < 0)
-        {
-            stateMachine.SetNextStateToMain();
-        }
     }
 
     private void FindImpactPoint()

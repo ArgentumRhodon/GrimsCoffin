@@ -29,6 +29,12 @@ public class PlayerControllerForces : MonoBehaviour
     public float LastJumpTime { get; private set; }
     public float LastWallJumpTime { get; private set; }
 
+    //Walk
+    [SerializeField] private float walkModifier;
+    public float WalkModifier { get { return walkModifier; } set { walkModifier = value; } }
+    [SerializeField] private bool canSleepWalk;
+    public bool CanSleepWalk { get { return canSleepWalk; } set { canSleepWalk = value; } }
+
     //Jump
     private bool isJumpCancel;
     private bool isJumpFalling;
@@ -86,6 +92,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Time Variables
     private float localDeltaTime;
     private bool isSleeping;
+    public bool IsSleeping { get { return isSleeping; } }
     #endregion
 
     //Runtime Methods ---------------------------------------------------------------------------------------------
@@ -131,6 +138,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
+
+        walkModifier = 1;
+        canSleepWalk = false;
 
         if (PersistentDataManager.Instance.FirstSpawn)
         {
@@ -188,6 +198,18 @@ public class PlayerControllerForces : MonoBehaviour
 
           
         }
+        else if (isSleeping && canSleepWalk)
+        {
+            //Movement values --------------------------------------
+            //Movement/Walking input
+            moveInput = playerControls.Player.Move.ReadValue<Vector2>();
+
+            //Check direction of player, compare it to deadzone to make sure the player doesn't flick back and forth
+            if (moveInput.x > Data.deadzone)
+                CheckDirectionToFace(true);
+            else if (moveInput.x < -Data.deadzone)
+                CheckDirectionToFace(false);
+        }
 
         //Check if the player hit the ground (outside of sleep so it can exit sleep)
         if (playerState.IsAttacking)
@@ -212,11 +234,15 @@ public class PlayerControllerForces : MonoBehaviour
                 else
                     Walk(1);
             }
-            if(playerState.IsAttacking && Grounded())
+            if (playerState.IsAttacking && Grounded())
             {
                 Walk(1);
             }
         }
+        else if (canSleepWalk)
+            Walk(1);
+
+
 
         if (hasInvincibility)
         {          
@@ -252,6 +278,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Jump Input
     private void OnJump(InputValue value)
     {
+        if (isSleeping)
+            return;
+
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
         //Key Down, continue jumping
         if (value.isPressed)
@@ -333,7 +362,8 @@ public class PlayerControllerForces : MonoBehaviour
     private void OnDash()
     {
         if (isSleeping)
-            EndSleep();
+            return;
+            //EndSleep();
         LastPressedDashTime = Data.dashInputBufferTime;
     }
 
@@ -394,6 +424,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Calculate physics for attacks ---------------------------------------------
     public void ExecuteBasicAttack()
     {
+        if (isSleeping)
+            return;
+
         //Do not hit during combo
         if (playerCombat.LastComboTime < 0)
         {
@@ -428,6 +461,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Calculate physics for attacks ---------------------------------------------
     public void ExecuteUpAttack()
     {
+        if (isSleeping)
+            return;
+
         //Aerial attack check
         if (Grounded())
         {
@@ -442,6 +478,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Calculate physics for attacks ---------------------------------------------
     public void ExecuteDownAttack()
     {
+        if (isSleeping)
+            return;
+
         //Aerial attack check
         if (Grounded())
         {
@@ -450,7 +489,6 @@ public class PlayerControllerForces : MonoBehaviour
         else
         {
             Sleep(Data.aDownAttackDuration);
-            //DownAttack();
         }
     }
     #endregion
@@ -478,7 +516,7 @@ public class PlayerControllerForces : MonoBehaviour
 
 
         //Calculate the direction and our desired velocity
-        float targetSpeed = direction * Data.walkMaxSpeed;
+        float targetSpeed = direction * Data.walkMaxSpeed * walkModifier;
         //float targetSpeed = moveInput.x * Data.walkMaxSpeed; <---------- used for walking at a slower pace
         //Smooth changes to direction and speed using a lerp function
         targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, lerpAmount);
@@ -865,7 +903,7 @@ public class PlayerControllerForces : MonoBehaviour
     private void UpdateDownAttackVariables()
     {
         //End Down Attack   
-        if (Grounded() && playerCombat.CurrentAttackDirection == PlayerCombat.AttackDirection.Down)
+        if (Grounded() && playerCombat.CurrentAttackDirection == PlayerCombat.AttackDirection.Down && playerCombat.IsAerialAttacking)
         {
             Debug.Log("Should be ending sleep");
             EndSleep();
@@ -1126,13 +1164,26 @@ public class PlayerControllerForces : MonoBehaviour
         StartCoroutine(nameof(PerformSleep), duration);
     }
 
-    private void EndSleep()
+    private void Sleep()
+    {
+        SetGravityScale(0);
+        isSleeping = true;
+    }
+
+    public void SleepWalk()
+    {
+        isSleeping = true;
+        canSleepWalk = true;
+    }
+
+    public void EndSleep()
     {
         //Method to stop the coroutine from running 
         StopCoroutine(nameof(PerformSleep));
         SetGravityScale(1);
         //rb.velocity = Vector2.zero;
         isSleeping = false;
+        canSleepWalk = false;
     }
 
     private IEnumerator PerformSleep(float duration)

@@ -17,8 +17,8 @@ MonoBehaviour:
   cameraOffset: 0.6
   cameraWalkOffset: -0.1
   cameraDashOffset: -1
-  maxHP: 100
-  maxSP: 50
+  maxHP: 125
+  maxSP: 0
   respawnPoint: {x: 70.09, y: -36.44}
   gravityStrength: -57.14286
   gravityScale: 5.82496
@@ -90,8 +90,9 @@ MonoBehaviour:
   groundUpDamage: 5
   groundDownwardPForce: 0
   groundDownwardEForce: 0
-  gdHoldDuration: 0
-  gDownAttackDuration: 0.5
+  gDownWalkModifier: 0.2
+  gdHoldDuration: 1.25
+  gDownAttackDuration: 0.25
   groundDownDamage: 15
   hookPlayerForce: 0
   aUpAttackDuration: 0.5

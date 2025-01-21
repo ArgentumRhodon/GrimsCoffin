@@ -13,7 +13,7 @@ public class AirDownState : MeleeBaseState
         base.OnEnter(_stateMachine);
 
         //Set attack variables and animation
-        attackIndex = 3; //Not a combo so may not need this
+        attackIndex = 3;
         attackDamage = playerCombat.Data.aerialDownDamage;
         playerCombat.AttackDurationTime = playerCombat.Data.aDownAttackDuration;
 
@@ -23,8 +23,6 @@ public class AirDownState : MeleeBaseState
         playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetTrigger("Attack");
         playerAnimator_B.SetTrigger("Attack");
-
-        Debug.Log("This is running");
     }
 
     //Continue downwards attack until player is on ground
@@ -36,6 +34,7 @@ public class AirDownState : MeleeBaseState
         if (PlayerControllerForces.Instance.Grounded() && playerCombat.AttackDurationTime < 0)
         {
             stateMachine.SetNextStateToMain();
+            playerCombat.IsAerialAttacking = false;
         }
     }
 
