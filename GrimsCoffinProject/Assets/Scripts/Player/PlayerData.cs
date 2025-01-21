@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [CreateAssetMenu(menuName = "Player Data")]
 public class PlayerData : ScriptableObject
@@ -143,7 +144,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Ground Up Attack")]
     public float groundUpwardPForce;
-    public float groundUpwardEForce;
+    public Vector2 groundUpwardEForce;
     public float gUpAttackDuration; //How long the duration of the attack should take
 
     [Space(15)]
@@ -178,6 +179,7 @@ public class PlayerData : ScriptableObject
     public float aerialDownwardPForce;
     public float aerialDownwardEForce;
     public float aDownAttackDuration; //How long the duration of the attack should take
+    public float aDownAttackReset;
 
     [Space(15)]
 

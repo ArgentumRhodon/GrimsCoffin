@@ -5,11 +5,12 @@ using UnityEngine.Playables;
 
 public class PlayerCombat : MonoBehaviour
 {
-    protected enum AttackDirection 
+    public enum AttackDirection 
     { 
-        None, 
+        Side, 
         Up, 
-        Down
+        Down,
+        Empty
     }
 
 
@@ -73,6 +74,8 @@ public class PlayerCombat : MonoBehaviour
         set { attackClickCounter = value; }
     }
 
+    public AttackDirection CurrentAttackDirection { get { return attackDirection; } set { attackDirection = value; } }
+
     void Start()
     {
         meleeStateMachine = GetComponent<CStateMachine>();
@@ -98,7 +101,7 @@ public class PlayerCombat : MonoBehaviour
         //Check to see if it should move on to the next combo
         if (currentAttackAmount < Data.comboTotal && comboQueueLeft > 0 && AttackDurationTime < 0)
         {
-            if (attackQueue[0] == AttackDirection.None)
+            if (attackQueue[0] == AttackDirection.Side)
             {
                 ComboAttack();
                 comboQueueLeft--;
@@ -140,7 +143,7 @@ public class PlayerCombat : MonoBehaviour
             case AttackDirection.Down:
                 DownAttackCheck();
                 break;
-            case AttackDirection.None:
+            case AttackDirection.Side:
                 BaseAttackCheck();
                 break;
         }
@@ -189,6 +192,7 @@ public class PlayerCombat : MonoBehaviour
 
 
     //Attack Checks to see if/when an attack should execute -----------------------------
+    #region Attack Checks
     private void BaseAttackCheck()
     {
         //Check for combo timer, if the click amount is less then combo total 
@@ -205,7 +209,7 @@ public class PlayerCombat : MonoBehaviour
             {
                 //Debug.Log("Should be adding to the combo queue timer");
                 comboQueueLeft++;
-                attackQueue.Add(AttackDirection.None);
+                attackQueue.Add(AttackDirection.Side);
             }
             //Run the first attack and add to the combo queue
             else if (attackDurationTime < 0)
@@ -240,9 +244,9 @@ public class PlayerCombat : MonoBehaviour
             DownAttack();
         }
     }
+    #endregion
 
-
-    //Execute Attacks ------------------------------------------------------------------------
+    //Execute Attacks -------------------------------------------------------------------
     #region Attack Executions
     //Base single attack
     private void BaseAttack()
@@ -254,7 +258,7 @@ public class PlayerCombat : MonoBehaviour
             meleeStateMachine.SetNextState(new MeleeEntryState());
             AttackDurationTime = Data.attackBufferTime;
 
-            PlayerControllerForces.Instance.StartAttack();
+            PlayerControllerForces.Instance.ExecuteBasicAttack();
             currentAttackAmount++;
         }
     }
@@ -268,7 +272,7 @@ public class PlayerCombat : MonoBehaviour
 
         AttackDurationTime = Data.attackBufferTime;
              
-        PlayerControllerForces.Instance.StartAttack();
+        PlayerControllerForces.Instance.ExecuteBasicAttack();
         currentAttackAmount++;
     }
 
@@ -294,26 +298,28 @@ public class PlayerCombat : MonoBehaviour
 
     private void DownAttack()
     {
+        playerState.IsAttacking = true;
         if (playerController.Grounded())
         {
             Debug.Log("Down Ground Attack");
             //meleeStateMachine.SetNextState(new GroundDownState());
             AttackDurationTime = Data.gDownAttackDuration;
 
-            //PlayerControllerForces.Instance.StartAttack();
+            PlayerControllerForces.Instance.ExecuteDownAttack();
         }
         else
         {
             Debug.Log("Down Aerial Attack");
-            //meleeStateMachine.SetNextState(new AirDownState());
+            meleeStateMachine.SetNextState(new AirDownState());
             AttackDurationTime = Data.aDownAttackDuration;
 
-            //PlayerControllerForces.Instance.StartAttack();
+            PlayerControllerForces.Instance.ExecuteDownAttack();
         }
     }
     #endregion
 
-
+    //Helper Methods --------------------------------------------------------------------
+    #region Helper Methods
     //Interrupt combo with another attack
     protected void InterruptCombo(AttackDirection nextAttackDir)
     {
@@ -349,14 +355,17 @@ public class PlayerCombat : MonoBehaviour
         else if (playerController.MoveInput.y < -Data.attackDirectionDeadzone)// && BelowXDeadzone())
             return AttackDirection.Down;
         else
-            return AttackDirection.None;
+            return AttackDirection.Side;
     }
 
     private bool BelowXDeadzone()
     {
         return playerController.MoveInput.x < Data.deadzone && playerController.MoveInput.x > -Data.deadzone;
     }
+    #endregion
 
+    //Timer and Variable Updates --------------------------------------------------------
+    #region Timer and Variable Updates
     //Update timers in FixedUpdate
     private void UpdateTimers()
     {
@@ -395,4 +404,5 @@ public class PlayerCombat : MonoBehaviour
             canAerialCombo = true;
         }
     }
+    #endregion
 }

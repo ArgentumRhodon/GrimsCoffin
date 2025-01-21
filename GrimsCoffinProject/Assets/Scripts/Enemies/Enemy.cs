@@ -1,6 +1,7 @@
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -13,6 +14,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float visionRange;
     [SerializeField] [Range(0f, 5f)] protected float knockbackMult;
     [SerializeField] protected Collider2D hitbox;
+    [SerializeField] private bool canBePulledDown;
 
     [Header("GameObjects")]
     [SerializeField] protected Transform enemyGFX;
@@ -28,6 +30,17 @@ public abstract class Enemy : MonoBehaviour
     //Time Variables
     protected float localDeltaTime;
     protected bool isSleeping;
+
+    //DownAttack
+    protected bool isHitDown;
+
+    //Positions used for state checks
+    [Header("Tile Checks")]
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform groundCheckPoint;
+    //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
+    [SerializeField]
+    private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
 
 
     // Start is called before the first frame update
@@ -115,6 +128,11 @@ public abstract class Enemy : MonoBehaviour
         rb.AddForce(knockbackForce * knockbackMult, ForceMode2D.Impulse);
     }
 
+    public bool Grounded()
+    {
+        return Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
+    }
+
     //Sleep methods to run, end, and execute the sleep coroutine
     private void Sleep(float duration, Vector2 knockbackForce)
     {
@@ -145,5 +163,12 @@ public abstract class Enemy : MonoBehaviour
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
    
         isSleeping = false;
+    }
+
+    //Wall collision check gizmos
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(groundCheckPoint.position, groundCheckSize);
     }
 }

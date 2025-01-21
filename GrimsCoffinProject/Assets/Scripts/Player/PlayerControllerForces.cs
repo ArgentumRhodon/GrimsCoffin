@@ -185,7 +185,13 @@ public class PlayerControllerForces : MonoBehaviour
 
             //Gravity check
             UpdateGravityVariables();
+
+          
         }
+
+        //Check if the player hit the ground (outside of sleep so it can exit sleep)
+        if (playerState.IsAttacking)
+            UpdateDownAttackVariables();
     }
 
     private void FixedUpdate()
@@ -336,42 +342,6 @@ public class PlayerControllerForces : MonoBehaviour
         UIManager.Instance.Pause();
     }
 
-    public void StartAttack()
-    {
-        if (playerState.IsDashing)
-            return;
-
-        //Do not hit during combo
-        if (playerCombat.LastComboTime < 0) 
-        {
-            //Aerial attack sleep / hitstop 
-            if (!Grounded())
-            {
-                if (playerCombat.CanAerialCombo)
-                {
-                    playerCombat.IsAerialCombo = true;
-                    EndSleep();
-
-                    if (playerCombat.AttackClickCounter < Data.comboTotal)
-                        Sleep(Data.comboAerialTime);
-                    else
-                        Sleep(Data.comboAerialTime/2);
-                }
-            }
-            else
-            {
-                //Potential ground combat hitstop - NEEDS FIXING
-/*                if (playerCombat.AttackCounter == Data.comboTotal)
-                    Sleep(Data.comboSleepTime / 2);
-                else if (playerCombat.AttackCounter > 2)
-                {
-                    EndSleep();
-                    Sleep(Data.comboSleepTime);
-                }*/
-            }
-        }
-    }
-
     public void OnCameraLook(InputValue value)
     {
         //Debug.Log("Camera Look " + value.Get<Vector2>().y);
@@ -419,6 +389,69 @@ public class PlayerControllerForces : MonoBehaviour
 
         if (Data.respawnPoint != null)
             this.gameObject.transform.position = Data.respawnPoint;
+    }
+
+    //Calculate physics for attacks ---------------------------------------------
+    public void ExecuteBasicAttack()
+    {
+        //Do not hit during combo
+        if (playerCombat.LastComboTime < 0)
+        {
+            //Aerial attack sleep / hitstop 
+            if (!Grounded())
+            {
+                if (playerCombat.CanAerialCombo)
+                {
+                    playerCombat.IsAerialCombo = true;
+                    EndSleep();
+
+                    if (playerCombat.AttackClickCounter < Data.comboTotal)
+                        Sleep(Data.comboAerialTime);
+                    else
+                        Sleep(Data.comboAerialTime / 2);
+                }
+            }
+            else
+            {
+                //Potential ground combat hitstop - NEEDS FIXING
+                /*                if (playerCombat.AttackCounter == Data.comboTotal)
+                                    Sleep(Data.comboSleepTime / 2);
+                                else if (playerCombat.AttackCounter > 2)
+                                {
+                                    EndSleep();
+                                    Sleep(Data.comboSleepTime);
+                                }*/
+            }
+        }
+    }
+
+    //Calculate physics for attacks ---------------------------------------------
+    public void ExecuteUpAttack()
+    {
+        //Aerial attack check
+        if (Grounded())
+        {
+            Sleep(Data.gUpAttackDuration);
+        }
+        else
+        {
+            Sleep(Data.aUpAttackDuration);
+        }
+    }
+
+    //Calculate physics for attacks ---------------------------------------------
+    public void ExecuteDownAttack()
+    {
+        //Aerial attack check
+        if (Grounded())
+        {
+            //Sleep(Data.gDownAttackDuration);
+        }
+        else
+        {
+            Sleep(Data.aDownAttackDuration);
+            //DownAttack();
+        }
     }
     #endregion
 
@@ -643,6 +676,44 @@ public class PlayerControllerForces : MonoBehaviour
         dashRefilling = false;
         dashesLeft = Mathf.Min(Data.dashAmount, dashesLeft + 1);
     }
+
+    private void BasicAttack()
+    {
+        if (playerCombat.IsAerialCombo)
+        {
+            int direction = XInputDirection();
+            if (direction == 0)
+            {
+                if (playerState.IsFacingRight)
+                    direction = 1;
+                else
+                    direction = -1;
+            }
+
+
+            rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
+            rb.AddForce(new Vector2(direction, 0) * Data.comboAerialPForce, ForceMode2D.Impulse);
+        }
+    }
+
+    private void UpAttack()
+    {
+
+    }
+
+    private void DownAttack()
+    {
+        SetGravityScale(1);
+        //rb.AddForce(Vector2.down * Data.aerialDownwardPForce, ForceMode2D.Impulse);
+        rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
+/*        while (!Grounded())
+        {
+            Debug.Log("This is running");
+            //rb.AddForce(Vector2.down * Data.comboAerialPForce, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
+        }*/
+    }
+
     #endregion
 
     //Methods to update movement variables ------------------------------------------------------------------------
@@ -788,6 +859,19 @@ public class PlayerControllerForces : MonoBehaviour
         {
             //No gravity when dashing (returns to normal once initial dashAttack phase over)
             SetGravityScale(0);
+        }
+    }
+
+    private void UpdateDownAttackVariables()
+    {
+        //End Down Attack   
+        if (Grounded() && playerCombat.CurrentAttackDirection == PlayerCombat.AttackDirection.Down)
+        {
+            Debug.Log("Should be ending sleep");
+            EndSleep();
+            playerCombat.CurrentAttackDirection = PlayerCombat.AttackDirection.Empty;
+            playerCombat.AttackDurationTime = Data.aDownAttackReset;
+            Sleep(playerCombat.AttackDurationTime);
         }
     }
     #endregion
@@ -1058,35 +1142,52 @@ public class PlayerControllerForces : MonoBehaviour
         SetGravityScale(0);
         isSleeping = true;
 
-        //Combat force calculations
-        if (playerCombat.IsAerialCombo)
+        //Combat force calculations       
+        if (playerState.IsAttacking)
         {
-            int direction = XInputDirection();
-            if (direction == 0)
+            switch (playerCombat.CurrentAttackDirection)
             {
-                if (playerState.IsFacingRight)
-                    direction = 1;
-                else
-                    direction = -1;
+                case PlayerCombat.AttackDirection.Up:
+                    //UpAttack();
+                    break;
+                case PlayerCombat.AttackDirection.Down:
+                    DownAttack();
+                    break;
+                case PlayerCombat.AttackDirection.Side:
+                    BasicAttack();
+                    break;
             }
-
-
-            rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
-            rb.AddForce(new Vector2(direction, 0) * Data.comboAerialPForce, ForceMode2D.Impulse);
         }
 
         yield return new WaitForSecondsRealtime(duration / 8);
 
         //Reset impulse from combat
-        if (playerCombat.IsAerialCombo)
-            rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
+        //if (playerCombat.IsAerialCombo)
+            //rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
 
+        if (playerState.IsAttacking)
+        {
+            switch (playerCombat.CurrentAttackDirection)
+            {
+                case PlayerCombat.AttackDirection.Up:
+                    rb.velocity = new Vector2(0, 0);
+                    break;
+                case PlayerCombat.AttackDirection.Down:
+                    rb.velocity = new Vector2(0, 0);
+                    break;
+                case PlayerCombat.AttackDirection.Side:
+                    rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
+                    break;
+            }
+        }
+            
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
-        //Time.timeScale = 1;
  
         SetGravityScale(1);
         isSleeping = false;
     }
+
+    
 
     //Wall collision check gizmos
     private void OnDrawGizmosSelected()
