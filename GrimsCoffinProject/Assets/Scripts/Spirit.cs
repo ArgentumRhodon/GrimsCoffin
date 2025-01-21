@@ -49,7 +49,7 @@ public class Spirit : Interactable
         {
             PersistentDataManager.Instance.UpdateSpiritState(this);
 
-            spiritUI.ShowSpiritCollectedText();
+            //spiritUI.ShowSpiritCollectedText();
 
             //Debug.Log("Spirit Collected: " + spiritID.ToString());
 

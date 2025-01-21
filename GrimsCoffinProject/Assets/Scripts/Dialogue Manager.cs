@@ -18,6 +18,8 @@ public class DialogueManager : MonoBehaviour
     private PlayerControls controls;
     private PlayerInput playerInput;
 
+    public bool canProgressDialogue = false;
+
     private void Awake()
     {
         LoadDialogueData();
@@ -32,7 +34,7 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.Log("active");
 
-            if (controls.Dialogue.Continue.triggered)
+            if (controls.Dialogue.Continue.triggered && canProgressDialogue)
             {
                 Debug.Log("Click");
                 currentline++;

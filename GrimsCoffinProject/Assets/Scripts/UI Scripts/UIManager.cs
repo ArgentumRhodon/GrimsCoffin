@@ -94,20 +94,11 @@ public class UIManager : MonoBehaviour
     {
         if (toggle)
         {
-            dialogueUI.SetActive(true);
-            gameUI.SetActive(false);
-            PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
-
-            dialogueUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
-            Time.timeScale = 1;
-            playerInput.SwitchCurrentActionMap("Dialogue");
+            StartCoroutine(ShowDialogue(.5f));
         }
         else
         {
-            dialogueUI.GetComponent<Animator>().SetBool("ToggleDialogue", false);
-            gameUI.SetActive(true);
-            Time.timeScale = 1;
-            playerInput.SwitchCurrentActionMap("Player");
+            StartCoroutine(HideDialogue(.5f));
         }
     }
 
@@ -135,5 +126,42 @@ public class UIManager : MonoBehaviour
                     mapRooms[i].SetActive(true);
             }
         }
+    }
+    public IEnumerator ShowDialogue(float seconds)
+    {
+        this.GetComponent<DialogueManager>().canProgressDialogue = false;
+        dialogueUI.SetActive(true);
+        dialogueUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
+
+        gameUI.SetActive(false);
+        Time.timeScale = 0;
+        PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
+        PlayerControllerForces.Instance.Sleep(1);
+        PlayerControllerForces.Instance.gameObject.GetComponent<PlayerCombat>().ResetCombo();
+
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < seconds)
+        {
+            yield return null;
+        }
+
+        this.GetComponent<DialogueManager>().canProgressDialogue = true;
+        playerInput.SwitchCurrentActionMap("Dialogue");
+    }
+
+    public IEnumerator HideDialogue(float seconds)
+    {
+        dialogueUI.GetComponent<Animator>().SetBool("ToggleDialogue", false);
+        
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < seconds)
+        {
+            yield return null;
+        }
+
+        PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
+        gameUI.SetActive(true);
+        Time.timeScale = 1;
+        playerInput.SwitchCurrentActionMap("Player");
     }
 }
