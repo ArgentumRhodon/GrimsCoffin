@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject saveIcon;
 
     [SerializeField] private GameObject fullMapUI;
+    [SerializeField] private List<GameObject> mapRooms;
 
     private void Awake()
     {
@@ -98,5 +99,18 @@ public class UIManager : MonoBehaviour
         }
 
         saveIcon.SetActive(false);
+    }
+
+    public void UpdateMapUI()
+    {
+        List<bool> roomsExplored = PersistentDataManager.Instance.AreaRoomsLoaded();
+
+        for (int i = 0; i < roomsExplored.Count; i++)
+        {
+            {
+                if (roomsExplored[i])
+                    mapRooms[i].SetActive(true);
+            }
+        }
     }
 }
