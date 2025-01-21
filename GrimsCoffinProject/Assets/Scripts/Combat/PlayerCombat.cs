@@ -271,10 +271,10 @@ public class PlayerCombat : MonoBehaviour
         if (playerController.Grounded())
         {
             Debug.Log("Up Ground Attack");
-            //meleeStateMachine.SetNextState(new GroundUpState());
+            meleeStateMachine.SetNextState(new GroundUpState());
             AttackDurationTime = Data.gUpAttackDuration;
 
-            //PlayerControllerForces.Instance.StartAttack();
+            PlayerControllerForces.Instance.ExecuteUpAttack();
         }
         else
         {

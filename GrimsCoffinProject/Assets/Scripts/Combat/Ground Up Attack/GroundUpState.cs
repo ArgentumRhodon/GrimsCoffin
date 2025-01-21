@@ -13,12 +13,12 @@ public class GroundUpState : MeleeBaseState
         attackDamage = playerCombat.Data.groundUpDamage;
         playerCombat.AttackDurationTime = playerCombat.Data.gUpAttackDuration;
 
-/*        animator.SetTrigger("Attack");
+        animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
         playerAnimator_T.SetTrigger("Attack");
-        playerAnimator_B.SetTrigger("Attack");*/
+        playerAnimator_B.SetTrigger("Attack");
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
