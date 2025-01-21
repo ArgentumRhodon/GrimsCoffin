@@ -25,7 +25,7 @@ public class MeleeBaseState : CState
     //Cached hit collider component of this attack
     protected Collider2D hitCollider;
     //Cached already struck objects of said attack to avoid overlapping attacks on same target
-    private List<Collider2D> collidersDamaged;
+    protected List<Collider2D> collidersDamaged;
 
 
     public override void OnEnter(CStateMachine _stateMachine)
@@ -73,14 +73,17 @@ public class MeleeBaseState : CState
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
                 {
-                    //Debug.Log("Attack registered");
-                    Vector2 knockbackForce = KnockbackForce(collidersToDamage[i].gameObject.GetComponent<Enemy>().transform.position);
-                    collidersToDamage[i].gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
-                    //Debug.Log("Enemy Has Taken: " + attackIndex + " Damage");
-                    collidersDamaged.Add(collidersToDamage[i]);
+                    RegisterAttack(collidersToDamage[i]);
                 }
             }
         }
+    }
+
+    protected virtual void RegisterAttack(Collider2D collidersToDamage)
+    {
+        Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
+        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
+        collidersDamaged.Add(collidersToDamage);
     }
 
     protected virtual Vector2 KnockbackForce(Vector2 enemyPos)

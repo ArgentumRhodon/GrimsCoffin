@@ -19,7 +19,7 @@ MonoBehaviour:
   cameraDashOffset: -1
   maxHP: 100
   maxSP: 50
-  respawnPoint: {x: -16.601776, y: -1.6799994}
+  respawnPoint: {x: 70.09, y: -36.44}
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -54,7 +54,7 @@ MonoBehaviour:
   wallTurnBuffer: 0
   canDoubleJump: 1
   preserveDoubleJump: 1
-  resetJumpOnWall: 0
+  resetJumpOnWall: 1
   extraJumpMultiplier: 0
   maxAirJumps: 1
   canSlide: 1
@@ -85,7 +85,7 @@ MonoBehaviour:
   combo3Damage: 7
   combo4Damage: 10
   groundUpwardPForce: 0
-  groundUpwardEForce: 0
+  groundUpwardEForce: {x: 0, y: 0}
   gUpAttackDuration: 0.5
   groundUpDamage: 5
   groundDownwardPForce: 0
@@ -96,8 +96,9 @@ MonoBehaviour:
   hookPlayerForce: 0
   aUpAttackDuration: 0.5
   aerialUpDamage: 3
-  aerialDownwardPForce: 0
+  aerialDownwardPForce: 50
   aerialDownwardEForce: 0
-  aDownAttackDuration: 1
+  aDownAttackDuration: 5
+  aDownAttackReset: 0.4
   aerialDownDamage: 7
   aerialImpactDamage: 5

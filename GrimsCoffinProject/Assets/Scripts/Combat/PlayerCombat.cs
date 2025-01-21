@@ -7,9 +7,10 @@ public class PlayerCombat : MonoBehaviour
 {
     public enum AttackDirection 
     { 
-        None, 
+        Side, 
         Up, 
-        Down
+        Down,
+        Empty
     }
 
 
@@ -73,6 +74,8 @@ public class PlayerCombat : MonoBehaviour
         set { attackClickCounter = value; }
     }
 
+    public AttackDirection CurrentAttackDirection { get { return attackDirection; } set { attackDirection = value; } }
+
     void Start()
     {
         meleeStateMachine = GetComponent<CStateMachine>();
@@ -98,7 +101,7 @@ public class PlayerCombat : MonoBehaviour
         //Check to see if it should move on to the next combo
         if (currentAttackAmount < Data.comboTotal && comboQueueLeft > 0 && AttackDurationTime < 0)
         {
-            if (attackQueue[0] == AttackDirection.None)
+            if (attackQueue[0] == AttackDirection.Side)
             {
                 ComboAttack();
                 comboQueueLeft--;
@@ -140,7 +143,7 @@ public class PlayerCombat : MonoBehaviour
             case AttackDirection.Down:
                 DownAttackCheck();
                 break;
-            case AttackDirection.None:
+            case AttackDirection.Side:
                 BaseAttackCheck();
                 break;
         }
@@ -206,7 +209,7 @@ public class PlayerCombat : MonoBehaviour
             {
                 //Debug.Log("Should be adding to the combo queue timer");
                 comboQueueLeft++;
-                attackQueue.Add(AttackDirection.None);
+                attackQueue.Add(AttackDirection.Side);
             }
             //Run the first attack and add to the combo queue
             else if (attackDurationTime < 0)
@@ -295,21 +298,22 @@ public class PlayerCombat : MonoBehaviour
 
     private void DownAttack()
     {
+        playerState.IsAttacking = true;
         if (playerController.Grounded())
         {
             Debug.Log("Down Ground Attack");
             //meleeStateMachine.SetNextState(new GroundDownState());
             AttackDurationTime = Data.gDownAttackDuration;
 
-            //PlayerControllerForces.Instance.StartAttack();
+            PlayerControllerForces.Instance.ExecuteDownAttack();
         }
         else
         {
             Debug.Log("Down Aerial Attack");
-            //meleeStateMachine.SetNextState(new AirDownState());
+            meleeStateMachine.SetNextState(new AirDownState());
             AttackDurationTime = Data.aDownAttackDuration;
 
-            //PlayerControllerForces.Instance.StartAttack();
+            PlayerControllerForces.Instance.ExecuteDownAttack();
         }
     }
     #endregion
@@ -351,7 +355,7 @@ public class PlayerCombat : MonoBehaviour
         else if (playerController.MoveInput.y < -Data.attackDirectionDeadzone)// && BelowXDeadzone())
             return AttackDirection.Down;
         else
-            return AttackDirection.None;
+            return AttackDirection.Side;
     }
 
     private bool BelowXDeadzone()
