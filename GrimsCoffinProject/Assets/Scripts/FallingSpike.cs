@@ -10,6 +10,8 @@ public class FallingSpike : MonoBehaviour
     [SerializeField]
     private BoxCollider2D trigger;
 
+    private float damage = 5;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,10 @@ public class FallingSpike : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(this.gameObject);
+        if (collision.collider.CompareTag("Player"))
+        {
+            PlayerControllerForces.Instance.TakeDamage(damage);
+        }
+            Destroy(this.gameObject);
     }
 }
