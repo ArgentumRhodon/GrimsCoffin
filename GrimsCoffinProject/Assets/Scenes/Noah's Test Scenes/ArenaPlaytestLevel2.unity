@@ -613,6 +613,7 @@ MonoBehaviour:
   areaText: {fileID: 1780290250}
   saveIcon: {fileID: 1811816576}
   dialogueUI: {fileID: 1397147573}
+  playerInput: {fileID: 491838783}
 --- !u!4 &282942412
 Transform:
   m_ObjectHideFlags: 0
@@ -675,6 +676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues: []
   dialogueFileName: Dialogue.json
+  uiManager: {fileID: 282942411}
 --- !u!1001 &283110253
 PrefabInstance:
   m_ObjectHideFlags: 0
