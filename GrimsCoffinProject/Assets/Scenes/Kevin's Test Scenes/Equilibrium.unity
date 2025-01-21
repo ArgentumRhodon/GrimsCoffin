@@ -1228,10 +1228,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueUI
       objectReference: {fileID: 0}
-    - target: {fileID: 1353068048992291753, guid: 1a151c047f48a02478ad33cf0d50b415, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6891082104787685179, guid: 1a151c047f48a02478ad33cf0d50b415, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3973,6 +3969,7 @@ MonoBehaviour:
   areaText: {fileID: 8183291775625397402}
   saveIcon: {fileID: 0}
   dialogueUI: {fileID: 952499286}
+  playerInput: {fileID: 584877822}
 --- !u!4 &2117058707
 Transform:
   m_ObjectHideFlags: 0
@@ -4035,6 +4032,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues: []
   dialogueFileName: Dialogue.json
+  uiManager: {fileID: 2117058706}
+  canProgressDialogue: 0
 --- !u!1001 &2120612259
 PrefabInstance:
   m_ObjectHideFlags: 0

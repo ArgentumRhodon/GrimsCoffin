@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(HideDialogue(.5f));
+            StartCoroutine(HideDialogue(1.3f));
         }
     }
 
