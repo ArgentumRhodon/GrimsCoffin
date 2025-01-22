@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerReturn" id="{b2924ee9-f5dd-4de3-a42b-40272a1ec231}">
+		<property name="name">
+			<value>MX_Low</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{79cb6d43-4242-428c-9445-6c6d955a36f7}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{6552f5b0-1218-4ea6-bed5-4df752d19af8}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{3ac1b879-0e9f-4b59-b715-dc58bea6c00a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{79cb6d43-4242-428c-9445-6c6d955a36f7}">
+		<relationship name="effects">
+			<destination>{d7855d56-362d-430c-a084-a659975a69b5}</destination>
+			<destination>{ee47f1f7-2f1b-45b8-90aa-3082c7de4f2c}</destination>
+			<destination>{f27b12ea-5884-4c31-982c-5df9223d45fe}</destination>
+			<destination>{0f98e67e-ea08-419d-b71e-9879fb2fab2c}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{6552f5b0-1218-4ea6-bed5-4df752d19af8}" />
+	<object class="ThreeEQEffect" id="{d7855d56-362d-430c-a084-a659975a69b5}">
+		<property name="midGain">
+			<value>-80</value>
+		</property>
+		<property name="highGain">
+			<value>-80</value>
+		</property>
+		<property name="lowCrossover">
+			<value>250</value>
+		</property>
+		<property name="highCrossover">
+			<value>1500</value>
+		</property>
+		<property name="crossoverSlope">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="CompressorEffect" id="{ee47f1f7-2f1b-45b8-90aa-3082c7de4f2c}">
+		<relationship name="sidechains">
+			<destination>{9c0f9d73-cc0b-4643-8532-17fc6a7f462e}</destination>
+		</relationship>
+	</object>
+	<object class="CompressorEffect" id="{f27b12ea-5884-4c31-982c-5df9223d45fe}">
+		<relationship name="sidechains">
+			<destination>{9397dcf8-0f69-41bb-b4d4-f795d2127cce}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusFader" id="{0f98e67e-ea08-419d-b71e-9879fb2fab2c}" />
+</objects>
