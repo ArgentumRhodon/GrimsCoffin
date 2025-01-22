@@ -156,7 +156,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("Spirit3", "Uncollected");
 
         //Clear Onboarding Map Data
-        for (int i = 1; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
             PlayerPrefs.SetInt("OnboardingLevelRoom" + i, 0);
         } 
