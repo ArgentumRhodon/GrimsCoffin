@@ -15,8 +15,7 @@ public class PlayerCombat : MonoBehaviour
     public Animator scytheAnimator;
 
     // Player Animation Stuff
-    public Animator animator_T; // Top
-    public Animator animator_B; // Bottom
+    public Animator animator; // Top
 
     //Timers
     private float lastComboTime;
@@ -188,8 +187,7 @@ public class PlayerCombat : MonoBehaviour
             AttackClickCounter = 0;
             ResetCombo();
 
-            animator_T.SetFloat("comboRatio", 0);
-            animator_B.SetFloat("comboRatio", 0);
+            animator.SetFloat("comboRatio", 0);
 
             //Update aerial combo values
             if(isAerialCombo)
