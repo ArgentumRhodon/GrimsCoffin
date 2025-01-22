@@ -382,6 +382,9 @@ public class PlayerControllerForces : MonoBehaviour
 
     public void OnCameraLook(InputValue value)
     {
+        if (UIManager.Instance.pauseScript.isPaused)
+            return;
+
         //Debug.Log("Camera Look " + value.Get<Vector2>().y);
         if (value.Get<Vector2>().y > CameraManager.Instance.Deadzone)
         {
@@ -1056,6 +1059,9 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnInteract()
     {
+        if (UIManager.Instance.pauseScript.isPaused)
+            return;
+
         if (interactionPrompt.interactable != null)
         {
             interactionPrompt.interactable.PerformInteraction();
