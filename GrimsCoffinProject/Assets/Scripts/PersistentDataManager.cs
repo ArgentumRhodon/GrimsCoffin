@@ -156,33 +156,10 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("Spirit3", "Uncollected");
 
         //Clear Onboarding Map Data
-        for (int i = 1; i < 4; i++)
+        for (int i = 1; i < 5; i++)
         {
             PlayerPrefs.SetInt("OnboardingLevelRoom" + i, 0);
         } 
-    }
-
-    //Save the room index based on the currently loaded room (for when the user saves/leaves the area to a different scene
-    public void SaveRoom()
-    {
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            if (rooms[i].hasPlayer)
-                PlayerPrefs.SetInt("RoomIndex", i);
-            StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
-        }
-    }
-
-    //Load the last room the player was in when returning to the Last Saved Scene
-    public void LoadRoom()
-    {
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            if (i == LastSavedRoomIndex)
-            {
-                rooms[i].hasPlayer = true;
-            }
-        }
     }
 
     //Transition between Onboarding Level and Denial Area
@@ -203,7 +180,7 @@ public class PersistentDataManager : MonoBehaviour
 
     public void SetRoomExplored(int roomIndex)
     {
-        PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "Room" + roomIndex, 1);
+        PlayerPrefs.SetInt("OnboardingLevelRoom" + roomIndex, 1);
         UIManager.Instance.UpdateMapUI();
     }
 
@@ -212,7 +189,7 @@ public class PersistentDataManager : MonoBehaviour
         List<bool> result = new List<bool>();
         foreach (Room room in rooms)
         {
-            if (PlayerPrefs.GetInt(SceneManager.GetActiveScene().name + "Room" + room.roomIndex) == 1)
+            if (PlayerPrefs.GetInt("OnboardingLevelRoom" + room.roomIndex) == 1)
             {
                 result.Add(true);
             }

@@ -53,6 +53,9 @@ public class UIManager : MonoBehaviour
 
     public void Pause()
     {
+        if (fullMapUI.activeInHierarchy)
+            return;
+
         pauseScript.Pause();
     }
 
