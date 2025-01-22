@@ -15,7 +15,7 @@ public class PlayerCombat : MonoBehaviour
     public Animator scytheAnimator;
 
     // Player Animation Stuff
-    public Animator animator; // Top
+    public Animator animator;
 
     //Timers
     private float lastComboTime;
