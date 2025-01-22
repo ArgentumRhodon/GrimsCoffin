@@ -66,7 +66,7 @@ public class PauseScreenBehavior : MonoBehaviour
             //playerInput.DeactivateInput();
 
             //Select resume button for controller navigation
-            if (UIManager.Instance.areaText.activeInHierarchy)
+            if (UIManager.Instance.areaText != null)
                 UIManager.Instance.areaText.SetActive(false);
 
             EventSystem.current.SetSelectedGameObject(null);

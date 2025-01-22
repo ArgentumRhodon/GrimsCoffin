@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
 
     public void Pause()
     {
-        if (fullMapUI.activeInHierarchy)
+        if (fullMapUI.activeInHierarchy || dialogueUI.activeInHierarchy)
             return;
 
         pauseScript.Pause();
@@ -165,6 +165,7 @@ public class UIManager : MonoBehaviour
 
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
         gameUI.SetActive(true);
+        dialogueUI.SetActive(false);
         Time.timeScale = 1;
         playerInput.SwitchCurrentActionMap("Player");
     }

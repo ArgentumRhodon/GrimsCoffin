@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
@@ -18,6 +19,9 @@ public class DialogueManager : MonoBehaviour
 
     private PlayerControls controls;
     private PlayerInput playerInput;
+
+    [SerializeField] private List<Sprite> continuePromptIcons;
+    [SerializeField] private Image continuePrompt;
 
     public bool canProgressDialogue = false;
 
@@ -36,6 +40,19 @@ public class DialogueManager : MonoBehaviour
         if (uiManager.dialogueUI.activeSelf)
         {
             Debug.Log("active");
+
+            switch (PlayerControllerForces.Instance.GetComponent<PlayerInput>().currentControlScheme)
+            {
+                case "Keyboard&Mouse":
+                    continuePrompt.sprite = continuePromptIcons[0];
+                    break;
+                case "Playstation":
+                    continuePrompt.sprite = continuePromptIcons[1];
+                    break;
+                default:
+                    continuePrompt.sprite = continuePromptIcons[2];
+                    break;
+            }
 
             if (controls.Dialogue.Continue.triggered && canProgressDialogue)
             {
