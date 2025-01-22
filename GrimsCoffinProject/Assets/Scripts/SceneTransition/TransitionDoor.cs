@@ -83,6 +83,7 @@ public class TransitionDoor : MonoBehaviour
 
     IEnumerator Transition(Collider2D col)
     {
+        PlayerControllerForces.Instance.Sleep(2);
         if (!areaEntering.activeInHierarchy)
         {
             areaEntering.SetActive(true);
