@@ -146,14 +146,14 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetFloat("DamageMultiplier", 1);
 
         //Reset Player Abilities
-        PlayerPrefs.SetInt("CanDoubleJump", 1);
-        PlayerPrefs.SetInt("CanWallJump", 1);
-        PlayerPrefs.SetInt("CanDash", 1);
+        PlayerPrefs.SetInt("CanDoubleJump", 0);
+        PlayerPrefs.SetInt("CanWallJump", 0);
+        PlayerPrefs.SetInt("CanDash", 0);
 
         //Reset Spirit Data
-        PlayerPrefs.SetString("DashSpirit", "Uncollected");
-        PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
-        PlayerPrefs.SetString("HealthSpirit", "Uncollected");
+        PlayerPrefs.SetString("Spirit1", "Uncollected");
+        PlayerPrefs.SetString("Spirit2", "Uncollected");
+        PlayerPrefs.SetString("Spirit3", "Uncollected");
 
         //Clear Onboarding Map Data
         for (int i = 1; i < 4; i++)

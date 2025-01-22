@@ -29,7 +29,7 @@ public class Room : MonoBehaviour
         if (RoomLive)
         {
             PersistentDataManager.Instance.SetRoomExplored(roomIndex);
-            Changeborder(Border);
+            //Changeborder(Border);
         }
 
     }

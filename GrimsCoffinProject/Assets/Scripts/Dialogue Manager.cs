@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
 {
     public List<DialogueEntry> dialogues;
     [SerializeField] private string dialogueFileName = "Dialogue.json";
+    private string m_Path;
     public UIManager uiManager;
     private int currentline = 1;
     private Spirit.SpiritID currentSpirit;
@@ -22,6 +23,8 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
+        m_Path = Application.dataPath;
+        Debug.Log(m_Path);
         LoadDialogueData();
         controls = new PlayerControls();
         controls.Enable();
