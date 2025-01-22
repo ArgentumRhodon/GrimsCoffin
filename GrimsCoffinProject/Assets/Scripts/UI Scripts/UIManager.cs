@@ -20,6 +20,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject areaText;
     [SerializeField] private GameObject saveIcon;
 
+    [SerializeField] private GameObject fullMapUI;
+    [SerializeField] private List<GameObject> mapRooms;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -72,6 +75,19 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0.0f;
     }
 
+    public void ToggleMap()
+    {
+        bool mapActive = !fullMapUI.activeInHierarchy;
+
+        gameUI.SetActive(!mapActive);
+        fullMapUI.SetActive(mapActive);
+
+        if (mapActive)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
+    }
+
     public IEnumerator ShowSaveIcon(float seconds)
     {
         saveIcon.SetActive(true);
@@ -83,5 +99,18 @@ public class UIManager : MonoBehaviour
         }
 
         saveIcon.SetActive(false);
+    }
+
+    public void UpdateMapUI()
+    {
+        List<bool> roomsExplored = PersistentDataManager.Instance.AreaRoomsLoaded();
+
+        for (int i = 0; i < roomsExplored.Count; i++)
+        {
+            {
+                if (roomsExplored[i])
+                    mapRooms[i].SetActive(true);
+            }
+        }
     }
 }

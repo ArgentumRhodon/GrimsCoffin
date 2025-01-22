@@ -26,9 +26,9 @@ public class PersistentDataManager : MonoBehaviour
     public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier"); } }
 
     //Player Ability Unlocks
-    public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 1) == 1; } }
-    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 1) == 1; } }
-    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 1) == 1; } }
+    public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 0) == 1; } }
+    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 0) == 1; } }
+    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 0) == 1; } }
 
     //Whether or not the Player is entering the Denial Area Scene for the first time
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
@@ -143,6 +143,12 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("DashSpirit", "Uncollected");
         PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
+
+        //Clear Onboarding Map Data
+        for (int i = 1; i < 4; i++)
+        {
+            PlayerPrefs.SetInt("OnboardingLevelRoom" + i, 0);
+        } 
     }
 
     //Save the room index based on the currently loaded room (for when the user saves/leaves the area to a different scene
@@ -182,5 +188,25 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("CanDoubleJump", 0);
         PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanDash", 0);
+    }
+
+    public void SetRoomExplored(int roomIndex)
+    {
+        PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "Room" + roomIndex, 1);
+        UIManager.Instance.UpdateMapUI();
+    }
+
+    public List<bool> AreaRoomsLoaded()
+    {
+        List<bool> result = new List<bool>();
+        foreach (Room room in rooms)
+        {
+            if (PlayerPrefs.GetInt(SceneManager.GetActiveScene().name + "Room" + room.roomIndex) == 1)
+            {
+                result.Add(true);
+            }
+        }
+
+        return result;
     }
 }
