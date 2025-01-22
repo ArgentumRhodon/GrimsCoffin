@@ -151,6 +151,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator HideDialogue(float seconds)
     {
+        this.GetComponent<DialogueManager>().canProgressDialogue = false;
         dialogueUI.GetComponent<Animator>().SetBool("ToggleDialogue", false);
         
         float startTime = Time.realtimeSinceStartup;

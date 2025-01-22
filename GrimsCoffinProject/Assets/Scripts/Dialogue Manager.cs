@@ -90,9 +90,9 @@ public class DialogueManager : MonoBehaviour
         // If  matching dialogue is not found, quit the dialogue and reset the current line to 1
         else
         {
+            Debug.LogWarning($"No dialogue found for SpiritID {id}, State {state} with LineID {currentline}.");
             currentline = 1;
             uiManager.ToggleDialogueUI(false);
-            Debug.LogWarning($"No dialogue found for SpiritID {id}, State {state} with LineID {currentline}.");
         }
     }
 
