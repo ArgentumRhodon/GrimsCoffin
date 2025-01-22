@@ -47,8 +47,8 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 moveInput;
 
     // Animation Stuff
-    [SerializeField] private Animator animator_T; // Top
-    [SerializeField] private Animator animator_B; // Bottom
+    [SerializeField] private Animator animator;
+    [SerializeField] private Animator scytheAnimator; // Top
 
     public float LastPressedJumpTime { get; private set; }
     public float LastPressedDashTime { get; private set; }
@@ -62,12 +62,9 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] private Transform frontWallCheckPoint;
     [SerializeField] private Transform backWallCheckPoint;
     [SerializeField] private Vector2 wallCheckSize = new Vector2(0.5f, 1f);
-    [SerializeField] public Vector2 respawnPoint;
 
     [Header("Player Stats")]
-    [SerializeField] public float maxHP;
     [SerializeField] public float currentHP;
-    [SerializeField] public float maxSP;
     [SerializeField] public float currentSP;
     [SerializeField] public float invincibilityTimer;
     [SerializeField] public bool hasInvincibility;
@@ -130,13 +127,22 @@ public class PlayerControllerForces : MonoBehaviour
         //canAerialCombo = true;
         isSleeping = false;
 
-        respawnPoint = this.transform.position;
+        Data.respawnPoint = this.transform.position;
+
+        Data.maxHP = PersistentDataManager.Instance.MaxHP;
+        Data.maxSP = PersistentDataManager.Instance.MaxSP;
+        Data.canDoubleJump = PersistentDataManager.Instance.CanDoubleJump;
+        Data.canWallJump = PersistentDataManager.Instance.CanWallJump;
+        Data.canDash = PersistentDataManager.Instance.CanDash;
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
 
-        if (PlayerPrefs.GetInt("RespawnPointSet") == 1 && SceneManager.GetActiveScene().name == PlayerPrefs.GetString("SceneSave"))
+        if (PersistentDataManager.Instance.FirstSpawn)
+        {
             SpawnAtLastRestPoint();
+            PersistentDataManager.Instance.ToggleFirstSpawn(false);
+        }
     }
 
     private void Update()
@@ -228,8 +234,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerState.IsSliding)
             Slide();
 
-        animator_T.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
-        animator_B.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
 
         CheckIdle();     
         if (playerState.IsIdle)
@@ -242,8 +247,7 @@ public class PlayerControllerForces : MonoBehaviour
     private void SetSpriteColors(Color color, float transparency = 1)
     {
         color.a = transparency;
-        animator_T.gameObject.GetComponent<SpriteRenderer>().color = color;
-        animator_B.gameObject.GetComponent<SpriteRenderer>().color = color;
+        animator.gameObject.GetComponent<SpriteRenderer>().color = color;
     }
 
     //Input Methods ----------------------------------------------------------------------------------------------
@@ -418,11 +422,11 @@ public class PlayerControllerForces : MonoBehaviour
         Time.timeScale = 1.0f;
         this.hasInvincibility = false;
 
-        currentHP = maxHP;
-        currentSP = maxSP;
+        currentHP = Data.maxHP;
+        currentSP = Data.maxSP;
 
-        if (respawnPoint != null)
-            this.gameObject.transform.position = respawnPoint;
+        if (Data.respawnPoint != null)
+            this.gameObject.transform.position = Data.respawnPoint;
     }
 
     //Movement Method Calculations ----------------------------------------------------------------------------------------------
@@ -583,10 +587,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Become invincible and make sprite transparent while dashing
         hasDashInvincibility = true;
-        Color tmp = animator_T.GetComponent<SpriteRenderer>().color;
+        Color tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 0.5f;
-        animator_T.GetComponent<SpriteRenderer>().color = tmp;
-        animator_B.GetComponent<SpriteRenderer>().color = tmp;      
+        animator.GetComponent<SpriteRenderer>().color = tmp;
 
         //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
@@ -629,10 +632,9 @@ public class PlayerControllerForces : MonoBehaviour
         //Dash over
         playerState.IsDashing = false;
         hasDashInvincibility = false;
-        tmp = animator_T.GetComponent<SpriteRenderer>().color;
+        tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 1f;
-        animator_T.GetComponent<SpriteRenderer>().color = tmp;
-        animator_B.GetComponent<SpriteRenderer>().color = tmp;
+        animator.GetComponent<SpriteRenderer>().color = tmp;
         //Debug.Log("Current Transparency2: " + animator_T.GetComponent<SpriteRenderer>().color.a);
     }
 
@@ -991,7 +993,7 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Sleep for delaying movement
-    private void Sleep(float duration)
+    public void Sleep(float duration)
     {
         //Method to help delay time for movement
         StartCoroutine(nameof(PerformSleep), duration);
@@ -1027,7 +1029,7 @@ public class PlayerControllerForces : MonoBehaviour
 
 
             rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
-            rb.AddForce(new Vector2(direction, 0) * Data.aerialForce, ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(direction, 0) * Data.comboAerialPForce, ForceMode2D.Impulse);
         }
 
         yield return new WaitForSecondsRealtime(duration / 8);
@@ -1060,6 +1062,11 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    private void OnMap()
+    {
+        UIManager.Instance.ToggleMap();
+    }
+
     private void SpawnAtLastRestPoint()
     {
         Debug.Log("Spawning at Rest Point");
@@ -1069,8 +1076,9 @@ public class PlayerControllerForces : MonoBehaviour
             0);
 
         this.gameObject.transform.position = newSpawn;
-        respawnPoint = newSpawn;
-   
-        currentHP = maxHP;
+        Data.respawnPoint = newSpawn;
+        
+        if (!PersistentDataManager.Instance.FirstTimeInDenial)
+            currentHP = Data.maxHP;
     }
 }

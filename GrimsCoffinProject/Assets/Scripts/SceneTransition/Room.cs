@@ -6,8 +6,9 @@ using Cinemachine;
 public class Room : MonoBehaviour
 {
     [SerializeField]
-    private bool hasPlayer;
+    public bool hasPlayer;
     public bool RoomLive;
+    public int roomIndex;
     [SerializeField] private GameObject Border;
     [SerializeField] private CinemachineVirtualCamera VCamera;
 
@@ -27,6 +28,7 @@ public class Room : MonoBehaviour
     {
         if (RoomLive)
         {
+            PersistentDataManager.Instance.SetRoomExplored(roomIndex);
             Changeborder(Border);
         }
 

@@ -10,10 +10,16 @@ public class PlayerData : ScriptableObject
     public float cameraWalkOffset;
     public float cameraDashOffset;
 
-    [Header("Gravity")]
+    [Header("Player Stats")]
+    public float maxHP;
+    public float maxSP;
+    public Vector2 respawnPoint;
+
     [HideInInspector] public float gravityStrength; //Downwards force needed for the desired jumpHeight and jumpTimeToApex
     [HideInInspector] public float gravityScale; //Strength of the player's gravity as a multiplier of gravity
-                                                 
+    
+    [Header("Gravity")]
+
     [Space(5)]
     public float fallGravityMult; //Multiplier to the player's gravityScale when falling
     public float maxFallSpeed; //Maximum fall speed of the player when falling
@@ -43,6 +49,8 @@ public class PlayerData : ScriptableObject
     public float jumpTimeToApex; //Time between applying the jump force and reaching the desired jump height. These values also control the player's gravity and jump force.
     [HideInInspector] public float jumpForce; //The actual force applied to the player when they jump.
 
+    [Space(10)]
+
     [Header("All Jumps")]
     public float jumpCancelGravityMult; //Multiplier to increase gravity if the player releases thje jump button while still jumping
     [Range(0f, 1)] public float jumpHangGravityMult; //Reduces gravity while close to the apex (desired max height) of the jump
@@ -50,6 +58,8 @@ public class PlayerData : ScriptableObject
     [Space(0.5f)]
     public float jumpHangAccelerationMult;
     public float jumpHangMaxSpeedMult;
+
+    [Space(10)]
 
     [Header("Wall Jump")]
     public bool canWallJump;
@@ -63,6 +73,8 @@ public class PlayerData : ScriptableObject
     [Space(10)]
     public bool doTurnOnWallJump; //Player will rotate to face wall jumping direction
     [Range(0f, 0.5f)] public float wallTurnBuffer;
+
+    [Space(10)]
 
     [Header("Extra Jumps")]
     public bool canDoubleJump;
@@ -78,6 +90,7 @@ public class PlayerData : ScriptableObject
     public float slideSpeed;
     public float slideAccel;
 
+    [Space(20)]
 
     [Header("Assists")]
     [Range(0.01f, 0.5f)] public float coyoteTime; //Grace period after falling off a platform, where you can still jump
@@ -103,15 +116,66 @@ public class PlayerData : ScriptableObject
 
     [Space(20)]
 
-    [Header("Attacks")]
+    [Header("General Attacks")]
     public bool canAttack;
+
+    [Space(10)]
+
+    [Header("Main Combo Attack")]
     public bool canTurnDuringCombo;
     public float comboSleepTime; //Sleep time after combo
     public float attackBufferTime; //Attack buffer to track if the player should stay in the combo or not
     public float comboAerialTime; //Time player is in the air
     public float comboTotal; //Length of the combo
-    public float aerialForce;
+    public float comboAerialPForce;
 
+    [Space(15)]
+
+    public float combo1Damage;
+    public float combo2Damage;
+    public float combo3Damage;
+    public float combo4Damage;
+
+    [Space(15)]
+
+    [Header("Ground Up Attack")]
+    public float groundUpwardPForce;
+    public float groundUpwardEForce;
+
+    [Space(15)]
+
+    public float groundUpDamage;
+
+    [Space(15)]
+
+    [Header("Ground Down Attack")]
+    public float groundDownwardPForce;
+    public float groundDownwardEForce;
+    public float gdHoldDuration;
+
+    [Space(15)]
+
+    public float groundDownDamage;
+
+    [Space(15)]
+
+    [Header("Aerial Up Attack")]
+    public float hookPlayerForce;
+
+    [Space(15)]
+
+    public float aerialUpDamage;
+
+    [Space(15)]
+
+    [Header("Aerial Down Attack")]
+    public float aerialDownwardPForce;
+    public float aerialDownwardEForce;
+
+    [Space(15)]
+
+    public float aerialDownDamage;
+    public float aerialImpactDamage;
 
     //Unity Callback, called when the inspector updates
     private void OnValidate()
