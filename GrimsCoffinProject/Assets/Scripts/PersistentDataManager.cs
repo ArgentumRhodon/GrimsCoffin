@@ -1,4 +1,5 @@
 using Pathfinding.Ionic.Zip;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -86,13 +87,23 @@ public class PersistentDataManager : MonoBehaviour
             return false;
     }
 
+    //Return the state of the specified spirit
+    public Spirit.SpiritState GetSpiritState(Spirit spirit)
+    {
+        Enum.TryParse<Spirit.SpiritState>(PlayerPrefs.GetString(spirit.spiritID.ToString()), true, out Spirit.SpiritState spiritState);
+        return spiritState;
+    }
+
     //Updates a Spirit's state (i.e. collecting or talking to the spirit)
     public void UpdateSpiritState(Spirit spirit)
     {
         if (spirit.spiritState != Spirit.SpiritState.Idle)
         {
             spirit.spiritState++;
-            StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
+
+            //Show save icon when spirit is collected
+            if (spirit.spiritState == Spirit.SpiritState.Collected)
+                StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
         }
 
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());

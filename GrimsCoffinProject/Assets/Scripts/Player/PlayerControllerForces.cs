@@ -992,7 +992,7 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Sleep for delaying movement
-    private void Sleep(float duration)
+    public void Sleep(float duration)
     {
         //Method to help delay time for movement
         StartCoroutine(nameof(PerformSleep), duration);
