@@ -47,7 +47,8 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 moveInput;
 
     // Animation Stuff
-    [SerializeField] private Animator animator; // Top
+    [SerializeField] private Animator animator;
+    [SerializeField] private Animator scytheAnimator; // Top
 
     public float LastPressedJumpTime { get; private set; }
     public float LastPressedDashTime { get; private set; }
