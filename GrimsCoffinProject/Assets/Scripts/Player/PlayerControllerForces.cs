@@ -616,7 +616,7 @@ public class PlayerControllerForces : MonoBehaviour
         
         //Update camera
         float cameraOffset = Data.cameraDashOffset * direction;
-        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.05f);
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, .5f);
 
         yield return new WaitForSecondsRealtime(Data.dashAttackTime);
 
