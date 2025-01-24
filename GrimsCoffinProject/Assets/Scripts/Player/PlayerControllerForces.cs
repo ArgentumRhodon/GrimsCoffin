@@ -8,6 +8,10 @@ using UnityEngine.Playables;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
+using FMODUnity;
+using Unity.VisualScripting;
+using System.Threading.Tasks;
+using FMOD.Studio;
 
 public class PlayerControllerForces : MonoBehaviour
 {
@@ -73,6 +77,43 @@ public class PlayerControllerForces : MonoBehaviour
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
 
+    [Header("FMOD Events and Controller")]
+    
+    private float currentTime;
+    [Range(1f, 10f)]
+    [Tooltip("This slide controls how fast you want your footstep speed to be")]
+    [SerializeField] public float footstepSpeed = 3f;
+    [Tooltip("FMOD events for the walking mechanism")]
+    [SerializeField] public EventReference walkSFX;
+    protected EventInstance walkInstance;
+
+    [Tooltip("FMOD events for the jumping mechanism")]
+    [SerializeField] public EventReference jumpSFX;
+    protected EventInstance jumpInstance;
+
+    [Tooltip("FMOD events for the land-after-jump mechanism")]
+    [SerializeField] public EventReference landSFX;
+    protected EventInstance landInstance;
+    private bool FMODJumpFinished = false;
+    private bool FMODIsLandedPlayed = false;
+
+    [Tooltip("FMOD events for the dashing mechanism")]
+    [SerializeField] public EventReference dashSfx;
+
+    [Tooltip("FMOD events for the sliding mechanism")]
+    [SerializeField] public EventReference slidingSFX;
+    protected EventInstance slideInstance;
+    private bool isSlidingPlayed = false;
+
+    [Tooltip("FMOD events for the weaponSwing mechanism")]
+    [SerializeField] public EventReference weaponSFX;
+    protected EventInstance weaponInstance;
+
+
+
+
+
+
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
 
@@ -103,6 +144,15 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Set player controls to new input
         playerControls = new PlayerControls();
+
+        //Create sound instances for player controller
+        walkInstance = RuntimeManager.CreateInstance(walkSFX);
+        jumpInstance = RuntimeManager.CreateInstance(jumpSFX);
+        landInstance = RuntimeManager.CreateInstance(landSFX);
+        slideInstance = RuntimeManager.CreateInstance(slidingSFX);
+        weaponInstance = RuntimeManager.CreateInstance(weaponSFX);
+
+
     }
 
     //Methods to make player controls work and to access it in the code
@@ -232,7 +282,11 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Handle Slide
         if (playerState.IsSliding)
+        {
+            playSlideSFX(slideInstance);
             Slide();
+        }
+            
 
         animator_T.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
         animator_B.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
@@ -380,6 +434,8 @@ public class PlayerControllerForces : MonoBehaviour
                 }*/
             }
         }
+
+        playWeaponSFX(weaponInstance);
     }
 
     public void OnCameraLook(InputValue value)
@@ -433,7 +489,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     //Movement Method Calculations ----------------------------------------------------------------------------------------------
     //Walking
-    private void Walk(float lerpAmount)
+    private async void Walk(float lerpAmount)
     {
         //Get direction and normalize it to either 1 or -1 
         int direction = XInputDirection();
@@ -483,6 +539,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (direction != 0)
         {
             float cameraOffset = Data.cameraWalkOffset * direction;
+            PlayWalkSFX();
             CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
         }
     }
@@ -518,6 +575,10 @@ public class PlayerControllerForces : MonoBehaviour
 
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         jumpVelocity = rb.velocity.y;
+
+        playJumpSFX(jumpInstance, 0);
+        FMODJumpFinished = false;
+        FMODIsLandedPlayed = false;
     }
 
     //Wall jump
@@ -545,7 +606,7 @@ public class PlayerControllerForces : MonoBehaviour
             else if (dir < 0 && playerState.IsFacingRight)
                 Turn();
         }
-         
+        playJumpSFX(jumpInstance, 1);
 
     }
 
@@ -571,6 +632,7 @@ public class PlayerControllerForces : MonoBehaviour
             rb.AddForce(movement * Vector2.up);
         }
 
+        
     }
 
     //Dash Coroutine
@@ -613,6 +675,8 @@ public class PlayerControllerForces : MonoBehaviour
         }
        
         rb.AddForce(Vector2.right * direction * Data.dashSpeed, ForceMode2D.Impulse);
+
+        playDashSFX();
         
         //Update camera
         float cameraOffset = Data.cameraDashOffset * direction;
@@ -661,6 +725,9 @@ public class PlayerControllerForces : MonoBehaviour
             isJumpFalling = true;
 
             LastJumpTime = 0;
+
+            FMODJumpFinished = true;
+
         }
 
         if (playerState.IsWallJumping && Time.time - wallJumpStartTime > Data.wallJumpTime)
@@ -673,11 +740,22 @@ public class PlayerControllerForces : MonoBehaviour
             isJumpCancel = false;
 
             isJumpFalling = false;
+
         }
 
         if (Grounded())
         {
             airJumpCounter = 0;
+
+            if (FMODIsLandedPlayed == false && FMODJumpFinished == true)
+            {
+                stopSlideSFX(slideInstance);
+                playLandSFX(landInstance);
+                FMODIsLandedPlayed = true;
+            }
+            
+
+
         }
         else if (Data.resetJumpOnWall && OnWall())
         {
@@ -715,7 +793,10 @@ public class PlayerControllerForces : MonoBehaviour
         if (Data.mustHoldWallToJump)
         {
             if (CanSlide() && ((LastOnWallLeftTime > 0 && moveInput.x < -Data.deadzone) || (LastOnWallRightTime > 0 && moveInput.x > Data.deadzone)))
+            {
                 playerState.IsSliding = true;
+            }
+                
             else
             {
                 playerState.IsSliding = false;
@@ -725,7 +806,9 @@ public class PlayerControllerForces : MonoBehaviour
         else
         {
             if (CanSlide() && ((LastOnWallLeftTime > 0 && moveInput.x < Data.deadzone) || (LastOnWallRightTime > 0 && moveInput.x > -Data.deadzone)))
+            {
                 playerState.IsSliding = true;
+            }
             else
                 playerState.IsSliding = false;
         }
@@ -807,6 +890,7 @@ public class PlayerControllerForces : MonoBehaviour
             //Right Wall Check
             if ((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight) && !playerState.IsWallJumping)
                 LastOnWallRightTime = Data.coyoteTime;
+            
 
             //Left Wall Check
             //Debug.Log((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsFacingRight) && !playerState.IsWallJumping);
@@ -1080,4 +1164,60 @@ public class PlayerControllerForces : MonoBehaviour
         if (!PersistentDataManager.Instance.FirstTimeInDenial)
             currentHP = Data.maxHP;
     }
+
+    private void PlayWalkSFX()
+    {
+        float timeDifference = Time.time - currentTime;
+        Debug.Log("Time Difference Is: "+timeDifference);
+        if(timeDifference > 1/footstepSpeed && Grounded())
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(walkSFX);
+            currentTime = Time.time;
+        }
+    }
+
+    private void playJumpSFX(EventInstance jumpInstance, int jumpStatus)
+    {
+        stopSlideSFX(slideInstance);
+        jumpInstance.getDescription(out EventDescription jumpDescription);
+        jumpDescription.getParameterDescriptionByIndex(0, out PARAMETER_DESCRIPTION parameter);
+        jumpInstance.setParameterByID(parameter.id, jumpStatus);
+        jumpInstance.start();
+    }
+    
+    private void playDashSFX()
+    {
+        stopSlideSFX(slideInstance);
+        FMODUnity.RuntimeManager.PlayOneShot(dashSfx);
+    }
+
+    private void playLandSFX(EventInstance landInstance)
+    {
+        landInstance.start();
+    }
+
+    private void playSlideSFX(EventInstance slideInstance)
+    {
+        if(isSlidingPlayed == false)
+        {
+            isSlidingPlayed = true;
+            slideInstance.start();
+            slideInstance.setParameterByName("SlideStatus", 0);
+        }
+
+    }
+
+    private void stopSlideSFX(EventInstance slideInstance)
+    {
+        slideInstance.setParameterByName("SlideStatus", 1);
+        isSlidingPlayed = false;
+        Debug.Log("Stopped Sliding");
+
+    }
+
+    private void playWeaponSFX(EventInstance weaponInstance)
+    {
+        weaponInstance.start();
+    }
+
 }
