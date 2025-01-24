@@ -268,15 +268,9 @@ public class PlayerCombat : MonoBehaviour
 
     private void UpAttack()
     {
-        if (playerController.Grounded())
-        {
-            Debug.Log("Up Ground Attack");
-            meleeStateMachine.SetNextState(new GroundUpState());
-            AttackDurationTime = Data.gUpAttackDuration;
-
-            PlayerControllerForces.Instance.ExecuteUpAttack();
-        }
-        else
+        //if (playerController.Grounded())
+        //Up air attack
+        if (!playerController.Grounded() && Data.canAUpAttack)
         {
             Debug.Log("Up Aerial Attack");
             //meleeStateMachine.SetNextState(new AirUpState());
@@ -284,27 +278,36 @@ public class PlayerCombat : MonoBehaviour
             isAerialAttacking = true;
             //PlayerControllerForces.Instance.StartAttack();
         }
-    }
+        //Up ground attack
+        else if(Data.canGUpAttack)
+        {
+            Debug.Log("Up Ground Attack");
+            meleeStateMachine.SetNextState(new GroundUpState());
+            AttackDurationTime = Data.gUpAttackDuration;
 
+            PlayerControllerForces.Instance.ExecuteUpAttack(true);
+        }
+    }
+    //TODO:: Fix down attack cancel from sleeping and stopping player from jumping
     private void DownAttack()
     {
         playerState.IsAttacking = true;
-        if (playerController.Grounded())
-        {
-            Debug.Log("Down Ground Attack");
-            meleeStateMachine.SetNextState(new GroundDownCharge());
-            AttackDurationTime = Data.gdHoldDuration;
-
-            PlayerControllerForces.Instance.ExecuteDownAttack();
-        }
-        else
+        if(!playerController.Grounded() && Data.canADownAttack)
         {
             Debug.Log("Down Aerial Attack");
             isAerialAttacking = true;
             meleeStateMachine.SetNextState(new AirDownState());
             AttackDurationTime = Data.aDownAttackDuration;
 
-            PlayerControllerForces.Instance.ExecuteDownAttack();
+            PlayerControllerForces.Instance.ExecuteDownAttack(false);
+        }
+        else if (Data.canGDownAttack)
+        {
+            Debug.Log("Down Ground Attack");
+            meleeStateMachine.SetNextState(new GroundDownCharge());
+            AttackDurationTime = Data.gdHoldDuration;
+
+            PlayerControllerForces.Instance.ExecuteDownAttack(true);
         }
     }
     #endregion

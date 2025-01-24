@@ -459,7 +459,7 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Calculate physics for attacks ---------------------------------------------
-    public void ExecuteUpAttack()
+    public void ExecuteUpAttack(bool shouldGroundAttack)
     {
         if (isSleeping)
             return;
@@ -476,13 +476,13 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Calculate physics for attacks ---------------------------------------------
-    public void ExecuteDownAttack()
+    public void ExecuteDownAttack(bool shouldGroundAttack)
     {
         if (isSleeping)
             return;
 
         //Aerial attack check
-        if (Grounded())
+        if (shouldGroundAttack)
         {
             //Sleep(Data.gDownAttackDuration);
         }

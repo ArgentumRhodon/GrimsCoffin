@@ -143,6 +143,8 @@ public class PlayerData : ScriptableObject
     [Space(15)]
 
     [Header("Ground Up Attack")]
+    public bool canGUpAttack;
+
     public float groundUpwardPForce;
     public Vector2 groundUpwardEForce;
     public float gUpAttackDuration; //How long the duration of the attack should take
@@ -154,6 +156,8 @@ public class PlayerData : ScriptableObject
     [Space(15)]
 
     [Header("Ground Down Attack")]
+    public bool canGDownAttack;
+
     public float groundDownwardPForce;
     public float groundDownwardEForce;
     [Range(0.01f, 2f)] public float gDownWalkModifier;
@@ -167,6 +171,8 @@ public class PlayerData : ScriptableObject
     [Space(15)]
 
     [Header("Aerial Up Attack")]
+    public bool canAUpAttack;
+
     public float hookPlayerForce;
     public float aUpAttackDuration; //How long the duration of the attack should take
 
@@ -177,6 +183,8 @@ public class PlayerData : ScriptableObject
     [Space(15)]
 
     [Header("Aerial Down Attack")]
+    public bool canADownAttack;
+
     public float aerialDownwardPForce;
     public float aerialDownwardEForce;
     public float aDownAttackDuration; //How long the duration of the attack should take
