@@ -17,7 +17,7 @@ MonoBehaviour:
   cameraOffset: 0.6
   cameraWalkOffset: -0.1
   cameraDashOffset: -1
-  maxHP: 125
+  maxHP: 50
   maxSP: 0
   respawnPoint: {x: 70.09, y: -36.44}
   gravityStrength: -57.14286
@@ -78,17 +78,17 @@ MonoBehaviour:
   attackBufferTime: 0.5
   comboAerialTime: 0.15
   comboTotal: 4
-  comboAerialPForce: 5
-  comboGroundPForce: 0
+  comboAerialPForce: 7
+  comboGroundPForce: 20
   comboAttackDuration: 0.35
   combo1Damage: 4
   combo2Damage: 4
   combo3Damage: 7
   combo4Damage: 10
   canGUpAttack: 1
-  groundUpwardPForce: 0
+  groundUpwardPForce: -20
   groundUpwardEForce: {x: 0, y: 0}
-  gUpAttackDuration: 0.5
+  gUpAttackDuration: 0.35
   groundUpDamage: 5
   canGDownAttack: 1
   groundDownwardPForce: 0

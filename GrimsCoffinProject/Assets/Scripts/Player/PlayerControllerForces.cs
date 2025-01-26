@@ -234,7 +234,7 @@ public class PlayerControllerForces : MonoBehaviour
                 else
                     Walk(1);
             }
-            if (playerState.IsAttacking && Grounded())
+            if (playerState.IsAttacking && Grounded() && playerCombat.AttackClickCounter == 1)
             {
                 Walk(1);
             }
@@ -456,7 +456,7 @@ public class PlayerControllerForces : MonoBehaviour
                     EndSleep();
                     Sleep(Data.comboAerialTime / 2);
                 }
-                else if (playerCombat.AttackClickCounter >= 2)
+                else if (playerCombat.AttackClickCounter > 1)
                 {
                     EndSleep();
                     Sleep(Data.comboAerialTime);
@@ -724,26 +724,28 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void BasicAttack()
     {
-        //if (playerCombat.IsAerialCombo)
-        //{
-            int direction = XInputDirection();
-            if (direction == 0)
-            {
-                if (playerState.IsFacingRight)
-                    direction = 1;
-                else
-                    direction = -1;
-            }
+        int direction = XInputDirection();
+        if (direction == 0)
+        {
+            if (playerState.IsFacingRight)
+                direction = 1;
+            else
+                direction = -1;
+        }
 
+        rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
 
-            rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
+        if (playerCombat.IsAerialCombo)
             rb.AddForce(new Vector2(direction, 0) * Data.comboAerialPForce, ForceMode2D.Impulse);
-        //}
+        else
+            rb.AddForce(new Vector2(direction, 0) * Data.comboGroundPForce, ForceMode2D.Impulse);
     }
 
     private void UpAttack()
     {
-
+        SetGravityScale(1);
+        //rb.AddForce(Vector2.down * Data.groundUpwardPForce, ForceMode2D.Impulse);
+        rb.velocity = new Vector2(0, Data.groundUpwardPForce);
     }
 
     private void DownAttack()
@@ -751,12 +753,6 @@ public class PlayerControllerForces : MonoBehaviour
         SetGravityScale(1);
         //rb.AddForce(Vector2.down * Data.aerialDownwardPForce, ForceMode2D.Impulse);
         rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
-/*        while (!Grounded())
-        {
-            Debug.Log("This is running");
-            //rb.AddForce(Vector2.down * Data.comboAerialPForce, ForceMode2D.Impulse);
-            rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
-        }*/
     }
 
     #endregion
@@ -1206,13 +1202,15 @@ public class PlayerControllerForces : MonoBehaviour
         SetGravityScale(0);
         isSleeping = true;
 
+        Debug.Log(playerCombat.CurrentAttackDirection + " isAttacking: " + playerState.IsAttacking);
+
         //Combat force calculations       
         if (playerState.IsAttacking)
         {
             switch (playerCombat.CurrentAttackDirection)
             {
                 case PlayerCombat.AttackDirection.Up:
-                    //UpAttack();
+                    UpAttack();
                     break;
                 case PlayerCombat.AttackDirection.Down:
                     DownAttack();

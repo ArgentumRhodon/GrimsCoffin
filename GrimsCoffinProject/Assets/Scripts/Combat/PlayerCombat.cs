@@ -155,6 +155,7 @@ public class PlayerCombat : MonoBehaviour
                     return;
 
                 attackDirection = CheckAttackDirection();
+                //Debug.Log(attackDirection);
 
                 scytheAnimator.ResetTrigger("Idle");
                 switch (attackDirection)
@@ -256,7 +257,7 @@ public class PlayerCombat : MonoBehaviour
     //Combo attack, handles everything after the first attack
     private void ComboAttack()
     {
-        //Debug.Log("Combo Attack");
+        playerState.IsAttacking = true;
         meleeStateMachine.RegisteredAttack = true;
         isComboing = true;
 
@@ -268,7 +269,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void UpAttack()
     {
-        //if (playerController.Grounded())
+        playerState.IsAttacking = true;
         //Up air attack
         if (!playerController.Grounded() && Data.canAUpAttack)
         {
@@ -288,7 +289,7 @@ public class PlayerCombat : MonoBehaviour
             PlayerControllerForces.Instance.ExecuteUpAttack(true);
         }
     }
-    //TODO:: Fix down attack cancel from sleeping and stopping player from jumping
+
     private void DownAttack()
     {
         playerState.IsAttacking = true;
