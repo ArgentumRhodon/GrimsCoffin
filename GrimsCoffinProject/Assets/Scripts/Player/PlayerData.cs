@@ -129,7 +129,8 @@ public class PlayerData : ScriptableObject
     public float attackBufferTime; //Attack buffer to track if the player should stay in the combo or not
     public float comboAerialTime; //Time player floats in the air
     public float comboTotal; //Length of the total phases of the combo that the play has
-    public float comboAerialPForce; //Force when attacking 
+    public float comboAerialPForce; //Player force when attacking 
+    public float comboGroundPForce; //Player force when attacking on ground 
     public float comboAttackDuration; //How long the duration of the attack should take
 
 

@@ -27,7 +27,7 @@ public class GroundDownCharge : MeleeBaseState
 
         if (!playerCombat.IsHoldingAttacking)
         {
-            playerController.EndSleep();
+            playerController.EndSleepWalk();
 
             //Released after being charged up
             if (playerCombat.AttackDurationTime < 0)
@@ -39,7 +39,9 @@ public class GroundDownCharge : MeleeBaseState
             //Let go of attack before charging up
             else 
             {
+                //Debug.Log("Ended holding");
                 playerController.WalkModifier = 1;
+                playerCombat.AttackDurationTime = 0;
                 stateMachine.SetNextStateToMain();
             }
         }

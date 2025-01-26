@@ -278,8 +278,12 @@ public class PlayerControllerForces : MonoBehaviour
     //Jump Input
     private void OnJump(InputValue value)
     {
+        Debug.Log("Tried jumping");
+
         if (isSleeping)
             return;
+
+      
 
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
         //Key Down, continue jumping
@@ -447,13 +451,16 @@ public class PlayerControllerForces : MonoBehaviour
             else
             {
                 //Potential ground combat hitstop - NEEDS FIXING
-                /*                if (playerCombat.AttackCounter == Data.comboTotal)
-                                    Sleep(Data.comboSleepTime / 2);
-                                else if (playerCombat.AttackCounter > 2)
-                                {
-                                    EndSleep();
-                                    Sleep(Data.comboSleepTime);
-                                }*/
+                if (playerCombat.AttackClickCounter == Data.comboTotal)
+                {
+                    EndSleep();
+                    Sleep(Data.comboAerialTime / 2);
+                }
+                else if (playerCombat.AttackClickCounter >= 2)
+                {
+                    EndSleep();
+                    Sleep(Data.comboAerialTime);
+                }
             }
         }
     }
@@ -717,8 +724,8 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void BasicAttack()
     {
-        if (playerCombat.IsAerialCombo)
-        {
+        //if (playerCombat.IsAerialCombo)
+        //{
             int direction = XInputDirection();
             if (direction == 0)
             {
@@ -731,7 +738,7 @@ public class PlayerControllerForces : MonoBehaviour
 
             rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
             rb.AddForce(new Vector2(direction, 0) * Data.comboAerialPForce, ForceMode2D.Impulse);
-        }
+        //}
     }
 
     private void UpAttack()
@@ -1174,6 +1181,12 @@ public class PlayerControllerForces : MonoBehaviour
     {
         isSleeping = true;
         canSleepWalk = true;
+    }
+
+    public void EndSleepWalk()
+    {
+        isSleeping = false;
+        canSleepWalk = false;
     }
 
     public void EndSleep()

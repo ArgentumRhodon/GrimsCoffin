@@ -79,25 +79,32 @@ MonoBehaviour:
   comboAerialTime: 0.15
   comboTotal: 4
   comboAerialPForce: 5
+  comboGroundPForce: 0
   comboAttackDuration: 0.35
   combo1Damage: 4
   combo2Damage: 4
   combo3Damage: 7
   combo4Damage: 10
+  canGUpAttack: 0
   groundUpwardPForce: 0
-  groundUpwardEForce: 0
+  groundUpwardEForce: {x: 0, y: 0}
   gUpAttackDuration: 0.5
   groundUpDamage: 5
+  canGDownAttack: 0
   groundDownwardPForce: 0
   groundDownwardEForce: 0
+  gDownWalkModifier: 0.01
   gdHoldDuration: 0
   gDownAttackDuration: 0.5
   groundDownDamage: 15
+  canAUpAttack: 0
   hookPlayerForce: 0
   aUpAttackDuration: 0.5
   aerialUpDamage: 3
+  canADownAttack: 0
   aerialDownwardPForce: 0
   aerialDownwardEForce: 0
   aDownAttackDuration: 1
+  aDownAttackReset: 0
   aerialDownDamage: 7
   aerialImpactDamage: 5
