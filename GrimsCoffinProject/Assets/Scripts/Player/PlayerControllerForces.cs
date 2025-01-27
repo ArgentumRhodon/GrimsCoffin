@@ -1168,7 +1168,6 @@ public class PlayerControllerForces : MonoBehaviour
     private void PlayWalkSFX()
     {
         float timeDifference = Time.time - currentTime;
-        Debug.Log("Time Difference Is: "+timeDifference);
         if(timeDifference > 1/footstepSpeed && Grounded())
         {
             FMODUnity.RuntimeManager.PlayOneShot(walkSFX);
