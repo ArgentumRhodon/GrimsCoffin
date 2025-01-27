@@ -13,6 +13,9 @@ Pull request template for Grim’s Coffin. Feel free to remove comments as you f
 ## Issue worked on
 <!---Paste in a link to the issue this PR addresses--->
 
+## Link to Build
+<!---Paste in a link to the build to test this PR on--->
+
 ## Link to Documentation
 <!---Paste in a link to the documentation for this feature--->
 
