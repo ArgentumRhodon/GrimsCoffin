@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class CameraManager : MonoBehaviour
     private CinemachineFramingTransposer VCamFramingTransposer;
     private Coroutine transitionCoroutineX;
     private Coroutine transitionCoroutineY;
+    public PlayerControllerForces player;
 
     public float Deadzone
     {
@@ -73,6 +75,19 @@ public class CameraManager : MonoBehaviour
     {
         CameraControl.ActiveVirtualCamera.Priority = 9;
         Vcam.Priority = 10;
+    }
+
+    public void TriggerDash() 
+    {
+        StartCoroutine(OnDash());
+    }
+
+    private IEnumerator OnDash() 
+    {
+        CameraControl.ActiveVirtualCamera.Follow = null;
+        yield return new WaitForSeconds(0.1f);
+        CameraControl.ActiveVirtualCamera.Follow = player.transform;
+        Debug.Log("Dash");
     }
 
 
