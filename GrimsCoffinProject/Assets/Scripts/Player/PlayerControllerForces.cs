@@ -613,11 +613,10 @@ public class PlayerControllerForces : MonoBehaviour
         }
        
         rb.AddForce(Vector2.right * direction * Data.dashSpeed, ForceMode2D.Impulse);
-
+        
         //Update camera
-        CameraManager.Instance.TriggerDash();
-        //float cameraOffset = Data.cameraDashOffset * direction;
-        //CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.05f);
+        float cameraOffset = Data.cameraDashOffset * direction;
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.05f);
 
         yield return new WaitForSecondsRealtime(Data.dashAttackTime);
 
