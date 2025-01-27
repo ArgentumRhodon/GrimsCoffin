@@ -125,9 +125,9 @@ public class PlayerData : ScriptableObject
 
     [Header("Main Combo Attack")]
     public bool canTurnDuringCombo; //Can turn around during the combo or stuck in one direction
-    public float comboSleepTime; //Sleep time after combo
+    public float comboCooldownTime; //Sleep time after combo
     public float attackBufferTime; //Attack buffer to track if the player should stay in the combo or not
-    public float comboAerialTime; //Time player floats in the air
+    public float comboSleepTime; //Time player floats in the air
     public float comboTotal; //Length of the total phases of the combo that the play has
     public float comboAerialPForce; //Player force when attacking 
     public float comboGroundPForce; //Player force when attacking on ground 

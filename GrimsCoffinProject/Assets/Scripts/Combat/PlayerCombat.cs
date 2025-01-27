@@ -249,6 +249,9 @@ public class PlayerCombat : MonoBehaviour
             meleeStateMachine.SetNextState(new MeleeEntryState());
             AttackDurationTime = Data.attackBufferTime;
 
+            playerState.IsAttacking = true;
+            isComboing = true;
+
             PlayerControllerForces.Instance.ExecuteBasicAttack();
             currentAttackAmount++;
         }
@@ -326,7 +329,7 @@ public class PlayerCombat : MonoBehaviour
     //Reset combo stats
     public void ResetCombo()
     {
-        LastComboTime = Data.comboSleepTime;
+        LastComboTime = Data.comboCooldownTime;
         attackClickCounter = 0;
         currentAttackAmount = 0;
         comboQueueLeft = 0;

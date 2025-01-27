@@ -227,17 +227,17 @@ public class PlayerControllerForces : MonoBehaviour
         //Handle player walking, make sure the player doesn't walk while dashing
         if (!isSleeping)
         {
-            if (!playerState.IsDashing && !playerState.IsAttacking)
+            if (!playerState.IsDashing && !playerState.IsAttacking && !playerCombat.IsComboing)
             {
                 if (playerState.IsWallJumping)
                     Walk(Data.wallJumpRunLerp);
                 else
                     Walk(1);
             }
-            if (playerState.IsAttacking && Grounded() && playerCombat.AttackClickCounter == 1)
+/*            if (playerState.IsAttacking && Grounded() && playerCombat.AttackClickCounter == 1)
             {
                 Walk(1);
-            }
+            }*/
         }
         else if (canSleepWalk)
             Walk(1);
@@ -278,13 +278,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Jump Input
     private void OnJump(InputValue value)
     {
-        Debug.Log("Tried jumping");
-
         if (isSleeping)
             return;
-
-      
-
+     
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
         //Key Down, continue jumping
         if (value.isPressed)
@@ -431,7 +427,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (isSleeping)
             return;
 
-        //Do not hit during combo
+        //Check to make sure the player does not hit on combo cooldown
         if (playerCombat.LastComboTime < 0)
         {
             //Aerial attack sleep / hitstop 
@@ -443,23 +439,23 @@ public class PlayerControllerForces : MonoBehaviour
                     EndSleep();
 
                     if (playerCombat.AttackClickCounter < Data.comboTotal)
-                        Sleep(Data.comboAerialTime);
+                        Sleep(Data.comboSleepTime);
                     else
-                        Sleep(Data.comboAerialTime / 2);
+                        Sleep(Data.comboSleepTime / 2);
                 }
             }
+            //Ground attack sleep
             else
             {
-                //Potential ground combat hitstop - NEEDS FIXING
                 if (playerCombat.AttackClickCounter == Data.comboTotal)
                 {
                     EndSleep();
-                    Sleep(Data.comboAerialTime / 2);
+                    Sleep(Data.comboSleepTime / 2);
                 }
-                else if (playerCombat.AttackClickCounter > 1)
+                else// if (playerCombat.AttackClickCounter > 1)
                 {
                     EndSleep();
-                    Sleep(Data.comboAerialTime);
+                    Sleep(Data.comboSleepTime);
                 }
             }
         }
@@ -563,6 +559,8 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (Time.timeScale == 0)
             return;
+
+        Debug.Log("Turn is called");
 
         //Transform local scale of object
         Vector3 scale = transform.localScale;
@@ -675,7 +673,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Get direction to dash in
         int direction = XInputDirection();
         //If player is not moving / doesn't have direction, dash in the most recent input
-        if (direction == 0)
+        if (direction != 0)
         {
             if (playerState.IsFacingRight)
                 direction = 1;
@@ -725,8 +723,9 @@ public class PlayerControllerForces : MonoBehaviour
     private void BasicAttack()
     {
         int direction = XInputDirection();
-        if (direction == 0)
-        {
+        //Normalize direction
+        if (direction != 0)
+        {          
             if (playerState.IsFacingRight)
                 direction = 1;
             else
@@ -1201,9 +1200,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Sleeping
         SetGravityScale(0);
         isSleeping = true;
-
-        Debug.Log(playerCombat.CurrentAttackDirection + " isAttacking: " + playerState.IsAttacking);
-
+      
         //Combat force calculations       
         if (playerState.IsAttacking)
         {
