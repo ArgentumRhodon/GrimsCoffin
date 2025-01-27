@@ -1,5 +1,5 @@
 studio.menu.addMenuItem({
-    name: "Complete_TEB_Group Event Creation_V1.0",
+    name: "Testing_TEB_Group Audio Import_V0.1",
     //studio.window.browserCurrent().dump()
     isEnabled: function () {
         return true;
@@ -142,13 +142,15 @@ studio.menu.addMenuItem({
                 //console.log(pathFinder(assetFilePath, index));
                 var loggingAsset = studio.project.lookup(pathFinder(assetFilePath, index));
                 var currentLength = 0;
-                if (typeof loggingAsset != "undefined") {
-                    currentLength = loggingAsset.length;
-                    var soundBrick = receivedEvent.groupTracks[0].addSound
-                        (receivedEvent.timeline, 'SingleSound', resultLength, currentLength);
-                    soundBrick.audioFile = loggingAsset;
-                    resultLength += currentLength;
-                    index++;
+                var loggingAssets = new Array;
+                var testID = typeof (receivedEvent.groupTracks[0].modules[index]);
+                if (typeof loggingAsset != "undefined" && testID == "undefined") {
+                        currentLength = loggingAsset.length;
+                        var soundBrick = receivedEvent.groupTracks[0].addSound
+                            (receivedEvent.timeline, 'SingleSound', resultLength, currentLength);
+                        soundBrick.audioFile = loggingAsset;
+                        resultLength += currentLength;
+                        index++;
                 }
                 else {
                     spinState = false;
@@ -157,10 +159,14 @@ studio.menu.addMenuItem({
 
             }
             if (index > 0) {
-                console.log("Sound Creation for " + receivedEvent.name + " is successful!")
+                console.log("Sound Creation for " + receivedEvent.name + " is completed!")
+                console.log("0");
+                return "0";
             }
             else {
-                console.log("Waning: Sound Creation for " + receivedEvent.name + " is not successful! It's either because there is no sound or it has different file structure!")
+                console.log("Waning: Sound Creation for " + receivedEvent.name + " is not successful! It's either because it's already been created, or because the naming structure is wrong")
+                console.log("1");
+                return receivedEvent.name;
             }
             
         }
@@ -208,6 +214,12 @@ studio.menu.addMenuItem({
                 
                 
             }
+
+            if (typeof namedEvent == "object") {
+                //console.log(namedEvent.name + "has been created, will now try to import audio to it nonetheless")
+                return namedEvent;
+            }
+      
             else {
                 //console.log("The event itself has been created already and is called: " + serialNumber + "_" + eventName + " in the main folder " + typeName + " and sub-folder " + categoryName);
             }
@@ -225,7 +237,11 @@ studio.menu.addMenuItem({
                 var createdEvent = folderCreator(type, category, name, sn);
                 // Create a new event using studio.project.create with explicit event type
                 if (typeof createdEvent != "undefined") {
-                    soundLoaderMacro(type, category, name, sn, 0, createdEvent);
+                    var returnName = soundLoaderMacro(type, category, name, sn, 0, createdEvent);
+                    console.log(returnName);
+                }
+                else {
+                    console.log("Type: " + parts[0] + ", Category: " + parts[1] + ", Name: " + parts[2] + ", Serial Number: " + parts[3] + " has either been created or undefined");
                 }
                 
            
