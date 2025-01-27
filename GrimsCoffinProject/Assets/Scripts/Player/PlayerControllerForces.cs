@@ -722,15 +722,11 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void BasicAttack()
     {
-        int direction = XInputDirection();
-        //Normalize direction
-        if (direction != 0)
-        {          
-            if (playerState.IsFacingRight)
-                direction = 1;
-            else
-                direction = -1;
-        }
+        int direction;         
+        if (playerState.IsFacingRight)
+            direction = 1;
+        else
+            direction = -1;     
 
         rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
 
@@ -907,7 +903,6 @@ public class PlayerControllerForces : MonoBehaviour
         //End Down Attack   
         if (Grounded() && playerCombat.CurrentAttackDirection == PlayerCombat.AttackDirection.Down && playerCombat.IsAerialAttacking)
         {
-            Debug.Log("Should be ending sleep");
             EndSleep();
             playerCombat.CurrentAttackDirection = PlayerCombat.AttackDirection.Empty;
             playerCombat.AttackDurationTime = Data.aDownAttackReset;
