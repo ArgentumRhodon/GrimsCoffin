@@ -1,5 +1,5 @@
 studio.menu.addMenuItem({
-    name: "Testing_TEB_Group Audio Import_V0.1",
+    name: "Completed_TEB_Group Audio Import_V1.0_250127",
     //studio.window.browserCurrent().dump()
     isEnabled: function () {
         return true;
@@ -22,6 +22,7 @@ studio.menu.addMenuItem({
             "PL,Grim,Self_Dash,109",
             "PL,Grim,Self_WallSlide,110",
             "PL,Grim,Self_Land,111",
+            "PL,Grim,Self_WallLeap,112",
             "ENM,Skeleton,Injured,201",
             "ENM,Ghost,Injured,202",
             "ENM,Skeleton,Die,203",
@@ -133,40 +134,44 @@ studio.menu.addMenuItem({
                     return outputPath;
                 }
             }
+            var testPath = studio.project.lookup(pathFinder(assetFilePath, 0));
 
-            //console.log(typeof (studio.project.lookup(assetFilePath + "_" + serialNumber + ".wav")));
+            if (typeof receivedEvent.groupTracks[0].modules[0] == "undefined" && typeof testPath != "undefined") {
+                var multiSound = receivedEvent.groupTracks[0].addSound(receivedEvent.timeline, 'MultiSound', 0, testPath.length);
+                while (spinState) {
+                    //console.log(pathFinder(assetFilePath, index));
+                    var loggingAsset = studio.project.lookup(pathFinder(assetFilePath, index));
+                    var currentLength = 0;
+                    var assetIdentity = typeof loggingAsset;
 
-            //console.log(pathFinder(assetFilePath, index));
-            //console.log(pathFinder(assetFilePath, index));
-            while (spinState) {
-                //console.log(pathFinder(assetFilePath, index));
-                var loggingAsset = studio.project.lookup(pathFinder(assetFilePath, index));
-                var currentLength = 0;
-                var loggingAssets = new Array;
-                var testID = typeof (receivedEvent.groupTracks[0].modules[index]);
-                if (typeof loggingAsset != "undefined" && testID == "undefined") {
-                        currentLength = loggingAsset.length;
-                        var soundBrick = receivedEvent.groupTracks[0].addSound
-                            (receivedEvent.timeline, 'SingleSound', resultLength, currentLength);
-                        soundBrick.audioFile = loggingAsset;
-                        resultLength += currentLength;
+                    if (assetIdentity != "undefined") {
+                        //currentLength = loggingAsset.length;
+                        var subsound = studio.project.create('SingleSound');
+                        subsound.audioFile = loggingAsset;
+                        multiSound.relationships.sounds.add(subsound);
+                        //resultLength += currentLength;
                         index++;
+                    }
+                    else {
+                        spinState = false;
+                    }
                 }
-                else {
-                    spinState = false;
-                }
-                
-
             }
+
             if (index > 0) {
+                console.log("|");
+                console.log("Success: ");
                 console.log("Sound Creation for " + receivedEvent.name + " is completed!")
-                console.log("0");
-                return "0";
+            }
+            else if (typeof receivedEvent.groupTracks[0].modules[0] != "undefined") {
+                console.log("|");
+                console.log("Caution: ");
+                console.log("Sound Creation for " + receivedEvent.name + " has already been done!")
             }
             else {
-                console.log("Waning: Sound Creation for " + receivedEvent.name + " is not successful! It's either because it's already been created, or because the naming structure is wrong")
-                console.log("1");
-                return receivedEvent.name;
+                console.log("|");
+                console.log("Failure: ");
+                console.log("Sound Creation for " + receivedEvent.name + " is not successful! The naming structure does not follow the convention")     
             }
             
         }
@@ -238,10 +243,10 @@ studio.menu.addMenuItem({
                 // Create a new event using studio.project.create with explicit event type
                 if (typeof createdEvent != "undefined") {
                     var returnName = soundLoaderMacro(type, category, name, sn, 0, createdEvent);
-                    console.log(returnName);
+
                 }
                 else {
-                    console.log("Type: " + parts[0] + ", Category: " + parts[1] + ", Name: " + parts[2] + ", Serial Number: " + parts[3] + " has either been created or undefined");
+                    //console.log("Type: " + parts[0] + ", Category: " + parts[1] + ", Name: " + parts[2] + ", Serial Number: " + parts[3] + " has either been created or undefined");
                 }
                 
            
