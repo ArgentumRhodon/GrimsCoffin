@@ -117,6 +117,17 @@ public class PlayerControllerForces : MonoBehaviour
         playerControls = new PlayerControls();
     }
 
+    //Methods to make player controls work and to access it in the code
+    public void OnEnable()
+    {
+        playerControls.Player.Enable();
+    }
+
+    public void OnDisable()
+    {
+        playerControls.Player.Disable();
+    }
+
     private void Start()
     {
         //Get player state and set default values
@@ -147,6 +158,8 @@ public class PlayerControllerForces : MonoBehaviour
             SpawnAtLastRestPoint();
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
         }
+
+        TempResetData();
     }
 
     private void Update()
@@ -393,10 +406,18 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnInteract()
     {
+        if (UIManager.Instance.pauseScript.isPaused)
+            return;
+
         if (interactionPrompt.interactable != null)
         {
             interactionPrompt.interactable.PerformInteraction();
         }
+    }
+
+    private void OnMap()
+    {
+        UIManager.Instance.ToggleMap();
     }
 
     public void TakeDamage(float damageTaken)
@@ -504,6 +525,8 @@ public class PlayerControllerForces : MonoBehaviour
     //Walking
     private void Walk(float lerpAmount)
     {
+        Debug.Log("Trying to walk");
+
         //Get direction and normalize it to either 1 or -1 
         int direction = XInputDirection();
         if (direction != 0)
@@ -513,6 +536,8 @@ public class PlayerControllerForces : MonoBehaviour
             else
                 direction = -1;
         }
+
+        //Debug.Log(direction);
 
         if (direction == 0)
             playerState.IsWalking = false;
@@ -1093,6 +1118,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Set x direction to -1 or 1, even if using analog stick
     private int XInputDirection()
     {
+        Debug.Log(moveInput.x);
         //Added deadzone to account for controller drift
         if (moveInput.x < -Data.deadzone)
             return -1;
@@ -1240,8 +1266,6 @@ public class PlayerControllerForces : MonoBehaviour
         isSleeping = false;
     }
 
-    
-
     //Wall collision check gizmos
     private void OnDrawGizmosSelected()
     {
@@ -1252,30 +1276,6 @@ public class PlayerControllerForces : MonoBehaviour
         Gizmos.DrawWireCube(backWallCheckPoint.position, wallCheckSize);
     }
 
-    //Methods to make player controls work and to access it in the code
-    public void OnEnable()
-    {
-        if (UIManager.Instance.pauseScript.isPaused)
-            return;
-
-        if (interactionPrompt.interactable != null)
-        {
-            interactionPrompt.interactable.PerformInteraction();
-        }
-    }
-
-    private void OnMap()
-    {
-        UIManager.Instance.ToggleMap();
-    }
-
-
-    public void OnDisable()
-    {
-        playerControls.Player.Disable();
-    }
-
-    //Respawn and update statuses
     private void SpawnAtLastRestPoint()
     {
         Debug.Log("Spawning at Rest Point");
@@ -1286,9 +1286,16 @@ public class PlayerControllerForces : MonoBehaviour
 
         this.gameObject.transform.position = newSpawn;
         Data.respawnPoint = newSpawn;
-        
+
         if (!PersistentDataManager.Instance.FirstTimeInDenial)
             currentHP = Data.maxHP;
     }
     #endregion
+
+    private void TempResetData()
+    {
+        Data.canDash = true;
+        Data.canDoubleJump = true;
+        Data.canWallJump = true;
+    }
 }

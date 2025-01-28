@@ -21,8 +21,6 @@ public class IdleCombatState : CState
 
         playerCombat = _stateMachine.GetComponent<PlayerCombat>();
         animator = playerCombat.scytheAnimator;
-        playerAnimator_T = playerCombat.animator_T;
-        playerAnimator_B = playerCombat.animator_B;
 
         animator.SetTrigger("Idle");
     }
