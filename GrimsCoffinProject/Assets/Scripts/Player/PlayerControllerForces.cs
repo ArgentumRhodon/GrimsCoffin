@@ -1073,6 +1073,11 @@ public class PlayerControllerForces : MonoBehaviour
         UIManager.Instance.ToggleMap();
     }
 
+    private void OnCancel()
+    {
+        UIManager.Instance.Cancel();
+    }
+
     private void SpawnAtLastRestPoint()
     {
         Debug.Log("Spawning at Rest Point");

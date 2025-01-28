@@ -169,4 +169,17 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         playerInput.SwitchCurrentActionMap("Player");
     }
+
+    public void Cancel()
+    {
+        if (pauseScript.controlsScreen.activeInHierarchy)
+        {
+            pauseScript.ToggleControls();
+        }
+
+        else if (pauseScript.gameObject.activeInHierarchy)
+        {
+            Pause();
+        }
+    }
 }

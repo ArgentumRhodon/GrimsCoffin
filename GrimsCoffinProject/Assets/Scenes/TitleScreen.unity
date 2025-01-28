@@ -524,7 +524,7 @@ PrefabInstance:
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 591047556}
+      objectReference: {fileID: 774230679}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: QuitGame
@@ -654,7 +654,7 @@ PrefabInstance:
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 591047556}
+      objectReference: {fileID: 774230679}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ContinueGame
@@ -786,7 +786,7 @@ PrefabInstance:
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 591047556}
+      objectReference: {fileID: 774230679}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleControls
@@ -926,7 +926,7 @@ PrefabInstance:
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 591047556}
+      objectReference: {fileID: 774230679}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleControls
@@ -1034,7 +1034,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 591047555}
-  - component: {fileID: 591047556}
   m_Layer: 5
   m_Name: Title Screen
   m_TagString: Untagged
@@ -1066,26 +1065,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.000045776}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &591047556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591047554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf86d14d9a00cf418396781fc2370d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlsScreen: {fileID: 2041692474}
-  newGame: {fileID: 346725219}
-  continueButton: {fileID: 1328765223}
-  back: {fileID: 302802029}
-  keyboardControls: {fileID: 618846742}
-  xboxControls: {fileID: 9947748}
-  playstationControls: {fileID: 143247013}
-  playerControls: {fileID: 774230677}
 --- !u!1 &618846742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,6 +1201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 774230678}
   - component: {fileID: 774230677}
+  - component: {fileID: 774230679}
   m_Layer: 0
   m_Name: PlayerControls
   m_TagString: Untagged
@@ -1274,6 +1254,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &774230679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774230676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf86d14d9a00cf418396781fc2370d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleScreen: {fileID: 591047554}
+  controlsScreen: {fileID: 2041692474}
+  newGame: {fileID: 346725219}
+  continueButton: {fileID: 1328765223}
+  back: {fileID: 302802029}
+  keyboardControls: {fileID: 618846742}
+  xboxControls: {fileID: 9947748}
+  playstationControls: {fileID: 143247013}
+  playerControls: {fileID: 774230677}
 --- !u!1 &952263878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,7 +1722,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 724729440}
   m_TrackedDevicePositionAction: {fileID: 690030478}
   m_TrackedDeviceOrientationAction: {fileID: 1376110007}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
 --- !u!114 &1473771594
@@ -1961,7 +1962,7 @@ PrefabInstance:
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 591047556}
+      objectReference: {fileID: 774230679}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: NewGame
