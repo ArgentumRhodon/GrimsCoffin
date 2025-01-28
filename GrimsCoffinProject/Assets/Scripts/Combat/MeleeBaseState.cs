@@ -10,8 +10,7 @@ public class MeleeBaseState : CState
     protected Animator animator;
 
     // Player Animation Stuff
-    protected Animator playerAnimator_T; // Top
-    protected Animator playerAnimator_B; // Bottom
+    protected Animator playerAnimator; // Top
 
     //Bool to check if it should continue the combo or not
     protected bool shouldCombo; 
@@ -33,8 +32,7 @@ public class MeleeBaseState : CState
         base.OnEnter(_stateMachine);
         playerCombat = _stateMachine.GetComponent<PlayerCombat>();
         animator = playerCombat.scytheAnimator;
-        playerAnimator_T = playerCombat.animator_T;
-        playerAnimator_B = playerCombat.animator_B;
+        playerAnimator = playerCombat.animator;
         collidersDamaged = new List<Collider2D>();
         hitCollider = playerCombat.hitbox;
     }

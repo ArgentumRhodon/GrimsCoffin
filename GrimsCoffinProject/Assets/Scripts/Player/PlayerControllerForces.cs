@@ -47,8 +47,8 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 moveInput;
 
     // Animation Stuff
-    [SerializeField] private Animator animator_T; // Top
-    [SerializeField] private Animator animator_B; // Bottom
+    [SerializeField] private Animator animator;
+    [SerializeField] private Animator scytheAnimator; // Top
 
     public float LastPressedJumpTime { get; private set; }
     public float LastPressedDashTime { get; private set; }
@@ -234,8 +234,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerState.IsSliding)
             Slide();
 
-        animator_T.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
-        animator_B.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
 
         CheckIdle();     
         if (playerState.IsIdle)
@@ -248,8 +247,7 @@ public class PlayerControllerForces : MonoBehaviour
     private void SetSpriteColors(Color color, float transparency = 1)
     {
         color.a = transparency;
-        animator_T.gameObject.GetComponent<SpriteRenderer>().color = color;
-        animator_B.gameObject.GetComponent<SpriteRenderer>().color = color;
+        animator.gameObject.GetComponent<SpriteRenderer>().color = color;
     }
 
     //Input Methods ----------------------------------------------------------------------------------------------
@@ -384,6 +382,9 @@ public class PlayerControllerForces : MonoBehaviour
 
     public void OnCameraLook(InputValue value)
     {
+        if (UIManager.Instance.pauseScript.isPaused)
+            return;
+
         //Debug.Log("Camera Look " + value.Get<Vector2>().y);
         if (value.Get<Vector2>().y > CameraManager.Instance.Deadzone)
         {
@@ -589,10 +590,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Become invincible and make sprite transparent while dashing
         hasDashInvincibility = true;
-        Color tmp = animator_T.GetComponent<SpriteRenderer>().color;
+        Color tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 0.5f;
-        animator_T.GetComponent<SpriteRenderer>().color = tmp;
-        animator_B.GetComponent<SpriteRenderer>().color = tmp;      
+        animator.GetComponent<SpriteRenderer>().color = tmp;
 
         //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
@@ -635,10 +635,9 @@ public class PlayerControllerForces : MonoBehaviour
         //Dash over
         playerState.IsDashing = false;
         hasDashInvincibility = false;
-        tmp = animator_T.GetComponent<SpriteRenderer>().color;
+        tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 1f;
-        animator_T.GetComponent<SpriteRenderer>().color = tmp;
-        animator_B.GetComponent<SpriteRenderer>().color = tmp;
+        animator.GetComponent<SpriteRenderer>().color = tmp;
         //Debug.Log("Current Transparency2: " + animator_T.GetComponent<SpriteRenderer>().color.a);
     }
 
@@ -997,7 +996,7 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Sleep for delaying movement
-    private void Sleep(float duration)
+    public void Sleep(float duration)
     {
         //Method to help delay time for movement
         StartCoroutine(nameof(PerformSleep), duration);
@@ -1060,10 +1059,18 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnInteract()
     {
+        if (UIManager.Instance.pauseScript.isPaused)
+            return;
+
         if (interactionPrompt.interactable != null)
         {
             interactionPrompt.interactable.PerformInteraction();
         }
+    }
+
+    private void OnMap()
+    {
+        UIManager.Instance.ToggleMap();
     }
 
     private void SpawnAtLastRestPoint()

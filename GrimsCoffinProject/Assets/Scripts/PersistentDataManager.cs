@@ -1,4 +1,5 @@
 using Pathfinding.Ionic.Zip;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,9 +27,9 @@ public class PersistentDataManager : MonoBehaviour
     public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier"); } }
 
     //Player Ability Unlocks
-    public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 1) == 1; } }
-    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 1) == 1; } }
-    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 1) == 1; } }
+    public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 0) == 1; } }
+    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 0) == 1; } }
+    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 0) == 1; } }
 
     //Whether or not the Player is entering the Denial Area Scene for the first time
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
@@ -86,13 +87,23 @@ public class PersistentDataManager : MonoBehaviour
             return false;
     }
 
+    //Return the state of the specified spirit
+    public Spirit.SpiritState GetSpiritState(Spirit spirit)
+    {
+        Enum.TryParse<Spirit.SpiritState>(PlayerPrefs.GetString(spirit.spiritID.ToString()), true, out Spirit.SpiritState spiritState);
+        return spiritState;
+    }
+
     //Updates a Spirit's state (i.e. collecting or talking to the spirit)
     public void UpdateSpiritState(Spirit spirit)
     {
         if (spirit.spiritState != Spirit.SpiritState.Idle)
         {
             spirit.spiritState++;
-            StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
+
+            //Show save icon when spirit is collected
+            if (spirit.spiritState == Spirit.SpiritState.Collected)
+                StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
         }
 
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
@@ -135,37 +146,20 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetFloat("DamageMultiplier", 1);
 
         //Reset Player Abilities
-        PlayerPrefs.SetInt("CanDoubleJump", 1);
-        PlayerPrefs.SetInt("CanWallJump", 1);
-        PlayerPrefs.SetInt("CanDash", 1);
+        PlayerPrefs.SetInt("CanDoubleJump", 0);
+        PlayerPrefs.SetInt("CanWallJump", 0);
+        PlayerPrefs.SetInt("CanDash", 0);
 
         //Reset Spirit Data
-        PlayerPrefs.SetString("DashSpirit", "Uncollected");
-        PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
-        PlayerPrefs.SetString("HealthSpirit", "Uncollected");
-    }
+        PlayerPrefs.SetString("Spirit1", "Uncollected");
+        PlayerPrefs.SetString("Spirit2", "Uncollected");
+        PlayerPrefs.SetString("Spirit3", "Uncollected");
 
-    //Save the room index based on the currently loaded room (for when the user saves/leaves the area to a different scene
-    public void SaveRoom()
-    {
-        for (int i = 0; i < rooms.Count; i++)
+        //Clear Onboarding Map Data
+        for (int i = 0; i < 6; i++)
         {
-            if (rooms[i].hasPlayer)
-                PlayerPrefs.SetInt("RoomIndex", i);
-            StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
-        }
-    }
-
-    //Load the last room the player was in when returning to the Last Saved Scene
-    public void LoadRoom()
-    {
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            if (i == LastSavedRoomIndex)
-            {
-                rooms[i].hasPlayer = true;
-            }
-        }
+            PlayerPrefs.SetInt("OnboardingLevelRoom" + i, 0);
+        } 
     }
 
     //Transition between Onboarding Level and Denial Area
@@ -182,5 +176,25 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("CanDoubleJump", 0);
         PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanDash", 0);
+    }
+
+    public void SetRoomExplored(int roomIndex)
+    {
+        PlayerPrefs.SetInt("OnboardingLevelRoom" + roomIndex, 1);
+        UIManager.Instance.UpdateMapUI();
+    }
+
+    public List<bool> AreaRoomsLoaded()
+    {
+        List<bool> result = new List<bool>();
+        foreach (Room room in rooms)
+        {
+            if (PlayerPrefs.GetInt("OnboardingLevelRoom" + room.roomIndex) == 1)
+            {
+                result.Add(true);
+            }
+        }
+
+        return result;
     }
 }

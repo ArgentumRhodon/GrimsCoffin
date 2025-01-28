@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spirit : Interactable
@@ -7,6 +8,7 @@ public class Spirit : Interactable
     private SpiritCollectUI spiritUI;
     
     [SerializeField] public SpiritID spiritID;
+    [SerializeField] public DialogueManager dialogueManager;
 
     public enum SpiritID
     {
@@ -28,6 +30,9 @@ public class Spirit : Interactable
     void Start()
     {
         spiritUI = UIManager.Instance.gameUI.GetComponentInChildren<SpiritCollectUI>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
+
+        spiritState = PersistentDataManager.Instance.GetSpiritState(this);
     }
 
     // Update is called once per frame
@@ -38,15 +43,21 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
-        if (spiritUI != null)
+        dialogueManager.ShowDialogueForSpirit(spiritID, spiritState);
+
+        if (spiritState == SpiritState.Uncollected)
         {
             PersistentDataManager.Instance.UpdateSpiritState(this);
 
-            spiritUI.ShowSpiritCollectedText();
+            //spiritUI.ShowSpiritCollectedText();
 
             //Debug.Log("Spirit Collected: " + spiritID.ToString());
 
             Destroy(this.gameObject.transform.parent.gameObject);
-        } 
+        }
+        else if (spiritState == SpiritState.Collected)
+        {
+            PersistentDataManager.Instance.UpdateSpiritState(this);
+        }
     }
 }

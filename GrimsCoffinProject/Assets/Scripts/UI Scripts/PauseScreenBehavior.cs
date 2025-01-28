@@ -58,13 +58,17 @@ public class PauseScreenBehavior : MonoBehaviour
         isPaused = !isPaused;
         UIManager.Instance.gameUI.SetActive(!isPaused);
         this.gameObject.SetActive(isPaused);
+        Debug.Log("Paise");
 
         if (isPaused)
         {
             //Deactivate Player Control if paused
-            playerInput.DeactivateInput();
+            //playerInput.DeactivateInput();
 
             //Select resume button for controller navigation
+            if (UIManager.Instance.areaText != null)
+                UIManager.Instance.areaText.SetActive(false);
+
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(resume.gameObject);
             Time.timeScale = 0.0f;

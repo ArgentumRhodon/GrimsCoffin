@@ -16,10 +16,8 @@ public class MeleeComboState : MeleeBaseState
         //Animations
         animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator_T.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator_B.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator_T.SetTrigger("Attack");
-        playerAnimator_B.SetTrigger("Attack");
+        playerAnimator.SetFloat("comboRatio", attackIndex / 3f);
+        playerAnimator.SetTrigger("Attack");
         //Debug.Log("Player Attack " + attackIndex);
     }
 
