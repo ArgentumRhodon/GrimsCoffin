@@ -525,8 +525,6 @@ public class PlayerControllerForces : MonoBehaviour
     //Walking
     private void Walk(float lerpAmount)
     {
-        Debug.Log("Trying to walk");
-
         //Get direction and normalize it to either 1 or -1 
         int direction = XInputDirection();
         if (direction != 0)
@@ -536,8 +534,6 @@ public class PlayerControllerForces : MonoBehaviour
             else
                 direction = -1;
         }
-
-        //Debug.Log(direction);
 
         if (direction == 0)
             playerState.IsWalking = false;
@@ -586,8 +582,6 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (Time.timeScale == 0)
             return;
-
-        Debug.Log("Turn is called");
 
         //Transform local scale of object
         Vector3 scale = transform.localScale;
@@ -1118,7 +1112,6 @@ public class PlayerControllerForces : MonoBehaviour
     //Set x direction to -1 or 1, even if using analog stick
     private int XInputDirection()
     {
-        Debug.Log(moveInput.x);
         //Added deadzone to account for controller drift
         if (moveInput.x < -Data.deadzone)
             return -1;
