@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Playables;
 
+
 public abstract class Enemy : MonoBehaviour
 {
     [Header("Stats")]
@@ -12,7 +13,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float movementSpeed;
     [SerializeField] protected float visionRange;
-    [SerializeField] [Range(0f, 5f)] protected float knockbackMult;
+    [SerializeField][Range(0f, 5f)] protected float knockbackMult;
     [SerializeField] protected Collider2D hitbox;
     [SerializeField] private bool canBePulledDown;
 
@@ -105,7 +106,7 @@ public abstract class Enemy : MonoBehaviour
     //Check player location, used when player takes damage (may not be needed since knockback is calculated in the combat scripts)
     private void CheckPlayerLoc()
     {
-        if(playerTarget.position.x > transform.position.x)
+        if (playerTarget.position.x > transform.position.x)
             isPlayerOnRight = true;
         else
             isPlayerOnRight = false;
@@ -161,7 +162,7 @@ public abstract class Enemy : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
 
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
-   
+
         isSleeping = false;
     }
 
@@ -172,3 +173,4 @@ public abstract class Enemy : MonoBehaviour
         Gizmos.DrawWireCube(groundCheckPoint.position, groundCheckSize);
     }
 }
+

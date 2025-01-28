@@ -16,8 +16,8 @@ public class WanderingEnemy : Enemy
 
     //Direction Checkers
     [Header("Direction Collision Checkers")]
-    [SerializeField] private GroundChecker wallChecker;
-    [SerializeField] private GroundChecker airChecker;
+    [SerializeField] public GroundChecker wallChecker;
+    [SerializeField] public GroundChecker airChecker;
 
     //Acceleration
     [Header("Acceleration Rate")]
@@ -61,16 +61,8 @@ public class WanderingEnemy : Enemy
     private void CheckFlip()
     {
         //Check to see if it is not colliding with the ground or is colliding with a wall
-        //Debug.Log($"Air Checker: {airChecker.Grounded()} Wall Checker: {wallChecker.Grounded()}");
         if (!airChecker.IsColliding || wallChecker.IsColliding)
-        //if (!airChecker.Grounded() || wallChecker.Grounded())
         {
-/*            //Check if the enemy is falling
-            if (airChecker.IsColliding && !wallChecker.IsColliding)
-            {
-                return;
-            }*/
-
             Turn();
             airChecker.IsColliding = true;
             wallChecker.IsColliding = false;
