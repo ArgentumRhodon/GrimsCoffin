@@ -60,7 +60,7 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] private Animator scytheAnimator; // Top
 
     public float LastPressedJumpTime { get; private set; }
-    public float LastPressedDashTime { get; private set; }
+    public float LastPressedDashTime { get; set; }
 
     //Positions used for state checks
     [Header("Tile Checks")]
@@ -422,6 +422,11 @@ public class PlayerControllerForces : MonoBehaviour
     private void OnMap()
     {
         UIManager.Instance.ToggleMap();
+    }
+
+    private void OnCancel()
+    {
+        UIManager.Instance.Cancel();
     }
 
     public void TakeDamage(float damageTaken)
@@ -1175,14 +1180,6 @@ public class PlayerControllerForces : MonoBehaviour
         return force -= rb.velocity.x;
     }
 
-    //Reset the player camera offset
-    private void ResetPlayerOffset()
-    {
-        float dir = (playerState.IsFacingRight) ? 1 : -1;
-        float cameraOffset = Data.cameraOffset * dir;
-        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
-    }
-
     //Sleep for delaying movement
     public void Sleep(float duration)
     {
@@ -1278,27 +1275,6 @@ public class PlayerControllerForces : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(frontWallCheckPoint.position, wallCheckSize);
         Gizmos.DrawWireCube(backWallCheckPoint.position, wallCheckSize);
-    }
-
-    private void OnInteract()
-    {
-        if (UIManager.Instance.pauseScript.isPaused)
-            return;
-
-        if (interactionPrompt.interactable != null)
-        {
-            interactionPrompt.interactable.PerformInteraction();
-        }
-    }
-
-    private void OnMap()
-    {
-        UIManager.Instance.ToggleMap();
-    }
-
-    private void OnCancel()
-    {
-        UIManager.Instance.Cancel();
     }
 
     private void SpawnAtLastRestPoint()

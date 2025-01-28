@@ -74,37 +74,37 @@ MonoBehaviour:
   dashInputBufferTime: 0.052
   canAttack: 1
   canTurnDuringCombo: 1
-  comboSleepTime: 0.3
+  comboCooldownTime: 0.1
   attackBufferTime: 0.5
-  comboAerialTime: 0.15
+  comboSleepTime: 0.3
   comboTotal: 4
-  comboAerialPForce: 5
-  comboGroundPForce: 0
+  comboAerialPForce: 7
+  comboGroundPForce: 13
   comboAttackDuration: 0.35
   combo1Damage: 4
   combo2Damage: 4
   combo3Damage: 7
   combo4Damage: 10
-  canGUpAttack: 0
-  groundUpwardPForce: 0
+  canGUpAttack: 1
+  groundUpwardPForce: -20
   groundUpwardEForce: {x: 0, y: 0}
-  gUpAttackDuration: 0.5
+  gUpAttackDuration: 0.4
   groundUpDamage: 5
-  canGDownAttack: 0
+  canGDownAttack: 1
   groundDownwardPForce: 0
   groundDownwardEForce: 0
-  gDownWalkModifier: 0.01
-  gdHoldDuration: 0
-  gDownAttackDuration: 0.5
+  gDownWalkModifier: 0.2
+  gdHoldDuration: 1.25
+  gDownAttackDuration: 0.25
   groundDownDamage: 15
   canAUpAttack: 0
   hookPlayerForce: 0
   aUpAttackDuration: 0.5
   aerialUpDamage: 3
-  canADownAttack: 0
-  aerialDownwardPForce: 0
+  canADownAttack: 1
+  aerialDownwardPForce: 50
   aerialDownwardEForce: 0
-  aDownAttackDuration: 1
-  aDownAttackReset: 0
+  aDownAttackDuration: 5
+  aDownAttackReset: 0.4
   aerialDownDamage: 7
   aerialImpactDamage: 5

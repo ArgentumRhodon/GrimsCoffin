@@ -7,10 +7,10 @@ using UnityEngine.Playables;
 public class PlayerCombat : MonoBehaviour
 {
     //Direction of attack, input of the left analog stick
-    public enum AttackDirection 
-    { 
-        Side, 
-        Up, 
+    public enum AttackDirection
+    {
+        Side,
+        Up,
         Down,
         Dash,
         Empty
@@ -65,7 +65,7 @@ public class PlayerCombat : MonoBehaviour
     //Get Setters
     public bool CanAerialCombo
     {
-        get { return canAerialCombo;}
+        get { return canAerialCombo; }
         set { canAerialCombo = value; }
     }
 
@@ -74,7 +74,7 @@ public class PlayerCombat : MonoBehaviour
         get { return isAerialCombo; }
         set { isAerialCombo = value; }
     }
-    
+
     public bool IsAerialAttacking
     {
         get { return isAerialAttacking; }
@@ -95,7 +95,7 @@ public class PlayerCombat : MonoBehaviour
 
     public AttackDirection CurrentAttackDirection { get { return attackDirection; } set { attackDirection = value; } }
     #endregion
-   
+
     //Runtime Methods -------------------------------------------------------------------
     #region Runtime
     void Start()
@@ -153,6 +153,9 @@ public class PlayerCombat : MonoBehaviour
                     case AttackDirection.Down:
                         DownAttack();
                         break;
+                    case AttackDirection.Dash:
+                        Dash();
+                        break;
                 }
 
                 //Remove from queue
@@ -200,19 +203,21 @@ public class PlayerCombat : MonoBehaviour
         }
         //Release attack input and reset corresponding variables
         else if (!value.isPressed)
-        {          
+        {
             isHoldingAttacking = false;
             holdAttackTimer = 0;
         }
     }
 
-/*    //Dash Input
+    //Dash Input
     private void OnDash()
     {
-
-        //EndSleep();
-        LastPressedDashTime = Data.dashInputBufferTime;
-    }*/
+        //If the player is currently comboing, interrupt it
+        if (isComboing)
+        {
+            InterruptCombo(AttackDirection.Dash);
+        }        
+    }
     #endregion
 
     //Attack Checks to see if/when an attack should execute -----------------------------
@@ -247,7 +252,7 @@ public class PlayerCombat : MonoBehaviour
                 //Add to the click counter
                 attackClickCounter++;
                 QueueTimer = Data.attackBufferTime;
-            }           
+            }
         }
     }
 
@@ -258,7 +263,7 @@ public class PlayerCombat : MonoBehaviour
         {
             InterruptCombo(AttackDirection.Up);
         }
-        else if(attackDurationTime < 0)
+        else if (attackDurationTime < 0)
         {
             UpAttack();
         }
@@ -305,7 +310,7 @@ public class PlayerCombat : MonoBehaviour
         isComboing = true;
 
         AttackDurationTime = Data.attackBufferTime;
-             
+
         PlayerControllerForces.Instance.ExecuteBasicAttack();
         currentAttackAmount++;
     }
@@ -323,7 +328,7 @@ public class PlayerCombat : MonoBehaviour
             //PlayerControllerForces.Instance.StartAttack();
         }
         //Up ground attack
-        else if(Data.canGUpAttack)
+        else if (Data.canGUpAttack)
         {
             //Debug.Log("Up Ground Attack");
             meleeStateMachine.SetNextState(new GroundUpState());
@@ -336,7 +341,7 @@ public class PlayerCombat : MonoBehaviour
     private void DownAttack()
     {
         playerState.IsAttacking = true;
-        if(!playerController.Grounded() && Data.canADownAttack)
+        if (!playerController.Grounded() && Data.canADownAttack)
         {
             //Debug.Log("Down Aerial Attack");
             isAerialAttacking = true;
@@ -353,6 +358,11 @@ public class PlayerCombat : MonoBehaviour
 
             PlayerControllerForces.Instance.ExecuteDownAttack(true);
         }
+    }
+
+    private void Dash()
+    {
+        playerController.LastPressedDashTime = Data.dashInputBufferTime;
     }
     #endregion
 
