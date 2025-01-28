@@ -363,15 +363,16 @@ public class PlayerCombat : MonoBehaviour
         //meleeStateMachine.SetNextStateToMain();
     }
 
+    //Check to see if the combo should be reset
     public bool ShouldResetCombo()
     {
-        //return attackDurationTime < 0 && queueTimer < 0;// && attackQueueLeft == 0;
         return AttackDurationTime < 0 && QueueTimer < 0 && comboQueueLeft == 0 && !isHoldingAttacking;
     }
 
+    //Set attack direction based off the y direction of the left analog stick
     protected AttackDirection CheckAttackDirection()
     {
-        Debug.Log("Checking attack direction: " + playerController.MoveInput.y);
+        //Debug.Log("Checking attack direction: " + playerController.MoveInput.y);
         if (playerController.MoveInput.y > Data.attackDirectionDeadzone)// && BelowXDeadzone())
             return AttackDirection.Up;
         else if (playerController.MoveInput.y < -Data.attackDirectionDeadzone)// && BelowXDeadzone())
