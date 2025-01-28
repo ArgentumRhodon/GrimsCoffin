@@ -6,6 +6,7 @@ using UnityEngine.Playables;
 
 public class PlayerCombat : MonoBehaviour
 {
+    //Direction of attack, input of the left analog stick
     public enum AttackDirection 
     { 
         Side, 
@@ -14,7 +15,8 @@ public class PlayerCombat : MonoBehaviour
         Empty
     }
 
-
+    //Data & Variables ------------------------------------------------------------------
+    #region Data & Variables
     //References to needed items
     private CStateMachine meleeStateMachine;
     private PlayerStateList playerState;
@@ -90,9 +92,13 @@ public class PlayerCombat : MonoBehaviour
     }
 
     public AttackDirection CurrentAttackDirection { get { return attackDirection; } set { attackDirection = value; } }
-
+    #endregion
+   
+    //Runtime Methods -------------------------------------------------------------------
+    #region Runtime
     void Start()
     {
+        //Get all required components
         meleeStateMachine = GetComponent<CStateMachine>();
         playerState = GetComponent<PlayerStateList>();
         playerController = GetComponent<PlayerControllerForces>();
@@ -103,6 +109,7 @@ public class PlayerCombat : MonoBehaviour
             scytheAnimator = GameObject.Find("Scythe").GetComponent<Animator>();
         }
 
+        //Make sure states are starting correctly
         canAerialCombo = true;
         isAerialCombo = false;
     }
@@ -116,17 +123,26 @@ public class PlayerCombat : MonoBehaviour
         //Check to see if it should move on to the next combo
         if (currentAttackAmount < Data.comboTotal && comboQueueLeft > 0 && AttackDurationTime < 0)
         {
+            //If the next attack que is a side attack, progress with the combo
             if (attackQueue[0] == AttackDirection.Side)
             {
                 ComboAttack();
+
+                //Remove from queue
                 comboQueueLeft--;
                 attackQueue.RemoveAt(0);
 
+                //If there is more left in the combo, reset the queue timer to continue combo/queue
                 if (comboQueueLeft > 0)
                     QueueTimer = Data.attackBufferTime;
             }
+            //If the next attack is a directional attack, break out of the combo
             else
             {
+                //Fully reset combo because it was broken out of
+                ResetCombo();
+
+                //Switch for up or down attack
                 switch (attackQueue[0])
                 {
                     case AttackDirection.Up:
@@ -136,26 +152,35 @@ public class PlayerCombat : MonoBehaviour
                         DownAttack();
                         break;
                 }
+
+                //Remove from queue
                 attackQueue.RemoveAt(0);
-                ResetCombo();
             }
         }
     }
+    #endregion
 
+    //Input Methods ---------------------------------------------------------------------
+    #region Input Events
+    //Attack Input
     private void OnAttack(InputValue value)
     {
+        //Make sure the attack is not being held so that it can execute a new input 
         if (!isHoldingAttacking)
         {
-            if (value.isPressed && !playerController.IsSleeping)
+            if (value.isPressed && LastComboTime < 0)
             {
-                //Debug.Log("Attack is pressed");
-                isHoldingAttacking = true;               
+                //Sets holding true since the state is currently pressed
+                isHoldingAttacking = true;
+
+                //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
                 if (playerState.IsDashing || Time.timeScale == 0)
                     return;
 
+                //Check attack direction
                 attackDirection = CheckAttackDirection();
-                //Debug.Log(attackDirection);
 
+                //Execute attack based off the direction of the player input
                 scytheAnimator.ResetTrigger("Idle");
                 switch (attackDirection)
                 {
@@ -171,15 +196,14 @@ public class PlayerCombat : MonoBehaviour
                 }
             }
         }
+        //Release attack input and reset corresponding variables
         else if (!value.isPressed)
-        {
-            //Debug.Log("Attack is released");
+        {          
             isHoldingAttacking = false;
             holdAttackTimer = 0;
         }
-
     }
-
+    #endregion
 
     //Attack Checks to see if/when an attack should execute -----------------------------
     #region Attack Checks
@@ -321,7 +345,7 @@ public class PlayerCombat : MonoBehaviour
     protected void InterruptCombo(AttackDirection nextAttackDir)
     {
         attackQueue.Clear();
-        comboQueueLeft = 0;
+        comboQueueLeft = 1;
         attackQueue.Add(nextAttackDir);
     }
     
@@ -347,7 +371,7 @@ public class PlayerCombat : MonoBehaviour
 
     protected AttackDirection CheckAttackDirection()
     {
-        //Debug.Log("Checking attack direction: " + playerController.MoveInput.y);
+        Debug.Log("Checking attack direction: " + playerController.MoveInput.y);
         if (playerController.MoveInput.y > Data.attackDirectionDeadzone)// && BelowXDeadzone())
             return AttackDirection.Up;
         else if (playerController.MoveInput.y < -Data.attackDirectionDeadzone)// && BelowXDeadzone())

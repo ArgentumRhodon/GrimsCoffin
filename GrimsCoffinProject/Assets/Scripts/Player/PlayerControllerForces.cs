@@ -693,7 +693,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Get direction to dash in
         int direction = XInputDirection();
         //If player is not moving / doesn't have direction, dash in the most recent input
-        if (direction != 0)
+        if (direction == 0)
         {
             if (playerState.IsFacingRight)
                 direction = 1;
@@ -821,7 +821,7 @@ public class PlayerControllerForces : MonoBehaviour
                 lastDashDir = playerState.IsFacingRight ? Vector2.right : Vector2.left;
 
             //If mid attack, stop the combo
-            if (playerCombat.AttackDurationTime > 0)
+            if (playerCombat.IsComboing)
                 EndCombo();      
 
             //Set states
@@ -1056,7 +1056,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Check for Dash state
     private bool CanDash()
     {
-        if (Data.canDash && CanBreakCombo())
+        if (Data.canDash)// && CanBreakCombo())
         {
             if (!playerState.IsDashing && dashesLeft < Data.dashAmount && LastOnGroundTime > 0 && !dashRefilling) //(LastOnGroundTime > 0 || OnWall())
             {
