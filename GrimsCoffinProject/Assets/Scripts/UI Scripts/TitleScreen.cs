@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 public class TitleScreen : MonoBehaviour
 {
+    [SerializeField] private GameObject titleScreen;
     [SerializeField] private GameObject controlsScreen;
     [SerializeField] private GameObject newGame;
     [SerializeField] private GameObject continueButton;
@@ -69,10 +70,18 @@ public class TitleScreen : MonoBehaviour
         Application.Quit();
     }
 
+    public void OnCancel()
+    {
+        if (controlsScreen.activeInHierarchy)
+        {
+            ToggleControls();
+        }
+    }
+
     public void ToggleControls()
     {
         controlsScreen.SetActive(!controlsScreen.activeInHierarchy);
-        this.gameObject.SetActive(!this.gameObject.activeInHierarchy);
+        titleScreen.SetActive(!titleScreen.activeInHierarchy);
 
         if (controlsScreen.activeInHierarchy)
             EventSystem.current.SetSelectedGameObject(back);
