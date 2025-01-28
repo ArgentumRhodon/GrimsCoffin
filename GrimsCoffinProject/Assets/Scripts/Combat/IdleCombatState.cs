@@ -16,7 +16,7 @@ public class IdleCombatState : CState
 
     public override void OnEnter(CStateMachine _stateMachine)
     {
-        Debug.Log("Is entering idle");
+        //Debug.Log("Is entering idle");
         base.OnEnter(_stateMachine);
 
         playerCombat = _stateMachine.GetComponent<PlayerCombat>();

@@ -12,6 +12,7 @@ public class PlayerCombat : MonoBehaviour
         Side, 
         Up, 
         Down,
+        Dash,
         Empty
     }
 
@@ -57,7 +58,7 @@ public class PlayerCombat : MonoBehaviour
 
     private AttackDirection attackDirection;
 
-    private bool isHoldingAttacking;
+    [SerializeField] private bool isHoldingAttacking;
     public bool IsHoldingAttacking { get { return isHoldingAttacking; } }
 
 
@@ -73,6 +74,7 @@ public class PlayerCombat : MonoBehaviour
         get { return isAerialCombo; }
         set { isAerialCombo = value; }
     }
+    
     public bool IsAerialAttacking
     {
         get { return isAerialAttacking; }
@@ -203,6 +205,14 @@ public class PlayerCombat : MonoBehaviour
             holdAttackTimer = 0;
         }
     }
+
+/*    //Dash Input
+    private void OnDash()
+    {
+
+        //EndSleep();
+        LastPressedDashTime = Data.dashInputBufferTime;
+    }*/
     #endregion
 
     //Attack Checks to see if/when an attack should execute -----------------------------
@@ -212,23 +222,31 @@ public class PlayerCombat : MonoBehaviour
         //Check for combo timer, if the click amount is less then combo total 
         if (LastComboTime < 0 && attackClickCounter < Data.comboTotal &&
             //Check if the attack counter is above, make sure the queue timer still allows for adding an attack
-            ((attackClickCounter > 0 && QueueTimer > 0) || attackClickCounter == 0))
+            ((attackClickCounter > 0 && QueueTimer > 0) || (attackClickCounter == 0 && attackDurationTime < 0)))
         {
-            //Add to the click counter
-            attackClickCounter++;
-            QueueTimer = Data.attackBufferTime;
-
             //Continue the combo queue
-            if (attackClickCounter > 1)
+            if (attackClickCounter >= 1)
             {
                 //Debug.Log("Should be adding to the combo queue timer");
                 comboQueueLeft++;
                 attackQueue.Add(AttackDirection.Side);
+
+                //Add to the click counter
+                attackClickCounter++;
+                QueueTimer = Data.attackBufferTime;
             }
             //Run the first attack and add to the combo queue
-            else if (attackDurationTime < 0)
+            else if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
             {
+                //Run the base attack
                 BaseAttack();
+
+                //Make sure the queue is cleared
+                attackQueue.Clear();
+
+                //Add to the click counter
+                attackClickCounter++;
+                QueueTimer = Data.attackBufferTime;
             }           
         }
     }
@@ -267,22 +285,21 @@ public class PlayerCombat : MonoBehaviour
     {
         //Debug.Log("Base Attack");
         //If idle, enter the entry state
-        if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
-        {
-            meleeStateMachine.SetNextState(new MeleeEntryState());
-            AttackDurationTime = Data.attackBufferTime;
+        meleeStateMachine.SetNextState(new MeleeEntryState());
+        AttackDurationTime = Data.attackBufferTime;
 
-            playerState.IsAttacking = true;
-            isComboing = true;
+        playerState.IsAttacking = true;
+        isComboing = true;
 
-            PlayerControllerForces.Instance.ExecuteBasicAttack();
-            currentAttackAmount++;
-        }
+        PlayerControllerForces.Instance.ExecuteBasicAttack();
+        currentAttackAmount++;
     }
 
     //Combo attack, handles everything after the first attack
     private void ComboAttack()
     {
+        //Debug.Log("Combo Attack");
+
         playerState.IsAttacking = true;
         meleeStateMachine.RegisteredAttack = true;
         isComboing = true;
@@ -299,7 +316,7 @@ public class PlayerCombat : MonoBehaviour
         //Up air attack
         if (!playerController.Grounded() && Data.canAUpAttack)
         {
-            Debug.Log("Up Aerial Attack");
+            //Debug.Log("Up Aerial Attack");
             //meleeStateMachine.SetNextState(new AirUpState());
             AttackDurationTime = Data.aUpAttackDuration;
             isAerialAttacking = true;
@@ -308,7 +325,7 @@ public class PlayerCombat : MonoBehaviour
         //Up ground attack
         else if(Data.canGUpAttack)
         {
-            Debug.Log("Up Ground Attack");
+            //Debug.Log("Up Ground Attack");
             meleeStateMachine.SetNextState(new GroundUpState());
             AttackDurationTime = Data.gUpAttackDuration;
 
@@ -321,7 +338,7 @@ public class PlayerCombat : MonoBehaviour
         playerState.IsAttacking = true;
         if(!playerController.Grounded() && Data.canADownAttack)
         {
-            Debug.Log("Down Aerial Attack");
+            //Debug.Log("Down Aerial Attack");
             isAerialAttacking = true;
             meleeStateMachine.SetNextState(new AirDownState());
             AttackDurationTime = Data.aDownAttackDuration;
@@ -330,7 +347,7 @@ public class PlayerCombat : MonoBehaviour
         }
         else if (Data.canGDownAttack)
         {
-            Debug.Log("Down Ground Attack");
+            //Debug.Log("Down Ground Attack");
             meleeStateMachine.SetNextState(new GroundDownCharge());
             AttackDurationTime = Data.gdHoldDuration;
 
@@ -360,6 +377,7 @@ public class PlayerCombat : MonoBehaviour
 
         QueueTimer = 0;
         attackDurationTime = 0;
+
         //meleeStateMachine.SetNextStateToMain();
     }
 

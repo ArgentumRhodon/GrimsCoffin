@@ -226,7 +226,11 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Check if the player hit the ground (outside of sleep so it can exit sleep)
         if (playerState.IsAttacking)
+        {
             UpdateDownAttackVariables();
+            moveInput.y = playerControls.Player.Move.ReadValue<Vector2>().y;
+        }
+            
     }
 
     private void FixedUpdate()
@@ -375,7 +379,7 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (isSleeping)
             return;
-            //EndSleep();
+
         LastPressedDashTime = Data.dashInputBufferTime;
     }
 

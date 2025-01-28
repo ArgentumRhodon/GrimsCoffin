@@ -39,7 +39,7 @@ public class GroundDownCharge : MeleeBaseState
             //Let go of attack before charging up
             else 
             {
-                //Debug.Log("Ended holding");
+                Debug.Log("Ended holding");
                 playerController.WalkModifier = 1;
                 playerCombat.AttackDurationTime = 0;
                 stateMachine.SetNextStateToMain();
