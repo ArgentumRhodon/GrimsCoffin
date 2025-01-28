@@ -296,7 +296,7 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (isSleeping)
             return;
-     
+
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
         //Key Down, continue jumping
         if (value.isPressed)
@@ -786,7 +786,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Variables used for every type of jump
     private void UpdateJumpVariables()
     {
-        if (playerState.IsJumping && rb.velocity.y < 0)
+        if (playerState.IsJumping && rb.velocity.y < 0.1)
         {
             playerState.IsJumping = false;
 
@@ -1025,6 +1025,11 @@ public class PlayerControllerForces : MonoBehaviour
     //Checks for jump states
     private bool CanJump()
     {
+        Debug.Log("Data.canJump: " + Data.canJump);
+        Debug.Log("LastOnGroundTime > 0: " + (LastOnGroundTime > 0));
+        Debug.Log("!playerState.IsJumping: " + !playerState.IsJumping);
+        Debug.Log("CanBreakCombo(): " + CanBreakCombo());
+
         return Data.canJump && LastOnGroundTime > 0 && !playerState.IsJumping && CanBreakCombo();
     }
 

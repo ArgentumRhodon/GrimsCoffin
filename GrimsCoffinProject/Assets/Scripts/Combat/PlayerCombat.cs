@@ -61,6 +61,8 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private bool isHoldingAttacking;
     public bool IsHoldingAttacking { get { return isHoldingAttacking; } }
 
+    private bool isInterruptingCombo;
+
 
     //Get Setters
     public bool CanAerialCombo
@@ -159,7 +161,8 @@ public class PlayerCombat : MonoBehaviour
                 }
 
                 //Remove from queue
-                attackQueue.RemoveAt(0);
+                attackQueue.Clear();
+                isInterruptingCombo = true;
             }
         }
     }
@@ -371,9 +374,13 @@ public class PlayerCombat : MonoBehaviour
     //Interrupt combo with another attack
     protected void InterruptCombo(AttackDirection nextAttackDir)
     {
-        attackQueue.Clear();
-        comboQueueLeft = 1;
-        attackQueue.Add(nextAttackDir);
+        if (!isInterruptingCombo)
+        {
+            attackQueue.Clear();
+            comboQueueLeft = 1;
+            attackQueue.Add(nextAttackDir);
+            isInterruptingCombo = true;
+        }
     }
     
     //Reset combo stats
