@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e01a605844dfe4f8f76d1eb38b81a5, type: 3}
+  m_Name: SamPlayerData
+  m_EditorClassIdentifier: 
+  deadzone: 0.5
+  attackDirectionDeadzone: 0.75
+  cameraOffset: 0.6
+  cameraWalkOffset: -0.1
+  cameraDashOffset: -1
+  maxHP: 125
+  maxSP: 0
+  respawnPoint: {x: 70.09, y: -36.44}
+  gravityStrength: -57.14286
+  gravityScale: 5.82496
+  fallGravityMult: 1.5
+  maxFallSpeed: 22.5
+  fastFallGravityMult: 1.5
+  maxFastFallSpeed: 18
+  walkMaxSpeed: 11.5
+  walkAcceleration: 8
+  walkAccelAmount: 34.782608
+  walkDecceleration: 8
+  walkDeccelAmount: 34.782608
+  accelInAir: 1
+  deccelInAir: 1
+  doConserveMomentum: 0
+  canJump: 1
+  jumpHeight: 3.5
+  jumpTimeToApex: 0.35
+  jumpForce: 20
+  jumpCancelGravityMult: 4
+  jumpHangGravityMult: 0.75
+  jumpHangTimeThreshold: 0
+  jumpHangAccelerationMult: 1
+  jumpHangMaxSpeedMult: 1
+  canWallJump: 1
+  canWallJumpCancel: 0
+  wallJumpForce: {x: 13, y: 15}
+  wallJumpRunLerp: 0
+  wallJumpTime: 0.2
+  mustHoldWallToJump: 1
+  wallCoyoteTime: 0.01
+  doTurnOnWallJump: 1
+  wallTurnBuffer: 0
+  canDoubleJump: 1
+  preserveDoubleJump: 1
+  resetJumpOnWall: 1
+  extraJumpMultiplier: 0
+  maxAirJumps: 1
+  canSlide: 1
+  slideSpeed: -20
+  slideAccel: 1
+  coyoteTime: 0.2
+  jumpInputBufferTime: 0.2
+  canDash: 1
+  dashAmount: 1
+  dashSpeed: 100
+  dashSleepTime: 0.05
+  dashAttackTime: 0.06
+  dashEndTime: 0.05
+  dashEndSpeed: {x: 5, y: 0}
+  dashEndRunLerp: 1
+  dashRefillTime: 0.4
+  dashInputBufferTime: 0.052
+  canAttack: 1
+  canTurnDuringCombo: 0
+  comboCooldownTime: 0.1
+  attackBufferTime: 0.5
+  comboSleepTime: 0.3
+  comboTotal: 4
+  comboAerialPForce: 7
+  comboGroundPForce: 13
+  comboAttackDuration: 0.35
+  combo1Damage: 4
+  combo2Damage: 4
+  combo3Damage: 7
+  combo4Damage: 10
+  canGUpAttack: 1
+  groundUpwardPForce: -20
+  groundUpwardEForce: {x: 0, y: 0}
+  gUpAttackDuration: 0.25
+  groundUpDamage: 5
+  canGDownAttack: 1
+  groundDownwardPForce: 0
+  groundDownwardEForce: 0
+  gDownWalkModifier: 0.2
+  gdHoldDuration: 1.25
+  gDownAttackDuration: 0.25
+  groundDownDamage: 15
+  canAUpAttack: 0
+  hookPlayerForce: 0
+  aUpAttackDuration: 0.5
+  aerialUpDamage: 3
+  canADownAttack: 1
+  aerialDownwardPForce: 50
+  aerialDownwardEForce: 0
+  aDownAttackDuration: 5
+  aDownAttackReset: 0.4
+  aerialDownDamage: 7
+  aerialImpactDamage: 5

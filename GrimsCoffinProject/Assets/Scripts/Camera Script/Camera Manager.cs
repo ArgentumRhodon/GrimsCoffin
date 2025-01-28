@@ -59,7 +59,7 @@ public class CameraManager : MonoBehaviour
 
     public void Reset()
     {
-        Debug.Log("Camera Reset is running");
+        //Debug.Log("Camera Reset is running");
         float targetScreenY = 0.5f;
         StartScreenYTransition(targetScreenY, 0.1f);
     }
