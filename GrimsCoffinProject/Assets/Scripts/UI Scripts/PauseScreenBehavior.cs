@@ -14,7 +14,7 @@ public class PauseScreenBehavior : MonoBehaviour
     [SerializeField] private Button controlsBack;
 
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject controlsScreen;
+    [SerializeField] public GameObject controlsScreen;
 
     [SerializeField] private GameObject keyboardControls;
     [SerializeField] private GameObject xboxControls;

@@ -577,7 +577,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (direction != 0)
         {
             float cameraOffset = Data.cameraWalkOffset * direction;
-            CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
+            CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f,2);
         }
     }
 
@@ -692,7 +692,7 @@ public class PlayerControllerForces : MonoBehaviour
         rb.velocity = Vector2.zero;
         Sleep(0.1f);
 
-        yield return new WaitForSecondsRealtime(0.1f);             
+        yield return new WaitForSecondsRealtime(Data.dashSleepTime);             
 
         //Get direction to dash in
         int direction = XInputDirection();
@@ -709,7 +709,7 @@ public class PlayerControllerForces : MonoBehaviour
         
         //Update camera
         float cameraOffset = Data.cameraDashOffset * direction;
-        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.05f);
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, Data.dashAttackTime / 2, 3);
 
         yield return new WaitForSecondsRealtime(Data.dashAttackTime);
 
@@ -984,6 +984,13 @@ public class PlayerControllerForces : MonoBehaviour
             playerState.IsIdle = true;
         else
             playerState.IsIdle = false;
+    }
+
+    private void ResetPlayerOffset()
+    {
+        float dir = (playerState.IsFacingRight) ? 1 : -1;
+        float cameraOffset = Data.cameraOffset * dir;
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f,1);
     }
 
     //Check direction that the player should face and execute it 
@@ -1271,6 +1278,27 @@ public class PlayerControllerForces : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(frontWallCheckPoint.position, wallCheckSize);
         Gizmos.DrawWireCube(backWallCheckPoint.position, wallCheckSize);
+    }
+
+    private void OnInteract()
+    {
+        if (UIManager.Instance.pauseScript.isPaused)
+            return;
+
+        if (interactionPrompt.interactable != null)
+        {
+            interactionPrompt.interactable.PerformInteraction();
+        }
+    }
+
+    private void OnMap()
+    {
+        UIManager.Instance.ToggleMap();
+    }
+
+    private void OnCancel()
+    {
+        UIManager.Instance.Cancel();
     }
 
     private void SpawnAtLastRestPoint()

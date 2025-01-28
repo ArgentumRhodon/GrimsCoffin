@@ -16,7 +16,7 @@ MonoBehaviour:
   attackDirectionDeadzone: 0.75
   cameraOffset: 0.6
   cameraWalkOffset: -0.1
-  cameraDashOffset: -1
+  cameraDashOffset: -0.15
   maxHP: 125
   maxSP: 0
   respawnPoint: {x: -16.601776, y: -1.6799994}
@@ -64,13 +64,13 @@ MonoBehaviour:
   jumpInputBufferTime: 0.2
   canDash: 1
   dashAmount: 1
-  dashSpeed: 100
-  dashSleepTime: 0.05
-  dashAttackTime: 0.06
-  dashEndTime: 0.05
-  dashEndSpeed: {x: 5, y: 0}
+  dashSpeed: 27
+  dashSleepTime: 0.025
+  dashAttackTime: 0.2
+  dashEndTime: 0.1
+  dashEndSpeed: {x: 10, y: 0}
   dashEndRunLerp: 1
-  dashRefillTime: 0.4
+  dashRefillTime: 0.2
   dashInputBufferTime: 0.052
   canAttack: 1
   canTurnDuringCombo: 1

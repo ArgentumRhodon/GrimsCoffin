@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "e924c4bc-4a22-4b16-a9e7-8ea7fa9a4bbe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "3678bf0a-b5be-4b70-a19a-7f1f3479043c",
@@ -395,6 +404,17 @@
                     "processors": "",
                     "groups": "Gamepad;Playstation;Xbox",
                     "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "095258e7-5757-4e9f-a892-3314699f6935",
+                    "path": "*/{Cancel}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR;Playstation;Xbox",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -12,6 +12,8 @@ public class CameraManager : MonoBehaviour
     private Coroutine transitionCoroutineX;
     private Coroutine transitionCoroutineY;
 
+    private int currentpriority;
+
     public float Deadzone
     {
         get { return deadzone; }
@@ -48,20 +50,20 @@ public class CameraManager : MonoBehaviour
     public void LookDown()
     {
         float targetScreenY = 0.25f;
-        StartScreenYTransition(targetScreenY, 0.1f);
+        StartScreenYTransition(targetScreenY, 0.1f,2);
     }
 
     public void LookUp()
     {
         float targetScreenY = 0.75f;
-        StartScreenYTransition(targetScreenY, 0.1f);
+        StartScreenYTransition(targetScreenY, 0.1f,2);
     }
 
     public void Reset()
     {
         //Debug.Log("Camera Reset is running");
         float targetScreenY = 0.5f;
-        StartScreenYTransition(targetScreenY, 0.1f);
+        StartScreenYTransition(targetScreenY, 0.1f,1);
     }
 
     public void ChangeCamera(CinemachineVirtualCamera Cam) 
@@ -77,11 +79,13 @@ public class CameraManager : MonoBehaviour
 
 
 
-    private void StartScreenYTransition(float targetScreenY, float duration)
+    private void StartScreenYTransition(float targetScreenY, float duration,int priority)
     {
         if (transitionCoroutineY != null)
         {
-            StopCoroutine(transitionCoroutineY);
+            if (priority > currentpriority)
+                StopCoroutine(transitionCoroutineY);
+            else return;
         }
         transitionCoroutineY = StartCoroutine(ScreenYTransitionCoroutine(targetScreenY, duration));
     }
@@ -105,16 +109,20 @@ public class CameraManager : MonoBehaviour
         transitionCoroutineY = null;
     }
 
-    public void StartScreenXOffset(float targetOffsetX, float duration)
+    public void StartScreenXOffset(float targetOffsetX, float duration, int priority)
     {
         if (transitionCoroutineX != null)
         {
-            StopCoroutine(transitionCoroutineX);
+            if (priority > currentpriority)
+                StopCoroutine(transitionCoroutineX);
+            else return;
         }
         transitionCoroutineX = StartCoroutine(ScreenXOffsetCoroutine(targetOffsetX, duration));
+        currentpriority = priority;
     }
     private IEnumerator ScreenXOffsetCoroutine(float targetScreenX, float duration)
     {
+        Vector3 initialOffset = VCamFramingTransposer.m_TrackedObjectOffset;
         float initialScreenX = VCamFramingTransposer.m_TrackedObjectOffset.x;
         float elapsedTime = 0f;
         while (elapsedTime < duration)
@@ -122,7 +130,12 @@ public class CameraManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
             t = t * t * (3f - 2f * t);
-            VCamFramingTransposer.m_TrackedObjectOffset.x = Mathf.Lerp(initialScreenX, targetScreenX, t);
+            float newX = Mathf.Lerp(initialScreenX, targetScreenX, t);
+
+            Vector3 newOffset = initialOffset;
+            newOffset.x = newX;
+            VCamFramingTransposer.m_TrackedObjectOffset = newOffset;
+
             yield return null;
         }
         VCamFramingTransposer.m_TrackedObjectOffset.x = targetScreenX;
