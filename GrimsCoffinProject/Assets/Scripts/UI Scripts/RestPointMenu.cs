@@ -51,6 +51,7 @@ public class RestPointMenu: MonoBehaviour
             Time.timeScale = 0;
 
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
+
             if (UIManager.Instance.areaText != null)
                 UIManager.Instance.areaText.SetActive(false);
         }
@@ -66,6 +67,7 @@ public class RestPointMenu: MonoBehaviour
             Time.timeScale = 0;
 
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
+
             if (UIManager.Instance.areaText != null)
                 UIManager.Instance.areaText.SetActive(false);
         }

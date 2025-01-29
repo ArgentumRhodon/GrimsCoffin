@@ -294,7 +294,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Jump Input
     private void OnJump(InputValue value)
     {
-        if (isSleeping)
+        if (isSleeping || Time.timeScale == 0)
             return;
 
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
