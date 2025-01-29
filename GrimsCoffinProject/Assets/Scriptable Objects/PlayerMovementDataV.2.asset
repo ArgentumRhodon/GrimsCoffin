@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: PlayerMovementDataV.2
   m_EditorClassIdentifier: 
   deadzone: 0.5
+  attackDirectionDeadzone: 0.75
   cameraOffset: 0.6
   cameraWalkOffset: -0.1
   cameraDashOffset: -0.15
   maxHP: 125
   maxSP: 0
-  respawnPoint: {x: -16.601776, y: -1.6799994}
+  respawnPoint: {x: 70.09, y: -36.44}
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -42,7 +43,7 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
-  canWallJump: 0
+  canWallJump: 1
   canWallJumpCancel: 0
   wallJumpForce: {x: 13, y: 15}
   wallJumpRunLerp: 0
@@ -51,7 +52,7 @@ MonoBehaviour:
   wallCoyoteTime: 0.01
   doTurnOnWallJump: 1
   wallTurnBuffer: 0
-  canDoubleJump: 0
+  canDoubleJump: 1
   preserveDoubleJump: 1
   resetJumpOnWall: 0
   extraJumpMultiplier: 0
@@ -72,26 +73,38 @@ MonoBehaviour:
   dashRefillTime: 0.2
   dashInputBufferTime: 0.052
   canAttack: 1
-  canTurnDuringCombo: 1
-  comboSleepTime: 0.3
+  canTurnDuringCombo: 0
+  comboCooldownTime: 0.1
   attackBufferTime: 0.5
-  comboAerialTime: 0.15
+  comboSleepTime: 0.3
   comboTotal: 4
-  comboAerialPForce: 5
+  comboAerialPForce: 7
+  comboGroundPForce: 13
+  comboAttackDuration: 0.35
   combo1Damage: 4
   combo2Damage: 4
   combo3Damage: 7
   combo4Damage: 10
-  groundUpwardPForce: 0
-  groundUpwardEForce: 0
+  canGUpAttack: 1
+  groundUpwardPForce: -20
+  groundUpwardEForce: {x: 0, y: 0}
+  gUpAttackDuration: 0.4
   groundUpDamage: 5
+  canGDownAttack: 1
   groundDownwardPForce: 0
   groundDownwardEForce: 0
-  gdHoldDuration: 0
+  gDownWalkModifier: 0.2
+  gdHoldDuration: 1.25
+  gDownAttackDuration: 0.25
   groundDownDamage: 15
+  canAUpAttack: 0
   hookPlayerForce: 0
+  aUpAttackDuration: 0.5
   aerialUpDamage: 3
-  aerialDownwardPForce: 0
+  canADownAttack: 1
+  aerialDownwardPForce: 50
   aerialDownwardEForce: 0
+  aDownAttackDuration: 5
+  aDownAttackReset: 0.4
   aerialDownDamage: 7
   aerialImpactDamage: 5

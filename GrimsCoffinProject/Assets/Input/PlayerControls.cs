@@ -51,8 +51,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""3678bf0a-b5be-4b70-a19a-7f1f3479043c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""initialStateCheck"": false
+                    ""interactions"": ""Press(pressPoint=0.9,behavior=2)"",
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Dash"",
@@ -78,7 +78,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""8911eb86-e543-46b9-8b9b-deea33d05668"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
                 },
                 {
