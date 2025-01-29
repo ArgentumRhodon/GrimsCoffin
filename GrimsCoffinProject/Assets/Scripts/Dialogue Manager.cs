@@ -23,6 +23,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private List<Sprite> continuePromptIcons;
     [SerializeField] private Image continuePrompt;
 
+    [SerializeField] private Image speakerIcon;
+    [SerializeField] private List<Sprite> speakers;
+
     public bool canProgressDialogue = false;
 
     private void Awake()
@@ -87,7 +90,7 @@ public class DialogueManager : MonoBehaviour
         int state = (int)spiritState;
 
         // Find the first dialogue matching the given SpiritID, SpiritState, and where LineID == 1
-        var dialogue = dialogues.FirstOrDefault(d =>
+        DialogueEntry dialogue = dialogues.FirstOrDefault(d =>
             d.SpiritID == id &&
             d.SpiritState == state &&
             d.LineID == currentline);
@@ -99,6 +102,7 @@ public class DialogueManager : MonoBehaviour
             TextMeshProUGUI dialogueText = UIManager.Instance.dialogueUI.GetComponentInChildren<TextMeshProUGUI>();
             if (dialogueText != null)
             {
+                speakerIcon.sprite = speakers[dialogue.SpeakerID];
                 dialogueText.text = dialogue.DialogueContent;
             }
             else
