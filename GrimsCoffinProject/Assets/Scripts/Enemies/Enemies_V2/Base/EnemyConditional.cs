@@ -7,17 +7,20 @@ namespace Core.AI
 {
     public class EnemyConditional : Conditional
     {
-        protected Rigidbody2D body;
+        [Header("GameObjects")]
+        protected Rigidbody2D rb;
         protected Animator animator;
         protected TeamComponent team;
         protected PlayerControllerForces player;
+        protected BTEnemy enemyScript;
 
         public override void OnAwake()
         {
-            body = GetComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody2D>();
             player = PlayerControllerForces.Instance;
             team = GetComponent<TeamComponent>();
             animator = gameObject.GetComponentInChildren<Animator>();
+            enemyScript = GetComponent<BTEnemy>();
         }
     }
 }

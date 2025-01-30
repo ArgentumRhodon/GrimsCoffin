@@ -9,9 +9,9 @@ public abstract class Enemy : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] public float health;
-    [SerializeField] protected float damage;
-    [SerializeField] protected float movementSpeed;
-    [SerializeField] protected float visionRange;
+    [SerializeField] public float damage;
+    [SerializeField] public float movementSpeed;
+    [SerializeField] public float visionRange;
     [SerializeField] [Range(0f, 5f)] protected float knockbackMult;
     [SerializeField] protected Collider2D hitbox;
     [SerializeField] private bool canBePulledDown;
@@ -78,7 +78,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     //Damage player if colliding with the enemy
-    protected void CheckCollisionWithPlayer()
+    public void CheckCollisionWithPlayer()
     {
         Collider2D[] collidersToDamage = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();
@@ -119,7 +119,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     //Add knockback to the enemy based off a given force
-    protected virtual void Knockback(Vector2 knockbackForce)
+    public virtual void Knockback(Vector2 knockbackForce)
     {
         //Reset current velocity to make sure it doesn't stack
         rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
@@ -134,13 +134,13 @@ public abstract class Enemy : MonoBehaviour
     }
 
     //Sleep methods to run, end, and execute the sleep coroutine
-    private void Sleep(float duration, Vector2 knockbackForce)
+    public void Sleep(float duration, Vector2 knockbackForce)
     {
         //Method to help delay time for movement
         StartCoroutine(PerformSleep(duration, knockbackForce));
     }
 
-    private void EndSleep()
+    public void EndSleep()
     {
         //Method to stop the coroutine from running 
         StopCoroutine(nameof(PerformSleep));
