@@ -34,6 +34,10 @@ public abstract class Enemy : MonoBehaviour
     //DownAttack
     protected bool isHitDown;
 
+    //Damaged checked for conditions
+    protected bool isDamaged;
+    public bool IsDamaged { get { return isDamaged; } set { isDamaged = value; } }
+
     //Positions used for state checks
     [Header("Tile Checks")]
     [SerializeField] private LayerMask groundLayer;
@@ -103,7 +107,7 @@ public abstract class Enemy : MonoBehaviour
     //Helper methods ----------------------------------------------
 
     //Check player location, used when player takes damage (may not be needed since knockback is calculated in the combat scripts)
-    private void CheckPlayerLoc()
+    protected void CheckPlayerLoc()
     {
         if(playerTarget.position.x > transform.position.x)
             isPlayerOnRight = true;

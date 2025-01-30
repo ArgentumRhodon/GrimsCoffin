@@ -7,6 +7,7 @@ public class BTEnemy : Enemy
     //Direction to face
     private int direction = 1;
     private bool isFacingRight;
+    
 
     public int Direction { get { return direction; } set { direction = value; } }
     public bool IsFacingRight { get { return isFacingRight; } set { isFacingRight = value; } }
@@ -38,5 +39,22 @@ public class BTEnemy : Enemy
 
     protected override void FixedUpdate()
     {
+    }
+
+    //Take damage is 
+    public override void TakeDamage(Vector2 knockbackForce, float damage = 1)
+    {
+        isDamaged = true;
+        Sleep(0.5f, knockbackForce);
+
+        //Remove health
+        health -= damage;
+
+        //Camera shake based off of damage
+        CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
+/*
+        //Enemy death calculation
+        if (health <= 0)
+            DestroyEnemy();*/
     }
 }

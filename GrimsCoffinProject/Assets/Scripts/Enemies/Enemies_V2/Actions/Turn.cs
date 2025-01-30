@@ -23,7 +23,11 @@ namespace Core.AI
         public override TaskStatus OnUpdate()
         {
             if (hasTurned)
+            {
+                enemyScript.airChecker.IsColliding = true;
+                enemyScript.wallChecker.IsColliding = false;
                 return TaskStatus.Success;
+            }             
             else
                 return TaskStatus.Running;
         }

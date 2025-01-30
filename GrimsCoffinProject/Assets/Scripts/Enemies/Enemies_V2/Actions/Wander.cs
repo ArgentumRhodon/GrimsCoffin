@@ -10,6 +10,9 @@ namespace Core.AI
         public string animationTriggerName;
         public string nextAnimationTrigger;
 
+        private bool waitingForGround;
+        private bool hasGrounded;
+
         public override void OnStart()
         {
             animator.SetTrigger(animationTriggerName);
@@ -22,8 +25,7 @@ namespace Core.AI
                 animator.SetTrigger(nextAnimationTrigger);
                 rb.velocity = Vector2.zero;
                 return TaskStatus.Success;            
-            }
-                
+            }              
             else
             {
                 Walk(1);
@@ -36,8 +38,6 @@ namespace Core.AI
             //Check to see if it is not colliding with the ground or is colliding with a wall
             if (!enemyScript.airChecker.IsColliding || enemyScript.wallChecker.IsColliding)
             {
-                enemyScript.airChecker.IsColliding = true;
-                enemyScript.wallChecker.IsColliding = false;
                 return true;
             }
             else
