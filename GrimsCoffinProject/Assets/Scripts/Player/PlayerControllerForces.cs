@@ -1021,11 +1021,6 @@ public class PlayerControllerForces : MonoBehaviour
     //Checks for jump states
     private bool CanJump()
     {
-        Debug.Log("Data.canJump: " + Data.canJump);
-        Debug.Log("LastOnGroundTime > 0: " + (LastOnGroundTime > 0));
-        Debug.Log("!playerState.IsJumping: " + !playerState.IsJumping);
-        Debug.Log("CanBreakCombo(): " + CanBreakCombo());
-
         return Data.canJump && LastOnGroundTime > 0 && !playerState.IsJumping && CanBreakCombo();
     }
 

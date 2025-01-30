@@ -15,6 +15,7 @@ public class BTEnemy : Enemy
     [Header("Direction Collision Checkers")]
     [SerializeField] public GroundChecker wallChecker;
     [SerializeField] public GroundChecker airChecker;
+    [SerializeField] public Collider2D visionCollider;
 
     //Acceleration
     [Header("Acceleration Rate")]

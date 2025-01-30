@@ -55,13 +55,12 @@ namespace Core.AI
             targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, lerpAmount);
          
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.walkAccelAmount : enemyScript.walkDeccelAmount;
-            Debug.Log("Accel speed " + accelRate);
+
             //Calculate difference between current velocity and desired velocity
             float speedDif = targetSpeed - rb.velocity.x;
             //Calculate force along x-axis to apply to thr player
             float movement = speedDif * accelRate;
 
-            Debug.Log("speedDif " + speedDif);
             //Convert movement to a vector and apply it
             rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
         }
