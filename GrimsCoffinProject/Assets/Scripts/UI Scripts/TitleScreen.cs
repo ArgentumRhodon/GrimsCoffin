@@ -25,7 +25,7 @@ public class TitleScreen : MonoBehaviour
     {
         PersistentDataManager.Instance.ToggleFirstSpawn(true);
 
-        if (PersistentDataManager.Instance.LastSavedScene == "NewGame")
+        if (PersistentDataManager.Instance.LastSavedScene == "OnboardingLevel")
             continueButton.GetComponent<Button>().interactable = false;
         else
             continueButton.GetComponent<Button>().interactable = true;

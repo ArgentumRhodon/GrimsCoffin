@@ -7,4 +7,5 @@ public class DialogueEntry
     public int SpiritState;
     public int LineID;
     public string DialogueContent;
+    public int SpeakerID;
 }

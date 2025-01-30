@@ -294,7 +294,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Jump Input
     private void OnJump(InputValue value)
     {
-        if (isSleeping)
+        if (isSleeping || Time.timeScale == 0)
             return;
 
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
@@ -435,9 +435,6 @@ public class PlayerControllerForces : MonoBehaviour
         invincibilityTimer = 2.0f;
         hasInvincibility = true;
 
-        UIManager.Instance.DamageVignette();
-        CameraShake.Instance.ShakeCamera(5, 4, .25f);
-
         CheckForDeath();
     }
 
@@ -449,8 +446,7 @@ public class PlayerControllerForces : MonoBehaviour
         currentHP = Data.maxHP;
         currentSP = Data.maxSP;
 
-        if (Data.respawnPoint != null)
-            this.gameObject.transform.position = Data.respawnPoint;
+        SpawnAtLastRestPoint();
     }
 
     //Calculate physics for attacks ---------------------------------------------
@@ -1116,7 +1112,14 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            PersistentDataManager.Instance.ToggleFirstSpawn(false);
             UIManager.Instance.HandlePlayerDeath();
+        }
+
+        else
+        {
+            UIManager.Instance.DamageVignette();
+            CameraShake.Instance.ShakeCamera(5, 4, .25f);
         }
     }
     #endregion
@@ -1285,10 +1288,10 @@ public class PlayerControllerForces : MonoBehaviour
     private void SpawnAtLastRestPoint()
     {
         Debug.Log("Spawning at Rest Point");
-        Vector3 newSpawn = new Vector3(
-            PlayerPrefs.GetFloat("XSpawnPos"),
-            PlayerPrefs.GetFloat("YSpawnPos"),
-            0);
+
+        PersistentDataManager.Instance.LoadRoom();
+
+        Vector3 newSpawn = PersistentDataManager.Instance.SpawnPoint;
 
         this.gameObject.transform.position = newSpawn;
         Data.respawnPoint = newSpawn;

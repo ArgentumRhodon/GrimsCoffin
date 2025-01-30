@@ -55,6 +55,12 @@ public class PauseScreenBehavior : MonoBehaviour
 
     public void Pause()
     {
+        if (controlsScreen.activeInHierarchy)
+        {
+            ToggleControls();
+            return;
+        }
+
         isPaused = !isPaused;
         UIManager.Instance.gameUI.SetActive(!isPaused);
         this.gameObject.SetActive(isPaused);
