@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [SerializeField] public PauseScreenBehavior pauseScript;
-    [SerializeField] public EquilibriumPrompt equilibriumPrompt;
+    [SerializeField] public RestPointMenu restPointMenu;
 
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private Volume lowHealthVignette;
@@ -120,13 +120,16 @@ public class UIManager : MonoBehaviour
 
     public void UpdateMapUI()
     {
-        List<bool> roomsExplored = PersistentDataManager.Instance.AreaRoomsLoaded();
-
-        for (int i = 0; i < roomsExplored.Count; i++)
+        if (mapRooms != null)
         {
+            List<bool> roomsExplored = PersistentDataManager.Instance.AreaRoomsLoaded();
+
+            for (int i = 0; i < roomsExplored.Count; i++)
             {
-                if (roomsExplored[i])
-                    mapRooms[i].SetActive(true);
+                {
+                    if (roomsExplored[i])
+                        mapRooms[i].SetActive(true);
+                }
             }
         }
     }
@@ -168,5 +171,18 @@ public class UIManager : MonoBehaviour
         dialogueUI.SetActive(false);
         Time.timeScale = 1;
         playerInput.SwitchCurrentActionMap("Player");
+    }
+
+    public void Cancel()
+    {
+        if (pauseScript.controlsScreen.activeInHierarchy)
+        {
+            pauseScript.ToggleControls();
+        }
+
+        else if (pauseScript.gameObject.activeInHierarchy)
+        {
+            Pause();
+        }
     }
 }

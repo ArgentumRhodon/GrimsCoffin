@@ -70,6 +70,7 @@ public class PatrollingEnemy : Enemy
         CheckCollisionWithPlayer();
     }
 
+    //Path calculation methods
     void PathFollow()
     {
         if (path == null)
@@ -174,7 +175,6 @@ public class PatrollingEnemy : Enemy
         }
     }
 
-
     private void OnPathComplete(Path p)
     {
         if (!p.error)
@@ -247,7 +247,7 @@ public class PatrollingEnemy : Enemy
 
         return inRange;
     }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Collision detection with player, deal damage

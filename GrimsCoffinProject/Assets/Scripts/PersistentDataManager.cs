@@ -16,7 +16,7 @@ public class PersistentDataManager : MonoBehaviour
     public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave", defaultSceneName); } }
 
     //Last Saved Room the player was in when they saved the game
-    public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 0); } }
+    public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 1); } }
 
     //Whether or not this is the player's first time spawning into the game
     public bool FirstSpawn { get { return PlayerPrefs.GetInt("FirstSpawn", 0) == 1; } }
@@ -38,9 +38,9 @@ public class PersistentDataManager : MonoBehaviour
     [SerializeField] private List<Room> rooms;
 
     //Default values to spawn the player at when a New Game is started
-    [SerializeField] private float defaultXPos = -16;
-    [SerializeField] private float defaultYPos = -1.7f;
-    [SerializeField] private string defaultSceneName = "NewGame";
+    [SerializeField] private float defaultXPos = 0;
+    [SerializeField] private float defaultYPos = 0;
+    [SerializeField] private string defaultSceneName = "OnboardingLevel";
     [SerializeField] private float defaultHP = 125;
 
     private void Awake()
@@ -63,14 +63,6 @@ public class PersistentDataManager : MonoBehaviour
         //If the player is in the cutscene between Onboarding and Denial Area, transition their stats
         if (SceneManager.GetActiveScene().name == "CutScene")
             TransitionToDenialArea();
-
-        /*PlayerControllerForces.Instance.Data.maxHP = MaxHP;
-        PlayerControllerForces.Instance.Data.maxSP = MaxSP;
-
-        PlayerControllerForces.Instance.Data.canDoubleJump = CanDoubleJump;
-        PlayerControllerForces.Instance.Data.canDash = CanDash;
-        PlayerControllerForces.Instance.Data.canWallJump = CanWallJump;*/
-        //PlayerControllerForces.Instance.Data.damageMultiplier = MaxHP;
     }
 
     //Returns whether a spirit is collected or not (for spawning them in The Drift vs. Equilibrium)
@@ -114,11 +106,34 @@ public class PersistentDataManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("XSpawnPos", saveLocation.position.x);
         PlayerPrefs.SetFloat("YSpawnPos", saveLocation.position.y);
-        PlayerPrefs.SetFloat("RoomIndex", saveLocation.roomIndex);
+        PlayerPrefs.SetInt("RoomIndex", saveLocation.roomIndex);
         PlayerPrefs.SetInt("FirstTimeDenial", 0);
         PlayerPrefs.SetString("SceneSave", SceneManager.GetActiveScene().name);
 
         StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
+    }
+
+    //Load the last saved room the player was in
+    public void LoadRoom()
+    {
+        foreach (Room room in rooms)
+        {
+            if (LastSavedRoomIndex == room.roomIndex)
+            {
+                room.hasPlayer = true;
+                room.RoomLive = true;
+                room.gameObject.SetActive(true);
+
+                if (room.GetComponent<EnemyManager>() != null)
+                    room.GetComponent<EnemyManager>().SpawnEnemies();
+            }
+
+            else
+            {
+                room.hasPlayer = false;
+                room.RoomLive = false;
+            }
+        }
     }
 
     //Toggles whether the user is spawning for the first time or not
@@ -138,7 +153,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("SceneSave", defaultSceneName);
         PlayerPrefs.SetFloat("XSpawnPos", defaultXPos);
         PlayerPrefs.SetFloat("YSpawnPos", defaultYPos);
-        //PlayerPrefs.SetInt("RoomIndex", 0);
+        PlayerPrefs.SetInt("RoomIndex", 1);
         
         //Reset Player Stats
         PlayerPrefs.SetFloat("MaxHP", defaultHP);

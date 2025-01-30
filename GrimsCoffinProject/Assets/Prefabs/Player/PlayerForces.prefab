@@ -346,6 +346,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 56db3d8cbea456748a72ec4714f32446, type: 2}
+  walkModifier: 0
+  canSleepWalk: 0
   animator: {fileID: 8317159216238193831}
   scytheAnimator: {fileID: 4929932698530573072}
   groundLayer:
@@ -440,15 +442,19 @@ MonoBehaviour:
   Data: {fileID: 0}
   hitbox: {fileID: 7568753305882926414}
   scytheAnimator: {fileID: 4929932698530573072}
+  scytheSprite: {fileID: 0}
   animator: {fileID: 8317159216238193831}
-  attackDurationTime: 0
-  queueTimer: 0
+  holdAttackTimer: 0
+  attackAnimTotal: 0
   canAerialCombo: 0
   isAerialCombo: 0
+  isAerialAttacking: 0
   isComboing: 0
   attackClickCounter: 0
-  attackQueueLeft: 0
+  comboQueueLeft: 0
   currentAttackAmount: 0
+  attackQueue: 
+  isHoldingAttacking: 0
 --- !u!114 &3338551163740125992
 MonoBehaviour:
   m_ObjectHideFlags: 0
