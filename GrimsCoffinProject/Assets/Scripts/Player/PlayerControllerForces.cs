@@ -18,7 +18,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     //Rigidbody and player state
     public Rigidbody2D rb { get; private set; }
-    private PlayerStateList playerState;
+    public PlayerStateList playerState;
 
     //Timers
     public float LastOnGroundTime { get; private set; }
@@ -51,6 +51,10 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 lastDashDir;
     private bool isDashAttacking;
 
+    //Abilities
+    [SerializeField] private GameObject scytheProjectilePrefab;
+    [SerializeField] public GameObject heldScytheSprite;
+
     //Input parameters
     private Vector2 moveInput;
     public Vector2 MoveInput { get {return moveInput; } }
@@ -78,6 +82,7 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public float invincibilityTimer;
     [SerializeField] public bool hasInvincibility;
     [SerializeField] public bool hasDashInvincibility;
+    [SerializeField] public bool scytheThrown;
 
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
@@ -259,7 +264,11 @@ public class PlayerControllerForces : MonoBehaviour
         else if (canSleepWalk)
             Walk(1);
 
+        if (scytheThrown && !UIManager.Instance.scytheThrowInMenu)
+            heldScytheSprite.SetActive(false);
 
+        else
+            heldScytheSprite.SetActive(true);
 
         if (hasInvincibility)
         {          
@@ -426,7 +435,18 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnCancel()
     {
-        UIManager.Instance.Cancel();
+        if (Time.timeScale == 1)
+            return;
+
+        StartCoroutine(UIManager.Instance.Cancel(0.1f));
+    }
+
+    private void OnAbility()
+    {
+        if (isSleeping || Time.timeScale == 0 || currentSP <= 0 || scytheThrown || !Data.canScytheThrow)
+            return;
+
+        ExecuteScytheThrow();
     }
 
     public void TakeDamage(float damageTaken)
@@ -445,6 +465,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         currentHP = Data.maxHP;
         currentSP = Data.maxSP;
+
+        if (!playerState.IsFacingRight)
+            Turn();
 
         SpawnAtLastRestPoint();
     }
@@ -521,6 +544,13 @@ public class PlayerControllerForces : MonoBehaviour
         {
             Sleep(Data.aDownAttackDuration);
         }
+    }
+
+    public void ExecuteScytheThrow()
+    {
+        GameObject scythe = Instantiate(scytheProjectilePrefab, this.transform.position, Quaternion.identity);
+        currentSP -= 5;
+        scytheThrown = true;
     }
     #endregion
 
