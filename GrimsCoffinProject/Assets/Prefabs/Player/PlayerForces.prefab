@@ -346,8 +346,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 56db3d8cbea456748a72ec4714f32446, type: 2}
+  playerState: {fileID: 0}
   walkModifier: 0
   canSleepWalk: 0
+  scytheProjectilePrefab: {fileID: 7168144048661873661, guid: 1f0ce5aeff96e61449d387eb41d94534, type: 3}
+  heldScytheSprite: {fileID: 5297061223688076639}
   animator: {fileID: 8317159216238193831}
   scytheAnimator: {fileID: 4929932698530573072}
   groundLayer:
@@ -363,6 +366,7 @@ MonoBehaviour:
   invincibilityTimer: 0
   hasInvincibility: 0
   hasDashInvincibility: 0
+  scytheThrown: 0
   interactionPrompt: {fileID: 4303321463941137360}
 --- !u!114 &5297759798866308537
 MonoBehaviour:

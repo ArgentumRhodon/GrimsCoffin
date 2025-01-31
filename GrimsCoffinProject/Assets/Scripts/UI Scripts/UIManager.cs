@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] public PlayerInput playerInput;
 
+    public bool scytheThrowInMenu;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -41,7 +43,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (damageVignette == null)
+        if (damageVignette == null || !damageVignette.gameObject.activeInHierarchy)
             return;
 
         if (damageVignette.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
@@ -173,16 +175,28 @@ public class UIManager : MonoBehaviour
         playerInput.SwitchCurrentActionMap("Player");
     }
 
-    public void Cancel()
+    public IEnumerator Cancel(float seconds)
     {
         if (pauseScript.controlsScreen.activeInHierarchy)
         {
+            PlayerControllerForces.Instance.scytheThrown = true;
             pauseScript.ToggleControls();
         }
 
         else if (pauseScript.gameObject.activeInHierarchy)
         {
+            PlayerControllerForces.Instance.scytheThrown = true;
+            scytheThrowInMenu = true;
             Pause();
         }
+
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < seconds)
+        {
+            yield return null;
+        }
+
+        PlayerControllerForces.Instance.scytheThrown = false;
+        scytheThrowInMenu = false;
     }
 }
