@@ -58,7 +58,7 @@ public class TitleScreen : MonoBehaviour
     {
         PersistentDataManager.Instance.ResetSaveData();
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
-        SceneManager.LoadScene("DenialMinimap");
+        SceneManager.LoadScene("Intro Cutscene");
     }
     public void ContinueGame()
     {
