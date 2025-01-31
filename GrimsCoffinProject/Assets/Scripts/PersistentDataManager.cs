@@ -171,9 +171,9 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("Spirit3", "Uncollected");
 
         //Clear Onboarding Map Data
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 20; i++)
         {
-            PlayerPrefs.SetInt("OnboardingLevelRoom" + i, 0);
+            PlayerPrefs.SetInt("LevelRoom" + i, 0);
         } 
     }
 
@@ -195,7 +195,8 @@ public class PersistentDataManager : MonoBehaviour
 
     public void SetRoomExplored(int roomIndex)
     {
-        PlayerPrefs.SetInt("OnboardingLevelRoom" + roomIndex, 1);
+        PlayerPrefs.SetInt("LevelRoom" + roomIndex, 1);
+
         UIManager.Instance.UpdateMapUI();
     }
 
@@ -204,9 +205,13 @@ public class PersistentDataManager : MonoBehaviour
         List<bool> result = new List<bool>();
         foreach (Room room in rooms)
         {
-            if (PlayerPrefs.GetInt("OnboardingLevelRoom" + room.roomIndex) == 1)
+            if (PlayerPrefs.GetInt("LevelRoom" + room.roomIndex) == 1)
             {
                 result.Add(true);
+            }
+            else
+            {
+                result.Add(false);
             }
         }
 
