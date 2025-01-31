@@ -17,8 +17,8 @@ MonoBehaviour:
   cameraOffset: 0.6
   cameraWalkOffset: -0.1
   cameraDashOffset: -0.15
-  maxHP: 125
-  maxSP: 0
+  maxHP: 50
+  maxSP: 50
   respawnPoint: {x: 0, y: 0}
   gravityStrength: -57.14286
   gravityScale: 5.82496
@@ -52,7 +52,7 @@ MonoBehaviour:
   wallCoyoteTime: 0.01
   doTurnOnWallJump: 1
   wallTurnBuffer: 0
-  canDoubleJump: 1
+  canDoubleJump: 0
   preserveDoubleJump: 1
   resetJumpOnWall: 0
   extraJumpMultiplier: 0
@@ -109,3 +109,4 @@ MonoBehaviour:
   aerialDownDamage: 7
   aerialImpactDamage: 5
   canScytheThrow: 1
+  canViewMap: 1
