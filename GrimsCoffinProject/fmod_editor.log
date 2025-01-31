@@ -1,21 +1,289 @@
-[LOG] System::create                           : Header version = 2.02.24. Current version = 2.02.24.
-[LOG] Manager::init                            : maxchannels = 256 studioflags = 00000006 flags 00000000 extradriverdata 0000000000000000.
-[LOG] SystemI::init                            : Initialize version=20224 (146338), maxchannels=256, flags=0x00020000
-[LOG] SystemI::setOutputInternal               : Setting output to 'FMOD WASAPI Output'
-[LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEX): wFormatTag=0xFFFE, nChannels=2, nSamplesPerSec=48000, nAvgBytesPerSec=384000, nBlockAlign=8, wBitsPerSample=32, cbSize=22.
-[LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEXTENSIBLE): wValidBitsPerSample=32, dwChannelMask=0x00000003, SubFormat=00000003-0000-0010-8000-00AA00389B71.
-[LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
-[LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
-[LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000022A0A0444E8 isAsync 0 updatePeriod 0.02
-[LOG] AsyncManager::init                       : done
-[LOG] PlaybackSystem::init                     : 
-[LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
-[LOG] PlaybackSystem::init                     : done
-[LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
-[LOG] Manager::init                            : done.
-[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
-[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
-[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
-[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[ERR] assert                                   : assertion: 'gSystemInitCount == 0' failed
+[LOG] System::create                           :     Header version = 2.02.24. Current version = 2.02.24.
+[LOG] Manager::init                            :     maxchannels = 256 studioflags = 00000006 flags 00000000 extradriverdata 0000000000000000.
+[LOG] SystemI::init                            :     Initialize version=20224 (146338), maxchannels=256, flags=0x00020000
+[LOG] SystemI::setOutputInternal               :     Setting output to 'FMOD WASAPI Output'
+[LOG] OutputWASAPI::init                       :     Mix Format (WAVEFORMATEX): wFormatTag=0xFFFE, nChannels=2, nSamplesPerSec=48000, nAvgBytesPerSec=384000, nBlockAlign=8, wBitsPerSample=32, cbSize=22.
+[LOG] OutputWASAPI::init                       :     Mix Format (WAVEFORMATEXTENSIBLE): wValidBitsPerSample=32, dwChannelMask=0x00000003, SubFormat=00000003-0000-0010-8000-00AA00389B71.
+[LOG] OutputWASAPI::init                       :     Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
+[LOG] Thread::initThread                       :     Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
+[LOG] Thread::initThread                       :     Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
+[LOG] AsyncManager::init                       :     manager 000002370A354ED8 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       :     done
+[LOG] PlaybackSystem::init                     :     
+[LOG] Thread::initThread                       :     Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
+[LOG] PlaybackSystem::init                     :     done
+[LOG] Thread::initThread                       :     Init FMOD Studio bank load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
+[LOG] Manager::init                            :     done.
+[LOG] Manager::readBank                        :     fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        :     fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        :     fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] PlaybackSystem::acquireMasterBus         :     Setting master channel group format to 6
+[LOG] SystemI::mixerSuspend                    :     Suspending output.
+[LOG] SystemI::mixerResume                     :     Resuming output.
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 00000236FECA75D8, queue head = 00000236FF663F48, queue count = 0
+[LOG] AsyncThread::threadFunc                  :     Starting Asynchronous operation on sound 00000236FECA75D8
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 00000236FECA7938, queue head = 00000236FF663F48, queue count = 0
+[LOG] SystemI::createSoundInternal             :         Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             :         exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :         exinfo->length             = 37917056
+[LOG] SystemI::createSoundInternal             :         exinfo->fileoffset         = 582944
+[LOG] SystemI::createSoundInternal             :         exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlist      = 000000971505F528
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :         exinfo->useropen           = 00007FF886643CE0
+[LOG] SystemI::createSoundInternal             :         exinfo->userclose          = 00007FF886643CA0
+[LOG] SystemI::createSoundInternal             :         exinfo->userread           = 00007FF886643DC0
+[LOG] SystemI::createSoundInternal             :         exinfo->userseek           = 00007FF886643E80
+[LOG] SystemI::createSoundInternal             :         exinfo->fileuserdata       = 000002362A0F1AF8
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            :         register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             :         Sample 0/1: name='FX_101_PL_Grim_Scyche_Swing_02', format=5, channels=2, frequency=48000, lengthbytes=78976, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.622788.
+[LOG] SystemI::createSoundInternal             :         Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             :         exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :         exinfo->length             = 37917056
+[LOG] SystemI::createSoundInternal             :         exinfo->fileoffset         = 582944
+[LOG] SystemI::createSoundInternal             :         exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlist      = 000000971505F528
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :         exinfo->useropen           = 00007FF886643CE0
+[LOG] SystemI::createSoundInternal             :         exinfo->userclose          = 00007FF886643CA0
+[LOG] SystemI::createSoundInternal             :         exinfo->userread           = 00007FF886643DC0
+[LOG] SystemI::createSoundInternal             :         exinfo->userseek           = 00007FF886643E80
+[LOG] SystemI::createSoundInternal             :         exinfo->fileuserdata       = 000002362A0F1AF8
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            :         register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             :         Sample 0/1: name='FX_101_PL_Grim_Scyche_Swing_01', format=5, channels=2, frequency=48000, lengthbytes=88288, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.534898.
+[LOG] SystemI::createSoundInternal             :         Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             :         exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :         exinfo->length             = 37917056
+[LOG] SystemI::createSoundInternal             :         exinfo->fileoffset         = 582944
+[LOG] SystemI::createSoundInternal             :         exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlist      = 000000971505F528
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :         exinfo->useropen           = 00007FF886643CE0
+[LOG] SystemI::createSoundInternal             :         exinfo->userclose          = 00007FF886643CA0
+[LOG] SystemI::createSoundInternal             :         exinfo->userread           = 00007FF886643DC0
+[LOG] SystemI::createSoundInternal             :         exinfo->userseek           = 00007FF886643E80
+[LOG] SystemI::createSoundInternal             :         exinfo->fileuserdata       = 000002362A0F1AF8
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            :         register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             :         Sample 0/1: name='FX_101_PL_Grim_Scyche_Swing_03', format=5, channels=2, frequency=48000, lengthbytes=84352, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.674704.
+[LOG] AsyncThread::threadFunc                  :     Finished Asynchronous operation on sound 00000236FECA75D8
+[LOG] AsyncThread::threadFunc                  :     Starting Asynchronous operation on sound 00000236FECA7938
+[LOG] AsyncThread::threadFunc                  :     Finished Asynchronous operation on sound 00000236FECA7938
+[LOG] SystemI::createSoundInternal             :     Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 37917056
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 582944
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000971505F528
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->useropen           = 00007FF886643CE0
+[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 00007FF886643CA0
+[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 00007FF886643DC0
+[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 00007FF886643E80
+[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000002362A0F5098
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            :     register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             :     Sample 0/1: name='FX_102_PL_Grim_Scyche_Spin_01', format=5, channels=2, frequency=48000, lengthbytes=124032, lengthpcm=144000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.888915.
+[LOG] Thread::initThread                       :     Init FMOD Convolution thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 16384, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
+[LOG] Thread::initThread                       :     Init FMOD Convolution thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 16384, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
+[LOG] SystemI::createSoundInternal             :     Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 37917056
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 582944
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000971505F528
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->useropen           = 00007FF886643CE0
+[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 00007FF886643CA0
+[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 00007FF886643DC0
+[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 00007FF886643E80
+[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000002362A0F3BF8
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            :     register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             :     Sample 0/1: name='FX_103_PL_Grim_Scyche_Slam_01', format=5, channels=2, frequency=48000, lengthbytes=161440, lengthpcm=144000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.888608.
+[LOG] SystemI::createSound                     :     filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002361EF10E08, queue head = 00000236FF663F48, queue count = 0
+[LOG] AsyncThread::threadFunc                  :     Starting Asynchronous operation on sound 000002361EF10E08
+[LOG] SystemI::createSoundInternal             :         Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :         exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :         exinfo->length             = 37917056
+[LOG] SystemI::createSoundInternal             :         exinfo->fileoffset         = 582944
+[LOG] SystemI::createSoundInternal             :         exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlist      = 000002376DECCE00
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekposition = 1500
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :         Stream 0/1: name='FX_006_LM_MapTutorial_Ambience_01', format=5, channels=2, frequency=48000, lengthbytes=5037024, lengthpcm=8023226, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.631831.
+[LOG] AsyncThread::threadFunc                  :     Finished Asynchronous operation on sound 000002361EF10E08
+[LOG] SoundI::release                          :     FX_005_LM_MapDenial_Ambience_01 (00000237681535F8)
+[LOG] SoundI::release                          :         FX_005_LM_MapDenial_Ambience_01 (0000023768DC8EC8)
+[LOG] SoundI::release                          :         FX_005_LM_MapDenial_Ambience_01 (00000236FECA7938)
+[LOG] SystemI::createSound                     :     filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 00000236FECA7278, queue head = 00000236FF663F48, queue count = 0
+[LOG] AsyncThread::threadFunc                  :     Starting Asynchronous operation on sound 00000236FECA7278
+[LOG] SystemI::createSoundInternal             :         Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :         exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :         exinfo->length             = 37917056
+[LOG] SystemI::createSoundInternal             :         exinfo->fileoffset         = 582944
+[LOG] SystemI::createSoundInternal             :         exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlist      = 000002363D5452B0
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :         Stream 0/1: name='FX_007_LM_MapEquilibrium_Ambience_01', format=5, channels=2, frequency=48000, lengthbytes=1975552, lengthpcm=2025330, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.720123.
+[LOG] AsyncThread::threadFunc                  :     Finished Asynchronous operation on sound 00000236FECA7278
+[LOG] SoundI::release                          :     FX_006_LM_MapTutorial_Ambience_01 (000002361EF10E08)
+[LOG] SoundI::release                          :         FX_006_LM_MapTutorial_Ambience_01 (00000235FC5DAC98)
+[LOG] SoundI::release                          :         FX_006_LM_MapTutorial_Ambience_01 (000002361EF10748)
+[LOG] SystemI::createSound                     :     filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 000002361EF10598, queue head = 00000236FF663F48, queue count = 0
+[LOG] AsyncThread::threadFunc                  :     Starting Asynchronous operation on sound 000002361EF10598
+[LOG] SystemI::createSoundInternal             :         Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :         exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :         exinfo->length             = 37917056
+[LOG] SystemI::createSoundInternal             :         exinfo->fileoffset         = 582944
+[LOG] SystemI::createSoundInternal             :         exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlist      = 000002376DECCF40
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekposition = 1500
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :         Stream 0/1: name='FX_006_LM_MapTutorial_Ambience_01', format=5, channels=2, frequency=48000, lengthbytes=5037024, lengthpcm=8023226, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.631831.
+[LOG] AsyncThread::threadFunc                  :     Finished Asynchronous operation on sound 000002361EF10598
+[LOG] SoundI::release                          :     FX_007_LM_MapEquilibrium_Ambience_01 (00000236FECA7278)
+[LOG] SoundI::release                          :         FX_007_LM_MapEquilibrium_Ambience_01 (0000023767F341E8)
+[LOG] SoundI::release                          :         FX_007_LM_MapEquilibrium_Ambience_01 (000002361EF10088)
+[LOG] SystemI::createSound                     :     filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 00000236FECA7278, queue head = 00000236FF663F48, queue count = 0
+[LOG] AsyncThread::threadFunc                  :     Starting Asynchronous operation on sound 00000236FECA7278
+[LOG] SystemI::createSoundInternal             :         Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :         exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :         exinfo->length             = 37917056
+[LOG] SystemI::createSoundInternal             :         exinfo->fileoffset         = 582944
+[LOG] SystemI::createSoundInternal             :         exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlist      = 000002363D544EF0
+[LOG] SystemI::createSoundInternal             :         exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :         exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :         Stream 0/1: name='FX_007_LM_MapEquilibrium_Ambience_01', format=5, channels=2, frequency=48000, lengthbytes=1975552, lengthpcm=2025330, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.720123.
+[LOG] AsyncThread::threadFunc                  :     Finished Asynchronous operation on sound 00000236FECA7278
+[LOG] SoundI::release                          :     FX_006_LM_MapTutorial_Ambience_01 (000002361EF10598)
+[LOG] SoundI::release                          :         FX_006_LM_MapTutorial_Ambience_01 (00000237EDEDD6F8)
+[LOG] SoundI::release                          :         FX_006_LM_MapTutorial_Ambience_01 (00000237179A7F48)
+[LOG] SoundI::release                          :      (00000237EEC58A98)
+[LOG] SoundI::release                          :         FX_101_PL_Grim_Scyche_Swing_01 (000002371B7A5BE8)
+[LOG] SoundI::release                          :      (00000237EEC58088)
+[LOG] SoundI::release                          :         FX_101_PL_Grim_Scyche_Swing_02 (000002371B7A58A8)
+[LOG] SoundI::release                          :      (00000237EEC58368)
+[LOG] SoundI::release                          :         FX_101_PL_Grim_Scyche_Swing_03 (00000237EE8DB578)
+[LOG] SoundI::release                          :      (00000237987CA0F8)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Snow_01 (000002371A8D5BE8)
+[LOG] SoundI::release                          :      (00000237987CAC78)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Snow_02 (000002371A8D5708)
+[LOG] SoundI::release                          :      (000002379BD8B0F8)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Snow_03 (000002362CEF5BF8)
+[LOG] SoundI::release                          :      (00000237EEC581F8)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Snow_04 (000002371B7A5A48)
+[LOG] SoundI::release                          :      (000002379BD8B3D8)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Snow_05 (00000237EB3DE938)
+[LOG] SoundI::release                          :      (00000237466FB368)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Snow_06 (0000023627B72708)
+[LOG] SoundI::release                          :      (00000234688DD288)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Soil_01 (000002379B82E3C8)
+[LOG] SoundI::release                          :      (000002379BD8ACA8)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Soil_02 (000002362CEF60D8)
+[LOG] SoundI::release                          :      (00000237EEC587B8)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Soil_03 (000002371B7A5088)
+[LOG] SoundI::release                          :      (00000237987CA998)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Soil_04 (00000237681D0CB8)
+[LOG] SoundI::release                          :      (00000237987CAB08)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Soil_05 (00000237681D0B18)
+[LOG] SoundI::release                          :      (00000237466FB7B8)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Soil_06 (000002371A8FDBF8)
+[LOG] SoundI::release                          :      (00000237466FBD78)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Brick_01 (0000023627B72088)
+[LOG] SoundI::release                          :      (000002379BD8A858)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Brick_02 (000002379B82E708)
+[LOG] SoundI::release                          :      (00000237987CA828)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Brick_03 (00000237681D1198)
+[LOG] SoundI::release                          :      (000002379BD8B268)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Brick_04 (000002362CEF6758)
+[LOG] SoundI::release                          :      (00000237466FB928)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Brick_05 (0000023627B723C8)
+[LOG] SoundI::release                          :      (000002379BD8AE18)
+[LOG] SoundI::release                          :         FX_107_PL_Grim_Self_Run_Brick_06 (000002379B82E228)
+[LOG] SoundI::release                          :      (00000237987CADE8)
+[LOG] SoundI::release                          :         FX_108_PL_Grim_Self_Jump_01 (00000237681D0978)
+[LOG] SoundI::release                          :      (00000237466FB1F8)
+[LOG] SoundI::release                          :         FX_108_PL_Grim_Self_Jump_02 (0000023627B72A48)
+[LOG] SoundI::release                          :      (00000237466FB648)
+[LOG] SoundI::release                          :         FX_108_PL_Grim_Self_Jump_03 (00000237EB3DDDD8)
+[LOG] SoundI::release                          :      (00000237466FB4D8)
+[LOG] SoundI::release                          :         FX_111_PL_Grim_Self_Land_Snow_01 (000002371A8FD718)
+[LOG] SoundI::release                          :      (00000237466FBA98)
+[LOG] SoundI::release                          :         FX_111_PL_Grim_Self_Land_Snow_02 (000002371A8FD238)
+[LOG] SoundI::release                          :      (00000237987CA3D8)
+[LOG] SoundI::release                          :         FX_111_PL_Grim_Self_Land_Snow_03 (000002371A8D5568)
+[LOG] SoundI::release                          :      (00000237987CA268)
+[LOG] SoundI::release                          :         FX_111_PL_Grim_Self_Land_Brick_01 (000002371A8D5D88)
+[LOG] SoundI::release                          :      (000002379BD8A9C8)
+[LOG] SoundI::release                          :         FX_111_PL_Grim_Self_Land_Brick_02 (000002362CEF5F38)
+[LOG] SoundI::release                          :      (00000237987CA548)
+[LOG] SoundI::release                          :         FX_111_PL_Grim_Self_Land_Brick_03 (000002371A8FD8B8)
+[LOG] SoundI::release                          :      (00000237466FB088)
+[LOG] SoundI::release                          :         FX_110_PL_Grim_Self_WallSlide_01 (0000023627B72568)
+[LOG] SoundI::release                          :      (00000237987CA6B8)
+[LOG] SoundI::release                          :         FX_111_PL_Grim_Self_Land_Soil_01 (00000237681D0498)
+[LOG] SoundI::release                          :      (000002379BD8B548)
+[LOG] SoundI::release                          :         FX_111_PL_Grim_Self_Land_Soil_02 (00000237EB3DE2B8)
+[LOG] SoundI::release                          :      (00000237466FBC08)
+[LOG] SoundI::release                          :         FX_111_PL_Grim_Self_Land_Soil_03 (00000237EB3DE118)
+[LOG] SoundI::release                          :      (000002379BD8AF88)
+[LOG] SoundI::release                          :         FX_112_PL_Grim_Self_WallLeap_01 (000002362CEF5A58)
+[LOG] SoundI::release                          :      (00000237EEC58928)
+[LOG] SoundI::release                          :         FX_112_PL_Grim_Self_WallLeap_02 (000002371B7A5D88)
+[LOG] SoundI::release                          :      (000002379BD8AB38)
+[LOG] SoundI::release                          :         FX_112_PL_Grim_Self_WallLeap_03 (000002379B82E088)
+[LOG] SoundI::release                          :      (00000237EEC584D8)
+[LOG] SoundI::release                          :         FX_102_PL_Grim_Scyche_Spin_01 (00000237EE8DB098)
+[LOG] SoundI::release                          :     FX_007_LM_MapEquilibrium_Ambience_01 (00000236FECA7278)
+[LOG] SoundI::release                          :         FX_007_LM_MapEquilibrium_Ambience_01 (00000237EDEDD898)
+[LOG] SoundI::release                          :         FX_007_LM_MapEquilibrium_Ambience_01 (00000237179A82A8)
+[LOG] SoundI::release                          :     The HampsterDance Song (0000023768152BD8)
+[LOG] SoundI::release                          :         The HampsterDance Song (0000023768DC7808)
+[LOG] SoundI::release                          :         The HampsterDance Song (00000236FECA75D8)
+[LOG] SoundI::release                          :      (00000237EEC58648)
+[LOG] SoundI::release                          :         FX_103_PL_Grim_Scyche_Slam_01 (00000237EE8DB238)
+[LOG] Thread::callback                         :     FMOD Convolution thread finished.
+[LOG] Thread::callback                         :     FMOD Convolution thread finished.
+[LOG] Thread::callback                         :     FMOD Studio update thread finished.
+[LOG] Thread::callback                         :     FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   :     Profiler disconnecting all clients
+[LOG] Thread::callback                         :     FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      :     
+[LOG] LiveUpdate::reset                        :     Reset connection (reason Disconnected)
+[LOG] Thread::callback                         :     FMOD stream thread finished.
+[LOG] Thread::callback                         :     FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   :     Profiler disconnecting all clients
+[LOG] SystemI::close                           :     Closed.
+[LOG] Thread::callback                         :     FMOD Studio bank load thread finished.
+[LOG] Thread::callback                         :     FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      :     
+[LOG] LiveUpdate::reset                        :     Reset connection (reason Disconnected)
+[LOG] Thread::callback                         :     FMOD stream thread finished.
+[LOG] Thread::callback                         :     FMOD mixer thread finished.
+[LOG] SystemI::close                           :     Closed.
+[LOG] Thread::callback                         :     FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         :     FMOD file thread finished.

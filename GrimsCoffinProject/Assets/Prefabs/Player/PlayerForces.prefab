@@ -356,15 +356,57 @@ MonoBehaviour:
   frontWallCheckPoint: {fileID: 7342308081699046411}
   backWallCheckPoint: {fileID: 3769127713801327265}
   wallCheckSize: {x: 0.2, y: 0.75}
-  respawnPoint: {x: 0, y: 0}
-  maxHP: 100
   currentHP: 100
-  maxSP: 50
   currentSP: 50
   invincibilityTimer: 0
   hasInvincibility: 0
   hasDashInvincibility: 0
   interactionPrompt: {fileID: 4303321463941137360}
+  footstepSpeed: 3
+  walkSFX:
+    Guid:
+      Data1: -1940182391
+      Data2: 1230630669
+      Data3: 931613840
+      Data4: 702799445
+    Path: event:/PL/Grim/107_Self_Run
+  jumpSFX:
+    Guid:
+      Data1: 1562111585
+      Data2: 1194535205
+      Data3: 2106431384
+      Data4: -1159510018
+    Path: event:/PL/Grim/108_Self_Jump
+  wallLeapSFX:
+    Guid:
+      Data1: 1798948769
+      Data2: 1295622374
+      Data3: 1695067068
+      Data4: -1134701380
+    Path: event:/PL/Grim/112_Self_WallLeap
+  landSFX:
+    Guid:
+      Data1: 2097523222
+      Data2: 1222561803
+      Data3: -1682239845
+      Data4: 1683627875
+    Path: event:/PL/Grim/111_Self_Land
+  dashSfx:
+    Guid:
+      Data1: -1951803400
+      Data2: 1296177948
+      Data3: -1118050122
+      Data4: 1210164649
+    Path: event:/PL/Grim/109_Self_Dash
+  slidingSFX:
+    Guid:
+      Data1: -1419737013
+      Data2: 1169182696
+      Data3: -1304510785
+      Data4: 1072419083
+    Path: event:/PL/Grim/110_Self_WallSlide
+  StandingGroundPram: PlayerStandGround
+  groundNames: 0
 --- !u!114 &5297759798866308537
 MonoBehaviour:
   m_ObjectHideFlags: 0

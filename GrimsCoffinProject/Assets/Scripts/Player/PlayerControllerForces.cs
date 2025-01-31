@@ -77,9 +77,10 @@ public class PlayerControllerForces : MonoBehaviour
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
 
-    [Header("FMOD Events and Controller")]
-    
+
     private float currentTime;
+
+    [Header("FMOD Events and Controller")]
     [Range(1f, 10f)]
     [Tooltip("This slide controls how fast you want your footstep speed to be")]
     [SerializeField] public float footstepSpeed = 3f;
@@ -90,6 +91,10 @@ public class PlayerControllerForces : MonoBehaviour
     [Tooltip("FMOD events for the jumping mechanism")]
     [SerializeField] public EventReference jumpSFX;
     protected EventInstance jumpInstance;
+
+    [Tooltip("FMOD events for the wallJumping mechanism")]
+    [SerializeField] public EventReference wallLeapSFX;
+    protected EventInstance wallLeapInstance;
 
     [Tooltip("FMOD events for the land-after-jump mechanism")]
     [SerializeField] public EventReference landSFX;
@@ -104,14 +109,6 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public EventReference slidingSFX;
     protected EventInstance slideInstance;
     private bool isSlidingPlayed = false;
-
-    [Tooltip("FMOD events for the weaponSwing mechanism")]
-    [SerializeField] public EventReference weaponSFX;
-    protected EventInstance weaponInstance;
-
-
-
-
 
 
     //Singleton so the controller can be referenced across scripts
@@ -150,7 +147,7 @@ public class PlayerControllerForces : MonoBehaviour
         jumpInstance = RuntimeManager.CreateInstance(jumpSFX);
         landInstance = RuntimeManager.CreateInstance(landSFX);
         slideInstance = RuntimeManager.CreateInstance(slidingSFX);
-        weaponInstance = RuntimeManager.CreateInstance(weaponSFX);
+        wallLeapInstance = RuntimeManager.CreateInstance(wallLeapSFX);
 
 
     }
@@ -242,6 +239,8 @@ public class PlayerControllerForces : MonoBehaviour
             //Gravity check
             UpdateGravityVariables();
         }
+
+
     }
 
     private void FixedUpdate()
@@ -434,8 +433,6 @@ public class PlayerControllerForces : MonoBehaviour
                 }*/
             }
         }
-
-        playWeaponSFX(weaponInstance);
     }
 
     public void OnCameraLook(InputValue value)
@@ -1178,10 +1175,11 @@ public class PlayerControllerForces : MonoBehaviour
     private void playJumpSFX(EventInstance jumpInstance, int jumpStatus)
     {
         stopSlideSFX(slideInstance);
-        jumpInstance.getDescription(out EventDescription jumpDescription);
-        jumpDescription.getParameterDescriptionByIndex(0, out PARAMETER_DESCRIPTION parameter);
-        jumpInstance.setParameterByID(parameter.id, jumpStatus);
         jumpInstance.start();
+        if (jumpStatus == 1) {
+            slideInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            wallLeapInstance.start();
+            }
     }
     
     private void playDashSFX()
@@ -1210,13 +1208,7 @@ public class PlayerControllerForces : MonoBehaviour
     {
         slideInstance.setParameterByName("SlideStatus", 1);
         isSlidingPlayed = false;
-        Debug.Log("Stopped Sliding");
+        //Debug.Log("Stopped Sliding");
 
     }
-
-    private void playWeaponSFX(EventInstance weaponInstance)
-    {
-        weaponInstance.start();
-    }
-
 }

@@ -53,7 +53,7 @@
 			<destination>{df9033c7-4261-41c7-8c38-4957c8510c0e}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{0194a567-92c3-4149-98db-245fdc14fa39}</destination>
+			<destination>{c4c4b695-085d-4729-a934-abe1062a0adb}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{1fbf033d-2e57-4aaa-8932-22ed239a06d8}" />
@@ -112,6 +112,7 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{36d642de-a9e5-44a1-9bb0-9887bfcd2197}">
 		<relationship name="effects">
+			<destination>{ae722c79-8128-4a43-9a00-76318f3a3924}</destination>
 			<destination>{6e6e6412-17a5-4813-9d13-c7f157494f20}</destination>
 		</relationship>
 	</object>
@@ -124,10 +125,73 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{9f764636-d715-4376-8236-05f23b2c5c4a}">
 		<relationship name="effects">
+			<destination>{f9dcd04b-1275-4f3f-9944-01a8e3eb8984}</destination>
+			<destination>{e6ca6950-2632-4d3b-90ef-9c3c18c9afb8}</destination>
+			<destination>{42144c65-2412-4f64-9cf1-5c2ae641ae30}</destination>
 			<destination>{295eafc7-cc57-4bf0-b23b-b2472413e22c}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{a7e0ca2c-dfc3-466a-bc8c-deee8c27b062}" />
+	<object class="PitchShifterEffect" id="{ae722c79-8128-4a43-9a00-76318f3a3924}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
+		<property name="pitch">
+			<value>1</value>
+		</property>
+		<property name="overlap">
+			<value>1</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{d2991129-be52-4489-b2f4-b9f5562ae055}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{6e6e6412-17a5-4813-9d13-c7f157494f20}" />
+	<object class="PitchShifterEffect" id="{f9dcd04b-1275-4f3f-9944-01a8e3eb8984}">
+		<property name="pitch">
+			<value>1</value>
+		</property>
+		<property name="overlap">
+			<value>1</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{2fe10eab-f937-43f4-9ef0-5a930b456645}</destination>
+		</relationship>
+	</object>
+	<object class="LimiterEffect" id="{e6ca6950-2632-4d3b-90ef-9c3c18c9afb8}">
+		<property name="ceiling">
+			<value>-1</value>
+		</property>
+	</object>
+	<object class="ConvolutionReverbEffect" id="{42144c65-2412-4f64-9cf1-5c2ae641ae30}">
+		<property name="endFrame">
+			<value>126873</value>
+		</property>
+		<property name="wetLevel">
+			<value>-39</value>
+		</property>
+		<property name="dryLevel">
+			<value>0</value>
+		</property>
+		<relationship name="referenceableData">
+			<destination>{556c08df-1919-4bcc-b72b-7267aa2d1379}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{295eafc7-cc57-4bf0-b23b-b2472413e22c}" />
+	<object class="RandomizerModulator" id="{d2991129-be52-4489-b2f4-b9f5562ae055}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>10.5</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{2fe10eab-f937-43f4-9ef0-5a930b456645}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>10.5</value>
+		</property>
+	</object>
 </objects>

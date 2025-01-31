@@ -7,7 +7,7 @@ studio.menu.addMenuItem({
     execute: function () {
 
         var dataTableComp = [
-            "LM,MapDenial,WallBreak,001",
+            "LM,MapGeneral,WallBreak,001",
             "LM,MapDenial,SpikeFall,002",
             "LM,MapDenial,SpikeCollision,003",
             "LM,MapDenial,Waterdrop,004",
