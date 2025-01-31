@@ -12,10 +12,10 @@ public class Spirit : Interactable
 
     public enum SpiritID
     {
-        Spirit1 = 1,
-        Spirit2 = 2,
-        Spirit3 = 3,
-        Spirit4 = 4,
+        MapSpirit = 1,
+        DashSpirit = 2,
+        ScytheThrowSpirit = 3,
+        HealthSpirit = 4,
     }
 
     [SerializeField] public SpiritState spiritState;
@@ -43,7 +43,8 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
-        dialogueManager.ShowDialogueForSpirit(spiritID, spiritState);
+        if (dialogueManager != null) 
+            dialogueManager.ShowDialogueForSpirit(spiritID, spiritState);
 
         if (spiritState == SpiritState.Uncollected)
         {

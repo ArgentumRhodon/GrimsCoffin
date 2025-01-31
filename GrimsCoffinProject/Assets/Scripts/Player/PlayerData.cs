@@ -196,10 +196,16 @@ public class PlayerData : ScriptableObject
     public float aerialDownDamage;
     public float aerialImpactDamage;
 
-    [Space(20)]
+    [Space(15)]
 
     [Header("Scythe Throw")]
     public bool canScytheThrow;
+
+    [Space(20)]
+
+    [Header("Map")]
+    public bool canViewMap;
+
 
     //Unity Callback, called when the inspector updates
     private void OnValidate()

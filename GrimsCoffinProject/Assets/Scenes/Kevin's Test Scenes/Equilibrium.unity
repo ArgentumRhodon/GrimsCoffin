@@ -811,7 +811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1960859601187753200, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: currentHP
-      value: 50
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23764,10 +23764,12 @@ MonoBehaviour:
   gameUI: {fileID: 1863953469}
   areaText: {fileID: 8183291775625397402}
   saveIcon: {fileID: 0}
+  minimapUI: {fileID: 0}
   fullMapUI: {fileID: 0}
   mapRooms: []
   dialogueUI: {fileID: 952499286}
   playerInput: {fileID: 584877822}
+  scytheThrowInMenu: 0
 --- !u!4 &2117058707
 Transform:
   m_ObjectHideFlags: 0
@@ -23815,7 +23817,7 @@ MonoBehaviour:
   defaultXPos: -11.08
   defaultYPos: -2.85
   defaultSceneName: OnboardingLevel
-  defaultHP: 125
+  defaultHP: 50
 --- !u!114 &2117058710
 MonoBehaviour:
   m_ObjectHideFlags: 0

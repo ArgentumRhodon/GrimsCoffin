@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject areaText;
     [SerializeField] private GameObject saveIcon;
 
+    [SerializeField] private GameObject minimapUI;
     [SerializeField] private GameObject fullMapUI;
     [SerializeField] private List<GameObject> mapRooms;
     [SerializeField] public GameObject dialogueUI;
@@ -43,6 +44,9 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerControllerForces.Instance.Data.canViewMap && minimapUI != null)
+            minimapUI.SetActive(true);
+
         if (damageVignette == null || !damageVignette.gameObject.activeInHierarchy)
             return;
 
@@ -85,6 +89,9 @@ public class UIManager : MonoBehaviour
 
     public void ToggleMap()
     {
+        if (!PlayerControllerForces.Instance.Data.canViewMap)
+            return;
+
         bool mapActive = !fullMapUI.activeInHierarchy;
 
         gameUI.SetActive(!mapActive);
@@ -129,7 +136,7 @@ public class UIManager : MonoBehaviour
             for (int i = 0; i < roomsExplored.Count; i++)
             {
                 {
-                    if (roomsExplored[i])
+                    if (roomsExplored[i] && mapRooms.Count > 0)
                         mapRooms[i].SetActive(true);
                 }
             }
