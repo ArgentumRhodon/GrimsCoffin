@@ -35,6 +35,8 @@ public class PitRespawn : MonoBehaviour
     //[SerializeField]
     //private EnemyManager exitEnemyMgr;
 
+    private float damage = 5f;
+
     public Vector3 SpawnPos
     {
         get { return spawnPos; }
@@ -52,18 +54,21 @@ public class PitRespawn : MonoBehaviour
         
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(Transition(collision));
+            //StartCoroutine(Transition(collision.collider));
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerControllerForces.Instance.Sleep(2f);
+            PlayerControllerForces.Instance.TakeDamage(damage);
+            StartCoroutine(Transition(collision.collider));
             //enterEnemyMgr.SpawnEnemies();
             //exitEnemyMgr.DeleteEnemies();
         }
@@ -89,6 +94,7 @@ public class PitRespawn : MonoBehaviour
         //    yield return Fade(start, target, 0.5f);
         //    yield return FadeIn(0.5f);
         //}
+
 
         yield return FadeOut(0.5f);
         col.gameObject.transform.position = spawnPos;

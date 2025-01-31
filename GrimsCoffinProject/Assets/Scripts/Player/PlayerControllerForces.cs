@@ -530,6 +530,8 @@ public class PlayerControllerForces : MonoBehaviour
     //Walking
     private void Walk(float lerpAmount)
     {
+        if (isSleeping)
+            return;
         //Get direction and normalize it to either 1 or -1 
         int direction = XInputDirection();
         if (direction != 0)
@@ -1229,7 +1231,8 @@ public class PlayerControllerForces : MonoBehaviour
         //Sleeping
         SetGravityScale(0);
         isSleeping = true;
-      
+        rb.velocity = Vector2.zero;
+
         //Combat force calculations       
         if (playerState.IsAttacking)
         {
