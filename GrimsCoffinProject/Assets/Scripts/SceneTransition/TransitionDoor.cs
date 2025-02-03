@@ -76,8 +76,11 @@ public class TransitionDoor : MonoBehaviour
                 PlayerControllerForces.Instance.Data.canWallJump = true;
             }
 
-            enterEnemyMgr.SpawnEnemies();
-            exitEnemyMgr.DeleteEnemies();
+            if (enterEnemyMgr != null)
+                enterEnemyMgr.SpawnEnemies();
+
+            if (exitEnemyMgr != null)
+                exitEnemyMgr.DeleteEnemies();
         }
     }
 

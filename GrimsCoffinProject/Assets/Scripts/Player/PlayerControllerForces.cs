@@ -151,6 +151,8 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canDoubleJump = PersistentDataManager.Instance.CanDoubleJump;
         Data.canWallJump = PersistentDataManager.Instance.CanWallJump;
         Data.canDash = PersistentDataManager.Instance.CanDash;
+        Data.canScytheThrow = PersistentDataManager.Instance.CanScytheThrow;
+        Data.canViewMap = PersistentDataManager.Instance.CanViewMap;
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
