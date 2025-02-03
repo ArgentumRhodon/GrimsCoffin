@@ -9,6 +9,7 @@ public class Spirit : Interactable
     
     [SerializeField] public SpiritID spiritID;
     [SerializeField] public DialogueManager dialogueManager;
+    [SerializeField] private Animator animator;
 
     public enum SpiritID
     {
@@ -24,6 +25,11 @@ public class Spirit : Interactable
         Uncollected = 0,
         Collected = 1,
         Idle = 2,
+    }
+
+    private void Awake()
+    { 
+        animator.SetInteger("SpiritID", (int)spiritID);
     }
 
     // Start is called before the first frame update

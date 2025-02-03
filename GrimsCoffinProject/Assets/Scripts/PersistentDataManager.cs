@@ -202,6 +202,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("CanDoubleJump", 0);
         PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanDash", 0);
+        PlayerPrefs.SetInt("CanViewMap", 0);
 
         //Reset Spirit Data
         PlayerPrefs.SetString("MapSpirit", "Uncollected");

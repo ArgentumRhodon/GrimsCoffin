@@ -109,6 +109,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spiritID: 1
   dialogueManager: {fileID: 0}
+  spiritAnimations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  animator: {fileID: 1128898796858271956}
   spiritState: 0
 --- !u!1 &5299318684820721064
 GameObject:
@@ -120,6 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7640566926546664160}
   - component: {fileID: 9065631834083472131}
+  - component: {fileID: 1128898796858271956}
   m_Layer: 0
   m_Name: Spirit
   m_TagString: Untagged
@@ -184,7 +191,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Sprite: {fileID: 4112221032881069125, guid: 60c0e5f01475a5642ac92d6d757b177a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -195,3 +202,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1128898796858271956
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5299318684820721064}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 09479cc9d177ca04bb1d838de68a1fbc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
