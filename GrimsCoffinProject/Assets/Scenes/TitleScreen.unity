@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 264562837}
   - component: {fileID: 264562836}
   - component: {fileID: 264562835}
+  - component: {fileID: 264562839}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -393,6 +394,68 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &264562839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264562834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c3011052be6ae478f3e26e1939f210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapMX1:
+    Guid:
+      Data1: 585692706
+      Data2: 1197926912
+      Data3: -1598529867
+      Data4: 2029090639
+    Path: event:/MX/003_MenuTrack
+  mapMX2:
+    Guid:
+      Data1: 585692706
+      Data2: 1197926912
+      Data3: -1598529867
+      Data4: 2029090639
+    Path: event:/MX/003_MenuTrack
+  mapMX3:
+    Guid:
+      Data1: 585692706
+      Data2: 1197926912
+      Data3: -1598529867
+      Data4: 2029090639
+    Path: event:/MX/003_MenuTrack
+  mapAmbSFX1:
+    Guid:
+      Data1: -519826320
+      Data2: 1192514345
+      Data3: -602550374
+      Data4: -849189171
+    Path: event:/LM/MapTutorial/006_Ambience
+  mapAmbSFX2:
+    Guid:
+      Data1: 782761443
+      Data2: 1323401157
+      Data3: 69067697
+      Data4: -987127561
+    Path: event:/LM/MapDenial/005_Ambience
+  mapAmbSFX3:
+    Guid:
+      Data1: -313055506
+      Data2: 1319516642
+      Data3: 1376337286
+      Data4: -1840170528
+    Path: event:/LM/MapEquilibrium/007_Ambience
+  StandingGroundPram: Global_UI_Vol
+  groundName: 1
+  sliderValueA: 0.5
+  valueA: 
+  sliderValueB: 0.5
+  valueB: 
+  sliderValueC: 0.5
+  valueC: 
 --- !u!114 &278785774
 MonoBehaviour:
   m_ObjectHideFlags: 0
