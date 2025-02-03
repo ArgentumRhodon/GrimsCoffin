@@ -30,6 +30,8 @@ public class PersistentDataManager : MonoBehaviour
     public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 0) == 1; } }
     public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 0) == 1; } }
     public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 0) == 1; } }
+    public bool CanScytheThrow { get { return PlayerPrefs.GetInt("CanScytheThrow", 0) == 1; } }
+    public bool CanViewMap { get { return PlayerPrefs.GetInt("CanViewMap", 0) == 1; } }
 
     //Whether or not the Player is entering the Denial Area Scene for the first time
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
@@ -95,9 +97,45 @@ public class PersistentDataManager : MonoBehaviour
 
             //Show save icon when spirit is collected
             if (spirit.spiritState == Spirit.SpiritState.Collected)
+            {
                 StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
-        }
+            }
 
+            //Spirit Ability Unlocks
+            else if (spirit.spiritState == Spirit.SpiritState.Idle)
+            {
+                switch (spirit.spiritID)
+                {
+                    //Unlocks Minimap and Map access
+                    case Spirit.SpiritID.MapSpirit:
+                        PlayerPrefs.SetInt("CanViewMap", 1);
+                        break;
+
+                    //Unlocks Dash
+                    case Spirit.SpiritID.DashSpirit:
+                        PlayerControllerForces.Instance.Data.canDash = true;
+                        PlayerPrefs.SetInt("CanDash", 1);
+                        break;
+
+                    //Unlocks Scythe Throw and Spirit Power
+                    case Spirit.SpiritID.ScytheThrowSpirit:
+                        PlayerControllerForces.Instance.Data.canScytheThrow = true;
+                        PlayerControllerForces.Instance.Data.maxSP = 50;
+                        PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
+                        PlayerPrefs.SetInt("CanScytheThrow", 1);
+                        PlayerPrefs.SetFloat("MaxSP", 50);
+                        break;
+
+                    //Unlocks Health Upgrades and gives one for free
+                    case Spirit.SpiritID.HealthSpirit:
+                        PlayerControllerForces.Instance.Data.maxHP += 15;
+                        PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP; 
+                        PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
+                        break;
+                }
+            }
+                
+        }
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
     }
 
@@ -166,9 +204,10 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("CanDash", 0);
 
         //Reset Spirit Data
-        PlayerPrefs.SetString("Spirit1", "Uncollected");
-        PlayerPrefs.SetString("Spirit2", "Uncollected");
-        PlayerPrefs.SetString("Spirit3", "Uncollected");
+        PlayerPrefs.SetString("MapSpirit", "Uncollected");
+        PlayerPrefs.SetString("DashSpirit", "Uncollected");
+        PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
+        PlayerPrefs.SetString("HealthSpirit", "Uncollected");
 
         //Clear Onboarding Map Data
         for (int i = 0; i < 20; i++)
