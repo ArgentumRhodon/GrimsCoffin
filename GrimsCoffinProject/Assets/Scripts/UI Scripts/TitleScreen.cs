@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 public class TitleScreen : MonoBehaviour
 {
+    [SerializeField] private GameObject titleScreen;
     [SerializeField] private GameObject controlsScreen;
     [SerializeField] private GameObject newGame;
     [SerializeField] private GameObject continueButton;
@@ -24,7 +25,7 @@ public class TitleScreen : MonoBehaviour
     {
         PersistentDataManager.Instance.ToggleFirstSpawn(true);
 
-        if (PersistentDataManager.Instance.LastSavedScene == "NewGame")
+        if (PersistentDataManager.Instance.LastSavedScene == "OnboardingLevel")
             continueButton.GetComponent<Button>().interactable = false;
         else
             continueButton.GetComponent<Button>().interactable = true;
@@ -57,7 +58,7 @@ public class TitleScreen : MonoBehaviour
     {
         PersistentDataManager.Instance.ResetSaveData();
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
-        SceneManager.LoadScene("ArenaPlaytestLevel");
+        SceneManager.LoadScene("Intro Cutscene");
     }
     public void ContinueGame()
     {
@@ -69,10 +70,18 @@ public class TitleScreen : MonoBehaviour
         Application.Quit();
     }
 
+    public void OnCancel()
+    {
+        if (controlsScreen.activeInHierarchy)
+        {
+            ToggleControls();
+        }
+    }
+
     public void ToggleControls()
     {
         controlsScreen.SetActive(!controlsScreen.activeInHierarchy);
-        this.gameObject.SetActive(!this.gameObject.activeInHierarchy);
+        titleScreen.SetActive(!titleScreen.activeInHierarchy);
 
         if (controlsScreen.activeInHierarchy)
             EventSystem.current.SetSelectedGameObject(back);

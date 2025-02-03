@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class MeleeBaseState : CState
 {
@@ -10,8 +11,7 @@ public class MeleeBaseState : CState
     protected Animator animator;
 
     // Player Animation Stuff
-    protected Animator playerAnimator_T; // Top
-    protected Animator playerAnimator_B; // Bottom
+    protected Animator playerAnimator; // Top
 
     //Bool to check if it should continue the combo or not
     protected bool shouldCombo; 
@@ -21,11 +21,10 @@ public class MeleeBaseState : CState
 
     protected PlayerCombat playerCombat;
 
-
     //Cached hit collider component of this attack
     protected Collider2D hitCollider;
     //Cached already struck objects of said attack to avoid overlapping attacks on same target
-    private List<Collider2D> collidersDamaged;
+    protected List<Collider2D> collidersDamaged;
 
 
     public override void OnEnter(CStateMachine _stateMachine)
@@ -33,8 +32,7 @@ public class MeleeBaseState : CState
         base.OnEnter(_stateMachine);
         playerCombat = _stateMachine.GetComponent<PlayerCombat>();
         animator = playerCombat.scytheAnimator;
-        playerAnimator_T = playerCombat.animator_T;
-        playerAnimator_B = playerCombat.animator_B;
+        playerAnimator = playerCombat.animator;
         collidersDamaged = new List<Collider2D>();
         hitCollider = playerCombat.hitbox;
     }
@@ -63,6 +61,8 @@ public class MeleeBaseState : CState
         filter.useTriggers = true;
         int colliderCount = Physics2D.OverlapCollider(hitCollider, filter, collidersToDamage);
 
+        //Debug.Log("Attack is running");
+
         for (int i = 0; i < colliderCount; i++)
         {
             if (!collidersDamaged.Contains(collidersToDamage[i]))
@@ -71,12 +71,33 @@ public class MeleeBaseState : CState
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
                 {
-                    collidersToDamage[i].gameObject.GetComponent<Enemy>().TakeDamage(attackDamage);
-                    //Debug.Log("Enemy Has Taken: " + attackIndex + " Damage");
-                    collidersDamaged.Add(collidersToDamage[i]);
+                    RegisterAttack(collidersToDamage[i]);
                 }
             }
         }
+    }
 
+    protected virtual void RegisterAttack(Collider2D collidersToDamage)
+    {
+        Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
+        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
+        collidersDamaged.Add(collidersToDamage);
+    }
+
+    protected virtual Vector2 KnockbackForce(Vector2 enemyPos)
+    {
+        //Check direction for knockback
+        int direction;
+        if (IsPlayerOnRight(enemyPos))
+            direction = -1;
+        else
+            direction = 1;
+
+        return new Vector2(direction, 0);
+    }
+
+    protected bool IsPlayerOnRight(Vector2 enemyPos)
+    {
+        return playerCombat.gameObject.transform.position.x > enemyPos.x;
     }
 }

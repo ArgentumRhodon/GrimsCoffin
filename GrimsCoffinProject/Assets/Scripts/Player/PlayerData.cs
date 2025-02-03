@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [CreateAssetMenu(menuName = "Player Data")]
 public class PlayerData : ScriptableObject
 {
     public float deadzone;
+    public float attackDirectionDeadzone;
     public float cameraOffset;
     public float cameraWalkOffset;
     public float cameraDashOffset;
@@ -122,12 +124,15 @@ public class PlayerData : ScriptableObject
     [Space(10)]
 
     [Header("Main Combo Attack")]
-    public bool canTurnDuringCombo;
-    public float comboSleepTime; //Sleep time after combo
+    public bool canTurnDuringCombo; //Can turn around during the combo or stuck in one direction
+    public float comboCooldownTime; //Sleep time after combo
     public float attackBufferTime; //Attack buffer to track if the player should stay in the combo or not
-    public float comboAerialTime; //Time player is in the air
-    public float comboTotal; //Length of the combo
-    public float comboAerialPForce;
+    public float comboSleepTime; //Time player floats in the air
+    public float comboTotal; //Length of the total phases of the combo that the play has
+    public float comboAerialPForce; //Player force when attacking 
+    public float comboGroundPForce; //Player force when attacking on ground 
+    public float comboAttackDuration; //How long the duration of the attack should take
+
 
     [Space(15)]
 
@@ -139,8 +144,11 @@ public class PlayerData : ScriptableObject
     [Space(15)]
 
     [Header("Ground Up Attack")]
+    public bool canGUpAttack;
+
     public float groundUpwardPForce;
-    public float groundUpwardEForce;
+    public Vector2 groundUpwardEForce;
+    public float gUpAttackDuration; //How long the duration of the attack should take
 
     [Space(15)]
 
@@ -149,9 +157,13 @@ public class PlayerData : ScriptableObject
     [Space(15)]
 
     [Header("Ground Down Attack")]
+    public bool canGDownAttack;
+
     public float groundDownwardPForce;
     public float groundDownwardEForce;
+    [Range(0.01f, 2f)] public float gDownWalkModifier;
     public float gdHoldDuration;
+    public float gDownAttackDuration; //How long the duration of the attack should take
 
     [Space(15)]
 
@@ -160,7 +172,10 @@ public class PlayerData : ScriptableObject
     [Space(15)]
 
     [Header("Aerial Up Attack")]
+    public bool canAUpAttack;
+
     public float hookPlayerForce;
+    public float aUpAttackDuration; //How long the duration of the attack should take
 
     [Space(15)]
 
@@ -169,13 +184,28 @@ public class PlayerData : ScriptableObject
     [Space(15)]
 
     [Header("Aerial Down Attack")]
+    public bool canADownAttack;
+
     public float aerialDownwardPForce;
     public float aerialDownwardEForce;
+    public float aDownAttackDuration; //How long the duration of the attack should take
+    public float aDownAttackReset;
 
     [Space(15)]
 
     public float aerialDownDamage;
     public float aerialImpactDamage;
+
+    [Space(15)]
+
+    [Header("Scythe Throw")]
+    public bool canScytheThrow;
+
+    [Space(20)]
+
+    [Header("Map")]
+    public bool canViewMap;
+
 
     //Unity Callback, called when the inspector updates
     private void OnValidate()

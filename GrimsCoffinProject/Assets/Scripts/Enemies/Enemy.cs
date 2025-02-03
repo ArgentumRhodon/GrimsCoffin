@@ -1,6 +1,7 @@
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -11,8 +12,9 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float movementSpeed;
     [SerializeField] protected float visionRange;
-    [SerializeField] protected float knockback;
+    [SerializeField] [Range(0f, 5f)] protected float knockbackMult;
     [SerializeField] protected Collider2D hitbox;
+    [SerializeField] private bool canBePulledDown;
 
     [Header("GameObjects")]
     [SerializeField] protected Transform enemyGFX;
@@ -29,10 +31,22 @@ public abstract class Enemy : MonoBehaviour
     protected float localDeltaTime;
     protected bool isSleeping;
 
+    //DownAttack
+    protected bool isHitDown;
+
+    //Positions used for state checks
+    [Header("Tile Checks")]
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform groundCheckPoint;
+    //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
+    [SerializeField]
+    private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
+
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        //Get components for later reference
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<Collider2D>();
@@ -45,40 +59,25 @@ public abstract class Enemy : MonoBehaviour
     //Enemy should implement their own update functionality
     protected abstract void FixedUpdate();
 
-    //Destroy enemy, used for when it dies and when it despawns
-    public virtual void DestroyEnemy()
-    {
-        this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
-        Destroy(this.gameObject);
-    }
-
     //Take damage and if below zero, destroy the enemy
-    public virtual void TakeDamage(float damage = 1)
+    public virtual void TakeDamage(Vector2 knockbackForce, float damage = 1)
     {
         //Delay enemy movement
         CheckPlayerLoc();
-        Sleep(0.5f);
+        Sleep(0.5f, knockbackForce);
 
+        //Remove health
         health -= damage;
+
+        //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
 
+        //Enemy death calculation
         if (health <= 0)
             DestroyEnemy();
     }
 
-    protected virtual void Knockback()
-    {
-        //Check direction for knockback
-        int direction;
-        if (isPlayerOnRight)
-            direction = -1;
-        else
-            direction = 1;
-
-        rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
-        rb.AddForce(new Vector2(direction, 0) * knockback, ForceMode2D.Impulse);
-    }
-
+    //Damage player if colliding with the enemy
     protected void CheckCollisionWithPlayer()
     {
         Collider2D[] collidersToDamage = new Collider2D[10];
@@ -101,7 +100,10 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected void CheckPlayerLoc()
+    //Helper methods ----------------------------------------------
+
+    //Check player location, used when player takes damage (may not be needed since knockback is calculated in the combat scripts)
+    private void CheckPlayerLoc()
     {
         if(playerTarget.position.x > transform.position.x)
             isPlayerOnRight = true;
@@ -109,11 +111,33 @@ public abstract class Enemy : MonoBehaviour
             isPlayerOnRight = false;
     }
 
+    //Destroy enemy, used for when it dies and when it despawns
+    public virtual void DestroyEnemy()
+    {
+        this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
+        Destroy(this.gameObject);
+    }
 
-    private void Sleep(float duration)
+    //Add knockback to the enemy based off a given force
+    protected virtual void Knockback(Vector2 knockbackForce)
+    {
+        //Reset current velocity to make sure it doesn't stack
+        rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
+
+        //Impulse force using the knockbackForce parameter, consider knockbackMult, don't apply knockback if 0
+        rb.AddForce(knockbackForce * knockbackMult, ForceMode2D.Impulse);
+    }
+
+    public bool Grounded()
+    {
+        return Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
+    }
+
+    //Sleep methods to run, end, and execute the sleep coroutine
+    private void Sleep(float duration, Vector2 knockbackForce)
     {
         //Method to help delay time for movement
-        StartCoroutine(nameof(PerformSleep), duration);
+        StartCoroutine(PerformSleep(duration, knockbackForce));
     }
 
     private void EndSleep()
@@ -123,23 +147,28 @@ public abstract class Enemy : MonoBehaviour
         isSleeping = false;
     }
 
-    private IEnumerator PerformSleep(float duration)
+    private IEnumerator PerformSleep(float duration, Vector2 knockbackForce)
     {
         //Sleeping
         isSleeping = true;
 
         //Deal knockback impulse
-        Knockback();
+        Knockback(knockbackForce);
         yield return new WaitForSecondsRealtime(duration / 8);
 
         //Reset impulse from combat
-        if (knockback != 0)
+        if (knockbackMult != 0)
             rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
 
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
-
    
         isSleeping = false;
     }
 
+    //Wall collision check gizmos
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(groundCheckPoint.position, groundCheckSize);
+    }
 }

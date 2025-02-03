@@ -1,4 +1,5 @@
 using Pathfinding.Ionic.Zip;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class PersistentDataManager : MonoBehaviour
     public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave", defaultSceneName); } }
 
     //Last Saved Room the player was in when they saved the game
-    public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 0); } }
+    public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 1); } }
 
     //Whether or not this is the player's first time spawning into the game
     public bool FirstSpawn { get { return PlayerPrefs.GetInt("FirstSpawn", 0) == 1; } }
@@ -26,9 +27,11 @@ public class PersistentDataManager : MonoBehaviour
     public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier"); } }
 
     //Player Ability Unlocks
-    public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 1) == 1; } }
-    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 1) == 1; } }
-    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 1) == 1; } }
+    public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 0) == 1; } }
+    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 0) == 1; } }
+    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 0) == 1; } }
+    public bool CanScytheThrow { get { return PlayerPrefs.GetInt("CanScytheThrow", 0) == 1; } }
+    public bool CanViewMap { get { return PlayerPrefs.GetInt("CanViewMap", 0) == 1; } }
 
     //Whether or not the Player is entering the Denial Area Scene for the first time
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
@@ -37,9 +40,9 @@ public class PersistentDataManager : MonoBehaviour
     [SerializeField] private List<Room> rooms;
 
     //Default values to spawn the player at when a New Game is started
-    [SerializeField] private float defaultXPos = -16;
-    [SerializeField] private float defaultYPos = -1.7f;
-    [SerializeField] private string defaultSceneName = "NewGame";
+    [SerializeField] private float defaultXPos = 0;
+    [SerializeField] private float defaultYPos = 0;
+    [SerializeField] private string defaultSceneName = "OnboardingLevel";
     [SerializeField] private float defaultHP = 125;
 
     private void Awake()
@@ -62,14 +65,6 @@ public class PersistentDataManager : MonoBehaviour
         //If the player is in the cutscene between Onboarding and Denial Area, transition their stats
         if (SceneManager.GetActiveScene().name == "CutScene")
             TransitionToDenialArea();
-
-        /*PlayerControllerForces.Instance.Data.maxHP = MaxHP;
-        PlayerControllerForces.Instance.Data.maxSP = MaxSP;
-
-        PlayerControllerForces.Instance.Data.canDoubleJump = CanDoubleJump;
-        PlayerControllerForces.Instance.Data.canDash = CanDash;
-        PlayerControllerForces.Instance.Data.canWallJump = CanWallJump;*/
-        //PlayerControllerForces.Instance.Data.damageMultiplier = MaxHP;
     }
 
     //Returns whether a spirit is collected or not (for spawning them in The Drift vs. Equilibrium)
@@ -86,15 +81,61 @@ public class PersistentDataManager : MonoBehaviour
             return false;
     }
 
+    //Return the state of the specified spirit
+    public Spirit.SpiritState GetSpiritState(Spirit spirit)
+    {
+        Enum.TryParse<Spirit.SpiritState>(PlayerPrefs.GetString(spirit.spiritID.ToString()), true, out Spirit.SpiritState spiritState);
+        return spiritState;
+    }
+
     //Updates a Spirit's state (i.e. collecting or talking to the spirit)
     public void UpdateSpiritState(Spirit spirit)
     {
         if (spirit.spiritState != Spirit.SpiritState.Idle)
         {
             spirit.spiritState++;
-            StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
-        }
 
+            //Show save icon when spirit is collected
+            if (spirit.spiritState == Spirit.SpiritState.Collected)
+            {
+                StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
+            }
+
+            //Spirit Ability Unlocks
+            else if (spirit.spiritState == Spirit.SpiritState.Idle)
+            {
+                switch (spirit.spiritID)
+                {
+                    //Unlocks Minimap and Map access
+                    case Spirit.SpiritID.MapSpirit:
+                        PlayerPrefs.SetInt("CanViewMap", 1);
+                        break;
+
+                    //Unlocks Dash
+                    case Spirit.SpiritID.DashSpirit:
+                        PlayerControllerForces.Instance.Data.canDash = true;
+                        PlayerPrefs.SetInt("CanDash", 1);
+                        break;
+
+                    //Unlocks Scythe Throw and Spirit Power
+                    case Spirit.SpiritID.ScytheThrowSpirit:
+                        PlayerControllerForces.Instance.Data.canScytheThrow = true;
+                        PlayerControllerForces.Instance.Data.maxSP = 50;
+                        PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
+                        PlayerPrefs.SetInt("CanScytheThrow", 1);
+                        PlayerPrefs.SetFloat("MaxSP", 50);
+                        break;
+
+                    //Unlocks Health Upgrades and gives one for free
+                    case Spirit.SpiritID.HealthSpirit:
+                        PlayerControllerForces.Instance.Data.maxHP += 15;
+                        PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP; 
+                        PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
+                        break;
+                }
+            }
+                
+        }
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
     }
 
@@ -103,11 +144,34 @@ public class PersistentDataManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("XSpawnPos", saveLocation.position.x);
         PlayerPrefs.SetFloat("YSpawnPos", saveLocation.position.y);
-        PlayerPrefs.SetFloat("RoomIndex", saveLocation.roomIndex);
+        PlayerPrefs.SetInt("RoomIndex", saveLocation.roomIndex);
         PlayerPrefs.SetInt("FirstTimeDenial", 0);
         PlayerPrefs.SetString("SceneSave", SceneManager.GetActiveScene().name);
 
         StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
+    }
+
+    //Load the last saved room the player was in
+    public void LoadRoom()
+    {
+        foreach (Room room in rooms)
+        {
+            if (LastSavedRoomIndex == room.roomIndex)
+            {
+                room.hasPlayer = true;
+                room.RoomLive = true;
+                room.gameObject.SetActive(true);
+
+                if (room.GetComponent<EnemyManager>() != null)
+                    room.GetComponent<EnemyManager>().SpawnEnemies();
+            }
+
+            else
+            {
+                room.hasPlayer = false;
+                room.RoomLive = false;
+            }
+        }
     }
 
     //Toggles whether the user is spawning for the first time or not
@@ -127,7 +191,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("SceneSave", defaultSceneName);
         PlayerPrefs.SetFloat("XSpawnPos", defaultXPos);
         PlayerPrefs.SetFloat("YSpawnPos", defaultYPos);
-        //PlayerPrefs.SetInt("RoomIndex", 0);
+        PlayerPrefs.SetInt("RoomIndex", 1);
         
         //Reset Player Stats
         PlayerPrefs.SetFloat("MaxHP", defaultHP);
@@ -135,37 +199,21 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetFloat("DamageMultiplier", 1);
 
         //Reset Player Abilities
-        PlayerPrefs.SetInt("CanDoubleJump", 1);
-        PlayerPrefs.SetInt("CanWallJump", 1);
-        PlayerPrefs.SetInt("CanDash", 1);
+        PlayerPrefs.SetInt("CanDoubleJump", 0);
+        PlayerPrefs.SetInt("CanWallJump", 0);
+        PlayerPrefs.SetInt("CanDash", 0);
 
         //Reset Spirit Data
+        PlayerPrefs.SetString("MapSpirit", "Uncollected");
         PlayerPrefs.SetString("DashSpirit", "Uncollected");
         PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
-    }
 
-    //Save the room index based on the currently loaded room (for when the user saves/leaves the area to a different scene
-    public void SaveRoom()
-    {
-        for (int i = 0; i < rooms.Count; i++)
+        //Clear Onboarding Map Data
+        for (int i = 0; i < 20; i++)
         {
-            if (rooms[i].hasPlayer)
-                PlayerPrefs.SetInt("RoomIndex", i);
-            StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
-        }
-    }
-
-    //Load the last room the player was in when returning to the Last Saved Scene
-    public void LoadRoom()
-    {
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            if (i == LastSavedRoomIndex)
-            {
-                rooms[i].hasPlayer = true;
-            }
-        }
+            PlayerPrefs.SetInt("LevelRoom" + i, 0);
+        } 
     }
 
     //Transition between Onboarding Level and Denial Area
@@ -182,5 +230,30 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("CanDoubleJump", 0);
         PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanDash", 0);
+    }
+
+    public void SetRoomExplored(int roomIndex)
+    {
+        PlayerPrefs.SetInt("LevelRoom" + roomIndex, 1);
+
+        UIManager.Instance.UpdateMapUI();
+    }
+
+    public List<bool> AreaRoomsLoaded()
+    {
+        List<bool> result = new List<bool>();
+        foreach (Room room in rooms)
+        {
+            if (PlayerPrefs.GetInt("LevelRoom" + room.roomIndex) == 1)
+            {
+                result.Add(true);
+            }
+            else
+            {
+                result.Add(false);
+            }
+        }
+
+        return result;
     }
 }

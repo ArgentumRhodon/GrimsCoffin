@@ -15,21 +15,29 @@ using FMOD.Studio;
 
 public class PlayerControllerForces : MonoBehaviour
 {
+    //Data & Variables --------------------------------------------------------------------------------------------
+    #region Data & Variables
     //Scriptable object which holds all data on player movement parameters
     public PlayerData Data;
 
     //Rigidbody and player state
     public Rigidbody2D rb { get; private set; }
-    private PlayerStateList playerState;
+    public PlayerStateList playerState;
 
     //Timers
     public float LastOnGroundTime { get; private set; }
     public float LastOnWallTime { get; private set; }
-    public float LastHeldWallTime { get; private set; } 
+    public float LastHeldWallTime { get; private set; }
     public float LastOnWallRightTime { get; private set; }
     public float LastOnWallLeftTime { get; private set; }
     public float LastJumpTime { get; private set; }
     public float LastWallJumpTime { get; private set; }
+
+    //Walk
+    [SerializeField] private float walkModifier;
+    public float WalkModifier { get { return walkModifier; } set { walkModifier = value; } }
+    [SerializeField] private bool canSleepWalk;
+    public bool CanSleepWalk { get { return canSleepWalk; } set { canSleepWalk = value; } }
 
     //Jump
     private bool isJumpCancel;
@@ -47,15 +55,20 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 lastDashDir;
     private bool isDashAttacking;
 
+    //Abilities
+    [SerializeField] private GameObject scytheProjectilePrefab;
+    [SerializeField] public GameObject heldScytheSprite;
+
     //Input parameters
     private Vector2 moveInput;
+    public Vector2 MoveInput { get {return moveInput; } }
 
     // Animation Stuff
-    [SerializeField] private Animator animator_T; // Top
-    [SerializeField] private Animator animator_B; // Bottom
+    [SerializeField] private Animator animator;
+    [SerializeField] private Animator scytheAnimator; // Top
 
     public float LastPressedJumpTime { get; private set; }
-    public float LastPressedDashTime { get; private set; }
+    public float LastPressedDashTime { get; set; }
 
     //Positions used for state checks
     [Header("Tile Checks")]
@@ -73,6 +86,7 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public float invincibilityTimer;
     [SerializeField] public bool hasInvincibility;
     [SerializeField] public bool hasDashInvincibility;
+    [SerializeField] public bool scytheThrown;
 
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
@@ -121,8 +135,11 @@ public class PlayerControllerForces : MonoBehaviour
     //Time Variables
     private float localDeltaTime;
     private bool isSleeping;
+    public bool IsSleeping { get { return isSleeping; } }
+    #endregion
 
-
+    //Runtime Methods ---------------------------------------------------------------------------------------------
+    #region Runtime
     private void Awake()
     {
         //Set rigidbody
@@ -181,15 +198,22 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canDoubleJump = PersistentDataManager.Instance.CanDoubleJump;
         Data.canWallJump = PersistentDataManager.Instance.CanWallJump;
         Data.canDash = PersistentDataManager.Instance.CanDash;
+        Data.canScytheThrow = PersistentDataManager.Instance.CanScytheThrow;
+        Data.canViewMap = PersistentDataManager.Instance.CanViewMap;
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
+
+        walkModifier = 1;
+        canSleepWalk = false;
 
         if (PersistentDataManager.Instance.FirstSpawn)
         {
             SpawnAtLastRestPoint();
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
         }
+
+        //TempResetData();
     }
 
     private void Update()
@@ -238,9 +262,31 @@ public class PlayerControllerForces : MonoBehaviour
 
             //Gravity check
             UpdateGravityVariables();
+
+          
         }
 
 
+        else if (isSleeping && canSleepWalk)
+        {
+            //Movement values --------------------------------------
+            //Movement/Walking input
+            moveInput = playerControls.Player.Move.ReadValue<Vector2>();
+
+            //Check direction of player, compare it to deadzone to make sure the player doesn't flick back and forth
+            if (moveInput.x > Data.deadzone)
+                CheckDirectionToFace(true);
+            else if (moveInput.x < -Data.deadzone)
+                CheckDirectionToFace(false);
+        }
+
+        //Check if the player hit the ground (outside of sleep so it can exit sleep)
+        if (playerState.IsAttacking)
+        {
+            UpdateDownAttackVariables();
+            moveInput.y = playerControls.Player.Move.ReadValue<Vector2>().y;
+        }
+            
     }
 
     private void FixedUpdate()
@@ -254,18 +300,26 @@ public class PlayerControllerForces : MonoBehaviour
         //Handle player walking, make sure the player doesn't walk while dashing
         if (!isSleeping)
         {
-            if (!playerState.IsDashing && !playerState.IsAttacking)
+            if (!playerState.IsDashing && !playerState.IsAttacking && !playerCombat.IsComboing)
             {
                 if (playerState.IsWallJumping)
                     Walk(Data.wallJumpRunLerp);
                 else
                     Walk(1);
             }
-            if(playerState.IsAttacking && Grounded())
+/*            if (playerState.IsAttacking && Grounded() && playerCombat.AttackClickCounter == 1)
             {
                 Walk(1);
-            }
+            }*/
         }
+        else if (canSleepWalk)
+            Walk(1);
+
+        if (scytheThrown && !UIManager.Instance.scytheThrowInMenu)
+            heldScytheSprite.SetActive(false);
+
+        else
+            heldScytheSprite.SetActive(true);
 
         if (hasInvincibility)
         {          
@@ -287,8 +341,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
             
 
-        animator_T.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
-        animator_B.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
 
         CheckIdle();     
         if (playerState.IsIdle)
@@ -297,18 +350,17 @@ public class PlayerControllerForces : MonoBehaviour
         }
             
     }
+    #endregion
 
-    private void SetSpriteColors(Color color, float transparency = 1)
-    {
-        color.a = transparency;
-        animator_T.gameObject.GetComponent<SpriteRenderer>().color = color;
-        animator_B.gameObject.GetComponent<SpriteRenderer>().color = color;
-    }
+    //Input Methods -----------------------------------------------------------------------------------------------
+    #region Input Methods and Events
 
-    //Input Methods ----------------------------------------------------------------------------------------------
     //Jump Input
     private void OnJump(InputValue value)
     {
+        if (isSleeping || Time.timeScale == 0)
+            return;
+
         //Values to check if the key is down or up - will determine if the jump should be canceled or not
         //Key Down, continue jumping
         if (value.isPressed)
@@ -390,7 +442,8 @@ public class PlayerControllerForces : MonoBehaviour
     private void OnDash()
     {
         if (isSleeping)
-            EndSleep();
+            return;
+
         LastPressedDashTime = Data.dashInputBufferTime;
     }
 
@@ -399,44 +452,11 @@ public class PlayerControllerForces : MonoBehaviour
         UIManager.Instance.Pause();
     }
 
-    public void StartAttack()
-    {
-        if (playerState.IsDashing)
-            return;
-
-        //Do not hit during combo
-        if (playerCombat.LastComboTime < 0) 
-        {
-            //Aerial attack sleep / hitstop 
-            if (!Grounded())
-            {
-                if (playerCombat.CanAerialCombo)
-                {
-                    playerCombat.IsAerialCombo = true;
-                    EndSleep();
-
-                    if (playerCombat.AttackClickCounter < Data.comboTotal)
-                        Sleep(Data.comboAerialTime);
-                    else
-                        Sleep(Data.comboAerialTime/2);
-                }
-            }
-            else
-            {
-                //Potential ground combat hitstop - NEEDS FIXING
-/*                if (playerCombat.AttackCounter == Data.comboTotal)
-                    Sleep(Data.comboSleepTime / 2);
-                else if (playerCombat.AttackCounter > 2)
-                {
-                    EndSleep();
-                    Sleep(Data.comboSleepTime);
-                }*/
-            }
-        }
-    }
-
     public void OnCameraLook(InputValue value)
     {
+        if (UIManager.Instance.pauseScript.isPaused)
+            return;
+
         //Debug.Log("Camera Look " + value.Get<Vector2>().y);
         if (value.Get<Vector2>().y > CameraManager.Instance.Deadzone)
         {
@@ -452,24 +472,45 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    private void OnInteract()
+    {
+        if (UIManager.Instance.pauseScript.isPaused)
+            return;
+
+        if (interactionPrompt.interactable != null)
+        {
+            interactionPrompt.interactable.PerformInteraction();
+        }
+    }
+
+    private void OnMap()
+    {
+        UIManager.Instance.ToggleMap();
+    }
+
+    private void OnCancel()
+    {
+        if (Time.timeScale == 1)
+            return;
+
+        StartCoroutine(UIManager.Instance.Cancel(0.1f));
+    }
+
+    private void OnAbility()
+    {
+        if (isSleeping || Time.timeScale == 0 || currentSP <= 0 || scytheThrown || !Data.canScytheThrow)
+            return;
+
+        ExecuteScytheThrow();
+    }
+
     public void TakeDamage(float damageTaken)
     {
         currentHP -= damageTaken;
         invincibilityTimer = 2.0f;
         hasInvincibility = true;
 
-        UIManager.Instance.DamageVignette();
-        CameraShake.Instance.ShakeCamera(5, 4, .25f);
-
         CheckForDeath();
-    }
-
-    private void CheckForDeath()
-    {
-        if (currentHP <= 0)
-        {
-            UIManager.Instance.HandlePlayerDeath();
-        }
     }
 
     public void Respawn()
@@ -480,11 +521,97 @@ public class PlayerControllerForces : MonoBehaviour
         currentHP = Data.maxHP;
         currentSP = Data.maxSP;
 
-        if (Data.respawnPoint != null)
-            this.gameObject.transform.position = Data.respawnPoint;
+        if (!playerState.IsFacingRight)
+            Turn();
+
+        SpawnAtLastRestPoint();
     }
 
-    //Movement Method Calculations ----------------------------------------------------------------------------------------------
+    //Calculate physics for attacks ---------------------------------------------
+    public void ExecuteBasicAttack()
+    {
+        if (isSleeping)
+            return;
+
+        //Check to make sure the player does not hit on combo cooldown
+        if (playerCombat.LastComboTime < 0)
+        {
+            //Aerial attack sleep / hitstop 
+            if (!Grounded())
+            {
+                if (playerCombat.CanAerialCombo)
+                {
+                    playerCombat.IsAerialCombo = true;
+                    EndSleep();
+
+                    if (playerCombat.AttackClickCounter < Data.comboTotal)
+                        Sleep(Data.comboSleepTime);
+                    else
+                        Sleep(Data.comboSleepTime / 2);
+                }
+            }
+            //Ground attack sleep
+            else
+            {
+                if (playerCombat.AttackClickCounter == Data.comboTotal)
+                {
+                    EndSleep();
+                    Sleep(Data.comboSleepTime / 2);
+                }
+                else// if (playerCombat.AttackClickCounter > 1)
+                {
+                    EndSleep();
+                    Sleep(Data.comboSleepTime);
+                }
+            }
+        }
+    }
+
+    //Calculate physics for attacks ---------------------------------------------
+    public void ExecuteUpAttack(bool shouldGroundAttack)
+    {
+        if (isSleeping)
+            return;
+
+        //Aerial attack check
+        if (Grounded())
+        {
+            Sleep(Data.gUpAttackDuration);
+        }
+        else
+        {
+            Sleep(Data.aUpAttackDuration);
+        }
+    }
+
+    //Calculate physics for attacks ---------------------------------------------
+    public void ExecuteDownAttack(bool shouldGroundAttack)
+    {
+        if (isSleeping)
+            return;
+
+        //Aerial attack check
+        if (shouldGroundAttack)
+        {
+            //Sleep(Data.gDownAttackDuration);
+        }
+        else
+        {
+            Sleep(Data.aDownAttackDuration);
+        }
+    }
+
+    public void ExecuteScytheThrow()
+    {
+        GameObject scythe = Instantiate(scytheProjectilePrefab, this.transform.position, Quaternion.identity);
+        currentSP -= 5;
+        scytheThrown = true;
+    }
+    #endregion
+
+    //Movement Method Calculations --------------------------------------------------------------------------------
+    #region Movement Calculations
+
     //Walking
     private async void Walk(float lerpAmount)
     {
@@ -505,7 +632,7 @@ public class PlayerControllerForces : MonoBehaviour
 
 
         //Calculate the direction and our desired velocity
-        float targetSpeed = direction * Data.walkMaxSpeed;
+        float targetSpeed = direction * Data.walkMaxSpeed * walkModifier;
         //float targetSpeed = moveInput.x * Data.walkMaxSpeed; <---------- used for walking at a slower pace
         //Smooth changes to direction and speed using a lerp function
         targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, lerpAmount);
@@ -537,7 +664,7 @@ public class PlayerControllerForces : MonoBehaviour
         {
             float cameraOffset = Data.cameraWalkOffset * direction;
             PlayWalkSFX();
-            CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
+            CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f,2);
         }
     }
 
@@ -648,17 +775,16 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Become invincible and make sprite transparent while dashing
         hasDashInvincibility = true;
-        Color tmp = animator_T.GetComponent<SpriteRenderer>().color;
+        Color tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 0.5f;
-        animator_T.GetComponent<SpriteRenderer>().color = tmp;
-        animator_B.GetComponent<SpriteRenderer>().color = tmp;      
+        animator.GetComponent<SpriteRenderer>().color = tmp;
 
         //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
         rb.velocity = Vector2.zero;
         Sleep(0.1f);
 
-        yield return new WaitForSecondsRealtime(0.1f);             
+        yield return new WaitForSecondsRealtime(Data.dashSleepTime);             
 
         //Get direction to dash in
         int direction = XInputDirection();
@@ -677,7 +803,7 @@ public class PlayerControllerForces : MonoBehaviour
         
         //Update camera
         float cameraOffset = Data.cameraDashOffset * direction;
-        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.05f);
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, Data.dashAttackTime / 2, 3);
 
         yield return new WaitForSecondsRealtime(Data.dashAttackTime);
 
@@ -696,10 +822,9 @@ public class PlayerControllerForces : MonoBehaviour
         //Dash over
         playerState.IsDashing = false;
         hasDashInvincibility = false;
-        tmp = animator_T.GetComponent<SpriteRenderer>().color;
+        tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 1f;
-        animator_T.GetComponent<SpriteRenderer>().color = tmp;
-        animator_B.GetComponent<SpriteRenderer>().color = tmp;
+        animator.GetComponent<SpriteRenderer>().color = tmp;
         //Debug.Log("Current Transparency2: " + animator_T.GetComponent<SpriteRenderer>().color.a);
     }
 
@@ -712,10 +837,45 @@ public class PlayerControllerForces : MonoBehaviour
         dashesLeft = Mathf.Min(Data.dashAmount, dashesLeft + 1);
     }
 
+    private void BasicAttack()
+    {
+        int direction;         
+        if (playerState.IsFacingRight)
+            direction = 1;
+        else
+            direction = -1;     
+
+        rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
+
+        if (playerCombat.IsAerialCombo)
+            rb.AddForce(new Vector2(direction, 0) * Data.comboAerialPForce, ForceMode2D.Impulse);
+        else
+            rb.AddForce(new Vector2(direction, 0) * Data.comboGroundPForce, ForceMode2D.Impulse);
+    }
+
+    private void UpAttack()
+    {
+        SetGravityScale(1);
+        //rb.AddForce(Vector2.down * Data.groundUpwardPForce, ForceMode2D.Impulse);
+        rb.velocity = new Vector2(0, Data.groundUpwardPForce);
+    }
+
+    private void DownAttack()
+    {
+        SetGravityScale(1);
+        //rb.AddForce(Vector2.down * Data.aerialDownwardPForce, ForceMode2D.Impulse);
+        rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
+    }
+
+    #endregion
+
     //Methods to update movement variables ------------------------------------------------------------------------
+    #region Movement Variable Updates
+
+    //Variables used for every type of jump
     private void UpdateJumpVariables()
     {
-        if (playerState.IsJumping && rb.velocity.y < 0)
+        if (playerState.IsJumping && rb.velocity.y < 0.1)
         {
             playerState.IsJumping = false;
 
@@ -761,6 +921,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    //Dash variables
     private void UpdateDashVariables()
     {
         if (CanDash() && LastPressedDashTime > 0)
@@ -772,7 +933,7 @@ public class PlayerControllerForces : MonoBehaviour
                 lastDashDir = playerState.IsFacingRight ? Vector2.right : Vector2.left;
 
             //If mid attack, stop the combo
-            if (playerCombat.AttackDurationTime > 0)
+            if (playerCombat.IsComboing)
                 EndCombo();      
 
             //Set states
@@ -785,6 +946,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    //Variables for wall sliding
     private void UpdateSlideVariables()
     {
         if (Data.mustHoldWallToJump)
@@ -811,6 +973,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
+    //Updates the gravity based on the state of the player
     private void UpdateGravityVariables()
     {
         if (!playerState.IsDashing)
@@ -871,7 +1034,21 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
-    //Helper Methods ----------------------------------------------------------------------------------------------
+    private void UpdateDownAttackVariables()
+    {
+        //End Down Attack   
+        if (Grounded() && playerCombat.CurrentAttackDirection == PlayerCombat.AttackDirection.Down && playerCombat.IsAerialAttacking)
+        {
+            EndSleep();
+            playerCombat.CurrentAttackDirection = PlayerCombat.AttackDirection.Empty;
+            playerCombat.AttackDurationTime = Data.aDownAttackReset;
+            Sleep(playerCombat.AttackDurationTime);
+        }
+    }
+    #endregion
+
+    //Status Checkers ---------------------------------------------------------------------------------------------
+    #region Statuses & Checkers
     //Check collisions on every side of the player
     private void CollisionChecks()
     {
@@ -900,7 +1077,7 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Check ground specific collision and return a bool
-    private bool Grounded()
+    public bool Grounded()
     {
         return Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
     }
@@ -914,9 +1091,10 @@ public class PlayerControllerForces : MonoBehaviour
                 || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)) && !playerState.IsWallJumping);
     }
 
+    //Check if the player is not doing anything and set the state to idle
     private void CheckIdle()
     {
-        if(!playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && !playerState.IsSliding && !playerState.IsWalking && !playerState.IsAttacking)
+        if (!playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && !playerState.IsSliding && !playerState.IsWalking && !playerState.IsAttacking)
             playerState.IsIdle = true;
         else
             playerState.IsIdle = false;
@@ -926,7 +1104,7 @@ public class PlayerControllerForces : MonoBehaviour
     {
         float dir = (playerState.IsFacingRight) ? 1 : -1;
         float cameraOffset = Data.cameraOffset * dir;
-        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f);
+        CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f,1);
     }
 
     //Check direction that the player should face and execute it 
@@ -953,21 +1131,14 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
-    //Set x direction to -1 or 1, even if using analog stick
-    private int XInputDirection()
-    {
-        //Added deadzone to account for controller drift
-        if (moveInput.x < -Data.deadzone)
-            return -1;
-        else if (moveInput.x > Data.deadzone)
-            return 1;
-        else
-            return 0;
-    }
-
     //Checks for jump states
     private bool CanJump()
     {
+        Debug.Log("Data.canJump: " + Data.canJump);
+        Debug.Log("LastOnGroundTime > 0: " + (LastOnGroundTime > 0));
+        Debug.Log("!playerState.IsJumping: " + !playerState.IsJumping);
+        Debug.Log("CanBreakCombo(): " + CanBreakCombo());
+
         return Data.canJump && LastOnGroundTime > 0 && !playerState.IsJumping && CanBreakCombo();
     }
 
@@ -1015,7 +1186,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Check for Dash state
     private bool CanDash()
     {
-        if (Data.canDash && CanBreakCombo())
+        if (Data.canDash)// && CanBreakCombo())
         {
             if (!playerState.IsDashing && dashesLeft < Data.dashAmount && LastOnGroundTime > 0 && !dashRefilling) //(LastOnGroundTime > 0 || OnWall())
             {
@@ -1024,28 +1195,21 @@ public class PlayerControllerForces : MonoBehaviour
 
             return dashesLeft > 0;
         }
-        else 
+        else
             return false;
     }
 
-    private bool CanBreakCombo(float breakMult = 2/3f)
+    //Check if the player is able to break combo after enough time
+    private bool CanBreakCombo(float breakMult = 2 / 3f)
     {
         //Debug.Log(Data.attackBufferTime);
         return playerCombat.AttackDurationTime < Data.attackBufferTime * breakMult;
     }
 
-    private void EndCombo()
-    {
-        //Debug.Log("Ending Combo");
-        playerCombat.ResetCombo();
-        playerState.IsAttacking = false;
-        EndSleep();
-    }
-
     //Check to see if the player is on the wall and is sliding
     public bool CanSlide()
     {
-        if(Data.canSlide)
+        if (Data.canSlide)
         {
             if (LastOnWallTime > 0 && !playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && LastOnGroundTime <= 0)
                 return true;
@@ -1056,12 +1220,72 @@ public class PlayerControllerForces : MonoBehaviour
             return false;
     }
 
+    //Check health for death
+    private void CheckForDeath()
+    {
+        if (currentHP <= 0)
+        {
+            PersistentDataManager.Instance.ToggleFirstSpawn(false);
+            UIManager.Instance.HandlePlayerDeath();
+        }
+
+        else
+        {
+            UIManager.Instance.DamageVignette();
+            CameraShake.Instance.ShakeCamera(5, 4, .25f);
+        }
+    }
+    #endregion
+
+    //Helper Methods ----------------------------------------------------------------------------------------------
+    #region Helper Methods
+    //Set colors of the sprite, along with the transparency
+    private void SetSpriteColors(Color color, float transparency = 1)
+    {
+        color.a = transparency;
+        animator.gameObject.GetComponent<SpriteRenderer>().color = color;
+    }
+
+    //Set x direction to -1 or 1, even if using analog stick
+    private int XInputDirection()
+    {
+        //Added deadzone to account for controller drift
+        if (moveInput.x < -Data.deadzone)
+            return -1;
+        else if (moveInput.x > Data.deadzone)
+            return 1;
+        else
+            return 0;
+    }
+
+    //Set x direction to -1 or 1, even if using analog stick
+    public int YInputDirection()
+    {
+        //Deadzone to account for controller drift
+        if (moveInput.y < -Data.deadzone)
+            return -1;
+        else if (moveInput.y > Data.deadzone)
+            return 1;
+        else
+            return 0;
+    }
+
+    //End combo and update the associated states
+    private void EndCombo()
+    {
+        //Debug.Log("Ending Combo");
+        playerCombat.ResetCombo();
+        playerState.IsAttacking = false;
+        EndSleep();
+    }
+
     //Set gravity 
     public void SetGravityScale(float scale)
     {
         rb.gravityScale = scale;
     }
 
+    //Offset force to make sure there isn't extra force added to specific movements
     private Vector2 OffsetForce(Vector2 force)
     {
         return force -= rb.velocity;
@@ -1078,19 +1302,38 @@ public class PlayerControllerForces : MonoBehaviour
     }
 
     //Sleep for delaying movement
-    private void Sleep(float duration)
+    public void Sleep(float duration)
     {
         //Method to help delay time for movement
         StartCoroutine(nameof(PerformSleep), duration);
     }
 
-    private void EndSleep()
+    private void Sleep()
+    {
+        SetGravityScale(0);
+        isSleeping = true;
+    }
+
+    public void SleepWalk()
+    {
+        isSleeping = true;
+        canSleepWalk = true;
+    }
+
+    public void EndSleepWalk()
+    {
+        isSleeping = false;
+        canSleepWalk = false;
+    }
+
+    public void EndSleep()
     {
         //Method to stop the coroutine from running 
         StopCoroutine(nameof(PerformSleep));
         SetGravityScale(1);
         //rb.velocity = Vector2.zero;
         isSleeping = false;
+        canSleepWalk = false;
     }
 
     private IEnumerator PerformSleep(float duration)
@@ -1099,37 +1342,53 @@ public class PlayerControllerForces : MonoBehaviour
         //Sleeping
         SetGravityScale(0);
         isSleeping = true;
-
-        //Combat force calculations
-        if (playerCombat.IsAerialCombo)
+      
+        //Combat force calculations       
+        if (playerState.IsAttacking)
         {
-            int direction = XInputDirection();
-            if (direction == 0)
+            switch (playerCombat.CurrentAttackDirection)
             {
-                if (playerState.IsFacingRight)
-                    direction = 1;
-                else
-                    direction = -1;
+                case PlayerCombat.AttackDirection.Up:
+                    UpAttack();
+                    break;
+                case PlayerCombat.AttackDirection.Down:
+                    DownAttack();
+                    break;
+                case PlayerCombat.AttackDirection.Side:
+                    BasicAttack();
+                    break;
             }
-
-
-            rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
-            rb.AddForce(new Vector2(direction, 0) * Data.comboAerialPForce, ForceMode2D.Impulse);
         }
 
         yield return new WaitForSecondsRealtime(duration / 8);
 
         //Reset impulse from combat
-        if (playerCombat.IsAerialCombo)
-            rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
+        //if (playerCombat.IsAerialCombo)
+            //rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
 
+        if (playerState.IsAttacking)
+        {
+            switch (playerCombat.CurrentAttackDirection)
+            {
+                case PlayerCombat.AttackDirection.Up:
+                    rb.velocity = new Vector2(0, 0);
+                    break;
+                case PlayerCombat.AttackDirection.Down:
+                    rb.velocity = new Vector2(0, 0);
+                    break;
+                case PlayerCombat.AttackDirection.Side:
+                    rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
+                    break;
+            }
+        }
+            
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
-        //Time.timeScale = 1;
  
         SetGravityScale(1);
         isSleeping = false;
     }
 
+    //Wall collision check gizmos
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
@@ -1139,25 +1398,17 @@ public class PlayerControllerForces : MonoBehaviour
         Gizmos.DrawWireCube(backWallCheckPoint.position, wallCheckSize);
     }
 
-    private void OnInteract()
-    {
-        if (interactionPrompt.interactable != null)
-        {
-            interactionPrompt.interactable.PerformInteraction();
-        }
-    }
-
     private void SpawnAtLastRestPoint()
     {
         Debug.Log("Spawning at Rest Point");
-        Vector3 newSpawn = new Vector3(
-            PlayerPrefs.GetFloat("XSpawnPos"),
-            PlayerPrefs.GetFloat("YSpawnPos"),
-            0);
+
+        PersistentDataManager.Instance.LoadRoom();
+
+        Vector3 newSpawn = PersistentDataManager.Instance.SpawnPoint;
 
         this.gameObject.transform.position = newSpawn;
         Data.respawnPoint = newSpawn;
-        
+
         if (!PersistentDataManager.Instance.FirstTimeInDenial)
             currentHP = Data.maxHP;
     }
@@ -1210,5 +1461,12 @@ public class PlayerControllerForces : MonoBehaviour
         isSlidingPlayed = false;
         //Debug.Log("Stopped Sliding");
 
+    #endregion
+
+    private void TempResetData()
+    {
+        Data.canDash = true;
+        Data.canDoubleJump = true;
+        Data.canWallJump = true;
     }
 }

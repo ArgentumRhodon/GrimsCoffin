@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TransitionDoor : MonoBehaviour
@@ -65,13 +66,27 @@ public class TransitionDoor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            enterEnemyMgr.SpawnEnemies();
-            exitEnemyMgr.DeleteEnemies();
+            if (areaEntering.GetComponent<Room>().roomIndex == 2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
+            {
+                PlayerControllerForces.Instance.Data.canDash = true;
+            }
+            else if(areaEntering.GetComponent<Room>().roomIndex == 3 && SceneManager.GetActiveScene().name == "OnboardingLevel")
+            {
+                PlayerControllerForces.Instance.Data.canDoubleJump = true;
+                PlayerControllerForces.Instance.Data.canWallJump = true;
+            }
+
+            if (enterEnemyMgr != null)
+                enterEnemyMgr.SpawnEnemies();
+
+            if (exitEnemyMgr != null)
+                exitEnemyMgr.DeleteEnemies();
         }
     }
 
     IEnumerator Transition(Collider2D col)
     {
+        PlayerControllerForces.Instance.Sleep(2);
         if (!areaEntering.activeInHierarchy)
         {
             areaEntering.SetActive(true);

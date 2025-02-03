@@ -14,7 +14,7 @@ public class PauseScreenBehavior : MonoBehaviour
     [SerializeField] private Button controlsBack;
 
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject controlsScreen;
+    [SerializeField] public GameObject controlsScreen;
 
     [SerializeField] private GameObject keyboardControls;
     [SerializeField] private GameObject xboxControls;
@@ -55,6 +55,12 @@ public class PauseScreenBehavior : MonoBehaviour
 
     public void Pause()
     {
+        if (controlsScreen.activeInHierarchy)
+        {
+            ToggleControls();
+            return;
+        }
+
         isPaused = !isPaused;
         UIManager.Instance.gameUI.SetActive(!isPaused);
         this.gameObject.SetActive(isPaused);
@@ -62,9 +68,12 @@ public class PauseScreenBehavior : MonoBehaviour
         if (isPaused)
         {
             //Deactivate Player Control if paused
-            playerInput.DeactivateInput();
+            //playerInput.DeactivateInput();
 
             //Select resume button for controller navigation
+            if (UIManager.Instance.areaText != null)
+                UIManager.Instance.areaText.SetActive(false);
+
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(resume.gameObject);
             Time.timeScale = 0.0f;

@@ -8,6 +8,7 @@ public class Room : MonoBehaviour
     [SerializeField]
     public bool hasPlayer;
     public bool RoomLive;
+    public int roomIndex;
     [SerializeField] private GameObject Border;
     [SerializeField] private CinemachineVirtualCamera VCamera;
 
@@ -27,7 +28,8 @@ public class Room : MonoBehaviour
     {
         if (RoomLive)
         {
-            Changeborder(Border);
+            PersistentDataManager.Instance.SetRoomExplored(roomIndex);
+            //Changeborder(Border);
         }
 
     }

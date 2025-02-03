@@ -175,14 +175,14 @@ public class CutsceneManager : MonoBehaviour
         {
             indicatorText.text = " to continue";
         }
-        else if (currentScheme.Contains("Xbox"))
+        /*else if (currentScheme.Contains("Xbox"))
         {
             indicatorText.text = "press\t to continue";
         }
         else if (currentScheme.Contains("PlayStation"))
         {
             indicatorText.text = "press\t to continue";
-        }
+        }*/
     }
 
     private void UpdateSkipText()

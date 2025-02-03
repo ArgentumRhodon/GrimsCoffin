@@ -258,7 +258,7 @@ Transform:
   - {fileID: 3769127713801327265}
   - {fileID: 3644147072456269995}
   - {fileID: 7994929456160691532}
-  - {fileID: 7824957629043738019}
+  - {fileID: 7501775984290859826}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2225502148986693817
@@ -346,8 +346,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 56db3d8cbea456748a72ec4714f32446, type: 2}
-  animator_T: {fileID: 8317159216238193831}
-  animator_B: {fileID: 3128556383560729049}
+  playerState: {fileID: 0}
+  walkModifier: 0
+  canSleepWalk: 0
+  scytheProjectilePrefab: {fileID: 7168144048661873661, guid: 1f0ce5aeff96e61449d387eb41d94534, type: 3}
+  heldScytheSprite: {fileID: 5297061223688076639}
+  animator: {fileID: 8317159216238193831}
+  scytheAnimator: {fileID: 4929932698530573072}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -356,57 +361,13 @@ MonoBehaviour:
   frontWallCheckPoint: {fileID: 7342308081699046411}
   backWallCheckPoint: {fileID: 3769127713801327265}
   wallCheckSize: {x: 0.2, y: 0.75}
-  currentHP: 100
+  currentHP: 125
   currentSP: 50
   invincibilityTimer: 0
   hasInvincibility: 0
   hasDashInvincibility: 0
+  scytheThrown: 0
   interactionPrompt: {fileID: 4303321463941137360}
-  footstepSpeed: 3
-  walkSFX:
-    Guid:
-      Data1: -1940182391
-      Data2: 1230630669
-      Data3: 931613840
-      Data4: 702799445
-    Path: event:/PL/Grim/107_Self_Run
-  jumpSFX:
-    Guid:
-      Data1: 1562111585
-      Data2: 1194535205
-      Data3: 2106431384
-      Data4: -1159510018
-    Path: event:/PL/Grim/108_Self_Jump
-  wallLeapSFX:
-    Guid:
-      Data1: 1798948769
-      Data2: 1295622374
-      Data3: 1695067068
-      Data4: -1134701380
-    Path: event:/PL/Grim/112_Self_WallLeap
-  landSFX:
-    Guid:
-      Data1: 2097523222
-      Data2: 1222561803
-      Data3: -1682239845
-      Data4: 1683627875
-    Path: event:/PL/Grim/111_Self_Land
-  dashSfx:
-    Guid:
-      Data1: -1951803400
-      Data2: 1296177948
-      Data3: -1118050122
-      Data4: 1210164649
-    Path: event:/PL/Grim/109_Self_Dash
-  slidingSFX:
-    Guid:
-      Data1: -1419737013
-      Data2: 1169182696
-      Data3: -1304510785
-      Data4: 1072419083
-    Path: event:/PL/Grim/110_Self_WallSlide
-  StandingGroundPram: PlayerStandGround
-  groundNames: 0
 --- !u!114 &5297759798866308537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,16 +446,19 @@ MonoBehaviour:
   Data: {fileID: 0}
   hitbox: {fileID: 7568753305882926414}
   scytheAnimator: {fileID: 4929932698530573072}
-  animator_T: {fileID: 8317159216238193831}
-  animator_B: {fileID: 3128556383560729049}
-  attackDurationTime: 0
-  queueTimer: 0
+  scytheSprite: {fileID: 0}
+  animator: {fileID: 8317159216238193831}
+  holdAttackTimer: 0
+  attackAnimTotal: 0
   canAerialCombo: 0
   isAerialCombo: 0
+  isAerialAttacking: 0
   isComboing: 0
   attackClickCounter: 0
-  attackQueueLeft: 0
+  comboQueueLeft: 0
   currentAttackAmount: 0
+  attackQueue: 
+  isHoldingAttacking: 0
 --- !u!114 &3338551163740125992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,7 +528,7 @@ GameObject:
   - component: {fileID: 8944178990332373370}
   - component: {fileID: 8317159216238193831}
   m_Layer: 0
-  m_Name: SpriteTop
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -626,7 +590,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -765556773, guid: 3f4a805f94d031a4799d3b825ac52baf, type: 3}
+  m_Sprite: {fileID: -1930963781, guid: 14f17284eb3e60540a0e5ccf816ff950, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -658,7 +622,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &7868649045970069277
+--- !u!1 &8880701307876477556
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -666,38 +630,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7824957629043738019}
-  - component: {fileID: 5291101664354792301}
-  - component: {fileID: 3128556383560729049}
-  m_Layer: 0
-  m_Name: SpriteBottom
+  - component: {fileID: 7501775984290859826}
+  - component: {fileID: 8588859421884769819}
+  m_Layer: 7
+  m_Name: MapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7824957629043738019
+--- !u!4 &7501775984290859826
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7868649045970069277}
+  m_GameObject: {fileID: 8880701307876477556}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
+  m_LocalScale: {x: 15.204, y: 15.204, z: 15.204}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4894866827985537568}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5291101664354792301
+--- !u!212 &8588859421884769819
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7868649045970069277}
+  m_GameObject: {fileID: 8880701307876477556}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -711,7 +674,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 99f5c615b63f5c441a4c1dfcca99c046, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -731,39 +694,18 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 1457689649, guid: a3b4ca1688ee32d40bc7bffb57ab4a23, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3128556383560729049
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7868649045970069277}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 493986e7ecf4c4e40afa394daa0bda44, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &6056144436470565836
 PrefabInstance:
   m_ObjectHideFlags: 0

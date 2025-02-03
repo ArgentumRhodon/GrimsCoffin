@@ -25,12 +25,11 @@ public class SavePoint : Interactable
         if (Time.timeScale == 0)
             return;
 
-        PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
         if (SceneManager.GetActiveScene().name != "Equilibrium")
         {
             PersistentDataManager.Instance.SaveGame(this);
         }
 
-        UIManager.Instance.equilibriumPrompt.ToggleEnterPrompt();
+        UIManager.Instance.restPointMenu.ToggleEnterPrompt();
     }
 }
