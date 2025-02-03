@@ -226,7 +226,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5131221472181509250}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 4586733597254544871}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -324,6 +325,39 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!114 &4586733597254544871
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274db0bfa2f598547b3965c44b76f7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swingFX:
+    Guid:
+      Data1: -1527413983
+      Data2: 1280341793
+      Data3: -1821909356
+      Data4: -741030316
+    Path: event:/PL/Grim/101_Scyche_Swing
+  spinFX:
+    Guid:
+      Data1: 827618162
+      Data2: 1119547861
+      Data3: -651458423
+      Data4: -1712610487
+    Path: event:/PL/Grim/102_Scyche_Spin
+  slamFX:
+    Guid:
+      Data1: 2068245016
+      Data2: 1268763523
+      Data3: -2126875982
+      Data4: 1025903025
+    Path: event:/PL/Grim/103_Scyche_Slam
 --- !u!1101 &5131221472181509250
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

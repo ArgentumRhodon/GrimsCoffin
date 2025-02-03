@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{535d44c0-641d-4a31-8712-f69949290de0}">
+		<property name="name">
+			<value>SlideStatus</value>
+		</property>
+		<relationship name="folder">
+			<destination>{8cb617a0-b73d-4f0b-975c-e15a641a464e}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5a5cf519-ec2d-4446-aadc-d93b87a0d596}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5a5cf519-ec2d-4446-aadc-d93b87a0d596}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>SlideStart</value>
+			<value>SlideStop</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
