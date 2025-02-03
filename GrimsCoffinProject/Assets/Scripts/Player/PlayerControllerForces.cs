@@ -1460,13 +1460,13 @@ public class PlayerControllerForces : MonoBehaviour
         slideInstance.setParameterByName("SlideStatus", 1);
         isSlidingPlayed = false;
         //Debug.Log("Stopped Sliding");
-
-    #endregion
-
-    private void TempResetData()
-    {
-        Data.canDash = true;
-        Data.canDoubleJump = true;
-        Data.canWallJump = true;
     }
-}
+        #endregion
+
+        private void TempResetData()
+        {
+            Data.canDash = true;
+            Data.canDoubleJump = true;
+            Data.canWallJump = true;
+        }
+    }
