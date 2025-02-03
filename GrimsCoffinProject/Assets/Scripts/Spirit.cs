@@ -8,6 +8,7 @@ public class Spirit : Interactable
     private SpiritCollectUI spiritUI;
     
     [SerializeField] public SpiritID spiritID;
+    [SerializeField] private SpriteRenderer sprite;
     [SerializeField] public DialogueManager dialogueManager;
     [SerializeField] private Animator animator;
 
@@ -44,7 +45,11 @@ public class Spirit : Interactable
     // Update is called once per frame
     void Update()
     {
+        if (PlayerControllerForces.Instance.transform.position.x <= this.transform.parent.transform.position.x)
+            sprite.flipX = true;
         
+        else
+            sprite.flipX = false;
     }
 
     public override void PerformInteraction()
