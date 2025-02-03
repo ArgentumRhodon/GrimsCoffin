@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerReturn" id="{93bcb18a-db9a-4a4c-bb61-7a919634ec26}">
+		<property name="name">
+			<value>MX_Mid</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{69640f5e-3c4a-4c92-bca2-c08cad7ba93d}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{d7152fdb-6089-4f2e-8714-c3fe78140d61}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{3ac1b879-0e9f-4b59-b715-dc58bea6c00a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{69640f5e-3c4a-4c92-bca2-c08cad7ba93d}">
+		<relationship name="effects">
+			<destination>{2a487e22-33d5-4100-a63e-ac294cf97cfb}</destination>
+			<destination>{f51b39d8-25b2-4a55-b6f1-5a70e0bc6628}</destination>
+			<destination>{0fc6af9c-9af8-4855-8aa6-4bebca0feb73}</destination>
+			<destination>{0fdaa3de-c2bc-49c7-9116-c68924ad68c7}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{d7152fdb-6089-4f2e-8714-c3fe78140d61}" />
+	<object class="ThreeEQEffect" id="{2a487e22-33d5-4100-a63e-ac294cf97cfb}">
+		<property name="lowGain">
+			<value>-80</value>
+		</property>
+		<property name="highGain">
+			<value>-80</value>
+		</property>
+		<property name="lowCrossover">
+			<value>250</value>
+		</property>
+		<property name="highCrossover">
+			<value>1500</value>
+		</property>
+		<property name="crossoverSlope">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="CompressorEffect" id="{f51b39d8-25b2-4a55-b6f1-5a70e0bc6628}">
+		<property name="threshold">
+			<value>-12</value>
+		</property>
+		<relationship name="sidechains">
+			<destination>{9c0f9d73-cc0b-4643-8532-17fc6a7f462e}</destination>
+		</relationship>
+	</object>
+	<object class="CompressorEffect" id="{0fc6af9c-9af8-4855-8aa6-4bebca0feb73}">
+		<relationship name="sidechains">
+			<destination>{9397dcf8-0f69-41bb-b4d4-f795d2127cce}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusFader" id="{0fdaa3de-c2bc-49c7-9116-c68924ad68c7}" />
+</objects>
