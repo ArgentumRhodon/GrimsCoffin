@@ -10,12 +10,23 @@ namespace Core.AI
 {
     public class Seek : EnemyAction
     {
-        private float speed = 200f;
-        private float nextWaypointDistance = 3f;
+        [Header("Physics")]
+        public float speed = 200f, jumpForce = 100f;
+        public float nextWaypointDistance = 3f;
+        public float jumpNodeHeightRequirement = 0.8f;
+        public float jumpModifier = 0.3f;
+        public float jumpCheckOffset = 0.1f;
 
+        [Header("Custom Behavior")]
+        public bool followEnabled = true;
+        public bool jumpEnabled = true, isJumping, isInAir;
+        public bool directionLookEnabled = true;
+
+        //
         private Path path;
         private int currentWaypoint = 0;
         private bool reachedEndOfPath = false;
+        private bool isOnCoolDown;
 
         private Seeker seeker;
 
@@ -25,7 +36,8 @@ namespace Core.AI
         private bool isWaiting;
         private Canvas enemyCanvas;
 
-        private Collider2D visionRange;
+        private Collider2D visionRange; 
+        private RaycastHit2D isGrounded;
 
 
         public override void OnStart()
@@ -36,6 +48,10 @@ namespace Core.AI
             repeatingTimer = repeatingNum;
             isWaiting = false;
             visionRange = enemyScript.visionCollider;
+
+            isJumping = false;
+            isInAir = false;
+            isOnCoolDown = false;
         }
 
         public override TaskStatus OnUpdate()
@@ -77,6 +93,12 @@ namespace Core.AI
 
             Debug.Log("Following Path");
 
+/*            if (currentWaypoint >= path.vectorPath.Count)
+            {
+                reachedEndOfPath = true;
+                return;
+            }*/
+               
             if (currentWaypoint >= path.vectorPath.Count)
             {
                 if (player.transform.position == transform.position)
@@ -93,6 +115,7 @@ namespace Core.AI
             {
                 reachedEndOfPath = false;
             }
+
 
             Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
             Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
@@ -147,8 +170,7 @@ namespace Core.AI
             {
                 float distance = Mathf.Pow((player.transform.position.x - rb.transform.position.x), 2)
                                     + Mathf.Pow((player.transform.position.y - rb.transform.position.y), 2);
-
-                
+              
                 seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
             }
         }
