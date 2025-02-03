@@ -241,10 +241,10 @@ public class PlayerControllerForces : MonoBehaviour
     private void FixedUpdate()
     {
         //End sleep if moving after combo
-        if (isSleeping)
-            if (moveInput.x != 0)
-                if (playerCombat.ShouldResetCombo())
-                    EndSleep();
+        //if (isSleeping)
+        //    if (moveInput.x != 0)
+        //        if (playerCombat.ShouldResetCombo())
+        //            EndSleep();
 
         //Handle player walking, make sure the player doesn't walk while dashing
         if (!isSleeping)
