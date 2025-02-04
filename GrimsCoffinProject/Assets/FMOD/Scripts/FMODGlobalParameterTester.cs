@@ -13,22 +13,30 @@ public class FMODGlobalParameterTester : MonoBehaviour
     {
         Stone,
         Snow,
-        Soil
+        Soil,
+        Equi,
     }
 
-    
+    public enum levelNamesEnum
+    {
+        Tutorial,
+        Denial,
+        Menu
+    }
+
+
 
     [Tooltip("FMOD events for the map music")]
-    [SerializeField] public EventReference mapMX1;
-    [SerializeField] public EventReference mapMX2;
-    [SerializeField] public EventReference mapMX3;
+    [SerializeField] public EventReference mapMXTutorial;
+    [SerializeField] public EventReference mapMXDenial;
+    [SerializeField] public EventReference mapMXMenu;
     protected EventInstance MXInstance;
 
 
     [Tooltip("FMOD events for the map amb")]
-    [SerializeField] public EventReference mapAmbSFX1;
-    [SerializeField] public EventReference mapAmbSFX2;
-    [SerializeField] public EventReference mapAmbSFX3;
+    [SerializeField] public EventReference mapAmbStoneSFX;
+    [SerializeField] public EventReference mapAmbSnowSFX;
+    [SerializeField] public EventReference mapAmbSoilSFX;
     protected EventInstance mapAmbInstance;
 
     [Tooltip("Select the parameter you want to ground switch controller")]
@@ -37,6 +45,9 @@ public class FMODGlobalParameterTester : MonoBehaviour
     [Tooltip("Selection of available ground names")]
     [SerializeField] public groundNamesEnum groundName;
     private groundNamesEnum initialGround;
+    [Tooltip("Selection of available ground names")]
+    [SerializeField] public levelNamesEnum levelName;
+    private levelNamesEnum initialLevel;
 
     #region valueA
     [Range(0f, 1f)]
@@ -80,23 +91,35 @@ public class FMODGlobalParameterTester : MonoBehaviour
         switch ((float)groundName)
         {
             case 0:
-                MXInstance = RuntimeManager.CreateInstance(mapMX1);
-                mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSFX1);
+                mapAmbInstance = RuntimeManager.CreateInstance(mapAmbStoneSFX);
                 break;
             case 1:
-                MXInstance = RuntimeManager.CreateInstance(mapMX1);
-                mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSFX2);
+                mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSnowSFX);
                 break;
             case 2:
-                MXInstance = RuntimeManager.CreateInstance(mapMX1);
-                mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSFX3);
+                mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSoilSFX);
                 break;
             default:
-                MXInstance = RuntimeManager.CreateInstance(mapMX1);
-                mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSFX1);
+                mapAmbInstance = RuntimeManager.CreateInstance(mapAmbStoneSFX);
+                break;
+        }
+        switch ((float)levelName)
+        {
+            case 0:
+                MXInstance = RuntimeManager.CreateInstance(mapMXTutorial);
+                break;
+            case 1:
+                MXInstance = RuntimeManager.CreateInstance(mapMXDenial);
+                break;
+            case 2:
+                MXInstance = RuntimeManager.CreateInstance(mapMXMenu);
+                break;
+            default:
+                MXInstance = RuntimeManager.CreateInstance(mapMXMenu);
                 break;
         }
         initialGround = groundName;
+        initialLevel = levelName;
 
     }
     void Start()
@@ -121,21 +144,52 @@ public class FMODGlobalParameterTester : MonoBehaviour
             switch ((float)groundName)
             {
                 case 0:
-                    mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSFX1);
+                    mapAmbInstance = RuntimeManager.CreateInstance(mapAmbStoneSFX);
                     break;
                 case 1:
-                    mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSFX2);
+                    mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSnowSFX);
                     break;
                 case 2:
-                    mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSFX3);
+                    mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSoilSFX);
                     break;
                 default:
-                    mapAmbInstance = RuntimeManager.CreateInstance(mapAmbSFX1);
+                    mapAmbInstance = RuntimeManager.CreateInstance(mapAmbStoneSFX);
                     break;
             }
-            Debug.Log("New Map is Updated!");
             mapAmbInstance.start();
             initialGround = groundName;
         }
+
+
+        if ((float)initialLevel != (float)levelName)
+        {
+            MXInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            MXInstance = new EventInstance();
+            switch ((float)levelName)
+            {
+                case 0:
+                    MXInstance = RuntimeManager.CreateInstance(mapMXTutorial);
+                    break;
+                case 1:
+                    MXInstance = RuntimeManager.CreateInstance(mapMXDenial);
+                    break;
+                case 2:
+                    MXInstance = RuntimeManager.CreateInstance(mapMXMenu);
+                    break;
+                default:
+                    MXInstance = RuntimeManager.CreateInstance(mapMXMenu);
+                    break;
+            }
+            MXInstance.start();
+            initialLevel = levelName;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        mapAmbInstance.release();
+        mapAmbInstance.clearHandle();
+        MXInstance.release();
+        MXInstance.clearHandle();
     }
 }

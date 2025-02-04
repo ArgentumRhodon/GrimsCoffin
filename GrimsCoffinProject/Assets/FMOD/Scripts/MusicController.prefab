@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6089500267154046635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6760986661548700022}
+  - component: {fileID: 3658500098951161199}
+  m_Layer: 0
+  m_Name: MusicController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6760986661548700022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089500267154046635}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3658500098951161199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089500267154046635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c3011052be6ae478f3e26e1939f210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapMXTutorial:
+    Guid:
+      Data1: -128402349
+      Data2: 1235737771
+      Data3: -1904374908
+      Data4: -2088064036
+    Path: event:/MX/001_TutorialTrack
+  mapMXDenial:
+    Guid:
+      Data1: -1800105905
+      Data2: 1127755849
+      Data3: 1290362272
+      Data4: 130722066
+    Path: event:/MX/002_DenialTrack
+  mapMXMenu:
+    Guid:
+      Data1: 585692706
+      Data2: 1197926912
+      Data3: -1598529867
+      Data4: 2029090639
+    Path: event:/MX/003_MenuTrack
+  mapAmbStoneSFX:
+    Guid:
+      Data1: -519826320
+      Data2: 1192514345
+      Data3: -602550374
+      Data4: -849189171
+    Path: event:/LM/MapTutorial/006_Ambience
+  mapAmbSnowSFX:
+    Guid:
+      Data1: 782761443
+      Data2: 1323401157
+      Data3: 69067697
+      Data4: -987127561
+    Path: event:/LM/MapDenial/005_Ambience
+  mapAmbSoilSFX:
+    Guid:
+      Data1: -313055506
+      Data2: 1319516642
+      Data3: 1376337286
+      Data4: -1840170528
+    Path: event:/LM/MapEquilibrium/007_Ambience
+  StandingGroundPram: PlayerStandGround
+  groundName: 1
+  levelName: 0
+  sliderValueA: 1
+  valueA: Global_MX_Vol
+  sliderValueB: 1
+  valueB: Global_SFX_Vol
+  sliderValueC: 1
+  valueC: Global_UI_Vol

@@ -406,50 +406,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c3011052be6ae478f3e26e1939f210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapMX1:
+  mapMXTutorial:
     Guid:
-      Data1: 585692706
-      Data2: 1197926912
-      Data3: -1598529867
-      Data4: 2029090639
-    Path: event:/MX/003_MenuTrack
-  mapMX2:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  mapMXDenial:
     Guid:
-      Data1: 585692706
-      Data2: 1197926912
-      Data3: -1598529867
-      Data4: 2029090639
-    Path: event:/MX/003_MenuTrack
-  mapMX3:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  mapMXMenu:
     Guid:
-      Data1: 585692706
-      Data2: 1197926912
-      Data3: -1598529867
-      Data4: 2029090639
-    Path: event:/MX/003_MenuTrack
-  mapAmbSFX1:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  mapAmbStoneSFX:
     Guid:
-      Data1: -519826320
-      Data2: 1192514345
-      Data3: -602550374
-      Data4: -849189171
-    Path: event:/LM/MapTutorial/006_Ambience
-  mapAmbSFX2:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  mapAmbSnowSFX:
     Guid:
-      Data1: 782761443
-      Data2: 1323401157
-      Data3: 69067697
-      Data4: -987127561
-    Path: event:/LM/MapDenial/005_Ambience
-  mapAmbSFX3:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  mapAmbSoilSFX:
     Guid:
-      Data1: -313055506
-      Data2: 1319516642
-      Data3: 1376337286
-      Data4: -1840170528
-    Path: event:/LM/MapEquilibrium/007_Ambience
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   StandingGroundPram: Global_UI_Vol
   groundName: 1
+  levelName: 0
   sliderValueA: 0.5
   valueA: 
   sliderValueB: 0.5
@@ -991,12 +992,28 @@ PrefabInstance:
       value: Controls
       objectReference: {fileID: 0}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 774230679}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleControls
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TitleScreen, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1342,6 +1359,67 @@ MonoBehaviour:
   xboxControls: {fileID: 9947748}
   playstationControls: {fileID: 143247013}
   playerControls: {fileID: 774230677}
+--- !u!1001 &930173500
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3658500098951161199, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: levelName
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089500267154046635, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_Name
+      value: MusicController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760986661548700022, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0ac0122f13dcd3a43a4a16d1b9c678d8, type: 3}
 --- !u!1 &952263878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,12 +2105,28 @@ PrefabInstance:
       value: New Game
       objectReference: {fileID: 0}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 774230679}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: NewGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TitleScreen, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2048,3 +2142,4 @@ SceneRoots:
   - {fileID: 1469152897}
   - {fileID: 774230678}
   - {fileID: 952263880}
+  - {fileID: 930173500}

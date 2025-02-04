@@ -92,6 +92,12 @@
 		<property name="length">
 			<value>2</value>
 		</property>
+		<property name="startOffset">
+			<value>5</value>
+		</property>
+		<property name="volume">
+			<value>9</value>
+		</property>
 		<relationship name="sounds">
 			<destination>{3dcbd46a-801f-43d5-aee1-ac6542023a01}</destination>
 			<destination>{2d92815d-f1e5-42bb-b4c1-243ace7ecc3e}</destination>
@@ -136,10 +142,16 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{9c730203-3029-4f1b-8e9c-00ecedd2b38b}">
 		<relationship name="effects">
+			<destination>{ca3770ed-c0cc-44be-976e-9c37fc671d5e}</destination>
 			<destination>{8b23949f-2de6-4063-b916-3daf38f4f351}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{0b928b66-131c-4b2e-ac50-c686d00a0731}" />
 	<object class="MixerBusFader" id="{93df38ad-7ec0-4849-9a4e-16aa65091982}" />
+	<object class="ObjectSpatialiserEffect" id="{ca3770ed-c0cc-44be-976e-9c37fc671d5e}">
+		<property name="distanceRolloffType">
+			<value>4</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{8b23949f-2de6-4063-b916-3daf38f4f351}" />
 </objects>
