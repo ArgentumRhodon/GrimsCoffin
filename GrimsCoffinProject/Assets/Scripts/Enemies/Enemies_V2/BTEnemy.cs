@@ -21,10 +21,12 @@ public class BTEnemy : Enemy
 
     //Acceleration
     [Header("Acceleration Rate")]
-    [SerializeField] public float walkAcceleration;
-    [HideInInspector] public float walkAccelAmount;
-    [SerializeField] public float walkDecceleration;
-    [HideInInspector] public float walkDeccelAmount;
+    [SerializeField] public float movementAcceleration;
+    [HideInInspector] public float movementAccelAmount;
+    [SerializeField] public float movementDecceleration;
+    [HideInInspector] public float movementDeccelAmount;
+
+    private Canvas enemyCanvas;
 
     protected override void Start()
     {
@@ -32,8 +34,10 @@ public class BTEnemy : Enemy
         isFacingRight = true;
         direction = 1;
 
-        walkAccelAmount = (1 * walkAcceleration) / movementSpeed;
-        walkDeccelAmount = (1 * walkDecceleration) / movementSpeed;
+        movementAccelAmount = (1 * movementAcceleration) / movementSpeed;
+        movementDeccelAmount = (1 * movementDecceleration) / movementSpeed;
+
+        enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
     }
 
     protected override void FixedUpdate()
@@ -75,5 +79,22 @@ public class BTEnemy : Enemy
                 }
             }
         }
+    }
+
+    public void FaceRight(bool shouldFaceRight = true)
+    {
+        //Transform local scale of object
+        Vector3 scale = transform.localScale;
+        scale.x = shouldFaceRight ? Mathf.Abs(scale.x) : -1 * Mathf.Abs(scale.x);
+        transform.localScale = scale;
+
+        //Update state
+        IsFacingRight = shouldFaceRight ? IsFacingRight : !IsFacingRight;
+        Direction = shouldFaceRight ? Mathf.Abs(Direction) : -1 * Mathf.Abs(Direction);
+
+        //Updates scale of UI so that it is always facing right
+        Vector3 tempScale = enemyCanvas.transform.localScale;
+        tempScale.x *= shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);
+        enemyCanvas.transform.localScale = tempScale;
     }
 }

@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
-using BehaviorDesigner.Runtime.Tasks.Unity.UnityCharacterController;
-using Unity.VisualScripting;
 
 namespace Core.AI
 {
@@ -40,10 +38,6 @@ namespace Core.AI
             //Get required components
             seeker = GetComponent<Seeker>();
             enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
-
-            //Reset colliders
-          /*  enemyScript.airChecker.IsColliding = true;
-            enemyScript.wallChecker.IsColliding = false;*/
 
             //Start new path and timers
             UpdatePath();
@@ -131,7 +125,7 @@ namespace Core.AI
             //Smooth changes to direction and speed using a lerp function
             targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, 1);
 
-            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.walkAccelAmount : enemyScript.walkDeccelAmount;
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeccelAmount;
 
             //Calculate difference between current velocity and desired velocity
             float speedDif = targetSpeed - rb.velocity.x;
@@ -150,11 +144,11 @@ namespace Core.AI
 
             if (movement >= 0.01f)
             {
-                FaceRight();
+                enemyScript.FaceRight();
             }
             else if (movement <= -0.01f)
             {
-                FaceRight(false);
+                enemyScript.FaceRight(false);
             }
 
             if (FindPlayerDistance() <= targetRange)
@@ -212,29 +206,12 @@ namespace Core.AI
 
             if(direction.x > 0 && !enemyScript.IsFacingRight)
             {
-                FaceRight();
+                enemyScript.FaceRight();
             }
             else if(direction.x < 0 && enemyScript.IsFacingRight)
             {
-                FaceRight(false);
+                enemyScript.FaceRight(false);
             }
-        }
-
-        private void FaceRight(bool shouldFaceRight = true)
-        {
-            //Transform local scale of object
-            Vector3 scale = transform.localScale;
-            scale.x = shouldFaceRight ? Mathf.Abs(scale.x) : -1 * Mathf.Abs(scale.x);
-            transform.localScale = scale;          
-
-            //Update state
-            enemyScript.IsFacingRight = shouldFaceRight ? enemyScript.IsFacingRight : !enemyScript.IsFacingRight;
-            enemyScript.Direction = shouldFaceRight ? Mathf.Abs(enemyScript.Direction) : -1 * Mathf.Abs(enemyScript.Direction);
-
-            //Updates scale of UI so that it is always facing right
-            Vector3 tempScale = enemyCanvas.transform.localScale;
-            tempScale.x *= shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);
-            enemyCanvas.transform.localScale = tempScale;
         }
 
         private bool IsOverlapping()
