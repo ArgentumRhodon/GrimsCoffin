@@ -116,7 +116,7 @@ namespace Core.AI
 
             if (movement.x >= 0.01f)
             {
-                enemyScript.FaceRight();
+                enemyScript.FaceRight(true);
             }
             else if (movement.x <= -0.01f)
             {
@@ -178,7 +178,7 @@ namespace Core.AI
 
             if (direction.x > 0 && !enemyScript.IsFacingRight)
             {
-                enemyScript.FaceRight();
+                enemyScript.FaceRight(true);
             }
             else if (direction.x < 0 && enemyScript.IsFacingRight)
             {

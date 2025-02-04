@@ -92,12 +92,10 @@ public class BTEnemy : Enemy
 
         //Updates scale of UI so that it is always facing right
         Vector3 tempScale = enemyCanvas.transform.localScale;
-        tempScale.x *= shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);
+        tempScale.x = shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);       
         enemyCanvas.transform.localScale = tempScale;
 
         IsFacingRight = shouldFaceRight;
-        Direction = shouldFaceRight ? Mathf.Abs(Direction) : -1 * Mathf.Abs(Direction);
-
-       
+        Direction = shouldFaceRight ? Mathf.Abs(Direction) : -1 * Mathf.Abs(Direction);       
     }
 }
