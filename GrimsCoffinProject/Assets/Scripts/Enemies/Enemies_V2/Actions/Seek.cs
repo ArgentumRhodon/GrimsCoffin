@@ -78,7 +78,7 @@ namespace Core.AI
                 }
                 else if(isWaiting)
                 {
-                    Debug.Log("Is waiting");
+                    //Debug.Log("Is waiting");
                     UpdateDirection();
                     if (FindPlayerDistance() <= targetRange)
                     {
@@ -114,27 +114,32 @@ namespace Core.AI
                 reachedEndOfPath = false;
             }
 
-
-            Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
-            Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
-
             //Make sure direction is in x only
-            Vector2 direction = (playerPos - enemyPos).normalized;
+            Vector2 direction = FindPlayerDirection();
+
+            if (direction.x != 0)
+            {
+                if (direction.x > 0)
+                    direction.x = 1;
+                else
+                    direction.x = -1;
+            }
             direction.y = 0;
-            Vector2 force = new Vector2();// = direction * speed * Time.deltaTime;
 
+            float targetSpeed = direction.x * enemyScript.seekSpeed;
 
-            //Just move the x position
-            if (playerPos.x > enemyPos.x)
-            {
-                force.x = 1 * speed * Time.deltaTime;              
-            }
-            else
-            {
-                force.x = -1 * speed * Time.deltaTime;
-            }
+            //Smooth changes to direction and speed using a lerp function
+            targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, 1);
 
-            rb.AddForce(force);
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.walkAccelAmount : enemyScript.walkDeccelAmount;
+
+            //Calculate difference between current velocity and desired velocity
+            float speedDif = targetSpeed - rb.velocity.x;
+            //Calculate force along x-axis to apply to thr player
+            float movement = speedDif * accelRate;
+
+            rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
+
 
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
@@ -143,16 +148,14 @@ namespace Core.AI
                 currentWaypoint++;
             }
 
-            if (force.x >= 0.01f)
+            if (movement >= 0.01f)
             {
                 FaceRight();
             }
-            else if (force.x <= -0.01f)
+            else if (movement <= -0.01f)
             {
                 FaceRight(false);
             }
-
-            Debug.Log("Following path");
 
             if (FindPlayerDistance() <= targetRange)
             {
@@ -204,12 +207,8 @@ namespace Core.AI
 
         private void UpdateDirection()
         {
-            Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
-            Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
-
-            Vector2 direction = (playerPos - enemyPos).normalized;
-
-            //Debug.Log(direction);
+            //Find direction and update it
+            Vector2 direction = FindPlayerDirection();
 
             if(direction.x > 0 && !enemyScript.IsFacingRight)
             {
@@ -258,6 +257,14 @@ namespace Core.AI
         private float FindPlayerDistance()
         {
             return Mathf.Abs(player.transform.position.x - transform.position.x);
+        }
+
+        private Vector2 FindPlayerDirection()
+        {
+            Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
+            Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
+
+            return (playerPos - enemyPos).normalized;
         }
     }
 }

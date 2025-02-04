@@ -11,6 +11,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] public float health;
     [SerializeField] public float damage;
     [SerializeField] public float movementSpeed;
+    [SerializeField] public float seekSpeed;
     [SerializeField] public float visionRange;
     [SerializeField] [Range(0f, 5f)] protected float knockbackMult;
     [SerializeField] protected Collider2D hitbox;
@@ -24,7 +25,7 @@ public abstract class Enemy : MonoBehaviour
     //Private references
     protected Seeker seeker;
     protected Rigidbody2D rb;
-    private List<Collider2D> collidersDamaged;
+    protected List<Collider2D> collidersDamaged;
     protected bool isPlayerOnRight;
 
     //Time Variables
@@ -82,7 +83,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     //Damage player if colliding with the enemy
-    public void CheckCollisionWithPlayer()
+    public virtual void CheckCollisionWithPlayer()
     {
         Collider2D[] collidersToDamage = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();

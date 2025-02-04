@@ -17,6 +17,7 @@ public class BTEnemy : Enemy
     [SerializeField] public GroundChecker wallChecker;
     [SerializeField] public GroundChecker airChecker;
     [SerializeField] public Collider2D visionCollider;
+    [SerializeField] public Collider2D attackCollider;
 
     //Acceleration
     [Header("Acceleration Rate")]
@@ -31,15 +32,13 @@ public class BTEnemy : Enemy
         isFacingRight = true;
         direction = 1;
 
- /*       airChecker.IsColliding = true;
-        wallChecker.IsColliding = false;*/
-
         walkAccelAmount = (1 * walkAcceleration) / movementSpeed;
         walkDeccelAmount = (1 * walkDecceleration) / movementSpeed;
     }
 
     protected override void FixedUpdate()
     {
+        CheckCollisionWithPlayer();
     }
 
     //Take damage is 
@@ -53,9 +52,28 @@ public class BTEnemy : Enemy
 
         //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
-/*
-        //Enemy death calculation
-        if (health <= 0)
-            DestroyEnemy();*/
+    }
+
+    //Damage player if colliding with the enemy
+    public override void CheckCollisionWithPlayer()
+    {
+        Collider2D[] collidersToDamage = new Collider2D[10];
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
+        int colliderCount = Physics2D.OverlapCollider(attackCollider, filter, collidersToDamage);
+
+        for (int i = 0; i < colliderCount; i++)
+        {
+            if (!collidersDamaged.Contains(collidersToDamage[i]))
+            {
+                TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
+
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility
+                    && !PlayerControllerForces.Instance.hasDashInvincibility)
+                {
+                    PlayerControllerForces.Instance.TakeDamage(damage);
+                }
+            }
+        }
     }
 }
