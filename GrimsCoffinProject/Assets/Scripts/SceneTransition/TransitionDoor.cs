@@ -21,7 +21,7 @@ public class TransitionDoor : MonoBehaviour
 
     [SerializeField]
     private CinemachineVirtualCamera FollowCamera;
-    private CinemachineConfiner2D FollowCameraConfiner;
+    private CinemachineConfiner FollowCameraConfiner;
 
     [SerializeField]
     private GameObject areaEntering;
@@ -57,11 +57,10 @@ public class TransitionDoor : MonoBehaviour
     void Start()
     {
         spawnPos = transform.GetChild(0).position;
-        FollowCameraConfiner = FollowCamera.GetComponent<CinemachineConfiner2D>();
+        FollowCameraConfiner = FollowCamera.GetComponent<CinemachineConfiner>();
         if (FollowCameraConfiner != null)
         {
             Debug.Log("1");
-                
         }
 
     }
