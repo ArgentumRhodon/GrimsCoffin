@@ -203,26 +203,28 @@ namespace Core.AI
 
             if(direction.x > 0 && !enemyScript.IsFacingRight)
             {
-                TurnAround();
+                FaceRight();
             }
             else if(direction.x < 0 && enemyScript.IsFacingRight)
             {
-                TurnAround();
+                FaceRight(false);
             }
         }
 
-        private void TurnAround()
+        private void FaceRight(bool shouldFaceRight = true)
         {
             //Transform local scale of object
             Vector3 scale = transform.localScale;
-            scale.x *= -1;
+            scale.x = shouldFaceRight ? Mathf.Abs(scale.x) : -1 * Mathf.Abs(scale.x);
             transform.localScale = scale;
-            enemyScript.IsFacingRight = !enemyScript.IsFacingRight;
-            enemyScript.Direction *= -1;
+
+            //Update state
+            enemyScript.IsFacingRight = shouldFaceRight ? enemyScript.IsFacingRight : !enemyScript.IsFacingRight;
+            enemyScript.Direction *= shouldFaceRight ? Mathf.Abs(enemyScript.Direction) : -1 * Mathf.Abs(enemyScript.Direction);
 
             //Updates scale of UI so that it is always facing right
             Vector3 tempScale = enemyCanvas.transform.localScale;
-            tempScale.x *= -1;
+            tempScale.x *= shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);
             enemyCanvas.transform.localScale = tempScale;
         }
 
