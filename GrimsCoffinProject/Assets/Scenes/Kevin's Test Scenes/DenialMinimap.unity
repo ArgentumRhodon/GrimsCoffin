@@ -570,6 +570,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3486bfb9e2c6147a2b08c49c6de295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &50994552 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4803867170304400887, guid: 1a151c047f48a02478ad33cf0d50b415, type: 3}
+  m_PrefabInstance: {fileID: 1205697586}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &65149040
 GameObject:
   m_ObjectHideFlags: 0
@@ -12334,6 +12345,7 @@ GameObject:
   - component: {fileID: 282942411}
   - component: {fileID: 282942413}
   - component: {fileID: 282942414}
+  - component: {fileID: 282942415}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -12381,7 +12393,7 @@ MonoBehaviour:
   - {fileID: 1920715316}
   - {fileID: 1920715315}
   dialogueUI: {fileID: 1205697588}
-  playerInput: {fileID: 0}
+  playerInput: {fileID: 491838783}
   scytheThrowInMenu: 0
 --- !u!4 &282942412
 Transform:
@@ -12446,6 +12458,34 @@ MonoBehaviour:
   defaultYPos: -1.7
   defaultSceneName: NewGame
   defaultHP: 50
+--- !u!114 &282942415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282942410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35956553ed0b624b807e7f7b5d5306c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues: []
+  dialogueFileName: Dialogue.json
+  uiManager: {fileID: 282942411}
+  continuePromptIcons:
+  - {fileID: 21300000, guid: c3a78374cb92b424f9f7d820044845b1, type: 3}
+  - {fileID: 21300000, guid: 26bf110d02332ab41a52303839e905e2, type: 3}
+  - {fileID: 21300000, guid: 79c394e37c413954e95877889417fe71, type: 3}
+  continuePrompt: {fileID: 1920605187}
+  speakerIcon: {fileID: 50994552}
+  speakers:
+  - {fileID: 21300000, guid: bdfb8a1f478ab3e41b1a9e2026770cb5, type: 3}
+  - {fileID: 1685548561430930329, guid: 6fa5c1277d401974eba303a7213bc93d, type: 3}
+  - {fileID: 4112221032881069125, guid: 60c0e5f01475a5642ac92d6d757b177a, type: 3}
+  - {fileID: -3335496609688097251, guid: 224a74065fa54f746b136e14e165c031, type: 3}
+  - {fileID: -5956632765844785297, guid: 7d8e55f32fd26184cb44c872aeb191ba, type: 3}
+  canProgressDialogue: 0
 --- !u!1001 &318357344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50448,6 +50488,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca3486bfb9e2c6147a2b08c49c6de295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1920605187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8857564450784670180, guid: 1a151c047f48a02478ad33cf0d50b415, type: 3}
+  m_PrefabInstance: {fileID: 1205697586}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1920715314
