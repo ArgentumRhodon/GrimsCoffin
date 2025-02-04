@@ -124,6 +124,10 @@ public class PlayerControllerForces : MonoBehaviour
     protected EventInstance slideInstance;
     private bool isSlidingPlayed = false;
 
+    [Tooltip("FMOD events for the taking damage")]
+    [SerializeField] public EventReference damageSFX;
+    protected EventInstance damageInstance;
+
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -165,6 +169,7 @@ public class PlayerControllerForces : MonoBehaviour
         landInstance = RuntimeManager.CreateInstance(landSFX);
         slideInstance = RuntimeManager.CreateInstance(slidingSFX);
         wallLeapInstance = RuntimeManager.CreateInstance(wallLeapSFX);
+        damageInstance = RuntimeManager.CreateInstance(damageSFX);
 
 
     }
@@ -292,10 +297,10 @@ public class PlayerControllerForces : MonoBehaviour
     private void FixedUpdate()
     {
         //End sleep if moving after combo
-        if (isSleeping)
-            if (moveInput.x != 0)
-                if (playerCombat.ShouldResetCombo())
-                    EndSleep();
+        //if (isSleeping)
+        //    if (moveInput.x != 0)
+        //        if (playerCombat.ShouldResetCombo())
+        //            EndSleep();
 
         //Handle player walking, make sure the player doesn't walk while dashing
         if (!isSleeping)
@@ -339,7 +344,6 @@ public class PlayerControllerForces : MonoBehaviour
             playSlideSFX(slideInstance);
             Slide();
         }
-            
 
         animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
 
@@ -509,6 +513,7 @@ public class PlayerControllerForces : MonoBehaviour
         currentHP -= damageTaken;
         invincibilityTimer = 2.0f;
         hasInvincibility = true;
+        takeDamageSFX();
 
         CheckForDeath();
     }
@@ -615,6 +620,8 @@ public class PlayerControllerForces : MonoBehaviour
     //Walking
     private async void Walk(float lerpAmount)
     {
+        if (isSleeping)
+            return;
         //Get direction and normalize it to either 1 or -1 
         int direction = XInputDirection();
         if (direction != 0)
@@ -1345,7 +1352,8 @@ public class PlayerControllerForces : MonoBehaviour
         //Sleeping
         SetGravityScale(0);
         isSleeping = true;
-      
+        rb.velocity = Vector2.zero;
+
         //Combat force calculations       
         if (playerState.IsAttacking)
         {
@@ -1440,6 +1448,11 @@ public class PlayerControllerForces : MonoBehaviour
     {
         stopSlideSFX(slideInstance);
         FMODUnity.RuntimeManager.PlayOneShot(dashSfx);
+    }
+
+    private void takeDamageSFX()
+    {
+        damageInstance.start();
     }
 
     private void playLandSFX(EventInstance landInstance)

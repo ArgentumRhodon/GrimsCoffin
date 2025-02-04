@@ -92,6 +92,9 @@
 		<property name="length">
 			<value>0.75</value>
 		</property>
+		<property name="startOffset">
+			<value>10</value>
+		</property>
 		<relationship name="sounds">
 			<destination>{e1eb7593-ba9d-4d2f-9d69-64b4390b7194}</destination>
 			<destination>{4f174dc2-8dd3-4837-99de-105b9c38bec5}</destination>
@@ -99,6 +102,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{91ebedeb-8a55-49d6-a862-d973dc4e3090}">
+		<property name="volume">
+			<value>6</value>
+		</property>
 		<property name="name">
 			<value>1</value>
 		</property>
@@ -136,10 +142,30 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{adfce9b5-17e8-4c46-8e66-64c46df2c32f}">
 		<relationship name="effects">
+			<destination>{7867bbc0-d91b-48d3-a1d5-274f99a49e1b}</destination>
 			<destination>{d6c5f0f7-461d-428c-8f69-c0c4273fc7a6}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{302178cf-06b5-4488-bb60-13dfb2e42430}" />
 	<object class="MixerBusFader" id="{6d0f064f-417d-4ece-83c8-9abc1b94298e}" />
+	<object class="PitchShifterEffect" id="{7867bbc0-d91b-48d3-a1d5-274f99a49e1b}">
+		<property name="pitch">
+			<value>1</value>
+		</property>
+		<property name="overlap">
+			<value>1</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{4fcffc2b-1c8b-4ae8-b213-cd42e164f24a}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{d6c5f0f7-461d-428c-8f69-c0c4273fc7a6}" />
+	<object class="RandomizerModulator" id="{4fcffc2b-1c8b-4ae8-b213-cd42e164f24a}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>10.5</value>
+		</property>
+	</object>
 </objects>
