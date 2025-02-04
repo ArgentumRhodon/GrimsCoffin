@@ -11,25 +11,26 @@ namespace Core.AI
     public class Seek : EnemyAction
     {
         [Header("Physics")]
-        public float speed = 200f, jumpForce = 100f;
+        public float speed = 200f; //, jumpForce = 100f;
         public float nextWaypointDistance = 3f;
-        public float jumpNodeHeightRequirement = 0.8f;
-        public float jumpModifier = 0.3f;
-        public float jumpCheckOffset = 0.1f;
 
-        [Header("Custom Behavior")]
-        public bool followEnabled = true;
-        public bool jumpEnabled = true, isJumping, isInAir;
-        public bool directionLookEnabled = true;
+        //Jump Variables
+        /*        public float jumpNodeHeightRequirement = 0.8f;
+                public float jumpModifier = 0.3f;
+                public float jumpCheckOffset = 0.1f;*/
+        //private bool isOnCoolDown;
 
-        //
+        /*        [Header("Custom Behavior")]
+                public bool jumpEnabled = false, isJumping, isInAir;
+                public bool directionLookEnabled = true;*/
+
+        //Pathfinding tools
         private Path path;
         private int currentWaypoint = 0;
-        private bool reachedEndOfPath = false;
-        private bool isOnCoolDown;
-
+        private bool reachedEndOfPath = false;     
         private Seeker seeker;
 
+        //Update path modifiers
         private float repeatingNum = .2f;
         private float repeatingTimer;
 
@@ -37,7 +38,7 @@ namespace Core.AI
         private Canvas enemyCanvas;
 
         private Collider2D visionRange; 
-        private RaycastHit2D isGrounded;
+        //private RaycastHit2D isGrounded;
 
 
         public override void OnStart()
@@ -48,10 +49,6 @@ namespace Core.AI
             repeatingTimer = repeatingNum;
             isWaiting = false;
             visionRange = enemyScript.visionCollider;
-
-            isJumping = false;
-            isInAir = false;
-            isOnCoolDown = false;
         }
 
         public override TaskStatus OnUpdate()
