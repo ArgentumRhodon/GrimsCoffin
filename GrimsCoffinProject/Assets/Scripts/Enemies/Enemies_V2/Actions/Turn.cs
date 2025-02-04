@@ -24,8 +24,8 @@ namespace Core.AI
         {
             if (hasTurned)
             {
-                enemyScript.airChecker.IsColliding = true;
-                enemyScript.wallChecker.IsColliding = false;
+/*                enemyScript.airChecker.IsColliding = true;
+                enemyScript.wallChecker.IsColliding = false;*/
                 return TaskStatus.Success;
             }             
             else

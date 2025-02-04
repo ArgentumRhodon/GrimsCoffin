@@ -11,7 +11,7 @@ namespace Core.AI
     public class Seek : EnemyAction
     {
         [Header("Physics")]
-        public float speed = 200f;
+        public float speed = 50f;
         public float nextWaypointDistance = 3f;
         public float targetRange = 1f;
 
@@ -37,22 +37,30 @@ namespace Core.AI
 
         public override void OnStart()
         {
+            //Get required components
             seeker = GetComponent<Seeker>();
             enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
+
+            //Reset colliders
+          /*  enemyScript.airChecker.IsColliding = true;
+            enemyScript.wallChecker.IsColliding = false;*/
+
+            //Start new path and timers
             UpdatePath();
             repeatingTimer = repeatingNum;
+
+            //Is waiting for player to return
             isWaiting = false;
+            reachedEndOfPath = false;
+
+            //Set vision 
             visionRange = enemyScript.visionCollider;
-
-
-            animator.SetTrigger(animationTriggerName);
-            //Debug.Log("Started seeking");
         }
 
         public override TaskStatus OnUpdate()
         {
             repeatingTimer -= Time.deltaTime;
-            if (repeatingTimer < 0 && !CheckEdge())
+            if (repeatingTimer < 0)// && !CheckEdge())
             {
                 UpdatePath();
                 repeatingTimer = repeatingNum;
@@ -62,8 +70,7 @@ namespace Core.AI
                 PathFollow();
             else if(CheckEdge())
             {
-                //Debug.Log("At edge");
-                if(!isWaiting)
+                if (!isWaiting)
                 {
                     rb.velocity = Vector2.zero;
                     isWaiting = true;
@@ -71,7 +78,12 @@ namespace Core.AI
                 }
                 else if(isWaiting)
                 {
+                    Debug.Log("Is waiting");
                     UpdateDirection();
+                    if (FindPlayerDistance() <= targetRange)
+                    {
+                        reachedEndOfPath = true;
+                    }
                 }
             }
 
@@ -91,30 +103,15 @@ namespace Core.AI
         {
             if (path == null)
                 return;
-
-            //Debug.Log("Following Path");
                
             if (currentWaypoint >= path.vectorPath.Count)
             {
-                if (FindPlayerDistance() <= targetRange)
-                {
-                    reachedEndOfPath = true;
-                    return;
-                }
-                else
-                {
-                    reachedEndOfPath = false;
-                }             
+                reachedEndOfPath = true;
+                return;
             }
             else
             {
                 reachedEndOfPath = false;
-            }
-
-            if(FindPlayerDistance() <= targetRange)
-            {
-                reachedEndOfPath = true;
-                return;
             }
 
 
@@ -127,7 +124,7 @@ namespace Core.AI
             Vector2 force = new Vector2();// = direction * speed * Time.deltaTime;
 
 
-            //Issues with y movement, so only moving the x position
+            //Just move the x position
             if (playerPos.x > enemyPos.x)
             {
                 force.x = 1 * speed * Time.deltaTime;              
@@ -148,12 +145,23 @@ namespace Core.AI
 
             if (force.x >= 0.01f)
             {
-                rb.transform.localScale = new Vector3(1, 1, 1);
+                FaceRight();
             }
             else if (force.x <= -0.01f)
             {
-                rb.transform.localScale = new Vector3(-1, 1, 1);
+                FaceRight(false);
             }
+
+            Debug.Log("Following path");
+
+            if (FindPlayerDistance() <= targetRange)
+            {
+                reachedEndOfPath = true;
+                return;
+            }
+
+            //Start movement animation
+            animator.SetTrigger(animationTriggerName);
         }
 
         private void OnPathComplete(Path p)
@@ -201,6 +209,8 @@ namespace Core.AI
 
             Vector2 direction = (playerPos - enemyPos).normalized;
 
+            //Debug.Log(direction);
+
             if(direction.x > 0 && !enemyScript.IsFacingRight)
             {
                 FaceRight();
@@ -216,11 +226,11 @@ namespace Core.AI
             //Transform local scale of object
             Vector3 scale = transform.localScale;
             scale.x = shouldFaceRight ? Mathf.Abs(scale.x) : -1 * Mathf.Abs(scale.x);
-            transform.localScale = scale;
+            transform.localScale = scale;          
 
             //Update state
             enemyScript.IsFacingRight = shouldFaceRight ? enemyScript.IsFacingRight : !enemyScript.IsFacingRight;
-            enemyScript.Direction *= shouldFaceRight ? Mathf.Abs(enemyScript.Direction) : -1 * Mathf.Abs(enemyScript.Direction);
+            enemyScript.Direction = shouldFaceRight ? Mathf.Abs(enemyScript.Direction) : -1 * Mathf.Abs(enemyScript.Direction);
 
             //Updates scale of UI so that it is always facing right
             Vector3 tempScale = enemyCanvas.transform.localScale;

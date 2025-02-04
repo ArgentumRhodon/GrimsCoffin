@@ -16,6 +16,7 @@ namespace Core.AI
         public override void OnStart()
         {
             animator.SetTrigger(animationTriggerName);
+            Walk(.1f);
         }
 
         public override TaskStatus OnUpdate()

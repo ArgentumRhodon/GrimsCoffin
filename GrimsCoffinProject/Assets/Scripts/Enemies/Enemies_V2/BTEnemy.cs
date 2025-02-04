@@ -31,7 +31,8 @@ public class BTEnemy : Enemy
         isFacingRight = true;
         direction = 1;
 
-        airChecker.IsColliding = true;
+ /*       airChecker.IsColliding = true;
+        wallChecker.IsColliding = false;*/
 
         walkAccelAmount = (1 * walkAcceleration) / movementSpeed;
         walkDeccelAmount = (1 * walkDecceleration) / movementSpeed;
