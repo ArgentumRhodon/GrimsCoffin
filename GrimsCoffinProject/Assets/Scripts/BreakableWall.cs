@@ -7,7 +7,7 @@ public class BreakableWall : MonoBehaviour
     [SerializeField]
     private bool isOneWay;
 
-    private float health = 15;
+    private float health = 5;
 
     // Start is called before the first frame update
     void Start()
