@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class CutsceneManager : MonoBehaviour
 
     [SerializeField] private Image continuePrompt;
     [SerializeField] private Image skipPrompt;
+    [SerializeField] private EventReference EventReference;
 
     void Awake()
     {
@@ -60,6 +62,7 @@ public class CutsceneManager : MonoBehaviour
         if (cutsceneActive && !isFading && (controls.UI.Click.triggered || controls.UI.Submit.triggered))
         {
             StartCoroutine(AdvanceSentence());
+            RuntimeManager.PlayOneShot(EventReference);
         }
 
         if (cutsceneActive && controls.UI.SkipCutscene.triggered)

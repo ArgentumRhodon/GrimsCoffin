@@ -187,6 +187,8 @@ public class FMODGlobalParameterTester : MonoBehaviour
 
     private void OnDestroy()
     {
+        mapAmbInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        MXInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         mapAmbInstance.release();
         mapAmbInstance.clearHandle();
         MXInstance.release();
