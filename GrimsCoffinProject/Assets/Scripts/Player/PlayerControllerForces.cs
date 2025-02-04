@@ -159,7 +159,7 @@ public class PlayerControllerForces : MonoBehaviour
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
         }
 
-        TempResetData();
+        //TempResetData();
     }
 
     private void Update()

@@ -16,24 +16,18 @@ namespace Core.AI
         public override void OnStart()
         {
             enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
-            //animator.SetTrigger(animationTriggerName);
+            animator.SetTrigger(animationTriggerName);
 
             if (enemyScript.IsFacingRight)
                 enemyScript.FaceRight(false);
             else
-                enemyScript.FaceRight();
-
-            hasTurned = true;
+                enemyScript.FaceRight(true);
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (hasTurned)
-            {
-                return TaskStatus.Success;
-            }             
-            else
-                return TaskStatus.Running;
+            return TaskStatus.Success;
         }
+
     }
 }

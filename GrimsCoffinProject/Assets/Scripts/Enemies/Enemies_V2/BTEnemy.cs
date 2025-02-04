@@ -6,7 +6,7 @@ public class BTEnemy : Enemy
 {
     //Direction to face
     private int direction = 1;
-    private bool isFacingRight;
+    [SerializeField] private bool isFacingRight;
     
 
     public int Direction { get { return direction; } set { direction = value; } }
@@ -83,18 +83,21 @@ public class BTEnemy : Enemy
 
     public void FaceRight(bool shouldFaceRight = true)
     {
+        //Debug.Log("Is turning: " + shouldFaceRight);
+
         //Transform local scale of object
         Vector3 scale = transform.localScale;
         scale.x = shouldFaceRight ? Mathf.Abs(scale.x) : -1 * Mathf.Abs(scale.x);
         transform.localScale = scale;
 
-        //Update state
-        IsFacingRight = shouldFaceRight ? IsFacingRight : !IsFacingRight;
-        Direction = shouldFaceRight ? Mathf.Abs(Direction) : -1 * Mathf.Abs(Direction);
-
         //Updates scale of UI so that it is always facing right
         Vector3 tempScale = enemyCanvas.transform.localScale;
         tempScale.x *= shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);
         enemyCanvas.transform.localScale = tempScale;
+
+        IsFacingRight = shouldFaceRight;
+        Direction = shouldFaceRight ? Mathf.Abs(Direction) : -1 * Mathf.Abs(Direction);
+
+       
     }
 }

@@ -11,7 +11,9 @@ namespace Core.AI
 
         public override void OnStart()
         {
-            animator.SetTrigger("Idle");
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                animator.SetTrigger("Idle");
+
             animator.SetTrigger(animationTriggerName);
         }
 

@@ -51,18 +51,11 @@ namespace Core.AI
             visionRange = enemyScript.visionCollider;
         }
 
-        public override TaskStatus OnUpdate()
+        public override void OnFixedUpdate()
         {
-            repeatingTimer -= Time.deltaTime;
-            if (repeatingTimer < 0)// && !CheckEdge())
-            {
-                UpdatePath();
-                repeatingTimer = repeatingNum;
-            }
-
-            if(!CheckEdge())
+            if (!CheckEdge())
                 PathFollow();
-            else if(CheckEdge())
+            else if (CheckEdge())
             {
                 if (!isWaiting)
                 {
@@ -70,15 +63,24 @@ namespace Core.AI
                     isWaiting = true;
                     animator.SetTrigger(nextAnimationTrigger);
                 }
-                else if(isWaiting)
+                else if (isWaiting)
                 {
-                    //Debug.Log("Is waiting");
                     UpdateDirection();
                     if (FindPlayerDistance() <= targetRange)
                     {
                         reachedEndOfPath = true;
                     }
                 }
+            }
+        }
+
+        public override TaskStatus OnUpdate()
+        {
+            repeatingTimer -= Time.deltaTime;
+            if (repeatingTimer < 0)// && !CheckEdge())
+            {
+                UpdatePath();
+                repeatingTimer = repeatingNum;
             }
 
             if(!IsOverlapping())
@@ -89,7 +91,6 @@ namespace Core.AI
 
         public override void OnEnd()
         {
-            base.OnEnd();
             animator.SetTrigger(nextAnimationTrigger);
         }
 
@@ -144,7 +145,7 @@ namespace Core.AI
 
             if (movement >= 0.01f)
             {
-                enemyScript.FaceRight();
+                enemyScript.FaceRight(true);
             }
             else if (movement <= -0.01f)
             {
@@ -206,7 +207,7 @@ namespace Core.AI
 
             if(direction.x > 0 && !enemyScript.IsFacingRight)
             {
-                enemyScript.FaceRight();
+                enemyScript.FaceRight(true);
             }
             else if(direction.x < 0 && enemyScript.IsFacingRight)
             {

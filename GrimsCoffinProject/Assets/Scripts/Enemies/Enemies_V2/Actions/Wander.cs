@@ -13,25 +13,37 @@ namespace Core.AI
         private bool waitingForGround;
         private bool hasGrounded;
 
+        private bool isDone;
+
         public override void OnStart()
         {
+            //if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             animator.SetTrigger(animationTriggerName);
             Walk(.1f);
+            isDone = false;
+        }
+
+        public override void OnFixedUpdate()
+        {
+            if (CheckFlip())
+            {
+                animator.SetTrigger(nextAnimationTrigger);
+                rb.velocity = Vector2.zero;
+                isDone = true;
+            }
+            else
+            {
+                Walk(1);
+            }
+
         }
 
         public override TaskStatus OnUpdate()
         {
-            if(CheckFlip())
-            {
-                animator.SetTrigger(nextAnimationTrigger);
-                rb.velocity = Vector2.zero;
-                return TaskStatus.Success;            
-            }              
+            if (isDone)
+                return TaskStatus.Success;
             else
-            {
-                Walk(1);
                 return TaskStatus.Running;
-            }
         }
 
 
@@ -49,7 +61,7 @@ namespace Core.AI
         }
 
         private void Walk(float lerpAmount)
-        {        
+        {
             //Calculate the direction and our desired velocity
             float targetSpeed = enemyScript.Direction * enemyScript.movementSpeed;       
 
