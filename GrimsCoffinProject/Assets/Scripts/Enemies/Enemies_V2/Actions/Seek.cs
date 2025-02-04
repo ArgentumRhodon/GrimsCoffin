@@ -11,18 +11,13 @@ namespace Core.AI
     public class Seek : EnemyAction
     {
         [Header("Physics")]
-        public float speed = 200f; //, jumpForce = 100f;
+        public float speed = 200f;
         public float nextWaypointDistance = 3f;
+        public float targetRange = 1f;
 
-        //Jump Variables
-        /*        public float jumpNodeHeightRequirement = 0.8f;
-                public float jumpModifier = 0.3f;
-                public float jumpCheckOffset = 0.1f;*/
-        //private bool isOnCoolDown;
-
-        /*        [Header("Custom Behavior")]
-                public bool jumpEnabled = false, isJumping, isInAir;
-                public bool directionLookEnabled = true;*/
+        [Header("Animations")]
+        public string animationTriggerName;
+        public string nextAnimationTrigger;
 
         //Pathfinding tools
         private Path path;
@@ -38,7 +33,6 @@ namespace Core.AI
         private Canvas enemyCanvas;
 
         private Collider2D visionRange; 
-        //private RaycastHit2D isGrounded;
 
 
         public override void OnStart()
@@ -49,6 +43,10 @@ namespace Core.AI
             repeatingTimer = repeatingNum;
             isWaiting = false;
             visionRange = enemyScript.visionCollider;
+
+
+            animator.SetTrigger(animationTriggerName);
+            //Debug.Log("Started seeking");
         }
 
         public override TaskStatus OnUpdate()
@@ -64,12 +62,12 @@ namespace Core.AI
                 PathFollow();
             else if(CheckEdge())
             {
-                Debug.Log("At edge");
+                //Debug.Log("At edge");
                 if(!isWaiting)
                 {
                     rb.velocity = Vector2.zero;
                     isWaiting = true;
-                    animator.SetTrigger("Idle");
+                    animator.SetTrigger(nextAnimationTrigger);
                 }
                 else if(isWaiting)
                 {
@@ -83,22 +81,22 @@ namespace Core.AI
             return reachedEndOfPath ? TaskStatus.Success : TaskStatus.Running;
         }
 
+        public override void OnEnd()
+        {
+            base.OnEnd();
+            animator.SetTrigger(nextAnimationTrigger);
+        }
+
         private void PathFollow()
         {
             if (path == null)
                 return;
 
-            Debug.Log("Following Path");
-
-/*            if (currentWaypoint >= path.vectorPath.Count)
-            {
-                reachedEndOfPath = true;
-                return;
-            }*/
+            //Debug.Log("Following Path");
                
             if (currentWaypoint >= path.vectorPath.Count)
             {
-                if (player.transform.position == transform.position)
+                if (FindPlayerDistance() <= targetRange)
                 {
                     reachedEndOfPath = true;
                     return;
@@ -111,6 +109,12 @@ namespace Core.AI
             else
             {
                 reachedEndOfPath = false;
+            }
+
+            if(FindPlayerDistance() <= targetRange)
+            {
+                reachedEndOfPath = true;
+                return;
             }
 
 
@@ -184,7 +188,7 @@ namespace Core.AI
                 if (isWaiting)
                 {
                     isWaiting = false;
-                    animator.SetTrigger("Walk");
+                    animator.SetTrigger(animationTriggerName);
                 }
                 return false;
             }
@@ -222,7 +226,7 @@ namespace Core.AI
             enemyCanvas.transform.localScale = tempScale;
         }
 
-        public bool IsOverlapping()
+        private bool IsOverlapping()
         {
             //Check for colliders overlapping
             Collider2D[] collidersToCheck = new Collider2D[10];
@@ -237,6 +241,11 @@ namespace Core.AI
                     return true;
             }
             return false;
+        }
+    
+        private float FindPlayerDistance()
+        {
+            return Mathf.Abs(player.transform.position.x - transform.position.x);
         }
     }
 }

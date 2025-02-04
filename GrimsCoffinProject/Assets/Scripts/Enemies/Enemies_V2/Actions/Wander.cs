@@ -33,6 +33,7 @@ namespace Core.AI
             }
         }
 
+
         private bool CheckFlip()
         {
             //Check to see if it is not colliding with the ground or is colliding with a wall
