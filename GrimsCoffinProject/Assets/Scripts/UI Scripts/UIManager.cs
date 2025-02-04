@@ -20,11 +20,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject areaText;
     [SerializeField] private GameObject saveIcon;
 
+    [SerializeField] private GameObject minimapUI;
     [SerializeField] private GameObject fullMapUI;
     [SerializeField] private List<GameObject> mapRooms;
     [SerializeField] public GameObject dialogueUI;
 
     [SerializeField] public PlayerInput playerInput;
+
+    public bool scytheThrowInMenu;
 
     private void Awake()
     {
@@ -41,7 +44,10 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (damageVignette == null)
+        if (PlayerControllerForces.Instance.Data.canViewMap && minimapUI != null)
+            minimapUI.SetActive(true);
+
+        if (damageVignette == null || !damageVignette.gameObject.activeInHierarchy)
             return;
 
         if (damageVignette.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
@@ -83,6 +89,9 @@ public class UIManager : MonoBehaviour
 
     public void ToggleMap()
     {
+        if (!PlayerControllerForces.Instance.Data.canViewMap)
+            return;
+
         bool mapActive = !fullMapUI.activeInHierarchy;
 
         gameUI.SetActive(!mapActive);
@@ -127,7 +136,7 @@ public class UIManager : MonoBehaviour
             for (int i = 0; i < roomsExplored.Count; i++)
             {
                 {
-                    if (roomsExplored[i])
+                    if (roomsExplored[i] && mapRooms.Count > 0)
                         mapRooms[i].SetActive(true);
                 }
             }
@@ -173,16 +182,28 @@ public class UIManager : MonoBehaviour
         playerInput.SwitchCurrentActionMap("Player");
     }
 
-    public void Cancel()
+    public IEnumerator Cancel(float seconds)
     {
         if (pauseScript.controlsScreen.activeInHierarchy)
         {
+            PlayerControllerForces.Instance.scytheThrown = true;
             pauseScript.ToggleControls();
         }
 
         else if (pauseScript.gameObject.activeInHierarchy)
         {
+            PlayerControllerForces.Instance.scytheThrown = true;
+            scytheThrowInMenu = true;
             Pause();
         }
+
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < seconds)
+        {
+            yield return null;
+        }
+
+        PlayerControllerForces.Instance.scytheThrown = false;
+        scytheThrowInMenu = false;
     }
 }

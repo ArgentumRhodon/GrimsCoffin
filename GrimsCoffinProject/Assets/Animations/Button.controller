@@ -11,7 +11,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 306873012165675677}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -51,6 +52,25 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-2356292083891854763
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffd4f53f5926eb44b8bf436ee865682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneShotFX:
+    Guid:
+      Data1: -917239141
+      Data2: 1269560215
+      Data3: -165182532
+      Data4: 551890688
+    Path: event:/UI/Menu/401_Button_Select
 --- !u!74 &-431823781083785625
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -179,6 +199,25 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!114 &306873012165675677
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffd4f53f5926eb44b8bf436ee865682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneShotFX:
+    Guid:
+      Data1: 861706079
+      Data2: 1277696249
+      Data3: 1590180268
+      Data4: -85559951
+    Path: event:/UI/Menu/402_Button_Press
 --- !u!74 &1275464235243569732
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -1027,7 +1066,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -2356292083891854763}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

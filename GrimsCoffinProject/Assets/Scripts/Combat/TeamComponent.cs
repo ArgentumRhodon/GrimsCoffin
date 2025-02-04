@@ -7,7 +7,8 @@ public enum TeamIndex
     Neutral = 0,
     Player,
     Enemy,
-    Count
+    Count,
+    BreakWall
 }
 
 public class TeamComponent : MonoBehaviour

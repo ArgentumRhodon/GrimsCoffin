@@ -8,6 +8,10 @@ using UnityEngine.Playables;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
+using FMODUnity;
+using Unity.VisualScripting;
+using System.Threading.Tasks;
+using FMOD.Studio;
 
 public class PlayerControllerForces : MonoBehaviour
 {
@@ -18,7 +22,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     //Rigidbody and player state
     public Rigidbody2D rb { get; private set; }
-    private PlayerStateList playerState;
+    public PlayerStateList playerState;
 
     //Timers
     public float LastOnGroundTime { get; private set; }
@@ -51,6 +55,10 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 lastDashDir;
     private bool isDashAttacking;
 
+    //Abilities
+    [SerializeField] private GameObject scytheProjectilePrefab;
+    [SerializeField] public GameObject heldScytheSprite;
+
     //Input parameters
     private Vector2 moveInput;
     public Vector2 MoveInput { get {return moveInput; } }
@@ -78,9 +86,48 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public float invincibilityTimer;
     [SerializeField] public bool hasInvincibility;
     [SerializeField] public bool hasDashInvincibility;
+    [SerializeField] public bool scytheThrown;
 
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
+
+
+    private float currentTime;
+
+    [Header("FMOD Events and Controller")]
+    [Range(1f, 10f)]
+    [Tooltip("This slide controls how fast you want your footstep speed to be")]
+    [SerializeField] public float footstepSpeed = 3f;
+    [Tooltip("FMOD events for the walking mechanism")]
+    [SerializeField] public EventReference walkSFX;
+    protected EventInstance walkInstance;
+
+    [Tooltip("FMOD events for the jumping mechanism")]
+    [SerializeField] public EventReference jumpSFX;
+    protected EventInstance jumpInstance;
+
+    [Tooltip("FMOD events for the wallJumping mechanism")]
+    [SerializeField] public EventReference wallLeapSFX;
+    protected EventInstance wallLeapInstance;
+
+    [Tooltip("FMOD events for the land-after-jump mechanism")]
+    [SerializeField] public EventReference landSFX;
+    protected EventInstance landInstance;
+    private bool FMODJumpFinished = false;
+    private bool FMODIsLandedPlayed = false;
+
+    [Tooltip("FMOD events for the dashing mechanism")]
+    [SerializeField] public EventReference dashSfx;
+
+    [Tooltip("FMOD events for the sliding mechanism")]
+    [SerializeField] public EventReference slidingSFX;
+    protected EventInstance slideInstance;
+    private bool isSlidingPlayed = false;
+
+    [Tooltip("FMOD events for the taking damage")]
+    [SerializeField] public EventReference damageSFX;
+    protected EventInstance damageInstance;
+
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -115,6 +162,16 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Set player controls to new input
         playerControls = new PlayerControls();
+
+        //Create sound instances for player controller
+        walkInstance = RuntimeManager.CreateInstance(walkSFX);
+        jumpInstance = RuntimeManager.CreateInstance(jumpSFX);
+        landInstance = RuntimeManager.CreateInstance(landSFX);
+        slideInstance = RuntimeManager.CreateInstance(slidingSFX);
+        wallLeapInstance = RuntimeManager.CreateInstance(wallLeapSFX);
+        damageInstance = RuntimeManager.CreateInstance(damageSFX);
+
+
     }
 
     //Methods to make player controls work and to access it in the code
@@ -146,6 +203,8 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canDoubleJump = PersistentDataManager.Instance.CanDoubleJump;
         Data.canWallJump = PersistentDataManager.Instance.CanWallJump;
         Data.canDash = PersistentDataManager.Instance.CanDash;
+        Data.canScytheThrow = PersistentDataManager.Instance.CanScytheThrow;
+        Data.canViewMap = PersistentDataManager.Instance.CanViewMap;
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
@@ -211,6 +270,8 @@ public class PlayerControllerForces : MonoBehaviour
 
           
         }
+
+
         else if (isSleeping && canSleepWalk)
         {
             //Movement values --------------------------------------
@@ -236,10 +297,10 @@ public class PlayerControllerForces : MonoBehaviour
     private void FixedUpdate()
     {
         //End sleep if moving after combo
-        if (isSleeping)
-            if (moveInput.x != 0)
-                if (playerCombat.ShouldResetCombo())
-                    EndSleep();
+        //if (isSleeping)
+        //    if (moveInput.x != 0)
+        //        if (playerCombat.ShouldResetCombo())
+        //            EndSleep();
 
         //Handle player walking, make sure the player doesn't walk while dashing
         if (!isSleeping)
@@ -259,7 +320,11 @@ public class PlayerControllerForces : MonoBehaviour
         else if (canSleepWalk)
             Walk(1);
 
+        if (scytheThrown && !UIManager.Instance.scytheThrowInMenu)
+            heldScytheSprite.SetActive(false);
 
+        else
+            heldScytheSprite.SetActive(true);
 
         if (hasInvincibility)
         {          
@@ -275,7 +340,10 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Handle Slide
         if (playerState.IsSliding)
+        {
+            playSlideSFX(slideInstance);
             Slide();
+        }
 
         animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
 
@@ -426,7 +494,18 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnCancel()
     {
-        UIManager.Instance.Cancel();
+        if (Time.timeScale == 1)
+            return;
+
+        StartCoroutine(UIManager.Instance.Cancel(0.1f));
+    }
+
+    private void OnAbility()
+    {
+        if (isSleeping || Time.timeScale == 0 || currentSP <= 0 || scytheThrown || !Data.canScytheThrow)
+            return;
+
+        ExecuteScytheThrow();
     }
 
     public void TakeDamage(float damageTaken)
@@ -434,6 +513,7 @@ public class PlayerControllerForces : MonoBehaviour
         currentHP -= damageTaken;
         invincibilityTimer = 2.0f;
         hasInvincibility = true;
+        takeDamageSFX();
 
         CheckForDeath();
     }
@@ -445,6 +525,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         currentHP = Data.maxHP;
         currentSP = Data.maxSP;
+
+        if (!playerState.IsFacingRight)
+            Turn();
 
         SpawnAtLastRestPoint();
     }
@@ -522,14 +605,23 @@ public class PlayerControllerForces : MonoBehaviour
             Sleep(Data.aDownAttackDuration);
         }
     }
+
+    public void ExecuteScytheThrow()
+    {
+        GameObject scythe = Instantiate(scytheProjectilePrefab, this.transform.position, Quaternion.identity);
+        currentSP -= 5;
+        scytheThrown = true;
+    }
     #endregion
 
     //Movement Method Calculations --------------------------------------------------------------------------------
     #region Movement Calculations
 
     //Walking
-    private void Walk(float lerpAmount)
+    private async void Walk(float lerpAmount)
     {
+        if (isSleeping)
+            return;
         //Get direction and normalize it to either 1 or -1 
         int direction = XInputDirection();
         if (direction != 0)
@@ -578,6 +670,7 @@ public class PlayerControllerForces : MonoBehaviour
         if (direction != 0)
         {
             float cameraOffset = Data.cameraWalkOffset * direction;
+            PlayWalkSFX();
             CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f,2);
         }
     }
@@ -613,6 +706,10 @@ public class PlayerControllerForces : MonoBehaviour
 
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         jumpVelocity = rb.velocity.y;
+
+        playJumpSFX(jumpInstance, 0);
+        FMODJumpFinished = false;
+        FMODIsLandedPlayed = false;
     }
 
     //Wall jump
@@ -640,7 +737,7 @@ public class PlayerControllerForces : MonoBehaviour
             else if (dir < 0 && playerState.IsFacingRight)
                 Turn();
         }
-         
+        playJumpSFX(jumpInstance, 1);
 
     }
 
@@ -666,6 +763,7 @@ public class PlayerControllerForces : MonoBehaviour
             rb.AddForce(movement * Vector2.up);
         }
 
+        
     }
 
     //Dash Coroutine
@@ -707,6 +805,8 @@ public class PlayerControllerForces : MonoBehaviour
         }
        
         rb.AddForce(Vector2.right * direction * Data.dashSpeed, ForceMode2D.Impulse);
+
+        playDashSFX();
         
         //Update camera
         float cameraOffset = Data.cameraDashOffset * direction;
@@ -789,6 +889,9 @@ public class PlayerControllerForces : MonoBehaviour
             isJumpFalling = true;
 
             LastJumpTime = 0;
+
+            FMODJumpFinished = true;
+
         }
 
         if (playerState.IsWallJumping && Time.time - wallJumpStartTime > Data.wallJumpTime)
@@ -801,17 +904,31 @@ public class PlayerControllerForces : MonoBehaviour
             isJumpCancel = false;
 
             isJumpFalling = false;
+
         }
 
         if (Grounded())
         {
             airJumpCounter = 0;
+
+            if (FMODIsLandedPlayed == false && FMODJumpFinished == true)
+            {
+                stopSlideSFX(slideInstance);
+                playLandSFX(landInstance);
+                FMODIsLandedPlayed = true;
+            }
+            
+
+
         }
         else if (Data.resetJumpOnWall && OnWall())
         {
             //Debug.Log("Reseting wall jump");
             airJumpCounter = 0;
         }
+
+        // Update animator jump variable
+        animator.SetBool("IsJumping", playerState.IsJumping || isJumpFalling);
     }
 
     //Dash variables
@@ -845,7 +962,10 @@ public class PlayerControllerForces : MonoBehaviour
         if (Data.mustHoldWallToJump)
         {
             if (CanSlide() && ((LastOnWallLeftTime > 0 && moveInput.x < -Data.deadzone) || (LastOnWallRightTime > 0 && moveInput.x > Data.deadzone)))
+            {
                 playerState.IsSliding = true;
+            }
+                
             else
             {
                 playerState.IsSliding = false;
@@ -855,7 +975,9 @@ public class PlayerControllerForces : MonoBehaviour
         else
         {
             if (CanSlide() && ((LastOnWallLeftTime > 0 && moveInput.x < Data.deadzone) || (LastOnWallRightTime > 0 && moveInput.x > -Data.deadzone)))
+            {
                 playerState.IsSliding = true;
+            }
             else
                 playerState.IsSliding = false;
         }
@@ -952,6 +1074,7 @@ public class PlayerControllerForces : MonoBehaviour
             //Right Wall Check
             if ((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight) && !playerState.IsWallJumping)
                 LastOnWallRightTime = Data.coyoteTime;
+            
 
             //Left Wall Check
             //Debug.Log((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsFacingRight) && !playerState.IsWallJumping);
@@ -1224,7 +1347,8 @@ public class PlayerControllerForces : MonoBehaviour
         //Sleeping
         SetGravityScale(0);
         isSleeping = true;
-      
+        rb.velocity = Vector2.zero;
+
         //Combat force calculations       
         if (playerState.IsAttacking)
         {
@@ -1294,12 +1418,66 @@ public class PlayerControllerForces : MonoBehaviour
         if (!PersistentDataManager.Instance.FirstTimeInDenial)
             currentHP = Data.maxHP;
     }
-    #endregion
 
-    private void TempResetData()
+    private void PlayWalkSFX()
     {
-        Data.canDash = true;
-        Data.canDoubleJump = true;
-        Data.canWallJump = true;
+        float timeDifference = Time.time - currentTime;
+        if(timeDifference > 1/footstepSpeed && Grounded())
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(walkSFX);
+            currentTime = Time.time;
+        }
     }
-}
+
+    private void playJumpSFX(EventInstance jumpInstance, int jumpStatus)
+    {
+        stopSlideSFX(slideInstance);
+        jumpInstance.start();
+        if (jumpStatus == 1) {
+            slideInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            wallLeapInstance.start();
+            }
+    }
+    
+    private void playDashSFX()
+    {
+        stopSlideSFX(slideInstance);
+        FMODUnity.RuntimeManager.PlayOneShot(dashSfx);
+    }
+
+    private void takeDamageSFX()
+    {
+        damageInstance.start();
+    }
+
+    private void playLandSFX(EventInstance landInstance)
+    {
+        landInstance.start();
+    }
+
+    private void playSlideSFX(EventInstance slideInstance)
+    {
+        if(isSlidingPlayed == false)
+        {
+            isSlidingPlayed = true;
+            slideInstance.start();
+            slideInstance.setParameterByName("SlideStatus", 0);
+        }
+
+    }
+
+    private void stopSlideSFX(EventInstance slideInstance)
+    {
+        slideInstance.setParameterByName("SlideStatus", 1);
+        isSlidingPlayed = false;
+        //Debug.Log("Stopped Sliding");
+    }
+        #endregion
+
+        private void TempResetData()
+        {
+            Data.canDash = true;
+            Data.canDoubleJump = true;
+            Data.canWallJump = true;
+        }
+    }

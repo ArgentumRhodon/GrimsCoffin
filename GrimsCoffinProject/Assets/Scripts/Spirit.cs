@@ -8,14 +8,16 @@ public class Spirit : Interactable
     private SpiritCollectUI spiritUI;
     
     [SerializeField] public SpiritID spiritID;
+    [SerializeField] private SpriteRenderer sprite;
     [SerializeField] public DialogueManager dialogueManager;
+    [SerializeField] private Animator animator;
 
     public enum SpiritID
     {
-        Spirit1 = 1,
-        Spirit2 = 2,
-        Spirit3 = 3,
-        Spirit4 = 4,
+        MapSpirit = 1,
+        DashSpirit = 2,
+        ScytheThrowSpirit = 3,
+        HealthSpirit = 4,
     }
 
     [SerializeField] public SpiritState spiritState;
@@ -24,6 +26,11 @@ public class Spirit : Interactable
         Uncollected = 0,
         Collected = 1,
         Idle = 2,
+    }
+
+    private void Awake()
+    { 
+        animator.SetInteger("SpiritID", (int)spiritID);
     }
 
     // Start is called before the first frame update
@@ -38,12 +45,17 @@ public class Spirit : Interactable
     // Update is called once per frame
     void Update()
     {
+        if (PlayerControllerForces.Instance.transform.position.x <= this.transform.parent.transform.position.x)
+            sprite.flipX = true;
         
+        else
+            sprite.flipX = false;
     }
 
     public override void PerformInteraction()
     {
-        dialogueManager.ShowDialogueForSpirit(spiritID, spiritState);
+        if (dialogueManager != null) 
+            dialogueManager.ShowDialogueForSpirit(spiritID, spiritState);
 
         if (spiritState == SpiritState.Uncollected)
         {

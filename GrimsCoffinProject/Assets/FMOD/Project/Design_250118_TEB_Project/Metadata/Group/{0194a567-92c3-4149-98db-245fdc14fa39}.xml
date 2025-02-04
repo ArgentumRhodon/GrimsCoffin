@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{0194a567-92c3-4149-98db-245fdc14fa39}">
+		<property name="name">
+			<value>SFX</value>
+		</property>
+		<relationship name="automators">
+			<destination>{e276fcd5-241b-4584-9bc1-2634def7bb67}</destination>
+		</relationship>
+		<relationship name="effectChain">
+			<destination>{6a0313e6-3a5a-4ff5-bbeb-82f9bb78c78d}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{61449885-f4b2-43f2-a5a5-249600b98a2e}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{d8ca55fd-9e31-4ebc-a146-9e8c7315c444}</destination>
+		</relationship>
+	</object>
+	<object class="Automator" id="{e276fcd5-241b-4584-9bc1-2634def7bb67}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>volume</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{46c8ffc2-0539-467d-8842-d442a506824a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{6a0313e6-3a5a-4ff5-bbeb-82f9bb78c78d}">
+		<relationship name="effects">
+			<destination>{9c0f9d73-cc0b-4643-8532-17fc6a7f462e}</destination>
+			<destination>{92671128-dbf8-425e-893d-7438d3d2602e}</destination>
+			<destination>{737bc1ae-310d-4de6-972a-5f673f8eba3d}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{61449885-f4b2-43f2-a5a5-249600b98a2e}" />
+	<object class="AutomationCurve" id="{46c8ffc2-0539-467d-8842-d442a506824a}">
+		<relationship name="parameter">
+			<destination>{e95d257e-4845-4faa-a3d8-9a4eb4336662}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{fcf6e625-e797-4141-bf68-8cb456d5b6b5}</destination>
+			<destination>{3031d8b8-aa66-4da9-aa04-46ab5b53481f}</destination>
+		</relationship>
+	</object>
+	<object class="Sidechain" id="{9c0f9d73-cc0b-4643-8532-17fc6a7f462e}" />
+	<object class="GainEffect" id="{92671128-dbf8-425e-893d-7438d3d2602e}">
+		<property name="gain">
+			<value>3</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{737bc1ae-310d-4de6-972a-5f673f8eba3d}" />
+	<object class="AutomationPoint" id="{fcf6e625-e797-4141-bf68-8cb456d5b6b5}">
+		<property name="position">
+			<value>1</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{3031d8b8-aa66-4da9-aa04-46ab5b53481f}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="value">
+			<value>-80</value>
+		</property>
+	</object>
+</objects>

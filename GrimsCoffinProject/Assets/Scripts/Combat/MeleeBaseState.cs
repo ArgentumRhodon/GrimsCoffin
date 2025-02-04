@@ -73,6 +73,10 @@ public class MeleeBaseState : CState
                 {
                     RegisterAttack(collidersToDamage[i]);
                 }
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.BreakWall)
+                {
+                    RegisterAttackWall(collidersToDamage[i]);
+                }
             }
         }
     }
@@ -81,6 +85,12 @@ public class MeleeBaseState : CState
     {
         Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
         collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
+        collidersDamaged.Add(collidersToDamage);
+    }
+
+    protected virtual void RegisterAttackWall(Collider2D collidersToDamage)
+    {
+        collidersToDamage.gameObject.GetComponent<BreakableWall>().TakeDamage(attackDamage);
         collidersDamaged.Add(collidersToDamage);
     }
 

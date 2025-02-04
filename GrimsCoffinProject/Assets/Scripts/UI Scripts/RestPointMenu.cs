@@ -32,7 +32,7 @@ public class RestPointMenu: MonoBehaviour
 
         else
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene("Equilibrium");
         }
     }
 
@@ -58,6 +58,7 @@ public class RestPointMenu: MonoBehaviour
 
         else if (this.gameObject.activeInHierarchy && insideEquilibrium)
         {
+            Heal();
             outsideEQPanel.SetActive(false);
             insideEQPanel.SetActive(true);
 
@@ -84,5 +85,6 @@ public class RestPointMenu: MonoBehaviour
     public void Heal()
     {
         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
+        PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
     }
 }

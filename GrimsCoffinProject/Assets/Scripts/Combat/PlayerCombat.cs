@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +15,7 @@ public class PlayerCombat : MonoBehaviour
         Up,
         Down,
         Dash,
+        Throw,
         Empty
     }
 
@@ -158,6 +161,9 @@ public class PlayerCombat : MonoBehaviour
                     case AttackDirection.Dash:
                         Dash();
                         break;
+                    case AttackDirection.Throw:
+                        //Throw();
+                        break;
                 }
 
                 //Remove from queue
@@ -173,6 +179,9 @@ public class PlayerCombat : MonoBehaviour
     //Attack Input
     private void OnAttack(InputValue value)
     {
+        if (PlayerControllerForces.Instance.scytheThrown)
+            return;
+
         //Make sure the attack is not being held so that it can execute a new input 
         if (!isHoldingAttacking)
         {
@@ -220,6 +229,15 @@ public class PlayerCombat : MonoBehaviour
         {
             InterruptCombo(AttackDirection.Dash);
         }        
+    }
+
+    private void OnAbility()
+    {
+        Debug.Log("Trying to throw");
+        if (isComboing)
+        {
+            InterruptCombo(AttackDirection.Throw);
+        }
     }
     #endregion
 
@@ -366,6 +384,11 @@ public class PlayerCombat : MonoBehaviour
     private void Dash()
     {
         playerController.LastPressedDashTime = Data.dashInputBufferTime;
+    }
+
+    private void Throw()
+    {
+        playerController.ExecuteScytheThrow();
     }
     #endregion
 

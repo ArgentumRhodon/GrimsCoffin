@@ -28,16 +28,28 @@ public class PitRespawn : MonoBehaviour
     //private float roomYMax;
 
     [SerializeField]
-    private Vector2 spawnPos;
+    private Vector2 spawnRightPos;
+
+    [SerializeField]
+    private Vector2 spawnLeftPos;
 
     //[SerializeField]
     //private EnemyManager enterEnemyMgr;
     //[SerializeField]
     //private EnemyManager exitEnemyMgr;
 
-    public Vector3 SpawnPos
+    private float damage = 5f;
+
+    private bool respawnLeft = true;
+
+    public Vector3 SpawnLeftPos
     {
-        get { return spawnPos; }
+        get { return spawnLeftPos; }
+    }
+
+    public Vector3 SpawnRightPos
+    {
+        get { return spawnRightPos; }
     }
 
     // Start is called before the first frame update
@@ -52,20 +64,42 @@ public class PitRespawn : MonoBehaviour
         
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(Transition(collision));
+            //StartCoroutine(Transition(collision.collider));
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerControllerForces.Instance.Sleep(1f);
+            PlayerControllerForces.Instance.TakeDamage(damage);
+            StartCoroutine(Transition(collision.collider));
             //enterEnemyMgr.SpawnEnemies();
             //exitEnemyMgr.DeleteEnemies();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Entered Trigger");
+            float xPos = other.gameObject.transform.position.x;
+            if (xPos < this.transform.position.x)
+            {
+                Debug.Log("Left of Spikes");
+                respawnLeft = true;
+            }
+            else
+            {
+                Debug.Log("Right of Spikes");
+                respawnLeft = false;
+            }
         }
     }
 
@@ -90,8 +124,16 @@ public class PitRespawn : MonoBehaviour
         //    yield return FadeIn(0.5f);
         //}
 
+
         yield return FadeOut(0.5f);
-        col.gameObject.transform.position = spawnPos;
+        if (respawnLeft)
+        {
+            col.gameObject.transform.position = spawnLeftPos;
+        }
+        else
+        {
+            col.gameObject.transform.position = spawnRightPos;
+        }
         Color start = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
         Color target = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
         yield return Fade(start, target, 0.5f);

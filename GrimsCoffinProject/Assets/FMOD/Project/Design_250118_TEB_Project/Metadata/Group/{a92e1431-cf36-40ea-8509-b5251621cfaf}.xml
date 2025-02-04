@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{a92e1431-cf36-40ea-8509-b5251621cfaf}">
+		<property name="name">
+			<value>SFX_NonComp</value>
+		</property>
+		<relationship name="automators">
+			<destination>{31bd2f7f-3c4b-4de6-9410-bbef4b2c1699}</destination>
+		</relationship>
+		<relationship name="effectChain">
+			<destination>{fb0dcffd-a9cd-4720-8ed9-ab8f4237e8eb}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{aabc807b-53d3-4043-aec5-88a57c751992}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{d8ca55fd-9e31-4ebc-a146-9e8c7315c444}</destination>
+		</relationship>
+	</object>
+	<object class="Automator" id="{31bd2f7f-3c4b-4de6-9410-bbef4b2c1699}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>volume</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{95f18782-029e-4fb3-a29b-569b5ea58ffa}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{fb0dcffd-a9cd-4720-8ed9-ab8f4237e8eb}">
+		<relationship name="effects">
+			<destination>{6f1f79c0-bdce-484c-a336-57942a07c119}</destination>
+			<destination>{e7999ef0-62e9-4720-afc9-93200a51e631}</destination>
+			<destination>{337cefea-ff6e-49af-a2a6-c54592850e9a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{aabc807b-53d3-4043-aec5-88a57c751992}" />
+	<object class="AutomationCurve" id="{95f18782-029e-4fb3-a29b-569b5ea58ffa}">
+		<relationship name="parameter">
+			<destination>{e95d257e-4845-4faa-a3d8-9a4eb4336662}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{36e07f2d-94a0-4f84-b29c-0b9d564e651b}</destination>
+			<destination>{d8904996-0ef9-48ad-ae07-30ecae3b249a}</destination>
+		</relationship>
+	</object>
+	<object class="GainEffect" id="{6f1f79c0-bdce-484c-a336-57942a07c119}">
+		<property name="gain">
+			<value>-6</value>
+		</property>
+	</object>
+	<object class="MultibandEqEffect" id="{e7999ef0-62e9-4720-afc9-93200a51e631}">
+		<property name="filterTypeA">
+			<value>9</value>
+		</property>
+		<property name="frequencyA">
+			<value>663.324829</value>
+		</property>
+		<property name="gainA">
+			<value>-11.3793106</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{337cefea-ff6e-49af-a2a6-c54592850e9a}" />
+	<object class="AutomationPoint" id="{36e07f2d-94a0-4f84-b29c-0b9d564e651b}">
+		<property name="position">
+			<value>1</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{d8904996-0ef9-48ad-ae07-30ecae3b249a}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="value">
+			<value>-80</value>
+		</property>
+	</object>
+</objects>
