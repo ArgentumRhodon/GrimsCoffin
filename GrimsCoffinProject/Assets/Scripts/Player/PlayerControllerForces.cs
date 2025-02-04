@@ -926,6 +926,9 @@ public class PlayerControllerForces : MonoBehaviour
             //Debug.Log("Reseting wall jump");
             airJumpCounter = 0;
         }
+
+        // Update animator jump variable
+        animator.SetBool("IsJumping", playerState.IsJumping || isJumpFalling);
     }
 
     //Dash variables
