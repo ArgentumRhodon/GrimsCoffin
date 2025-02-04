@@ -29,7 +29,9 @@ studio.menu.addMenuItem({
             "ENM,Skeleton,Injured,201",
             "ENM,Ghost,Injured,202",
             "ENM,Skeleton,Die,203",
-            "ENM,Ghost,Die,204"
+            "ENM,Ghost,Die,204",
+            "UI,Menu,Button_Select,401",
+            "UI,Menu,Button_Press,402",
         ];
 
 

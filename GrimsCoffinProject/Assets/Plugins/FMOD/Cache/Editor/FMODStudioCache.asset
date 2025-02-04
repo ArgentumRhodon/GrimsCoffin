@@ -96,7 +96,7 @@ MonoBehaviour:
   Name: PlayerStandGround
   StudioPath: parameter:/PlayerStandGround
   Min: 0
-  Max: 2
+  Max: 3
   Default: 0
   ID:
     data1: 1811157504
@@ -107,6 +107,7 @@ MonoBehaviour:
   - Stone
   - Snow
   - Soil
+  - Equi
   Exists: 1
 --- !u!114 &-8396073906209279723
 MonoBehaviour:
@@ -134,7 +135,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 212976
+  Length: 205776
 --- !u!114 &-7872054052990699755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +206,7 @@ MonoBehaviour:
   Name: PlayerStandGround
   StudioPath: 
   Min: 0
-  Max: 2
+  Max: 3
   Default: 0
   ID:
     data1: 1811157504
@@ -216,6 +217,7 @@ MonoBehaviour:
   - Stone
   - Snow
   - Soil
+  - Equi
   Exists: 1
 --- !u!114 &-5454504995469921010
 MonoBehaviour:
@@ -244,6 +246,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 750
+--- !u!114 &-5000763267135460381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Menu/401_Button_Select
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Menu/401_Button_Select
+  Guid:
+    Data1: -917239141
+    Data2: 1269560215
+    Data3: -165182532
+    Data4: 551890688
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 258
 --- !u!114 &-4111743186156968402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,7 +565,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 7835905458541246840}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -596,7 +625,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 212976
+  Length: 52248
 --- !u!114 &-119784978057531689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,6 +701,8 @@ MonoBehaviour:
   - {fileID: 472667363501216846}
   - {fileID: 1342285509007601278}
   - {fileID: -9013458956291557064}
+  - {fileID: 6170392310497438720}
+  - {fileID: -5000763267135460381}
   EditorParameters:
   - {fileID: 2263804133022208642}
   - {fileID: 6742515063781043230}
@@ -681,7 +712,7 @@ MonoBehaviour:
   - {fileID: 7835905458541246840}
   StringsBanks:
   - {fileID: 1212590281995229497}
-  cacheTime: 638742045761032566
+  cacheTime: 638742550062503281
   cacheVersion: 131620
 --- !u!114 &428993134770705617
 MonoBehaviour:
@@ -725,7 +756,7 @@ MonoBehaviour:
   Name: PlayerStandGround
   StudioPath: 
   Min: 0
-  Max: 2
+  Max: 3
   Default: 0
   ID:
     data1: 1811157504
@@ -736,6 +767,7 @@ MonoBehaviour:
   - Stone
   - Snow
   - Soil
+  - Equi
   Exists: 1
 --- !u!114 &472667363501216846
 MonoBehaviour:
@@ -806,10 +838,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638742045761032566
+  lastModified: 638742550062503281
   FileSizes:
   - Name: Desktop
-    Value: 3078
+    Value: 3230
   Exists: 1
 --- !u!114 &1254938243987312262
 MonoBehaviour:
@@ -1128,6 +1160,33 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &6170392310497438720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Menu/402_Button_Press
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Menu/402_Button_Press
+  Guid:
+    Data1: 861706079
+    Data2: 1277696249
+    Data3: 1590180268
+    Data4: -85559951
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
 --- !u!114 &6468516648278469607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1195,10 +1254,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638742045760982229
+  lastModified: 638742550062478151
   FileSizes:
   - Name: Desktop
-    Value: 39763808
+    Value: 41492800
   Exists: 1
 --- !u!114 &7852557550958983355
 MonoBehaviour:

@@ -124,6 +124,10 @@ public class PlayerControllerForces : MonoBehaviour
     protected EventInstance slideInstance;
     private bool isSlidingPlayed = false;
 
+    [Tooltip("FMOD events for the taking damage")]
+    [SerializeField] public EventReference damageSFX;
+    protected EventInstance damageInstance;
+
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -165,6 +169,7 @@ public class PlayerControllerForces : MonoBehaviour
         landInstance = RuntimeManager.CreateInstance(landSFX);
         slideInstance = RuntimeManager.CreateInstance(slidingSFX);
         wallLeapInstance = RuntimeManager.CreateInstance(wallLeapSFX);
+        damageInstance = RuntimeManager.CreateInstance(damageSFX);
 
 
     }
@@ -339,7 +344,6 @@ public class PlayerControllerForces : MonoBehaviour
             playSlideSFX(slideInstance);
             Slide();
         }
-            
 
         animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
 
@@ -509,6 +513,7 @@ public class PlayerControllerForces : MonoBehaviour
         currentHP -= damageTaken;
         invincibilityTimer = 2.0f;
         hasInvincibility = true;
+        takeDamageSFX();
 
         CheckForDeath();
     }
@@ -1440,6 +1445,11 @@ public class PlayerControllerForces : MonoBehaviour
     {
         stopSlideSFX(slideInstance);
         FMODUnity.RuntimeManager.PlayOneShot(dashSfx);
+    }
+
+    private void takeDamageSFX()
+    {
+        damageInstance.start();
     }
 
     private void playLandSFX(EventInstance landInstance)

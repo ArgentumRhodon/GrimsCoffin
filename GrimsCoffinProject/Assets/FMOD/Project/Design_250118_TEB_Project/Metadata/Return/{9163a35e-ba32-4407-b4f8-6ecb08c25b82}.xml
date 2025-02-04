@@ -41,6 +41,9 @@
 		</property>
 	</object>
 	<object class="CompressorEffect" id="{1a359b02-d0c6-4eaa-aee5-9c1085d3ce94}">
+		<property name="threshold">
+			<value>-3</value>
+		</property>
 		<relationship name="sidechains">
 			<destination>{9c0f9d73-cc0b-4643-8532-17fc6a7f462e}</destination>
 		</relationship>

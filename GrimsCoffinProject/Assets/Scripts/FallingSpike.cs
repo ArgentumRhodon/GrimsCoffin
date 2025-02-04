@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,10 @@ public class FallingSpike : MonoBehaviour
     private BoxCollider2D trigger;
 
     private float damage = 5;
+
+    [SerializeField]
+    public EventReference oneShotFX;
+    public EventReference oneShotFX2;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +37,7 @@ public class FallingSpike : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             rb.gravityScale = 5;
             Destroy(trigger.gameObject);
+            RuntimeManager.PlayOneShotAttached(oneShotFX, this.gameObject);
         }
     }
 
@@ -41,6 +47,7 @@ public class FallingSpike : MonoBehaviour
         {
             PlayerControllerForces.Instance.TakeDamage(damage);
         }
+        RuntimeManager.PlayOneShotAttached(oneShotFX2,this.gameObject);
             Destroy(this.gameObject);
     }
 }
