@@ -14,14 +14,10 @@ public class TransitionDoor : MonoBehaviour
     private GameObject areaExiting;
 
     [SerializeField]
-    private PolygonCollider2D ColliderExiting;
-
-    [SerializeField]
     private PolygonCollider2D ColliderEntering;
 
-    [SerializeField]
-    private CinemachineVirtualCamera FollowCamera;
-    [SerializeField] private CinemachineConfiner FollowCameraConfiner;
+    [SerializeField] 
+    private CinemachineConfiner FollowCameraConfiner;
 
     [SerializeField]
     private GameObject areaEntering;
@@ -57,12 +53,6 @@ public class TransitionDoor : MonoBehaviour
     void Start()
     {
         spawnPos = transform.GetChild(0).position;
-        //FollowCameraConfiner = FollowCamera.GetComponent<CinemachineConfiner>();
-        if (FollowCameraConfiner != null)
-        {
-            Debug.Log("1");
-        }
-
     }
 
     // Update is called once per frame
@@ -112,13 +102,11 @@ public class TransitionDoor : MonoBehaviour
         else
         {
             yield return FadeOut(0.5f);
-            //ColliderExiting.gameObject.SetActive(false);
-            //FollowCameraConfiner.m_BoundingShape2D = null;
             Room Enter = areaEntering.GetComponent<Room>();
             Enter.RoomLive = true;
             //mainCam.SetBorders(roomXMin, roomXMax, roomYMin, roomYMax);
             col.gameObject.transform.position = outDoor.SpawnPos;
-            ColliderEntering.gameObject.SetActive(true);
+            //ColliderEntering.gameObject.SetActive(true);
             FollowCameraConfiner.m_BoundingShape2D = ColliderEntering;
             //yield return new WaitForSeconds(0.5f);
             Color start = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
