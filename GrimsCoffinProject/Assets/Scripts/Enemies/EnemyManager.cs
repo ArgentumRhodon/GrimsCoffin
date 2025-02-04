@@ -27,7 +27,8 @@ public class EnemyManager : MonoBehaviour
         foreach (EnemySpawnPoint spawn in enemySpawns)
         {
             //Spawn the enemy and add it to the list of active enemies
-            activeEnemies.Add(spawn.SpawnEnemy(this.gameObject));
+            if (spawn != null) 
+                activeEnemies.Add(spawn.SpawnEnemy(this.gameObject));
         }
     }
 

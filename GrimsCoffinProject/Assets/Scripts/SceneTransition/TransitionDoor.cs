@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,12 @@ public class TransitionDoor : MonoBehaviour
 
     [SerializeField]
     private GameObject areaExiting;
+
+    [SerializeField]
+    private PolygonCollider2D ColliderEntering;
+
+    [SerializeField] 
+    private CinemachineConfiner FollowCameraConfiner;
 
     [SerializeField]
     private GameObject areaEntering;
@@ -99,6 +106,8 @@ public class TransitionDoor : MonoBehaviour
             Enter.RoomLive = true;
             //mainCam.SetBorders(roomXMin, roomXMax, roomYMin, roomYMax);
             col.gameObject.transform.position = outDoor.SpawnPos;
+            //ColliderEntering.gameObject.SetActive(true);
+            FollowCameraConfiner.m_BoundingShape2D = ColliderEntering;
             //yield return new WaitForSeconds(0.5f);
             Color start = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
             Color target = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
