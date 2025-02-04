@@ -292,10 +292,10 @@ public class PlayerControllerForces : MonoBehaviour
     private void FixedUpdate()
     {
         //End sleep if moving after combo
-        if (isSleeping)
-            if (moveInput.x != 0)
-                if (playerCombat.ShouldResetCombo())
-                    EndSleep();
+        //if (isSleeping)
+        //    if (moveInput.x != 0)
+        //        if (playerCombat.ShouldResetCombo())
+        //            EndSleep();
 
         //Handle player walking, make sure the player doesn't walk while dashing
         if (!isSleeping)
@@ -615,6 +615,8 @@ public class PlayerControllerForces : MonoBehaviour
     //Walking
     private async void Walk(float lerpAmount)
     {
+        if (isSleeping)
+            return;
         //Get direction and normalize it to either 1 or -1 
         int direction = XInputDirection();
         if (direction != 0)
@@ -1342,7 +1344,8 @@ public class PlayerControllerForces : MonoBehaviour
         //Sleeping
         SetGravityScale(0);
         isSleeping = true;
-      
+        rb.velocity = Vector2.zero;
+
         //Combat force calculations       
         if (playerState.IsAttacking)
         {
