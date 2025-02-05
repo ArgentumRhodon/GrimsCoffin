@@ -164,7 +164,7 @@ public class PersistentDataManager : MonoBehaviour
                 room.gameObject.SetActive(true);
 
                 if (room.GetComponent<EnemyManager>() != null)
-                    //room.GetComponent<EnemyManager>().SpawnEnemies();
+                    room.GetComponent<EnemyManager>().SpawnEnemies();
 
                 this.GetComponent<CameraManager>().Vcam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = room.GetComponent<PolygonCollider2D>();
             }
