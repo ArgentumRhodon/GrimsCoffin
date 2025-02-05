@@ -92,6 +92,11 @@ public class PauseScreenBehavior : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         EventSystem.current.SetSelectedGameObject(null);
+        foreach (Room room in PersistentDataManager.Instance.rooms)
+        {
+            if (room.gameObject.activeInHierarchy)
+                room.GetComponent<EnemyManager>().DeleteEnemies();
+        }
         SceneManager.LoadScene("TitleScreen");
     }
 
