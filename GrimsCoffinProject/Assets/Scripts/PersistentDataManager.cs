@@ -1,3 +1,4 @@
+using Cinemachine;
 using Pathfinding.Ionic.Zip;
 using System;
 using System.Collections;
@@ -164,6 +165,8 @@ public class PersistentDataManager : MonoBehaviour
 
                 if (room.GetComponent<EnemyManager>() != null)
                     room.GetComponent<EnemyManager>().SpawnEnemies();
+
+                //this.GetComponent<CameraManager>().Vcam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = 
             }
 
             else
