@@ -14,8 +14,7 @@ public class DialogueManager : MonoBehaviour
     private string m_Path;
     public UIManager uiManager;
     private int currentline = 1;
-    private Spirit.SpiritID currentSpirit;
-    private Spirit.SpiritState currentState;
+    private Spirit currentspirit;
 
     private PlayerControls controls;
     private PlayerInput playerInput;
@@ -61,7 +60,7 @@ public class DialogueManager : MonoBehaviour
             {
                 Debug.Log("Click");
                 currentline++;
-                ShowDialogueForSpirit(currentSpirit, currentState);
+                ShowDialogueForSpirit(currentspirit);
             }
         }
     }
@@ -81,13 +80,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void ShowDialogueForSpirit(Spirit.SpiritID spiritID, Spirit.SpiritState spiritState)
+    public void ShowDialogueForSpirit(Spirit spirit)
     {
-        currentSpirit = spiritID;
-        currentState = spiritState;
-        
-        int id = (int)spiritID;
-        int state = (int)spiritState;
+        Debug.Log(spirit);
+        currentspirit = spirit;
+        int id = (int)spirit.spiritID;
+        int state = (int)spirit.spiritState;
 
         // Find the first dialogue matching the given SpiritID, SpiritState, and where LineID == 1
         DialogueEntry dialogue = dialogues.FirstOrDefault(d =>
@@ -114,6 +112,11 @@ public class DialogueManager : MonoBehaviour
         // If  matching dialogue is not found, quit the dialogue and reset the current line to 1
         else
         {
+            if (spirit.spiritState == 0) 
+            {
+                Destroy(spirit.gameObject.transform.parent.gameObject);
+            }
+            PersistentDataManager.Instance.UpdateSpiritState(spirit);
             Debug.LogWarning($"No dialogue found for SpiritID {id}, State {state} with LineID {currentline}.");
             currentline = 1;
             uiManager.ToggleDialogueUI(false);
