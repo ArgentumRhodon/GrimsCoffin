@@ -1232,6 +1232,11 @@ public class PlayerControllerForces : MonoBehaviour
         {
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
             UIManager.Instance.HandlePlayerDeath();
+            foreach (Room room in PersistentDataManager.Instance.rooms)
+            {
+                if (room.gameObject.activeInHierarchy)
+                    room.GetComponent<EnemyManager>().DeleteEnemies();
+            }
         }
 
         else

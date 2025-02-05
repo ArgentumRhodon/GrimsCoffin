@@ -119,6 +119,8 @@ public class PlayerCombat : MonoBehaviour
         //Make sure states are starting correctly
         canAerialCombo = true;
         isAerialCombo = false;
+
+        meleeStateMachine.SetNextStateToMain();
     }
 
     private void FixedUpdate()

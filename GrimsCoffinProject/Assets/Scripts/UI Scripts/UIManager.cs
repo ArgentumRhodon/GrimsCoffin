@@ -148,6 +148,9 @@ public class UIManager : MonoBehaviour
         dialogueUI.SetActive(true);
         dialogueUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
 
+        if (areaText != null)
+            areaText.SetActive(false);
+
         gameUI.SetActive(false);
         Time.timeScale = 0;
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);

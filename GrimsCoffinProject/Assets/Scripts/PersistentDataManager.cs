@@ -38,7 +38,7 @@ public class PersistentDataManager : MonoBehaviour
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
 
     //List of rooms in the scene
-    [SerializeField] private List<Room> rooms;
+    [SerializeField] public List<Room> rooms;
 
     //Default values to spawn the player at when a New Game is started
     [SerializeField] private float defaultXPos = 0;
@@ -166,7 +166,7 @@ public class PersistentDataManager : MonoBehaviour
                 if (room.GetComponent<EnemyManager>() != null)
                     room.GetComponent<EnemyManager>().SpawnEnemies();
 
-                //this.GetComponent<CameraManager>().Vcam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = 
+                this.GetComponent<CameraManager>().Vcam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = room.GetComponent<PolygonCollider2D>();
             }
 
             else
