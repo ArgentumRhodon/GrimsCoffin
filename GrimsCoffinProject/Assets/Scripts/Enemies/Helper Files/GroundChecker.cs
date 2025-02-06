@@ -42,6 +42,19 @@ public class GroundChecker : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //Debug.Log("Updated enter trigger");
+        if (collision.gameObject.layer == 3)
+        {
+            IsColliding = true;
+        }
+        if (checkForPlayer && collision.gameObject.tag == "Enemy")
+        {
+            IsColliding = true;
+        }
+    }
+
     public void ReUpdateTrigger()
     {
         //Debug.Log("Reupdating Trigger");
@@ -51,45 +64,5 @@ public class GroundChecker : MonoBehaviour
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
 
-        //Debug.Log("Is colliding?: " + isColliding);
-
-        /*        LayerMask m_LayerMask = new LayerMask();
-                Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
-
-                Debug.Log(hitColliders.Length);
-
-                //Check when there is a new collider coming into contact with the box
-                for(int i = 0; i < hitColliders.Length; i++)
-                {
-                    Debug.Log("Hit : " + hitColliders[i].name + i);
-
-                    if (hitColliders[i].gameObject.layer == 3)
-                    {
-                        IsColliding = true;
-                        return;
-                    }
-                    else if (checkForPlayer && hitColliders[i].gameObject.tag == "Enemy")
-                    {
-                        IsColliding = true;
-                        return;
-                    }
-                    else
-                    {
-                        IsColliding = false;
-                    }
-                }*/
     }
-
-/*    private void OnTriggerStay2D(Collider2D collision)
-    {
-        //Debug.Log("Trigger Stay is running");
-        if (collision.gameObject.layer == 3)
-        {
-            IsColliding = true;
-        }
-        if (checkForPlayer && collision.gameObject.tag == "Enemy")
-        {
-            IsColliding = true;
-        }
-    }*/
 }

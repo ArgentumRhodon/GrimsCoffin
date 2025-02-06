@@ -159,7 +159,8 @@ namespace Core.AI
             }
 
             //Start movement animation
-            animator.SetTrigger(animationTriggerName);
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationTriggerName))
+                animator.SetTrigger(animationTriggerName);
         }
 
         private void OnPathComplete(Path p)

@@ -123,6 +123,16 @@ public abstract class Enemy : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    public virtual void RemoveActiveEnemy()
+    {
+        this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
+    }
+
+    public virtual void DestroyEnemyGO()
+    {
+        Destroy(this.gameObject);
+    }
+
     //Add knockback to the enemy based off a given force
     public virtual void Knockback(Vector2 knockbackForce)
     {

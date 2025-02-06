@@ -17,7 +17,6 @@ namespace Core.AI
 
         public override void OnStart()
         {
-            //if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             animator.SetTrigger(animationTriggerName);
             Walk(.1f);
             isDone = false;

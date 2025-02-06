@@ -23,6 +23,7 @@ namespace Core.AI
                 animator.SetTrigger(animationTriggerName);
                 gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                enemyScript.RemoveActiveEnemy();
             }
         }
     }
