@@ -1236,6 +1236,12 @@ public class PlayerControllerForces : MonoBehaviour
             {
                 if (room.gameObject.activeInHierarchy)
                     room.GetComponent<EnemyManager>().DeleteEnemies();
+
+
+                if (room.GetComponentInChildren<ArenaManager>() != null)
+                {
+                    room.GetComponentInChildren<ArenaManager>().CombatEnd();
+                }
             }
         }
 

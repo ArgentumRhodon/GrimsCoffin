@@ -34,6 +34,7 @@ public class ArenaManager : MonoBehaviour
 
     public void CombatEnd()
     {
+        enemyMgr.DeleteEnemies();
         arenaDoors.SetActive(false);
     }
 }

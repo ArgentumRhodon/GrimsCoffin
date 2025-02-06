@@ -36,6 +36,9 @@ public class EnemyManager : MonoBehaviour
     //TODO: Tie this method to whenever the player exits the room
     public void DeleteEnemies()
     {
+        if (activeEnemies.Count > 0)
+            return;
+
         for (int i = 0; i < activeEnemies.Count; i++)
         {
             activeEnemies[i].GetComponent<Enemy>().DestroyEnemy();
