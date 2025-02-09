@@ -136,6 +136,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 205776
+--- !u!114 &-8282164405680315884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/LM/MapGeneral/008_WallHit
+  m_EditorClassIdentifier: 
+  Path: event:/LM/MapGeneral/008_WallHit
+  Guid:
+    Data1: 1062440769
+    Data2: 1096523481
+    Data3: 286336187
+    Data4: 2010819901
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 5385093461637114232}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7872054052990699755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +191,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &-7603589854167388158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Respoint/407_MenuClose
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Respoint/407_MenuClose
+  Guid:
+    Data1: -1691484881
+    Data2: 1281169427
+    Data3: 1753218456
+    Data4: -445835110
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 937
 --- !u!114 &-7417221560247645571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +246,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-6811604374149935799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Respoint/406_MenuHeal
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Respoint/406_MenuHeal
+  Guid:
+    Data1: 1692598116
+    Data2: 1341514288
+    Data3: -739043948
+    Data4: 1472133496
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4027
 --- !u!114 &-6430513046137295027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +301,33 @@ MonoBehaviour:
   - Soil
   - Equi
   Exists: 1
+--- !u!114 &-5801272689081695724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/403_Appear
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/403_Appear
+  Guid:
+    Data1: 1954027384
+    Data2: 1257572899
+    Data3: 1845896336
+    Data4: 791440543
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
 --- !u!114 &-5454504995469921010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,12 +701,12 @@ MonoBehaviour:
   Banks:
   - {fileID: 7835905458541246840}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters:
   - {fileID: 7852557550958983355}
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 6.4
   Length: 0
 --- !u!114 &-677338786463015372
 MonoBehaviour:
@@ -703,6 +812,13 @@ MonoBehaviour:
   - {fileID: -9013458956291557064}
   - {fileID: 6170392310497438720}
   - {fileID: -5000763267135460381}
+  - {fileID: -7603589854167388158}
+  - {fileID: -8282164405680315884}
+  - {fileID: -6811604374149935799}
+  - {fileID: -5801272689081695724}
+  - {fileID: 6921699927230426472}
+  - {fileID: 1059765217954741413}
+  - {fileID: 7402651511256503693}
   EditorParameters:
   - {fileID: 2263804133022208642}
   - {fileID: 6742515063781043230}
@@ -712,7 +828,7 @@ MonoBehaviour:
   - {fileID: 7835905458541246840}
   StringsBanks:
   - {fileID: 1212590281995229497}
-  cacheTime: 638744493654914480
+  cacheTime: 638746936913556662
   cacheVersion: 131620
 --- !u!114 &428993134770705617
 MonoBehaviour:
@@ -823,6 +939,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 143
+--- !u!114 &1059765217954741413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/408_Type
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/408_Type
+  Guid:
+    Data1: -1669713219
+    Data2: 1268419784
+    Data3: -1338001493
+    Data4: -850384951
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 524
 --- !u!114 &1212590281995229497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,10 +981,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638744493654914480
+  lastModified: 638746936913556662
   FileSizes:
   - Name: Desktop
-    Value: 3230
+    Value: 3582
   Exists: 1
 --- !u!114 &1254938243987312262
 MonoBehaviour:
@@ -1136,6 +1279,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 15933
+--- !u!114 &5385093461637114232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/008_WallHit/WallTexture
+  m_EditorClassIdentifier: 
+  Name: WallTexture
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 2478125001
+    data2: 1930263208
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Stone
+  - Ice
+  - Soil
+  Exists: 1
 --- !u!114 &5997863604111189664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1239,6 +1409,60 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &6921699927230426472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Respoint/405_MenuOpen
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Respoint/405_MenuOpen
+  Guid:
+    Data1: 595380607
+    Data2: 1095823267
+    Data3: 1258791317
+    Data4: -1492622364
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1125
+--- !u!114 &7402651511256503693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/404_Continue
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/404_Continue
+  Guid:
+    Data1: 1195953145
+    Data2: 1151609771
+    Data3: 935324572
+    Data4: 1751631552
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1101
 --- !u!114 &7835905458541246840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1254,10 +1478,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638744493654904506
+  lastModified: 638746936913531660
   FileSizes:
   - Name: Desktop
-    Value: 41492800
+    Value: 42530368
   Exists: 1
 --- !u!114 &7852557550958983355
 MonoBehaviour:

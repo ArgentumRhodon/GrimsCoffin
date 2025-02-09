@@ -59,7 +59,14 @@
 			<destination>{77f2ea4e-57f9-496f-be34-65352e424e29}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{4dea55f5-8a7c-4387-85e7-1e604e06e037}" />
+	<object class="EventAutomatableProperties" id="{4dea55f5-8a7c-4387-85e7-1e604e06e037}">
+		<property name="maxVoices">
+			<value>1</value>
+		</property>
+		<property name="maximumDistance">
+			<value>6.4000001</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{9bb0bebd-c9b0-4b58-af46-e93d8b718f1a}" />
 	<object class="GroupTrack" id="{5e72450d-e2a8-497a-be28-fba2114cd143}">
 		<relationship name="modules">
@@ -140,6 +147,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{e3bad27b-7240-4b4e-8c00-21b322b74628}">
+		<property name="volume">
+			<value>9</value>
+		</property>
 		<property name="name">
 			<value>1</value>
 		</property>
@@ -155,10 +165,15 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{0f598b48-2421-4b07-a5b0-0c7c2aad8246}">
 		<relationship name="effects">
+			<destination>{2366254c-0872-4b1d-bcdd-387ae010f180}</destination>
 			<destination>{f97526fa-72ad-4c1a-bc95-5481a17dbbc8}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{3be34116-7ed4-43b8-8d0a-2ffee73f76f8}" />
+	<object class="MixerBusPanner" id="{3be34116-7ed4-43b8-8d0a-2ffee73f76f8}">
+		<property name="overridingOutputFormat">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{904de622-2f41-4fe3-9d91-d19cb0fc2e11}" />
 	<object class="SingleSound" id="{cd6c83b3-3df3-4106-947c-051b9f3e9076}">
 		<relationship name="audioFile">
@@ -211,6 +226,29 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{509adf8f-9999-47c3-8aca-9f652a6c3de1}" />
+	<object class="SpatialiserEffect" id="{2366254c-0872-4b1d-bcdd-387ae010f180}">
+		<property name="distanceRolloffType">
+			<value>4</value>
+		</property>
+		<property name="maximumDistance">
+			<value>5.5999999</value>
+		</property>
+		<property name="overrideRange">
+			<value>true</value>
+		</property>
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+		<property name="soundSize">
+			<value>1.80000007</value>
+		</property>
+		<property name="minimumExtent">
+			<value>176</value>
+		</property>
+		<property name="panBlend">
+			<value>0.359999985</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{f97526fa-72ad-4c1a-bc95-5481a17dbbc8}" />
 	<object class="MixerBusFader" id="{f53191eb-4a55-4df7-8b50-efce08374ca4}" />
 </objects>
