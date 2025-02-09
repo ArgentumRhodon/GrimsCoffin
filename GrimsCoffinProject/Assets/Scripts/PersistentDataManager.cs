@@ -1,3 +1,4 @@
+using Cinemachine;
 using Pathfinding.Ionic.Zip;
 using System;
 using System.Collections;
@@ -37,7 +38,7 @@ public class PersistentDataManager : MonoBehaviour
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
 
     //List of rooms in the scene
-    [SerializeField] private List<Room> rooms;
+    [SerializeField] public List<Room> rooms;
 
     //Default values to spawn the player at when a New Game is started
     [SerializeField] private float defaultXPos = 0;
@@ -164,6 +165,8 @@ public class PersistentDataManager : MonoBehaviour
 
                 if (room.GetComponent<EnemyManager>() != null)
                     room.GetComponent<EnemyManager>().SpawnEnemies();
+
+                this.GetComponent<CameraManager>().Vcam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = room.GetComponent<PolygonCollider2D>();
             }
 
             else
@@ -203,6 +206,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanDash", 0);
         PlayerPrefs.SetInt("CanViewMap", 0);
+        PlayerPrefs.SetInt("CanScytheThrow", 0);
 
         //Reset Spirit Data
         PlayerPrefs.SetString("MapSpirit", "Uncollected");
@@ -211,7 +215,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
 
         //Clear Onboarding Map Data
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 25; i++)
         {
             PlayerPrefs.SetInt("LevelRoom" + i, 0);
         } 

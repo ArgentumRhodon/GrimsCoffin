@@ -526,6 +526,8 @@ public class PlayerControllerForces : MonoBehaviour
         currentHP = Data.maxHP;
         currentSP = Data.maxSP;
 
+        PersistentDataManager.Instance.ToggleFirstSpawn(false);
+
         if (!playerState.IsFacingRight)
             Turn();
 
@@ -1230,8 +1232,18 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (currentHP <= 0)
         {
-            PersistentDataManager.Instance.ToggleFirstSpawn(false);
             UIManager.Instance.HandlePlayerDeath();
+            foreach (Room room in PersistentDataManager.Instance.rooms)
+            {
+                if (room.gameObject.activeInHierarchy)
+                    room.GetComponent<EnemyManager>().DeleteEnemies();
+
+
+                if (room.GetComponentInChildren<ArenaManager>() != null)
+                {
+                    room.GetComponentInChildren<ArenaManager>().CombatEnd();
+                }
+            }
         }
 
         else

@@ -398,7 +398,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  checkForPlayer: 1
+  checkForPlayer: 0
   isColliding: 0
 --- !u!1 &2126955059133276837
 GameObject:
@@ -493,7 +493,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  checkForPlayer: 1
+  checkForPlayer: 0
   isColliding: 0
 --- !u!1 &2192975474143243026
 GameObject:
@@ -685,6 +685,7 @@ MonoBehaviour:
     m_Bits: 8
   groundCheckPoint: {fileID: 747165569949480985}
   groundCheckSize: {x: 0.49, y: 0.03}
+  isFacingRight: 0
   wallChecker: {fileID: 935854789338856834}
   airChecker: {fileID: 6984276949057077447}
   visionCollider: {fileID: 7152574433639618853}

@@ -59,7 +59,10 @@ public class UIManager : MonoBehaviour
 
     public void Pause()
     {
-        if (fullMapUI.activeInHierarchy || dialogueUI.activeInHierarchy)
+        if (dialogueUI.activeInHierarchy || restPointMenu.gameObject.activeInHierarchy)
+            return;
+
+        if (fullMapUI != null && fullMapUI.activeInHierarchy)
             return;
 
         pauseScript.Pause();
@@ -89,7 +92,7 @@ public class UIManager : MonoBehaviour
 
     public void ToggleMap()
     {
-        if (!PlayerControllerForces.Instance.Data.canViewMap)
+        if (!PlayerControllerForces.Instance.Data.canViewMap || pauseScript.isPaused || restPointMenu.gameObject.activeInHierarchy || fullMapUI == null)
             return;
 
         bool mapActive = !fullMapUI.activeInHierarchy;
@@ -148,6 +151,9 @@ public class UIManager : MonoBehaviour
         dialogueUI.SetActive(true);
         dialogueUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
 
+        if (areaText != null)
+            areaText.SetActive(false);
+
         gameUI.SetActive(false);
         Time.timeScale = 0;
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
@@ -195,6 +201,13 @@ public class UIManager : MonoBehaviour
             PlayerControllerForces.Instance.scytheThrown = true;
             scytheThrowInMenu = true;
             Pause();
+        }
+
+        else if (restPointMenu.gameObject.activeInHierarchy)
+        {
+            PlayerControllerForces.Instance.scytheThrown = true;
+            scytheThrowInMenu = true;
+            restPointMenu.ToggleEnterPrompt();
         }
 
         float startTime = Time.realtimeSinceStartup;

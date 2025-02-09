@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera Vcam;
+    [SerializeField] public CinemachineVirtualCamera Vcam;
     [SerializeField] private CinemachineBrain CameraControl;
     [SerializeField] private float deadzone;
     private CinemachineFramingTransposer VCamFramingTransposer;

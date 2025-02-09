@@ -10,10 +10,20 @@ namespace Core.AI
         public string animationTriggerName;
         public override TaskStatus OnUpdate()
         {
-            if (enemyScript.health < 0)
-                animator.SetTrigger(animationTriggerName);
+        /*    if (enemyScript.health < 0)
+                animator.SetTrigger(animationTriggerName);*/
 
-            return enemyScript.health < 0 ? TaskStatus.Success : TaskStatus.Failure;
+            return enemyScript.health <= 0 ? TaskStatus.Success : TaskStatus.Failure;
+        }
+
+        public override void OnEnd()
+        {
+            if(enemyScript.health <= 0)
+            {
+                animator.SetTrigger(animationTriggerName);
+                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            }
         }
     }
 }

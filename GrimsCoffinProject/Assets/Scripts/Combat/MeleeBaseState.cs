@@ -71,10 +71,17 @@ public class MeleeBaseState : CState
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
                 {
+                    if (collidersToDamage[i].GetComponent<PolygonCollider2D>() != null)
+                        continue;
+
                     RegisterAttack(collidersToDamage[i]);
+                    //RegisterAttack(hitTeamComponent.gameObject.GetComponent<Collider2D>());
                 }
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.BreakWall)
                 {
+                    if (collidersToDamage[i].GetComponent<PolygonCollider2D>() != null)
+                        continue;
+
                     RegisterAttackWall(collidersToDamage[i]);
                 }
             }

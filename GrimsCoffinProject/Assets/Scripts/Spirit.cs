@@ -52,24 +52,26 @@ public class Spirit : Interactable
             sprite.flipX = false;
     }
 
+
+
     public override void PerformInteraction()
     {
         if (dialogueManager != null) 
-            dialogueManager.ShowDialogueForSpirit(spiritID, spiritState);
+            dialogueManager.ShowDialogueForSpirit(this);
 
-        if (spiritState == SpiritState.Uncollected)
-        {
-            PersistentDataManager.Instance.UpdateSpiritState(this);
+        //if (spiritState == SpiritState.Uncollected)
+        //{
+            //PersistentDataManager.Instance.UpdateSpiritState(this);
 
             //spiritUI.ShowSpiritCollectedText();
 
             //Debug.Log("Spirit Collected: " + spiritID.ToString());
 
-            Destroy(this.gameObject.transform.parent.gameObject);
-        }
-        else if (spiritState == SpiritState.Collected)
-        {
-            PersistentDataManager.Instance.UpdateSpiritState(this);
-        }
+            //Destroy(this.gameObject.transform.parent.gameObject);
+       // }
+        //else if (spiritState == SpiritState.Collected)
+        //{
+           // PersistentDataManager.Instance.UpdateSpiritState(this);
+       // }
     }
 }
