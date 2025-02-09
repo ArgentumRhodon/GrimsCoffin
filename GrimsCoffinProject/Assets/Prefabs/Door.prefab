@@ -174,6 +174,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outDoor: {fileID: 0}
   areaExiting: {fileID: 0}
+  ColliderEntering: {fileID: 0}
+  FollowCameraConfiner: {fileID: 0}
   areaEntering: {fileID: 0}
   screenFade: {fileID: 0}
   mainCam: {fileID: 0}
@@ -181,6 +183,22 @@ MonoBehaviour:
   roomXMax: 0
   roomYMin: 0
   roomYMax: 0
+  enterEnemyMgr: {fileID: 0}
+  exitEnemyMgr: {fileID: 0}
+  idleSFX:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  testSFX:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!61 &5833802525339418404
 BoxCollider2D:
   m_ObjectHideFlags: 0

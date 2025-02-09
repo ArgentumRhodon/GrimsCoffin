@@ -15,6 +15,7 @@ studio.menu.addMenuItem({
             "LM,MapTutorial,Ambience,006",
             "LM,MapEquilibrium,Ambience,007",
             "LM,MapGeneral,WallHit,008",
+            "LM,MapGeneral,TransDoor_Idle,009",
             "PL,Grim,Scyche_Swing,101",
             "PL,Grim,Scyche_Spin,102",
             "PL,Grim,Scyche_Slam,103",

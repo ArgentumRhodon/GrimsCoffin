@@ -819,6 +819,7 @@ MonoBehaviour:
   - {fileID: 6921699927230426472}
   - {fileID: 1059765217954741413}
   - {fileID: 7402651511256503693}
+  - {fileID: 9105776892477066342}
   EditorParameters:
   - {fileID: 2263804133022208642}
   - {fileID: 6742515063781043230}
@@ -828,7 +829,7 @@ MonoBehaviour:
   - {fileID: 7835905458541246840}
   StringsBanks:
   - {fileID: 1212590281995229497}
-  cacheTime: 638746936913556662
+  cacheTime: 638746960241380486
   cacheVersion: 131620
 --- !u!114 &428993134770705617
 MonoBehaviour:
@@ -981,10 +982,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638746936913556662
+  lastModified: 638746960241380486
   FileSizes:
   - Name: Desktop
-    Value: 3582
+    Value: 3628
   Exists: 1
 --- !u!114 &1254938243987312262
 MonoBehaviour:
@@ -1478,10 +1479,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638746936913531660
+  lastModified: 638746960241350475
   FileSizes:
   - Name: Desktop
-    Value: 42530368
+    Value: 43464896
   Exists: 1
 --- !u!114 &7852557550958983355
 MonoBehaviour:
@@ -1510,3 +1511,30 @@ MonoBehaviour:
   - Ice
   - Soil
   Exists: 1
+--- !u!114 &9105776892477066342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/LM/MapGeneral/009_TransDoor_Idle
+  m_EditorClassIdentifier: 
+  Path: event:/LM/MapGeneral/009_TransDoor_Idle
+  Guid:
+    Data1: -1933144320
+    Data2: 1317685496
+    Data3: -865604427
+    Data4: -1196651503
+  Banks:
+  - {fileID: 7835905458541246840}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 19338
