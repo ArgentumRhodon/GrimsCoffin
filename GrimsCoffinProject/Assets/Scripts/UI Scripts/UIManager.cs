@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject minimapUI;
     [SerializeField] private GameObject fullMapUI;
+    [SerializeField] private Camera fullMapCamera;
     [SerializeField] private List<GameObject> mapRooms;
     [SerializeField] public GameObject dialogueUI;
 
@@ -145,6 +146,41 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    public void ZoomMap(bool zoomIn)
+    {
+        if (fullMapUI == null)
+            return;
+
+        if (fullMapUI.activeInHierarchy)
+        {
+            if (zoomIn && playerInput.currentControlScheme != "Keyboard&Mouse")
+                fullMapCamera.orthographicSize -= 1;
+
+            else if (!zoomIn && playerInput.currentControlScheme != "Keyboard&Mouse")
+                fullMapCamera.orthographicSize += 1;
+
+            else if (zoomIn && playerInput.currentControlScheme == "Keyboard&Mouse")
+                fullMapCamera.orthographicSize -= 10;
+
+            else
+                fullMapCamera.orthographicSize += 10;
+
+            fullMapCamera.orthographicSize = Mathf.Clamp(fullMapCamera.orthographicSize, 20, 256);
+        }
+    }
+
+    public void PanMap(Vector2 input)
+    {
+        if (fullMapUI == null)
+            return;
+
+        if (fullMapUI.activeInHierarchy)
+        {
+            fullMapCamera.transform.position += new Vector3(input.x, input.y, 0);
+        }
+    }
+
     public IEnumerator ShowDialogue(float seconds)
     {
         this.GetComponent<DialogueManager>().canProgressDialogue = false;

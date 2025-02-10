@@ -91,6 +91,10 @@ public class PlayerControllerForces : MonoBehaviour
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
 
+    //Map Zoom States
+    private bool zoomingMapIn;
+    private bool zoomingMapOut;
+    private bool panningMap;
 
     private float currentTime;
 
@@ -291,7 +295,18 @@ public class PlayerControllerForces : MonoBehaviour
             UpdateDownAttackVariables();
             moveInput.y = playerControls.Player.Move.ReadValue<Vector2>().y;
         }
-            
+
+        if (zoomingMapIn)
+            UIManager.Instance.ZoomMap(true);
+
+        else if (zoomingMapOut)
+            UIManager.Instance.ZoomMap(false);
+
+        if (playerControls.Player.MapPan.ReadValue<Vector2>() != Vector2.zero)
+            UIManager.Instance.PanMap(playerControls.Player.MapPan.ReadValue<Vector2>());
+
+        else if (panningMap)
+            UIManager.Instance.PanMap(playerControls.Player.MapPanDrag.ReadValue<Vector2>());
     }
 
     private void FixedUpdate()
@@ -352,7 +367,7 @@ public class PlayerControllerForces : MonoBehaviour
         {
             ResetPlayerOffset();         
         }
-            
+        
     }
     #endregion
 
@@ -458,7 +473,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     public void OnCameraLook(InputValue value)
     {
-        if (UIManager.Instance.pauseScript.isPaused)
+        if (UIManager.Instance.pauseScript.isPaused || Time.timeScale == 0)
             return;
 
         //Debug.Log("Camera Look " + value.Get<Vector2>().y);
@@ -490,6 +505,33 @@ public class PlayerControllerForces : MonoBehaviour
     private void OnMap()
     {
         UIManager.Instance.ToggleMap();
+    }
+
+    private void OnMapZoomIn(InputValue value)
+    {
+        if (value.isPressed)
+            zoomingMapIn = true;
+
+        else
+            zoomingMapIn = false;
+    }
+
+    private void OnMapZoomOut(InputValue value)
+    {
+        if (value.isPressed)
+            zoomingMapOut = true;
+
+        else
+            zoomingMapOut = false;
+    }
+
+    private void OnAttack(InputValue value)
+    {
+        if (value.isPressed)
+            panningMap = true;
+
+        else
+            panningMap = false;
     }
 
     private void OnCancel()
