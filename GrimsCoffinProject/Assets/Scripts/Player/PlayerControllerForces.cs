@@ -472,7 +472,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
         else
         {
-            CameraManager.Instance.Reset();
+            CameraManager.Instance.CameraLookReset();
         }
     }
 

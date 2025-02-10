@@ -66,7 +66,7 @@ namespace Core.AI
                 else if (isWaiting)
                 {
                     UpdateDirection();
-                    if (FindPlayerDistance() <= targetRange)
+                    if (enemyScript.FindPlayerDistance() <= targetRange)
                     {
                         reachedEndOfPath = true;
                     }
@@ -110,7 +110,7 @@ namespace Core.AI
             }
 
             //Make sure direction is in x only
-            Vector2 direction = FindPlayerDirection();
+            Vector2 direction = enemyScript.FindPlayerDirection();
 
             if (direction.x != 0)
             {
@@ -152,7 +152,7 @@ namespace Core.AI
                 enemyScript.FaceRight(false);
             }
 
-            if (FindPlayerDistance() <= targetRange)
+            if (enemyScript.FindPlayerDistance() <= targetRange)
             {
                 reachedEndOfPath = true;
                 return;
@@ -204,7 +204,7 @@ namespace Core.AI
         private void UpdateDirection()
         {
             //Find direction and update it
-            Vector2 direction = FindPlayerDirection();
+            Vector2 direction = enemyScript.FindPlayerDirection();
 
             if(direction.x > 0 && !enemyScript.IsFacingRight)
             {
@@ -232,18 +232,7 @@ namespace Core.AI
             }
             return false;
         }
-    
-        private float FindPlayerDistance()
-        {
-            return Mathf.Abs(player.transform.position.x - transform.position.x);
-        }
 
-        private Vector2 FindPlayerDirection()
-        {
-            Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
-            Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
 
-            return (playerPos - enemyPos).normalized;
-        }
     }
 }

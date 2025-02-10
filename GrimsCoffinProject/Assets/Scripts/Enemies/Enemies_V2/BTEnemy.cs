@@ -27,6 +27,7 @@ public class BTEnemy : Enemy
     [HideInInspector] public float movementDeccelAmount;
 
     private Canvas enemyCanvas;
+    protected PlayerControllerForces player;
 
     protected override void Start()
     {
@@ -38,6 +39,7 @@ public class BTEnemy : Enemy
         movementDeccelAmount = (1 * movementDecceleration) / movementSpeed;
 
         enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
+        player = PlayerControllerForces.Instance;
     }
 
     protected override void FixedUpdate()
@@ -97,5 +99,33 @@ public class BTEnemy : Enemy
 
         IsFacingRight = shouldFaceRight;
         Direction = shouldFaceRight ? Mathf.Abs(Direction) : -1 * Mathf.Abs(Direction);       
+    }
+
+    public void TurnToPlayer()
+    {
+        //Find direction and update it
+        Vector2 direction = FindPlayerDirection();
+
+        if (direction.x > 0 && !IsFacingRight)
+        {
+            FaceRight(true);
+        }
+        else if (direction.x < 0 && IsFacingRight)
+        {
+            FaceRight(false);
+        }
+    }
+
+    public float FindPlayerDistance()
+    {
+        return Mathf.Abs(player.transform.position.x - transform.position.x);
+    }
+
+    public Vector2 FindPlayerDirection()
+    {
+        Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
+        Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
+
+        return (playerPos - enemyPos).normalized;
     }
 }
