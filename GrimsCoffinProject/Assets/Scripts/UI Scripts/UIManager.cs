@@ -20,10 +20,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject areaText;
     [SerializeField] private GameObject saveIcon;
 
+    [SerializeField] private Map mapScript;
     [SerializeField] private GameObject minimapUI;
     [SerializeField] public GameObject fullMapUI;
-    [SerializeField] private Camera fullMapCamera;
     [SerializeField] private List<GameObject> mapRooms;
+  
     [SerializeField] public GameObject dialogueUI;
 
     [SerializeField] public PlayerInput playerInput;
@@ -61,9 +62,6 @@ public class UIManager : MonoBehaviour
     public void Pause()
     {
         if (dialogueUI.activeInHierarchy || restPointMenu.gameObject.activeInHierarchy)
-            return;
-
-        if (fullMapUI != null && fullMapUI.activeInHierarchy)
             return;
 
         pauseScript.Pause();
@@ -153,42 +151,17 @@ public class UIManager : MonoBehaviour
 
     public void ZoomMap(bool zoomIn)
     {
-        if (fullMapUI == null)
-            return;
-
-        if (fullMapUI.activeInHierarchy)
-        {
-            if (zoomIn && playerInput.currentControlScheme != "Keyboard&Mouse")
-                fullMapCamera.orthographicSize -= 1;
-
-            else if (!zoomIn && playerInput.currentControlScheme != "Keyboard&Mouse")
-                fullMapCamera.orthographicSize += 1;
-
-            else if (zoomIn && playerInput.currentControlScheme == "Keyboard&Mouse")
-                fullMapCamera.orthographicSize -= 10;
-
-            else
-                fullMapCamera.orthographicSize += 10;
-
-            fullMapCamera.orthographicSize = Mathf.Clamp(fullMapCamera.orthographicSize, 20, 256);
-        }
+        mapScript.ZoomMap(zoomIn);
     }
 
     public void PanMap(Vector2 input)
     {
-        if (fullMapUI == null)
-            return;
-
-        if (fullMapUI.activeInHierarchy)
-        {
-            fullMapCamera.transform.position += new Vector3(input.x, input.y, 0);
-        }
+        mapScript.PanMap(input);
     }
 
     public void ResetMap()
     {
-        fullMapCamera.transform.position = new Vector3(PlayerControllerForces.Instance.transform.position.x, PlayerControllerForces.Instance.transform.position.y, -10);
-        fullMapCamera.orthographicSize = 35;
+        mapScript.ResetMap();
     }
 
     public IEnumerator ShowDialogue(float seconds)
@@ -254,6 +227,13 @@ public class UIManager : MonoBehaviour
             PlayerControllerForces.Instance.scytheThrown = true;
             scytheThrowInMenu = true;
             restPointMenu.ToggleEnterPrompt();
+        }
+
+        else if (fullMapUI.activeInHierarchy)
+        {
+            PlayerControllerForces.Instance.scytheThrown = true;
+            scytheThrowInMenu = true;
+            ToggleMap();
         }
 
         float startTime = Time.realtimeSinceStartup;
