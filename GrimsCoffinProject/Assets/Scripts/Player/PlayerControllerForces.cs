@@ -95,6 +95,7 @@ public class PlayerControllerForces : MonoBehaviour
     private bool zoomingMapIn;
     private bool zoomingMapOut;
     private bool panningMap;
+    private bool movingOnMapOpen;
 
     private float currentTime;
 
@@ -302,11 +303,14 @@ public class PlayerControllerForces : MonoBehaviour
         else if (zoomingMapOut)
             UIManager.Instance.ZoomMap(false);
 
-        if (playerControls.Player.MapPan.ReadValue<Vector2>() != Vector2.zero)
+        if (playerControls.Player.MapPan.ReadValue<Vector2>() != Vector2.zero && !movingOnMapOpen)
             UIManager.Instance.PanMap(playerControls.Player.MapPan.ReadValue<Vector2>());
 
         else if (panningMap)
             UIManager.Instance.PanMap(playerControls.Player.MapPanDrag.ReadValue<Vector2>());
+
+        if (playerControls.Player.MapPan.ReadValue<Vector2>() == Vector2.zero && UIManager.Instance.fullMapUI.activeInHierarchy)
+            movingOnMapOpen = false;
     }
 
     private void FixedUpdate()
@@ -504,6 +508,12 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnMap()
     {
+        if (playerControls.Player.Move.IsPressed())
+            movingOnMapOpen = true;
+
+        else
+            movingOnMapOpen = false;
+
         UIManager.Instance.ToggleMap();
     }
 

@@ -141,7 +141,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""a6c5fc35-9f0e-406f-92b3-2d48f3044a09"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
@@ -633,7 +633,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""a6a6d493-eae3-4b0e-a3b7-98d081e776c4"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=0.5,y=0.5)"",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""MapPanDrag"",
                     ""isComposite"": false,

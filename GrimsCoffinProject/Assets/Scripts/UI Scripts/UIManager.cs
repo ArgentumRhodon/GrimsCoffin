@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject saveIcon;
 
     [SerializeField] private GameObject minimapUI;
-    [SerializeField] private GameObject fullMapUI;
+    [SerializeField] public GameObject fullMapUI;
     [SerializeField] private Camera fullMapCamera;
     [SerializeField] private List<GameObject> mapRooms;
     [SerializeField] public GameObject dialogueUI;
@@ -102,7 +102,11 @@ public class UIManager : MonoBehaviour
         fullMapUI.SetActive(mapActive);
 
         if (mapActive)
+        {
             Time.timeScale = 0;
+            ResetMap();
+        }
+            
         else
             Time.timeScale = 1;
     }
@@ -179,6 +183,12 @@ public class UIManager : MonoBehaviour
         {
             fullMapCamera.transform.position += new Vector3(input.x, input.y, 0);
         }
+    }
+
+    public void ResetMap()
+    {
+        fullMapCamera.transform.position = new Vector3(PlayerControllerForces.Instance.transform.position.x, PlayerControllerForces.Instance.transform.position.y, -10);
+        fullMapCamera.orthographicSize = 35;
     }
 
     public IEnumerator ShowDialogue(float seconds)
