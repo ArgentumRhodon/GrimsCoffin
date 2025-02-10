@@ -18,6 +18,7 @@ public class Map : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Show proper prompt tray based on input used
         switch (UIManager.Instance.playerInput.currentControlScheme)
         {
             case "Keyboard&Mouse":
@@ -40,6 +41,7 @@ public class Map : MonoBehaviour
         }
     }
 
+    //Zoom the map in/out
     public void ZoomMap(bool zoomIn)
     {
         if (fullMapUI == null)
@@ -47,15 +49,19 @@ public class Map : MonoBehaviour
 
         if (fullMapUI.activeInHierarchy)
         {
+            //Zooming in for controller
             if (zoomIn && UIManager.Instance.playerInput.currentControlScheme != "Keyboard&Mouse")
                 fullMapCamera.orthographicSize -= 1;
 
+            //Zooming out for controller
             else if (!zoomIn && UIManager.Instance.playerInput.currentControlScheme != "Keyboard&Mouse")
                 fullMapCamera.orthographicSize += 1;
 
+            //Zooming in for Mouse & Keyboard
             else if (zoomIn && UIManager.Instance.playerInput.currentControlScheme == "Keyboard&Mouse")
                 fullMapCamera.orthographicSize -= 10;
 
+            //Zooming out for Mouse & Keyboard
             else
                 fullMapCamera.orthographicSize += 10;
 
@@ -63,6 +69,7 @@ public class Map : MonoBehaviour
         }
     }
 
+    //Pan the map screen
     public void PanMap(Vector2 input)
     {
         if (fullMapUI == null)
@@ -70,6 +77,7 @@ public class Map : MonoBehaviour
 
         if (fullMapUI.activeInHierarchy)
         {
+            //Update transform based on input
             fullMapCamera.transform.position += new Vector3(input.x, input.y, 0);
         }
     }
