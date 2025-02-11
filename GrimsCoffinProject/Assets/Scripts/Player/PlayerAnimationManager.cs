@@ -8,6 +8,8 @@ public static class PlayerAnimationStates
     public static readonly string Run = "Run";
     public static readonly string Jump = "Jump";
     public static readonly string Dash = "Dash";
+    public static readonly string GroundCharge = "GroundCharge";
+    public static readonly string GroundDown = "GroundDown";
     public static readonly string Attack1 = "Attack1";
     public static readonly string Attack2 = "Attack2";
     public static readonly string Attack3 = "Attack3";
@@ -66,34 +68,5 @@ public class PlayerAnimationManager : MonoBehaviour
         scytheAnimator.Play(newState);
 
         currentState = newState;
-    }
-
-    public void PlayCombo(int index)
-    {
-        string animName = "Attack" + index;
-        playerAnimator.Play(animName);
-        scytheAnimator.Play(animName);
-    }
-
-    public void PlayIdle()
-    {
-        playerAnimator.Play("Idle");
-        scytheAnimator.Play("Idle");
-    }
-
-    public void PlayRun()
-    {
-        playerAnimator.Play("Run");
-        scytheAnimator.Play("Run");
-    }
-
-    public void PlayJump()
-    {
-        playerAnimator.Play("Jump");
-    }
-
-    public void PlayDash()
-    {
-        playerAnimator.Play("Dash");
     }
 }
