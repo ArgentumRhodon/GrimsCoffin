@@ -5,6 +5,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
+using FMOD.Studio;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -30,13 +31,17 @@ public class CutsceneManager : MonoBehaviour
 
     [SerializeField] private Image continuePrompt;
     [SerializeField] private Image skipPrompt;
-    [SerializeField] private EventReference EventReference;
+    [SerializeField] private EventReference dxTyping;
+    [SerializeField] private EventReference dxContinue;
+    private EventInstance dxInstance;
 
     void Awake()
     {
+        dxInstance = RuntimeManager.CreateInstance(dxTyping);
         controls = new PlayerControls();
         playerInput = GetComponent<PlayerInput>();
         StartCutscene();
+        
     }
 
     void OnEnable()
@@ -62,7 +67,9 @@ public class CutsceneManager : MonoBehaviour
         if (cutsceneActive && !isFading && (controls.UI.Click.triggered || controls.UI.Submit.triggered))
         {
             StartCoroutine(AdvanceSentence());
-            RuntimeManager.PlayOneShot(EventReference);
+            //dxInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            //RuntimeManager.PlayOneShot(dxContinue);
+
         }
 
         if (cutsceneActive && controls.UI.SkipCutscene.triggered)
@@ -100,10 +107,13 @@ public class CutsceneManager : MonoBehaviour
         }
         UpdateIndicator();
         UpdateSkipText();
+        dxInstance.start();
     }
 
     IEnumerator AdvanceSentence()
     {
+        RuntimeManager.PlayOneShot(dxContinue);
+
         isFading = true;
 
         Coroutine sentenceFade = StartCoroutine(FadeTextAlpha(dialogueText, 1f, 0f, fadeDuration));
@@ -113,6 +123,8 @@ public class CutsceneManager : MonoBehaviour
         //yield return indicatorFade;
 
         currentSentenceIndex++;
+
+        dxInstance.start();
 
         if (currentSentenceIndex < sentences.Length)
         {
@@ -124,6 +136,10 @@ public class CutsceneManager : MonoBehaviour
         }
 
         isFading = false;
+
+        
+
+
     }
 
     IEnumerator ShowSentence(string sentence)
