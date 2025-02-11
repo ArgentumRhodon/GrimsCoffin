@@ -860,7 +860,9 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerState.IsFacingRight)
             direction = 1;
         else
-            direction = -1;     
+            direction = -1;
+
+        Debug.Log("Basic Attack");
 
         rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
 
@@ -1393,7 +1395,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Reset impulse from combat
         //if (playerCombat.IsAerialCombo)
-            //rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
+        //rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
 
         if (playerState.IsAttacking)
         {

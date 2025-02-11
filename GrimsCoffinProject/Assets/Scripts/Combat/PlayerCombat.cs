@@ -189,9 +189,6 @@ public class PlayerCombat : MonoBehaviour
         {
             if (value.isPressed && LastComboTime < 0)
             {
-                //Sets holding true since the state is currently pressed
-                isHoldingAttacking = true;
-
                 //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
                 if (playerState.IsDashing || Time.timeScale == 0)
                     return;
@@ -207,6 +204,8 @@ public class PlayerCombat : MonoBehaviour
                         UpAttackCheck();
                         break;
                     case AttackDirection.Down:
+                        //Sets holding true since the state is currently pressed
+                        isHoldingAttacking = true;
                         DownAttackCheck();
                         break;
                     case AttackDirection.Side:
@@ -475,8 +474,6 @@ public class PlayerCombat : MonoBehaviour
         {
             AttackClickCounter = 0;
             ResetCombo();
-
-            animator.SetFloat("comboRatio", 0);
 
             //Update aerial combo values
             if(isAerialCombo)
