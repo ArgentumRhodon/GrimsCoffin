@@ -20,7 +20,8 @@ namespace Core.AI
         {
             if(enemyScript.health <= 0)
             {
-                animator.SetTrigger(animationTriggerName);
+                //animator.SetTrigger(animationTriggerName);
+                animator.Play("BasicSkeleton_Dead");
                 gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 enemyScript.RemoveActiveEnemy();

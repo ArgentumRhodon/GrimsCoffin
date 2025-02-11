@@ -176,11 +176,11 @@ namespace Core.AI
             //Find direction and update it
             Vector2 direction = FindPlayerDirection();
 
-            if (direction.x > 0 && !enemyScript.IsFacingRight)
+            if (direction.x > 0 && !enemyScript.enemyStateList.IsFacingRight)
             {
                 enemyScript.FaceRight(true);
             }
-            else if (direction.x < 0 && enemyScript.IsFacingRight)
+            else if (direction.x < 0 && enemyScript.enemyStateList.IsFacingRight)
             {
                 enemyScript.FaceRight(false);
             }

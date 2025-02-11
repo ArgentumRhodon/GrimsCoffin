@@ -12,7 +12,8 @@ namespace Core.AI
         // Start is called before the first frame update
         public override void OnStart()
         {
-            animator.SetTrigger(animationTriggerName);
+            //animator.SetTrigger(animationTriggerName);
+            animator.Play("BasicSkeleton_Idle");
         }
 
         public override TaskStatus OnUpdate()

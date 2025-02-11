@@ -17,7 +17,9 @@ namespace Core.AI
         {
             isReady = false;
             enemyScript.TurnToPlayer();
-            animator.SetTrigger(animationTriggerName);
+
+            animator.Play("BasicSkeleton_Idle");
+            //animator.SetTrigger(animationTriggerName);
 
             StartCoroutine(nameof(AlertTimer),alertTimer);
         }

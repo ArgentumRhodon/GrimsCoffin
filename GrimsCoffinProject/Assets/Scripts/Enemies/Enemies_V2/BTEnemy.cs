@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BTEnemy : Enemy
 {
+    private Canvas enemyCanvas;
+    protected PlayerControllerForces player;
+    public EnemyStateList enemyStateList;
+
     //Direction to face
     private int direction = 1;
-    [SerializeField] private bool isFacingRight;
-    
-
     public int Direction { get { return direction; } set { direction = value; } }
-    public bool IsFacingRight { get { return isFacingRight; } set { isFacingRight = value; } }
 
     //Direction Checkers
     [Header("Direction Collision Checkers")]
@@ -26,20 +26,18 @@ public class BTEnemy : Enemy
     [SerializeField] public float movementDecceleration;
     [HideInInspector] public float movementDeccelAmount;
 
-    private Canvas enemyCanvas;
-    protected PlayerControllerForces player;
-
     protected override void Start()
     {
         base.Start();
-        isFacingRight = true;
+        enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
+        player = PlayerControllerForces.Instance;
+        enemyStateList = gameObject.GetComponent<EnemyStateList>();
+
+        enemyStateList.IsFacingRight = true;
         direction = 1;
 
         movementAccelAmount = (1 * movementAcceleration) / movementSpeed;
         movementDeccelAmount = (1 * movementDecceleration) / movementSpeed;
-
-        enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
-        player = PlayerControllerForces.Instance;
     }
 
     protected override void FixedUpdate()
@@ -97,7 +95,7 @@ public class BTEnemy : Enemy
         tempScale.x = shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);       
         enemyCanvas.transform.localScale = tempScale;
 
-        IsFacingRight = shouldFaceRight;
+        enemyStateList.IsFacingRight = shouldFaceRight;
         Direction = shouldFaceRight ? Mathf.Abs(Direction) : -1 * Mathf.Abs(Direction);       
     }
 
@@ -106,11 +104,11 @@ public class BTEnemy : Enemy
         //Find direction and update it
         Vector2 direction = FindPlayerDirection();
 
-        if (direction.x > 0 && !IsFacingRight)
+        if (direction.x > 0 && !enemyStateList.IsFacingRight)
         {
             FaceRight(true);
         }
-        else if (direction.x < 0 && IsFacingRight)
+        else if (direction.x < 0 && enemyStateList.IsFacingRight)
         {
             FaceRight(false);
         }

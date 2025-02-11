@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
+using Pathfinding;
 
 namespace Core.AI 
 {
@@ -10,6 +11,7 @@ namespace Core.AI
     {
         //Collider for the player's vision
         private Collider2D visionRange;
+        private Path path;
 
         public override void OnStart()
         {
@@ -18,7 +20,23 @@ namespace Core.AI
 
         public override TaskStatus OnUpdate()
         {
-            return IsOverlapping() ? TaskStatus.Success : TaskStatus.Failure;
+            if (IsOverlapping())
+            {
+                GraphNode node1 = AstarPath.active.GetNearest(rb.position).node;
+                GraphNode node2 = AstarPath.active.GetNearest(player.transform.position).node;
+
+                if (PathUtilities.IsPathPossible(node1, node2))
+                {
+                    return TaskStatus.Success;
+                }                   
+                else
+                    return TaskStatus.Failure;
+            }
+            else
+            {
+                return TaskStatus.Failure;                
+            }
+            //return IsOverlapping() ? TaskStatus.Success : TaskStatus.Failure;
         }
 
         public bool IsOverlapping()
@@ -37,6 +55,7 @@ namespace Core.AI
             }
             return false;
         }
+           
     }
 }
 

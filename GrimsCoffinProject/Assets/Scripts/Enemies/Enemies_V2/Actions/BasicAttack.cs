@@ -11,12 +11,24 @@ namespace Core.AI
 
         public override void OnStart()
         {
-            animator.SetTrigger(animationTriggerName);
+            //animator.SetTrigger(animationTriggerName);
+            animator.Play("BasicSkeleton_Attack2");
+            enemyScript.enemyStateList.IsAttacking = true;
         }
 
         public override TaskStatus OnUpdate()
         {
-            return TaskStatus.Success;
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("BasicSkeleton_Attack2"))
+            {
+                return TaskStatus.Success;
+            }
+            else
+                return TaskStatus.Running;
+        }
+
+        public override void OnEnd()
+        {
+            enemyScript.enemyStateList.IsAttacking = false;
         }
     }
 }
