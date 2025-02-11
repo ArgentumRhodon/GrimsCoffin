@@ -59,7 +59,7 @@ public class PlayerAnimationManager : MonoBehaviour
         }
     }
 
-    public void ChangeAnimationState(string newState)
+    public void ChangeAnimationState(string newState, bool waitForEnd = false)
     {
         // Stop animation from interrupting itself
         if (currentState == newState) return;
