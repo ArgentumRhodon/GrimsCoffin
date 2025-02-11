@@ -58,7 +58,7 @@ public class TitleScreen : MonoBehaviour
     {
         PersistentDataManager.Instance.ResetSaveData();
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
-        SceneManager.LoadScene("MapPanning&Zooming");
+        SceneManager.LoadScene("DenialLevel");
     }
     public void ContinueGame()
     {
