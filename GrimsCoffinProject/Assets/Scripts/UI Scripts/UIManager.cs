@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using System;
 
 public class UIManager : MonoBehaviour
@@ -28,6 +29,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject minimapUI;
     [SerializeField] public GameObject fullMapUI;
     [SerializeField] private List<GameObject> mapRooms;
+    [SerializeField] private List<Sprite> mapPromptIcons;
+    [SerializeField] private Image mapPrompt;
   
     //Dialogue
     [SerializeField] public GameObject dialogueUI;
@@ -72,6 +75,10 @@ public class UIManager : MonoBehaviour
         if (dialogueUI.activeInHierarchy || restPointMenu.gameObject.activeInHierarchy)
             return;
 
+        if (fullMapUI != null)
+            if (fullMapUI.activeInHierarchy)
+                return;
+
         pauseScript.Pause();
     }
 
@@ -109,6 +116,8 @@ public class UIManager : MonoBehaviour
         bool mapActive = !fullMapUI.activeInHierarchy;
 
         gameUI.SetActive(!mapActive);
+
+        //bool temp = mapScript.map
         fullMapUI.SetActive(mapActive);
 
         if (mapActive)
@@ -118,7 +127,10 @@ public class UIManager : MonoBehaviour
         }
             
         else
+        {
             Time.timeScale = 1;
+        }
+            
     }
 
     //Toggle dialogue UI on/off
@@ -178,6 +190,11 @@ public class UIManager : MonoBehaviour
     public void ResetMap()
     {
         mapScript.ResetMap();
+    }
+
+    public void ToggleMapKey()
+    {
+        mapScript.ToggleMapKey();
     }
 
     //Show dialogue UI

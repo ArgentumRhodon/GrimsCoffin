@@ -297,20 +297,23 @@ public class PlayerControllerForces : MonoBehaviour
             moveInput.y = playerControls.Player.Move.ReadValue<Vector2>().y;
         }
 
-        if (zoomingMapIn)
-            UIManager.Instance.ZoomMap(true);
+        if (UIManager.Instance.fullMapUI != null)
+        {
+            if (zoomingMapIn)
+                UIManager.Instance.ZoomMap(true);
 
-        else if (zoomingMapOut)
-            UIManager.Instance.ZoomMap(false);
+            else if (zoomingMapOut)
+                UIManager.Instance.ZoomMap(false);
 
-        if (playerControls.Player.MapPan.ReadValue<Vector2>() != Vector2.zero && !movingOnMapOpen)
-            UIManager.Instance.PanMap(playerControls.Player.MapPan.ReadValue<Vector2>());
+            if (playerControls.Player.MapPan.ReadValue<Vector2>() != Vector2.zero && !movingOnMapOpen)
+                UIManager.Instance.PanMap(playerControls.Player.MapPan.ReadValue<Vector2>());
 
-        else if (panningMap)
-            UIManager.Instance.PanMap(playerControls.Player.MapPanDrag.ReadValue<Vector2>());
+            else if (panningMap)
+                UIManager.Instance.PanMap(playerControls.Player.MapPanDrag.ReadValue<Vector2>());
 
-        if (playerControls.Player.MapPan.ReadValue<Vector2>() == Vector2.zero && UIManager.Instance.fullMapUI.activeInHierarchy)
-            movingOnMapOpen = false;
+            if (playerControls.Player.MapPan.ReadValue<Vector2>() == Vector2.zero && UIManager.Instance.fullMapUI.activeInHierarchy)
+                movingOnMapOpen = false;
+        }
     }
 
     private void FixedUpdate()
@@ -533,6 +536,16 @@ public class PlayerControllerForces : MonoBehaviour
 
         else
             zoomingMapOut = false;
+    }
+
+    private void OnMapRecenter()
+    {
+        UIManager.Instance.ResetMap();
+    }
+
+    private void OnMapKey()
+    {
+        UIManager.Instance.ToggleMapKey();
     }
 
     private void OnAttack(InputValue value)

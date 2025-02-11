@@ -78,18 +78,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Map",
+                    "name": "Ability",
                     "type": "Button",
-                    "id": "527d7338-e16f-448c-b125-2eeab732bc62",
+                    "id": "934b0047-5b1a-46dc-81eb-44121518824d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ability",
+                    "name": "Map",
                     "type": "Button",
-                    "id": "934b0047-5b1a-46dc-81eb-44121518824d",
+                    "id": "527d7338-e16f-448c-b125-2eeab732bc62",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -130,6 +130,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MapRecenter",
+                    "type": "Button",
+                    "id": "a72e1b5d-34cf-40c0-9081-ab364b8bc326",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MapKey",
+                    "type": "Button",
+                    "id": "a8ac7058-47bc-4115-91ff-b9ede2d2d447",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -465,28 +483,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e5e257a2-d441-4f15-b84c-17b42a3f0eb8",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Ability",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e2b5f989-b953-459b-9c91-395e9b326bb3",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad;Playstation;Xbox",
-                    "action": "Ability",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "79a0425f-55ee-4967-b74d-05c2df2c5e62",
                     "path": "<Mouse>/scroll/up",
                     "interactions": "",
@@ -607,13 +603,134 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Arrow Keys",
+                    "id": "f3b7aa52-4040-42fd-b4ef-bdaef503832a",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MapPan",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "f848e02b-16b3-422d-b61b-50b88cb3b297",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MapPan",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "fff88895-083e-4508-b002-49b9ed03e24a",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MapPan",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "80ec069e-6c55-46e8-ad75-cd1d9236e8e4",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MapPan",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "fb728fb0-b0e1-4690-90f6-1f6f97f42936",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MapPan",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "a6a6d493-eae3-4b0e-a3b7-98d081e776c4",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=0.5,y=0.5)",
+                    "processors": "ScaleVector2(x=-0.5,y=-0.5)",
                     "groups": "Keyboard&Mouse",
                     "action": "MapPanDrag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5e257a2-d441-4f15-b84c-17b42a3f0eb8",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e2b5f989-b953-459b-9c91-395e9b326bb3",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad;Playstation;Xbox",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18e2351c-827b-456b-886d-777d2fb62b5b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MapRecenter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "39b0d5e4-9f1b-4e39-bf1b-c2239708db4a",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad;Xbox;Playstation",
+                    "action": "MapRecenter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b467cad0-6de6-4e35-a8dd-cec0008659d8",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad;Playstation;Xbox",
+                    "action": "MapKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f01ae341-a492-4ecd-9f42-97631a5bc828",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MapKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

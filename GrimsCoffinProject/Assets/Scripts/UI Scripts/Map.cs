@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,11 +9,14 @@ public class Map : MonoBehaviour
     [SerializeField] private List<GameObject> promptTrays;
     [SerializeField] public GameObject fullMapUI;
     [SerializeField] private Camera fullMapCamera;
+    [SerializeField] private GameObject mapKey;
+
+    private bool mapKeyActive;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -86,5 +90,11 @@ public class Map : MonoBehaviour
     {
         fullMapCamera.transform.position = new Vector3(PlayerControllerForces.Instance.transform.position.x, PlayerControllerForces.Instance.transform.position.y, -10);
         fullMapCamera.orthographicSize = 35;
+    }
+
+    public void ToggleMapKey()
+    {
+        mapKeyActive = !mapKeyActive;
+        mapKey.SetActive(mapKeyActive);
     }
 }

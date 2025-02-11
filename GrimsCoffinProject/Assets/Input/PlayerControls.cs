@@ -100,18 +100,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Map"",
+                    ""name"": ""Ability"",
                     ""type"": ""Button"",
-                    ""id"": ""527d7338-e16f-448c-b125-2eeab732bc62"",
+                    ""id"": ""934b0047-5b1a-46dc-81eb-44121518824d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ability"",
+                    ""name"": ""Map"",
                     ""type"": ""Button"",
-                    ""id"": ""934b0047-5b1a-46dc-81eb-44121518824d"",
+                    ""id"": ""527d7338-e16f-448c-b125-2eeab732bc62"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -152,6 +152,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MapRecenter"",
+                    ""type"": ""Button"",
+                    ""id"": ""a72e1b5d-34cf-40c0-9081-ab364b8bc326"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MapKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8ac7058-47bc-4115-91ff-b9ede2d2d447"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -487,28 +505,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e5e257a2-d441-4f15-b84c-17b42a3f0eb8"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Ability"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e2b5f989-b953-459b-9c91-395e9b326bb3"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad;Playstation;Xbox"",
-                    ""action"": ""Ability"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""79a0425f-55ee-4967-b74d-05c2df2c5e62"",
                     ""path"": ""<Mouse>/scroll/up"",
                     ""interactions"": """",
@@ -629,13 +625,134 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""Arrow Keys"",
+                    ""id"": ""f3b7aa52-4040-42fd-b4ef-bdaef503832a"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MapPan"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""f848e02b-16b3-422d-b61b-50b88cb3b297"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MapPan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""fff88895-083e-4508-b002-49b9ed03e24a"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MapPan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""80ec069e-6c55-46e8-ad75-cd1d9236e8e4"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MapPan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""fb728fb0-b0e1-4690-90f6-1f6f97f42936"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MapPan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""a6a6d493-eae3-4b0e-a3b7-98d081e776c4"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=0.5,y=0.5)"",
+                    ""processors"": ""ScaleVector2(x=-0.5,y=-0.5)"",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""MapPanDrag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5e257a2-d441-4f15-b84c-17b42a3f0eb8"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2b5f989-b953-459b-9c91-395e9b326bb3"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;Playstation;Xbox"",
+                    ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18e2351c-827b-456b-886d-777d2fb62b5b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MapRecenter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39b0d5e4-9f1b-4e39-bf1b-c2239708db4a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;Xbox;Playstation"",
+                    ""action"": ""MapRecenter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b467cad0-6de6-4e35-a8dd-cec0008659d8"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad;Playstation;Xbox"",
+                    ""action"": ""MapKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f01ae341-a492-4ecd-9f42-97631a5bc828"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MapKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1418,12 +1535,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_CameraLook = m_Player.FindAction("CameraLook", throwIfNotFound: true);
-        m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
         m_Player_Ability = m_Player.FindAction("Ability", throwIfNotFound: true);
+        m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
         m_Player_MapZoomIn = m_Player.FindAction("MapZoomIn", throwIfNotFound: true);
         m_Player_MapZoomOut = m_Player.FindAction("MapZoomOut", throwIfNotFound: true);
         m_Player_MapPan = m_Player.FindAction("MapPan", throwIfNotFound: true);
         m_Player_MapPanDrag = m_Player.FindAction("MapPanDrag", throwIfNotFound: true);
+        m_Player_MapRecenter = m_Player.FindAction("MapRecenter", throwIfNotFound: true);
+        m_Player_MapKey = m_Player.FindAction("MapKey", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1511,12 +1630,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_CameraLook;
-    private readonly InputAction m_Player_Map;
     private readonly InputAction m_Player_Ability;
+    private readonly InputAction m_Player_Map;
     private readonly InputAction m_Player_MapZoomIn;
     private readonly InputAction m_Player_MapZoomOut;
     private readonly InputAction m_Player_MapPan;
     private readonly InputAction m_Player_MapPanDrag;
+    private readonly InputAction m_Player_MapRecenter;
+    private readonly InputAction m_Player_MapKey;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -1529,12 +1650,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @CameraLook => m_Wrapper.m_Player_CameraLook;
-        public InputAction @Map => m_Wrapper.m_Player_Map;
         public InputAction @Ability => m_Wrapper.m_Player_Ability;
+        public InputAction @Map => m_Wrapper.m_Player_Map;
         public InputAction @MapZoomIn => m_Wrapper.m_Player_MapZoomIn;
         public InputAction @MapZoomOut => m_Wrapper.m_Player_MapZoomOut;
         public InputAction @MapPan => m_Wrapper.m_Player_MapPan;
         public InputAction @MapPanDrag => m_Wrapper.m_Player_MapPanDrag;
+        public InputAction @MapRecenter => m_Wrapper.m_Player_MapRecenter;
+        public InputAction @MapKey => m_Wrapper.m_Player_MapKey;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1568,12 +1691,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @CameraLook.started += instance.OnCameraLook;
             @CameraLook.performed += instance.OnCameraLook;
             @CameraLook.canceled += instance.OnCameraLook;
-            @Map.started += instance.OnMap;
-            @Map.performed += instance.OnMap;
-            @Map.canceled += instance.OnMap;
             @Ability.started += instance.OnAbility;
             @Ability.performed += instance.OnAbility;
             @Ability.canceled += instance.OnAbility;
+            @Map.started += instance.OnMap;
+            @Map.performed += instance.OnMap;
+            @Map.canceled += instance.OnMap;
             @MapZoomIn.started += instance.OnMapZoomIn;
             @MapZoomIn.performed += instance.OnMapZoomIn;
             @MapZoomIn.canceled += instance.OnMapZoomIn;
@@ -1586,6 +1709,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MapPanDrag.started += instance.OnMapPanDrag;
             @MapPanDrag.performed += instance.OnMapPanDrag;
             @MapPanDrag.canceled += instance.OnMapPanDrag;
+            @MapRecenter.started += instance.OnMapRecenter;
+            @MapRecenter.performed += instance.OnMapRecenter;
+            @MapRecenter.canceled += instance.OnMapRecenter;
+            @MapKey.started += instance.OnMapKey;
+            @MapKey.performed += instance.OnMapKey;
+            @MapKey.canceled += instance.OnMapKey;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1614,12 +1743,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @CameraLook.started -= instance.OnCameraLook;
             @CameraLook.performed -= instance.OnCameraLook;
             @CameraLook.canceled -= instance.OnCameraLook;
-            @Map.started -= instance.OnMap;
-            @Map.performed -= instance.OnMap;
-            @Map.canceled -= instance.OnMap;
             @Ability.started -= instance.OnAbility;
             @Ability.performed -= instance.OnAbility;
             @Ability.canceled -= instance.OnAbility;
+            @Map.started -= instance.OnMap;
+            @Map.performed -= instance.OnMap;
+            @Map.canceled -= instance.OnMap;
             @MapZoomIn.started -= instance.OnMapZoomIn;
             @MapZoomIn.performed -= instance.OnMapZoomIn;
             @MapZoomIn.canceled -= instance.OnMapZoomIn;
@@ -1632,6 +1761,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MapPanDrag.started -= instance.OnMapPanDrag;
             @MapPanDrag.performed -= instance.OnMapPanDrag;
             @MapPanDrag.canceled -= instance.OnMapPanDrag;
+            @MapRecenter.started -= instance.OnMapRecenter;
+            @MapRecenter.performed -= instance.OnMapRecenter;
+            @MapRecenter.canceled -= instance.OnMapRecenter;
+            @MapKey.started -= instance.OnMapKey;
+            @MapKey.performed -= instance.OnMapKey;
+            @MapKey.canceled -= instance.OnMapKey;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1910,12 +2045,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnCameraLook(InputAction.CallbackContext context);
-        void OnMap(InputAction.CallbackContext context);
         void OnAbility(InputAction.CallbackContext context);
+        void OnMap(InputAction.CallbackContext context);
         void OnMapZoomIn(InputAction.CallbackContext context);
         void OnMapZoomOut(InputAction.CallbackContext context);
         void OnMapPan(InputAction.CallbackContext context);
         void OnMapPanDrag(InputAction.CallbackContext context);
+        void OnMapRecenter(InputAction.CallbackContext context);
+        void OnMapKey(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
