@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -82,7 +81,7 @@ public class Map : MonoBehaviour
         if (fullMapUI.activeInHierarchy)
         {
             //Update transform based on input
-            fullMapCamera.transform.position += new Vector3(input.x, input.y, 0);
+            fullMapCamera.transform.position += new Vector3(input.x, input.y, 0) * Time.unscaledDeltaTime * 70;
         }
     }
 

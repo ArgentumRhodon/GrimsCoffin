@@ -189,12 +189,14 @@ public class UIManager : MonoBehaviour
 
     public void ResetMap()
     {
-        mapScript.ResetMap();
+        if (UIManager.Instance.fullMapUI != null)
+            mapScript.ResetMap();
     }
 
     public void ToggleMapKey()
     {
-        mapScript.ToggleMapKey();
+        if (UIManager.Instance.fullMapUI != null)
+            mapScript.ToggleMapKey();
     }
 
     //Show dialogue UI
