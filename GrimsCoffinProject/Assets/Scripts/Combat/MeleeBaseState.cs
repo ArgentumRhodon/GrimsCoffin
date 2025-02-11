@@ -35,6 +35,10 @@ public class MeleeBaseState : CState
         playerAnimator = playerCombat.animator;
         collidersDamaged = new List<Collider2D>();
         hitCollider = playerCombat.hitbox;
+
+        PlayerAnimationManager.Instance.ChangeAnimationState(
+            PlayerAnimationStates.GetComboAnimation(attackIndex)
+        );
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

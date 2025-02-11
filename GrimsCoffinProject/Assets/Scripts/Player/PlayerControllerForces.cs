@@ -12,6 +12,7 @@ using FMODUnity;
 using Unity.VisualScripting;
 using System.Threading.Tasks;
 using FMOD.Studio;
+using System;
 
 public class PlayerControllerForces : MonoBehaviour
 {
@@ -345,7 +346,18 @@ public class PlayerControllerForces : MonoBehaviour
             Slide();
         }
 
-        animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+        // Grounded() check did not work here
+        if (!playerState.IsJumping && !isJumpFalling && !playerState.IsAttacking && !playerState.IsDashing)
+        {
+            if (Math.Abs(rb.velocity.x) < 1)
+            {
+                PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Idle);
+            }
+            else
+            {
+                PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Run);
+            }
+        }
 
         CheckIdle();     
         if (playerState.IsIdle)
@@ -625,14 +637,8 @@ public class PlayerControllerForces : MonoBehaviour
         if (isSleeping)
             return;
         //Get direction and normalize it to either 1 or -1 
-        int direction = XInputDirection();
-        if (direction != 0)
-        {
-            if (direction > 0)
-                direction = 1;
-            else
-                direction = -1;
-        }
+        int direction = Math.Sign(XInputDirection());
+
 
         if (direction == 0)
             playerState.IsWalking = false;
@@ -712,6 +718,8 @@ public class PlayerControllerForces : MonoBehaviour
         playJumpSFX(jumpInstance, 0);
         FMODJumpFinished = false;
         FMODIsLandedPlayed = false;
+
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Jump);
     }
 
     //Wall jump
@@ -931,6 +939,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         // Update animator jump variable
         animator.SetBool("IsJumping", playerState.IsJumping || isJumpFalling);
+
     }
 
     //Dash variables
@@ -955,6 +964,8 @@ public class PlayerControllerForces : MonoBehaviour
             isJumpCancel = false;
 
             StartCoroutine(nameof(StartDash), lastDashDir);
+
+            PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Dash);
         }
     }
 
@@ -1275,7 +1286,7 @@ public class PlayerControllerForces : MonoBehaviour
             return 0;
     }
 
-    //Set x direction to -1 or 1, even if using analog stick
+    //Set y direction to -1 or 1, even if using analog stick
     public int YInputDirection()
     {
         //Deadzone to account for controller drift
