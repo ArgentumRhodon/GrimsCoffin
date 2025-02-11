@@ -42,6 +42,8 @@ public class PlayerAnimationManager : MonoBehaviour
 
     private string currentState;
 
+    public string CurrentState { get { return currentState; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,16 +54,6 @@ public class PlayerAnimationManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(currentState != "Idle")
-        {
-            Debug.Log(currentState);
         }
     }
 

@@ -19,22 +19,28 @@ public class AttackSoundPlay : StateMachineBehaviour
     //}
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        float comboRatio = animator.GetFloat("comboRatio");
-        if (comboRatio < 0.5)
+        string currentAnimationState = PlayerAnimationManager.Instance.CurrentState;
+        Debug.Log(currentAnimationState);
+
+        switch(currentAnimationState)
         {
-            attackInstance = RuntimeManager.CreateInstance(swingFX);
-            attackInstance.start();
+            case "Attack1":
+            case "Attack2":
+                attackInstance = RuntimeManager.CreateInstance(swingFX);
+                break;
+            case "Attack3":
+                attackInstance = RuntimeManager.CreateInstance(spinFX);
+                break;
+            case "Attack4":
+                attackInstance = RuntimeManager.CreateInstance(slamFX);
+                break;
+            default:
+                attackInstance = RuntimeManager.CreateInstance(swingFX);
+                break;
+
         }
-        if (comboRatio > 0.5 && comboRatio < 1)
-        {
-            attackInstance = RuntimeManager.CreateInstance(spinFX);
-            attackInstance.start();
-        }
-        if (comboRatio == 1)
-        {
-            attackInstance = RuntimeManager.CreateInstance(slamFX);
-            attackInstance.start();
-        }
+
+        attackInstance.start();
     }
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
