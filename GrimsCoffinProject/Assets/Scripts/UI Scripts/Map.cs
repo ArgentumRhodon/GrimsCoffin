@@ -73,7 +73,7 @@ public class Map : MonoBehaviour
     }
 
     //Pan the map screen
-    public void PanMap(Vector2 input)
+    public void PanMap(Vector2 input, bool drag)
     {
         if (fullMapUI == null)
             return;
@@ -81,7 +81,12 @@ public class Map : MonoBehaviour
         if (fullMapUI.activeInHierarchy)
         {
             //Update transform based on input
-            fullMapCamera.transform.position += new Vector3(input.x, input.y, 0) * Time.unscaledDeltaTime * 70;
+            if (!drag)
+                fullMapCamera.transform.position += new Vector3(input.x, input.y, 0) * Time.unscaledDeltaTime * 70;
+
+            else
+                fullMapCamera.transform.position += new Vector3(input.x, input.y, 0) * Time.unscaledDeltaTime * (fullMapCamera.orthographicSize/2);
+
         }
     }
 

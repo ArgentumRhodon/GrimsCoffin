@@ -182,9 +182,9 @@ public class UIManager : MonoBehaviour
         mapScript.ZoomMap(zoomIn);
     }
 
-    public void PanMap(Vector2 input)
+    public void PanMap(Vector2 input, bool drag)
     {
-        mapScript.PanMap(input);
+        mapScript.PanMap(input, drag);
     }
 
     public void ResetMap()

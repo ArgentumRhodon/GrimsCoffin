@@ -306,10 +306,10 @@ public class PlayerControllerForces : MonoBehaviour
                 UIManager.Instance.ZoomMap(false);
 
             if (playerControls.Player.MapPan.ReadValue<Vector2>() != Vector2.zero && !movingOnMapOpen)
-                UIManager.Instance.PanMap(playerControls.Player.MapPan.ReadValue<Vector2>());
+                UIManager.Instance.PanMap(playerControls.Player.MapPan.ReadValue<Vector2>(), false);
 
             else if (panningMap)
-                UIManager.Instance.PanMap(playerControls.Player.MapPanDrag.ReadValue<Vector2>());
+                UIManager.Instance.PanMap(playerControls.Player.MapPanDrag.ReadValue<Vector2>(), true);
 
             if (playerControls.Player.MapPan.ReadValue<Vector2>() == Vector2.zero && UIManager.Instance.fullMapUI.activeInHierarchy)
                 movingOnMapOpen = false;
