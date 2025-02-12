@@ -21,6 +21,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Transform enemyGFX;
     [SerializeField] protected GameObject enemy;
     [SerializeField] protected Transform playerTarget;
+    [SerializeField] protected GameObject enemyDropPrefab;
+    [SerializeField] protected GameObject enemyDropList;
 
     //Private references
     protected Seeker seeker;
@@ -57,6 +59,8 @@ public abstract class Enemy : MonoBehaviour
         hitbox = GetComponent<Collider2D>();
         collidersDamaged = new List<Collider2D>();
         playerTarget = PlayerControllerForces.Instance.gameObject.transform;
+
+        enemyDropList = GameObject.Find("Enemy Drops");
 
         isSleeping = false;
     }
@@ -119,6 +123,12 @@ public abstract class Enemy : MonoBehaviour
     //Destroy enemy, used for when it dies and when it despawns
     public virtual void DestroyEnemy()
     {
+        if (Random.Range(1, 100) <= 50)
+        {
+            GameObject drop = Instantiate(enemyDropPrefab, enemyDropList.transform);
+            drop.transform.position = this.transform.position;
+        }
+
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);
     }
