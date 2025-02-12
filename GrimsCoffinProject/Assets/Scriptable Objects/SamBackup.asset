@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09e01a605844dfe4f8f76d1eb38b81a5, type: 3}
-  m_Name: SamPlayerData
+  m_Name: SamBackup
   m_EditorClassIdentifier: 
   deadzone: 0.5
   attackDirectionDeadzone: 0.75
   cameraOffset: 0.6
   cameraWalkOffset: -0.1
-  cameraDashOffset: -1
-  maxHP: 125
-  maxSP: 0
-  respawnPoint: {x: 70.09, y: -36.44}
+  cameraDashOffset: -0.15
+  maxHP: 65
+  maxSP: 50
+  respawnPoint: {x: 145.76, y: -1.03}
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -43,7 +43,7 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
-  canWallJump: 1
+  canWallJump: 0
   canWallJumpCancel: 0
   wallJumpForce: {x: 13, y: 15}
   wallJumpRunLerp: 0
@@ -52,9 +52,9 @@ MonoBehaviour:
   wallCoyoteTime: 0.01
   doTurnOnWallJump: 1
   wallTurnBuffer: 0
-  canDoubleJump: 1
+  canDoubleJump: 0
   preserveDoubleJump: 1
-  resetJumpOnWall: 1
+  resetJumpOnWall: 0
   extraJumpMultiplier: 0
   maxAirJumps: 1
   canSlide: 1
@@ -64,20 +64,22 @@ MonoBehaviour:
   jumpInputBufferTime: 0.2
   canDash: 1
   dashAmount: 1
-  dashSpeed: 100
-  dashSleepTime: 0.05
-  dashAttackTime: 0.06
-  dashEndTime: 0.05
-  dashEndSpeed: {x: 5, y: 0}
+  dashSpeed: 27
+  dashSleepTime: 0.025
+  dashAttackTime: 0.2
+  dashEndTime: 0.1
+  dashEndSpeed: {x: 10, y: 0}
   dashEndRunLerp: 1
-  dashRefillTime: 0.4
+  dashRefillTime: 0.2
   dashInputBufferTime: 0.052
   canAttack: 1
+  hasStallForce: 0
+  hasStallForceOnHit: 0
   canTurnDuringCombo: 0
   comboCooldownTime: 0.1
   attackBufferTime: 0.5
   comboSleepTime: 0.3
-  comboTotal: 4
+  comboTotal: 2
   comboAerialPForce: 7
   comboGroundPForce: 13
   comboAttackDuration: 0.35
@@ -108,3 +110,5 @@ MonoBehaviour:
   aDownAttackReset: 0.4
   aerialDownDamage: 7
   aerialImpactDamage: 5
+  canScytheThrow: 1
+  canViewMap: 1

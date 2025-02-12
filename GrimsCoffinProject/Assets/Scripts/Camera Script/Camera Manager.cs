@@ -50,27 +50,27 @@ public class CameraManager : MonoBehaviour
     public void LookDown()
     {
         float targetScreenY = 0.25f;
-        StartScreenYTransition(targetScreenY, 0.3f,1);
+        StartScreenYTransition(targetScreenY, 0.15f,1);
     }
 
     public void LookUp()
     {
         float targetScreenY = 0.75f;
-        StartScreenYTransition(targetScreenY, 0.3f,1);
+        StartScreenYTransition(targetScreenY, 0.15f,1);
     }
 
     public void CameraLookReset()
     {
         //Debug.Log("Camera Reset is running");
         float targetScreenY = 0.5f;
-        StartScreenYTransition(targetScreenY, 0.3f, 2);
+        StartScreenYTransition(targetScreenY, 0.15f, 2);
     }
 
     public void Reset()
     {
         //Debug.Log("Camera Reset is running");
         float targetScreenY = 0.5f;
-        StartScreenYTransition(targetScreenY, 0.2f,2);
+        StartScreenYTransition(targetScreenY, 0.1f,2);
     }
 
     public void ChangeCamera(CinemachineVirtualCamera Cam) 
