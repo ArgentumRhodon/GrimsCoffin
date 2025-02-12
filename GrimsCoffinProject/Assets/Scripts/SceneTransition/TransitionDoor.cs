@@ -76,6 +76,7 @@ public class TransitionDoor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerControllerForces.Instance.Sleep(1.5f);
             if (areaEntering.GetComponent<Room>().roomIndex == 2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
             {
                 PlayerControllerForces.Instance.Data.canDash = true;
@@ -108,7 +109,7 @@ public class TransitionDoor : MonoBehaviour
 
     IEnumerator Transition(Collider2D col)
     {
-        PlayerControllerForces.Instance.Sleep(2);
+        
         if (!areaEntering.activeInHierarchy)
         {
             areaEntering.SetActive(true);

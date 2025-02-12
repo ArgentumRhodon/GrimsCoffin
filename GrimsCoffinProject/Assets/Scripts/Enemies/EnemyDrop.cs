@@ -15,6 +15,8 @@ public class EnemyDrop : MonoBehaviour
     [SerializeField] public float value = 10;
 
     [SerializeField] private float speed = 15;
+    [SerializeField] private float lifetime = 3.5f;
+    private float lifetimeTimer;
 
     [SerializeField] private Color healthColor;
     [SerializeField] private Color spiritPowerColor;
@@ -44,6 +46,8 @@ public class EnemyDrop : MonoBehaviour
                 value = 5;
                 break;
         }
+
+        lifetimeTimer = 0;
     }
 
     private void Update()
@@ -52,6 +56,13 @@ public class EnemyDrop : MonoBehaviour
         {
             Debug.Log("Pickup Moving");
             this.transform.position = Vector3.MoveTowards(transform.position, PlayerControllerForces.Instance.transform.position, speed * Time.deltaTime);
+        }
+
+        else
+        {
+            lifetimeTimer += Time.deltaTime;
+            if (lifetimeTimer >= lifetime)
+                Destroy(gameObject);
         }
 
         if (transform.position == PlayerControllerForces.Instance.transform.position)
