@@ -78,6 +78,10 @@ public class PitRespawn : MonoBehaviour
         {
             PlayerControllerForces.Instance.Sleep(1f);
             PlayerControllerForces.Instance.TakeDamage(damage);
+
+            if (PlayerControllerForces.Instance.currentHP <= 0)
+                return;
+
             StartCoroutine(Transition(collision.collider));
             //enterEnemyMgr.SpawnEnemies();
             //exitEnemyMgr.DeleteEnemies();

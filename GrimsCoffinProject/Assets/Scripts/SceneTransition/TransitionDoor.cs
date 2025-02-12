@@ -84,10 +84,17 @@ public class TransitionDoor : MonoBehaviour
             }
 
             if (enterEnemyMgr != null)
+            {
+                Debug.Log("Spawning Enemies");
                 enterEnemyMgr.SpawnEnemies();
+            }
+                
 
             if (exitEnemyMgr != null)
+            {
+                Debug.Log("Deleting Enemies");
                 exitEnemyMgr.DeleteEnemies();
+            }
         }
     }
 
