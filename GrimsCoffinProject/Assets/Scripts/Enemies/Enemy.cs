@@ -21,6 +21,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Transform enemyGFX;
     [SerializeField] protected GameObject enemy;
     [SerializeField] protected Transform playerTarget;
+    [SerializeField] protected GameObject enemyDropPrefab;
 
     //Private references
     protected Seeker seeker;
@@ -119,6 +120,12 @@ public abstract class Enemy : MonoBehaviour
     //Destroy enemy, used for when it dies and when it despawns
     public virtual void DestroyEnemy()
     {
+        if (Random.Range(1, 100) <= 50)
+        {
+            GameObject drop = Instantiate(enemyDropPrefab);
+            drop.transform.position = this.transform.position;
+        }
+
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);
     }
