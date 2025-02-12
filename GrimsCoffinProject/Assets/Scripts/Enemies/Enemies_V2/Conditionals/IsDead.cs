@@ -19,8 +19,10 @@ namespace Core.AI
             {
                 //animator.SetTrigger(animationTriggerName);
                 animator.Play(animationTriggerName);
-                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                //gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
+                rb.gravityScale = 1;
                 enemyScript.RemoveActiveEnemy();
             }
         }
