@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class GroundUpState : MeleeBaseState
 {
+    public GroundUpState() : base() {
+        attackIndex = 3;
+    }
+
     public override void OnEnter(CStateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
         //Set attack variables and animation
-        attackIndex = 2; //Not a combo so may not need this
         attackDamage = playerCombat.Data.groundUpDamage;
         playerCombat.AttackDurationTime = playerCombat.Data.gUpAttackDuration;
-
-        animator.SetTrigger("Attack");
-        animator.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator.SetTrigger("Attack");
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

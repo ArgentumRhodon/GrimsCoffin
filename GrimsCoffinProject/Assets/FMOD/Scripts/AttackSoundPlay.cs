@@ -8,9 +8,7 @@ using UnityEngine;
 
 public class AttackSoundPlay : StateMachineBehaviour
 {
-    [SerializeField] public EventReference swingFX;
-    [SerializeField] public EventReference spinFX;
-    [SerializeField] public EventReference slamFX;
+    [SerializeField] public EventReference attackFX;
     [SerializeField] protected EventInstance attackInstance;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,22 +17,8 @@ public class AttackSoundPlay : StateMachineBehaviour
     //}
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        float comboRatio = animator.GetFloat("comboRatio");
-        if (comboRatio < 0.5)
-        {
-            attackInstance = RuntimeManager.CreateInstance(swingFX);
-            attackInstance.start();
-        }
-        if (comboRatio > 0.5 && comboRatio < 1)
-        {
-            attackInstance = RuntimeManager.CreateInstance(spinFX);
-            attackInstance.start();
-        }
-        if (comboRatio == 1)
-        {
-            attackInstance = RuntimeManager.CreateInstance(slamFX);
-            attackInstance.start();
-        }
+        attackInstance = RuntimeManager.CreateInstance(attackFX);
+        attackInstance.start();
     }
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
