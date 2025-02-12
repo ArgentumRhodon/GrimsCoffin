@@ -14,6 +14,8 @@ studio.menu.addMenuItem({
             "LM,MapDenial,Ambience,005",
             "LM,MapTutorial,Ambience,006",
             "LM,MapEquilibrium,Ambience,007",
+            "LM,MapGeneral,WallHit,008",
+            "LM,MapGeneral,TransDoor_Idle,009",
             "PL,Grim,Scyche_Swing,101",
             "PL,Grim,Scyche_Spin,102",
             "PL,Grim,Scyche_Slam,103",
@@ -32,6 +34,12 @@ studio.menu.addMenuItem({
             "ENM,Ghost,Die,204",
             "UI,Menu,Button_Select,401",
             "UI,Menu,Button_Press,402",
+            "UI,Dialogue,Appear,403",
+            "UI,Dialogue,Continue,404",
+            "UI,Respoint,MenuOpen,405",
+            "UI,Respoint,MenuHeal,406",
+            "UI,Respoint,MenuClose,407",
+            "UI,Dialogue,Type,408",
         ];
 
 

@@ -206,6 +206,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanDash", 0);
         PlayerPrefs.SetInt("CanViewMap", 0);
+        PlayerPrefs.SetInt("CanScytheThrow", 0);
 
         //Reset Spirit Data
         PlayerPrefs.SetString("MapSpirit", "Uncollected");
@@ -214,7 +215,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
 
         //Clear Onboarding Map Data
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 25; i++)
         {
             PlayerPrefs.SetInt("LevelRoom" + i, 0);
         } 

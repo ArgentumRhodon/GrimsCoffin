@@ -101,7 +101,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{293d780d-6d05-46e1-8063-c1af4aae4c8f}">
 		<property name="volume">
-			<value>-9</value>
+			<value>-15</value>
 		</property>
 		<property name="name">
 			<value>1</value>
@@ -151,6 +151,9 @@
 	</object>
 	<object class="MixerBusPanner" id="{1c9ee184-e0f2-40ba-89d8-53f31c0ba696}" />
 	<object class="PitchShifterEffect" id="{054f4214-d009-425d-a219-8c0aa82eb94a}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
 		<property name="pitch">
 			<value>1</value>
 		</property>

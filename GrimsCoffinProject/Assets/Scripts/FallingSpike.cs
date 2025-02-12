@@ -15,6 +15,7 @@ public class FallingSpike : MonoBehaviour
 
     [SerializeField]
     public EventReference oneShotFX;
+    [SerializeField]
     public EventReference oneShotFX2;
 
     // Start is called before the first frame update

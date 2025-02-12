@@ -106,6 +106,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{134ea1e3-da20-4f98-b91b-bf5f5f0c4a89}">
+		<property name="volume">
+			<value>-6</value>
+		</property>
 		<property name="name">
 			<value>1</value>
 		</property>
@@ -156,6 +159,9 @@
 	</object>
 	<object class="MixerBusPanner" id="{8d4e9bb5-c0ec-42b0-a3c9-f9665461a5e4}" />
 	<object class="PitchShifterEffect" id="{208324de-8b3e-4459-b3b2-e89f312c614d}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
 		<property name="pitch">
 			<value>1</value>
 		</property>
