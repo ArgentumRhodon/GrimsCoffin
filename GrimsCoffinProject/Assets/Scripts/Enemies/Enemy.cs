@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected GameObject enemy;
     [SerializeField] protected Transform playerTarget;
     [SerializeField] protected GameObject enemyDropPrefab;
+    [SerializeField] protected GameObject enemyDropList;
 
     //Private references
     protected Seeker seeker;
@@ -58,6 +59,8 @@ public abstract class Enemy : MonoBehaviour
         hitbox = GetComponent<Collider2D>();
         collidersDamaged = new List<Collider2D>();
         playerTarget = PlayerControllerForces.Instance.gameObject.transform;
+
+        enemyDropList = GameObject.Find("Enemy Drops");
 
         isSleeping = false;
     }
@@ -122,7 +125,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (Random.Range(1, 100) <= 50)
         {
-            GameObject drop = Instantiate(enemyDropPrefab);
+            GameObject drop = Instantiate(enemyDropPrefab, enemyDropList.transform);
             drop.transform.position = this.transform.position;
         }
 

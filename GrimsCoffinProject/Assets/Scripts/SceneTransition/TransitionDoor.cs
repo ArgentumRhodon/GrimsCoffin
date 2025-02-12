@@ -43,6 +43,8 @@ public class TransitionDoor : MonoBehaviour
     private EnemyManager enterEnemyMgr;
     [SerializeField]
     private EnemyManager exitEnemyMgr;
+    [SerializeField]
+    private GameObject enemyDropList;
 
     public Vector3 SpawnPos
     {
@@ -53,6 +55,7 @@ public class TransitionDoor : MonoBehaviour
     void Start()
     {
         spawnPos = transform.GetChild(0).position;
+        enemyDropList = GameObject.Find("Enemy Drops");
     }
 
     // Update is called once per frame
@@ -94,6 +97,11 @@ public class TransitionDoor : MonoBehaviour
             {
                 Debug.Log("Deleting Enemies");
                 exitEnemyMgr.DeleteEnemies();
+            }
+
+            foreach (Transform child in enemyDropList.transform)
+            {
+                Destroy(child.gameObject);
             }
         }
     }
