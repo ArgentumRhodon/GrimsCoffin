@@ -92,6 +92,11 @@ public class PlayerControllerForces : MonoBehaviour
     [Header("Player UI")]
     [SerializeField] public InteractionPrompt interactionPrompt;
 
+    //Map Zoom States
+    private bool zoomingMapIn;
+    private bool zoomingMapOut;
+    private bool panningMap;
+    private bool movingOnMapOpen;
 
     private float currentTime;
 
@@ -292,7 +297,24 @@ public class PlayerControllerForces : MonoBehaviour
             UpdateDownAttackVariables();
             moveInput.y = playerControls.Player.Move.ReadValue<Vector2>().y;
         }
-            
+
+        if (UIManager.Instance.fullMapUI != null)
+        {
+            if (zoomingMapIn)
+                UIManager.Instance.ZoomMap(true);
+
+            else if (zoomingMapOut)
+                UIManager.Instance.ZoomMap(false);
+
+            if (playerControls.Player.MapPan.ReadValue<Vector2>() != Vector2.zero && !movingOnMapOpen)
+                UIManager.Instance.PanMap(playerControls.Player.MapPan.ReadValue<Vector2>(), false);
+
+            else if (panningMap)
+                UIManager.Instance.PanMap(playerControls.Player.MapPanDrag.ReadValue<Vector2>(), true);
+
+            if (playerControls.Player.MapPan.ReadValue<Vector2>() == Vector2.zero && UIManager.Instance.fullMapUI.activeInHierarchy)
+                movingOnMapOpen = false;
+        }
     }
 
     private void FixedUpdate()
@@ -364,7 +386,7 @@ public class PlayerControllerForces : MonoBehaviour
         {
             ResetPlayerOffset();         
         }
-            
+        
     }
     #endregion
 
@@ -470,7 +492,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     public void OnCameraLook(InputValue value)
     {
-        if (UIManager.Instance.pauseScript.isPaused)
+        if (UIManager.Instance.pauseScript.isPaused || Time.timeScale == 0)
             return;
 
         //Debug.Log("Camera Look " + value.Get<Vector2>().y);
@@ -501,7 +523,50 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnMap()
     {
+        if (playerControls.Player.Move.IsPressed())
+            movingOnMapOpen = true;
+
+        else
+            movingOnMapOpen = false;
+
         UIManager.Instance.ToggleMap();
+    }
+
+    private void OnMapZoomIn(InputValue value)
+    {
+        if (value.isPressed)
+            zoomingMapIn = true;
+
+        else
+            zoomingMapIn = false;
+    }
+
+    private void OnMapZoomOut(InputValue value)
+    {
+        if (value.isPressed)
+            zoomingMapOut = true;
+
+        else
+            zoomingMapOut = false;
+    }
+
+    private void OnMapRecenter()
+    {
+        UIManager.Instance.ResetMap();
+    }
+
+    private void OnMapKey()
+    {
+        UIManager.Instance.ToggleMapKey();
+    }
+
+    private void OnAttack(InputValue value)
+    {
+        if (value.isPressed)
+            panningMap = true;
+
+        else
+            panningMap = false;
     }
 
     private void OnCancel()
