@@ -60,8 +60,7 @@ namespace Core.AI
                 {
                     rb.velocity = Vector2.zero;
                     isWaiting = true;
-                    animator.Play("BasicSkeleton_Walk");
-                    //animator.SetTrigger(nextAnimationTrigger);
+                    animator.Play(animationTriggerName);                 
                 }
                 else if (isWaiting)
                 {
@@ -159,8 +158,8 @@ namespace Core.AI
             }
 
             //Start movement animation
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("BasicSkeleton_Walk"))
-                animator.Play("BasicSkeleton_Walk");
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationTriggerName))
+                animator.Play(animationTriggerName);
             //animator.SetTrigger(animationTriggerName);
         }
 
@@ -198,7 +197,7 @@ namespace Core.AI
                 if (isWaiting)
                 {
                     isWaiting = false;
-                    animator.Play("BasicSkeleton_Idle");
+                    animator.Play(nextAnimationTrigger);
                     //animator.SetTrigger(animationTriggerName);
                 }
                 return false;

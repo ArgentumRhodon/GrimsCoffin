@@ -7,7 +7,7 @@ namespace Core.AI
 {
     public class Alert : EnemyAction
     {
-        public string animationTriggerName = "Alert";
+        public string animationTriggerName;
         public float alertTimer;
 
         private bool isReady;
@@ -18,8 +18,7 @@ namespace Core.AI
             isReady = false;
             enemyScript.TurnToPlayer();
 
-            animator.Play("BasicSkeleton_Idle");
-            //animator.SetTrigger(animationTriggerName);
+            animator.Play(animationTriggerName);
 
             StartCoroutine(nameof(AlertTimer),alertTimer);
         }

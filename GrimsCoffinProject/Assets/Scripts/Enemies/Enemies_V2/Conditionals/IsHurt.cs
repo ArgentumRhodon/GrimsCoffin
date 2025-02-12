@@ -12,8 +12,7 @@ namespace Core.AI
         {
             if(enemyScript.IsDamaged && !enemyScript.enemyStateList.IsAttacking)
             {
-                //animator.SetTrigger(animationTriggerName);
-                animator.Play("BasicSkeleton_Hit");
+                animator.Play(animationTriggerName);
             }
                 
 

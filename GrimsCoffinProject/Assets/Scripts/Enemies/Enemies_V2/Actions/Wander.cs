@@ -18,7 +18,7 @@ namespace Core.AI
         public override void OnStart()
         {
             //animator.SetTrigger(animationTriggerName);
-            animator.Play("BasicSkeleton_Walk");
+            animator.Play(animationTriggerName);
             Walk(1f);
             isDone = false;
         }
@@ -28,7 +28,7 @@ namespace Core.AI
             if (CheckFlip())
             {
                 //animator.SetTrigger(nextAnimationTrigger);
-                animator.Play("BasicSkeleton_Idle");
+                animator.Play(nextAnimationTrigger);
                 rb.velocity = Vector2.zero;
                 isDone = true;
             }

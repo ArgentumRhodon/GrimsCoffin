@@ -6,7 +6,7 @@ public class BTEnemy : Enemy
 {
     private Canvas enemyCanvas;
     protected PlayerControllerForces player;
-    public EnemyStateList enemyStateList;
+    [HideInInspector] public EnemyStateList enemyStateList;
 
     //Direction to face
     private int direction = 1;

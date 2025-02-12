@@ -10,9 +10,8 @@ namespace Core.AI
         public string animationTriggerName;
 
         public override void OnStart()
-        {
-            //animator.SetTrigger(animationTriggerName);
-            animator.Play("BasicSkeleton_Attack2");
+        {           
+            animator.Play(animationTriggerName);
             enemyScript.enemyStateList.IsAttacking = true;
         }
 
