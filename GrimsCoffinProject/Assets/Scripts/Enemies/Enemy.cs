@@ -133,6 +133,21 @@ public abstract class Enemy : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    public virtual void RemoveActiveEnemy()
+    {
+        this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
+    }
+
+    public virtual void DestroyEnemyGO()
+    {
+        if (Random.Range(1, 100) <= 50)
+        {
+            GameObject drop = Instantiate(enemyDropPrefab, enemyDropList.transform);
+            drop.transform.position = this.transform.position;
+        }
+        Destroy(this.gameObject);
+    }
+
     //Add knockback to the enemy based off a given force
     public virtual void Knockback(Vector2 knockbackForce)
     {

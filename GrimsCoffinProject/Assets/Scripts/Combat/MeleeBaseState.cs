@@ -35,6 +35,14 @@ public class MeleeBaseState : CState
         playerAnimator = playerCombat.animator;
         collidersDamaged = new List<Collider2D>();
         hitCollider = playerCombat.hitbox;
+
+        // First combo state has index of 1
+        if(attackIndex > 0)
+        {
+            PlayerAnimationManager.Instance.ChangeAnimationState(
+                PlayerAnimationStates.GetComboAnimation(attackIndex)
+            );
+        }
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
