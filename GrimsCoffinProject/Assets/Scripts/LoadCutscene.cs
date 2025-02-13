@@ -22,7 +22,7 @@ public class LoadCutscene : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerControllerForces>() != null)
         {
-            SceneManager.LoadScene(4);
+            SceneManager.LoadScene("Scene Transition Cutscene");
         }
     }
 }
