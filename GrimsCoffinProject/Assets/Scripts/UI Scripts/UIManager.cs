@@ -212,7 +212,7 @@ public class UIManager : MonoBehaviour
             areaText.SetActive(false);
 
         gameUI.SetActive(false);
-        Time.timeScale = 0;
+        Time.timeScale = 1;
 
         //Disable player control
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
