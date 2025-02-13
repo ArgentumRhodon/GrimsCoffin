@@ -1,4 +1,6 @@
 using Cinemachine;
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,6 +48,16 @@ public class TransitionDoor : MonoBehaviour
     [SerializeField]
     private GameObject enemyDropList;
 
+    //FMOD Related Variables
+    #region FMODRelated
+
+    [SerializeField] private EventReference idleSFX;
+    [SerializeField] private EventReference testSFX;
+    private EventInstance idleInstance;
+
+
+    #endregion
+
     public Vector3 SpawnPos
     {
         get { return spawnPos; }
@@ -55,13 +67,17 @@ public class TransitionDoor : MonoBehaviour
     void Start()
     {
         spawnPos = transform.GetChild(0).position;
+        if (idleSFX.IsNull != true) {
+            idleInstance = RuntimeManager.CreateInstance(idleSFX);
+            idleInstance.start();
+        }
         enemyDropList = GameObject.Find("Enemy Drops");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -114,6 +130,7 @@ public class TransitionDoor : MonoBehaviour
         {
             areaEntering.SetActive(true);
             yield return null;
+            idleInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         }
         else
         {
