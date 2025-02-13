@@ -60,8 +60,6 @@ public class DialogueManager : MonoBehaviour
         controls = new PlayerControls();
         controls.Enable();
         playerInput = GetComponent<PlayerInput>();
-
-        controls.Dialogue.Continue.performed += OnContinue;
     }
 
     private void Start()
@@ -158,6 +156,7 @@ public class DialogueManager : MonoBehaviour
         {
             // Show the UI
             uiManager.ToggleDialogueUI(true);
+            controls.Dialogue.Continue.performed += OnContinue;
 
             // Update speaker icon
             speakerIcon.sprite = speakers[dialogue.SpeakerID];
@@ -180,6 +179,8 @@ public class DialogueManager : MonoBehaviour
             PersistentDataManager.Instance.UpdateSpiritState(spirit);
             currentLine = 1;
             uiManager.ToggleDialogueUI(false);
+            controls.Dialogue.Continue.performed -= OnContinue;
+
         }
     }
 

@@ -1418,6 +1418,12 @@ public class PlayerControllerForces : MonoBehaviour
         isSleeping = true;
     }
 
+    public void ToggleSleep()
+    {
+        rb.velocity = Vector2.zero;
+        isSleeping = isSleeping ? false : true;
+    }
+
     public void SleepWalk()
     {
         rb.velocity = Vector2.zero;

@@ -212,11 +212,10 @@ public class UIManager : MonoBehaviour
             areaText.SetActive(false);
 
         gameUI.SetActive(false);
-        Time.timeScale = 1;
+        PlayerControllerForces.Instance.ToggleSleep();
 
         //Disable player control
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
-        PlayerControllerForces.Instance.Sleep(1);
         PlayerControllerForces.Instance.gameObject.GetComponent<PlayerCombat>().ResetCombo();
 
         //Wait before allowing player to progress through dialogue
@@ -248,8 +247,9 @@ public class UIManager : MonoBehaviour
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
         gameUI.SetActive(true);
         dialogueUI.SetActive(false);
-        Time.timeScale = 1;
+        PlayerControllerForces.Instance.ToggleSleep();
         playerInput.SwitchCurrentActionMap("Player");
+        Debug.Log("1111");
     }
 
     //Cancel out of menus that are active
