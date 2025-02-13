@@ -131,7 +131,7 @@ public class BTEnemy : Enemy
 
     public Vector2 FindPlayerDirection()
     {
-        Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
+        Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y + 1);
         Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
 
         return (playerPos - enemyPos).normalized;

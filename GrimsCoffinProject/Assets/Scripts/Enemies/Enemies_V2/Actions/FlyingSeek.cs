@@ -105,7 +105,7 @@ namespace Core.AI
             Vector2 movement = new Vector2(speedDif.x * accelRate, speedDif.y * accelRateY);
 
 
-            Debug.Log("Ghost movement: " +  movement);
+            //Debug.Log("Ghost movement: " +  movement);
             rb.AddForce(movement, ForceMode2D.Force);
 
 
@@ -124,6 +124,15 @@ namespace Core.AI
             {
                 enemyScript.FaceRight(false);
             }
+
+            /*            if (rb.velocity.x >= 0.01f)
+                        {
+                            enemyScript.FaceRight(true);
+                        }
+                        else if (rb.velocity.x <= -0.01f)
+                        {
+                            enemyScript.FaceRight(false);
+                        }*/
 
             if (enemyScript.FindPlayerDistanceX() <= targetRange && enemyScript.FindPlayerDistanceY() <= 1)
             {
