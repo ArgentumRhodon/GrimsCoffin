@@ -140,6 +140,11 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void DestroyEnemyGO()
     {
+        if (Random.Range(1, 100) <= 50)
+        {
+            GameObject drop = Instantiate(enemyDropPrefab, enemyDropList.transform);
+            drop.transform.position = this.transform.position;
+        }
         Destroy(this.gameObject);
     }
 
