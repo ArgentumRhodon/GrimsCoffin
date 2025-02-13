@@ -23961,6 +23961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseScript: {fileID: 113711802}
   restPointMenu: {fileID: 1116646275}
+  mapScript: {fileID: 0}
   deathScreen: {fileID: 71615578}
   lowHealthVignette: {fileID: 1669771902}
   damageVignette: {fileID: 1772996436}
@@ -23970,6 +23971,8 @@ MonoBehaviour:
   minimapUI: {fileID: 0}
   fullMapUI: {fileID: 0}
   mapRooms: []
+  mapPromptIcons: []
+  mapPrompt: {fileID: 0}
   dialogueUI: {fileID: 952499286}
   playerInput: {fileID: 584877822}
   scytheThrowInMenu: 0
@@ -24036,18 +24039,22 @@ MonoBehaviour:
   dialogues: []
   dialogueFileName: Dialogue.json
   uiManager: {fileID: 2117058706}
+  continuePrompt: {fileID: 952499288}
+  speakerIcon: {fileID: 952499287}
   continuePromptIcons:
   - {fileID: 21300000, guid: c3a78374cb92b424f9f7d820044845b1, type: 3}
   - {fileID: 21300000, guid: 26bf110d02332ab41a52303839e905e2, type: 3}
   - {fileID: 21300000, guid: 79c394e37c413954e95877889417fe71, type: 3}
-  continuePrompt: {fileID: 952499288}
-  speakerIcon: {fileID: 952499287}
   speakers:
   - {fileID: 21300000, guid: bdfb8a1f478ab3e41b1a9e2026770cb5, type: 3}
   - {fileID: 1685548561430930329, guid: 6fa5c1277d401974eba303a7213bc93d, type: 3}
   - {fileID: 4112221032881069125, guid: 60c0e5f01475a5642ac92d6d757b177a, type: 3}
   - {fileID: -3335496609688097251, guid: 224a74065fa54f746b136e14e165c031, type: 3}
   - {fileID: -5956632765844785297, guid: 7d8e55f32fd26184cb44c872aeb191ba, type: 3}
+  charactersPerSecond: 20
+  punctuationDelay: 0.5
+  quickSkip: 1
+  skipMultiplier: 5
   canProgressDialogue: 0
 --- !u!1001 &2120612259
 PrefabInstance:

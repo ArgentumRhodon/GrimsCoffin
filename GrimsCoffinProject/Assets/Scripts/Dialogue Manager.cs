@@ -32,14 +32,14 @@ public class DialogueManager : MonoBehaviour
     [Header("Typing Settings")]
     [SerializeField] private float charactersPerSecond = 20f;
     [SerializeField] private float punctuationDelay = 0.5f;
-    [SerializeField] private bool quickSkip = false;
+    [SerializeField] private bool quickSkip = false;  // you can remove this if you prefer the new 2-press approach only
     [SerializeField][Min(1)] private int skipMultiplier = 5;
 
     // Internal state for typed text
     private bool isTyping = false;   // Are we in the middle of the typewriter effect?
-    private bool isSkipping = false; // Did the user trigger skip (speed up) or quick-skip?
+    private bool isSkipping = false; // Did the user trigger skip?
     private Coroutine typingCoroutine;
-    private string currentTypingText; // The text we're currently typing, stored for quick-skip
+    private string currentTypingText; // The text we're currently typing, stored for any reveal logic
 
     // Dialogue progression
     private int currentLine = 1;     // Tracks which line in the sequence we're on
@@ -53,13 +53,15 @@ public class DialogueManager : MonoBehaviour
     private void Awake()
     {
         // Load the JSON data (or other approach) so dialogues is populated
-        m_Path = Application.dataPath;    // You can use this if needed for debugging
+        m_Path = Application.dataPath; // For debugging
         LoadDialogueData();
 
         // Set up input
         controls = new PlayerControls();
         controls.Enable();
         playerInput = GetComponent<PlayerInput>();
+
+        controls.Dialogue.Continue.performed += OnContinue;
     }
 
     private void Start()
@@ -91,22 +93,28 @@ public class DialogueManager : MonoBehaviour
                     continuePrompt.sprite = continuePromptIcons[2];
                     break;
             }
+        }
+    }
 
-            // Check if user pressed Continue
-            if (controls.Dialogue.Continue.triggered)
+    private void OnContinue(InputAction.CallbackContext ctx)
+    {
+        if (isTyping)
+        {
+            Debug.Log("Skipping...");
+
+            SkipTyping(); // First press => skip or reveal
+        }
+        else
+        {
+            Debug.Log("Progressing Dialogue");
+
+            // 2) If typing is done (and text fully shown) => we can proceed
+            // BUT only if we are not skipping.
+            // That ensures we don't jump lines when we just forced it to reveal instantly.
+            if (canProgressDialogue && !isSkipping)
             {
-                // If the line is still typing out:
-                if (isTyping)
-                {
-                    // Trigger skip (speed up or quick-skip)
-                    SkipTyping();
-                }
-                // If typing is done and we're allowed to move on:
-                else if (canProgressDialogue)
-                {
-                    currentLine++;
-                    ShowDialogueForSpirit(currentSpirit);
-                }
+                currentLine++;
+                ShowDialogueForSpirit(currentSpirit);
             }
         }
     }
@@ -137,7 +145,6 @@ public class DialogueManager : MonoBehaviour
     {
         currentSpirit = spirit;
 
-        // Convert SpiritID, SpiritState to int for matching
         int id = (int)spirit.spiritID;
         int state = (int)spirit.spiritState;
 
@@ -155,7 +162,7 @@ public class DialogueManager : MonoBehaviour
             // Update speaker icon
             speakerIcon.sprite = speakers[dialogue.SpeakerID];
 
-            // Type out the text
+            // Start the typed text
             StartTypewriter(dialogue.DialogueContent);
         }
         else
@@ -187,7 +194,6 @@ public class DialogueManager : MonoBehaviour
             StopCoroutine(typingCoroutine);
         }
 
-        // Store the text so we can do quick skip
         currentTypingText = newText;
 
         // Clear the text box first
@@ -195,7 +201,7 @@ public class DialogueManager : MonoBehaviour
 
         // Reset flags
         isTyping = true;
-        isSkipping = false;
+        //isSkipping = false;
         canProgressDialogue = false;
 
         // Start the coroutine
@@ -208,77 +214,71 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     private IEnumerator TypeTextRoutine(string fullText)
     {
-        // Precompute WaitForSeconds
         WaitForSeconds normalDelay = new WaitForSeconds(1f / charactersPerSecond);
-        WaitForSeconds skipDelay = new WaitForSeconds(1f / (charactersPerSecond * skipMultiplier));
-        WaitForSeconds punctWait = new WaitForSeconds(punctuationDelay);
+        //WaitForSeconds skipDelay   = new WaitForSeconds(1f / (charactersPerSecond * skipMultiplier));
+        WaitForSeconds punctWait   = new WaitForSeconds(punctuationDelay);
 
-        // Reveal each character in sequence
         for (int i = 0; i < fullText.Length; i++)
         {
             dialogueText.text += fullText[i];
 
-            // If punctuation and we're NOT skipping, pause longer
-            if (!isSkipping && IsPunctuation(fullText[i]))
+            if (IsPunctuation(fullText[i]))
             {
                 yield return punctWait;
             }
             else
             {
-                // If skipping => faster delay, else normal
-                yield return isSkipping ? skipDelay : normalDelay;
+                yield return normalDelay;
             }
         }
 
-        // Once done typing, allow user to continue
+        // Finished typing fully
         isTyping = false;
-        canProgressDialogue = true;
+        //isSkipping = false;
+        canProgressDialogue = true; // Now the user can press Continue to move on
     }
 
     /// <summary>
-    /// If the user presses Continue while we're typing, we either do a speed-up or immediate skip.
+    /// If the user presses Continue while we're typing, 
+    /// 1) first press sets skip on (faster speed)
+    /// 2) second press (while skipping) reveals everything instantly.
     /// </summary>
     private void SkipTyping()
     {
-        // If we are already skipping => do immediate reveal if quickSkip == true
-        if (isSkipping)
+        // If we are NOT skipping => turn skipping on for faster speed
+        //if (!isSkipping)
+        //{
+        //    isSkipping = true;
+
+        //    // Optionally, if you want a truly "quick skip" on the first press,
+        //    // you could do that here (but the requested behavior is a 2-press approach).
+        //    if (quickSkip)
+        //    {
+        //        // *If* you prefer immediate skip on first press,
+        //        // uncomment this block:
+
+        //        /*
+        //        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        //        dialogueText.text = currentTypingText;
+        //        isTyping = false;
+        //        isSkipping = false;
+        //        canProgressDialogue = true;
+        //        */
+        //    }
+
+        //    return;
+        //}
+
+        // If we ARE already skipping => second press => reveal all text instantly
+        if (typingCoroutine != null)
         {
-            if (quickSkip)
-            {
-                // Stop the coroutine
-                if (typingCoroutine != null)
-                {
-                    StopCoroutine(typingCoroutine);
-                }
-
-                // Immediately reveal the full line
-                dialogueText.text = currentTypingText;
-
-                // Mark as done
-                isTyping = false;
-                canProgressDialogue = true;
-            }
-            return;
+            StopCoroutine(typingCoroutine);
         }
 
-        // If this is the first skip press:
-        isSkipping = true;
-
-        // If quickSkip == true, we can do an instant reveal on the *first press* instead
-        // If you prefer the user press twice, leave it as is. 
-        // Example: If you want immediate on first press, uncomment:
-        /*
-        if (quickSkip)
-        {
-            if (typingCoroutine != null)
-            {
-                StopCoroutine(typingCoroutine);
-            }
-            dialogueText.text = currentTypingText;
-            isTyping = false;
-            canProgressDialogue = true;
-        }
-        */
+        dialogueText.text = currentTypingText;
+        isTyping = false;
+        //isSkipping = false;
+        canProgressDialogue = true;
     }
 
     /// <summary>
