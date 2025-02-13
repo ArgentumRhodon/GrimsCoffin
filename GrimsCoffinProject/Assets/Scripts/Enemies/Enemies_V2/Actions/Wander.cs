@@ -17,9 +17,9 @@ namespace Core.AI
 
         public override void OnStart()
         {
-            //if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            animator.SetTrigger(animationTriggerName);
-            Walk(.1f);
+            //animator.SetTrigger(animationTriggerName);
+            animator.Play(animationTriggerName);
+            Walk(1f);
             isDone = false;
         }
 
@@ -27,7 +27,8 @@ namespace Core.AI
         {
             if (CheckFlip())
             {
-                animator.SetTrigger(nextAnimationTrigger);
+                //animator.SetTrigger(nextAnimationTrigger);
+                animator.Play(nextAnimationTrigger);
                 rb.velocity = Vector2.zero;
                 isDone = true;
             }

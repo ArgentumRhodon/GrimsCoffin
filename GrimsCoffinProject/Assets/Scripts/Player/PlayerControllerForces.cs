@@ -319,29 +319,23 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //End sleep if moving after combo
-        //if (isSleeping)
-        //    if (moveInput.x != 0)
-        //        if (playerCombat.ShouldResetCombo())
-        //            EndSleep();
-
         //Handle player walking, make sure the player doesn't walk while dashing
         if (!isSleeping)
         {
-            if (!playerState.IsDashing && !playerState.IsAttacking && !playerCombat.IsComboing)
+            //if (!playerState.IsDashing)// && !playerState.IsAttacking && !playerCombat.IsComboing)
+            if (!playerState.IsDashing && CanExecuteWhileAttacking())
             {
                 if (playerState.IsWallJumping)
                     Walk(Data.wallJumpRunLerp);
                 else
                     Walk(1);
             }
-/*            if (playerState.IsAttacking && Grounded() && playerCombat.AttackClickCounter == 1)
-            {
-                Walk(1);
-            }*/
         }
         else if (canSleepWalk)
+        {
             Walk(1);
+        }
+            
 
         if (scytheThrown && !UIManager.Instance.scytheThrowInMenu)
             heldScytheSprite.SetActive(false);
@@ -415,7 +409,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Make sure the player is not dashing
         //Debug.Log(playerState.IsAttacking);
-        if (!playerState.IsDashing && !playerState.IsAttacking && value.isPressed)
+        if (!playerState.IsDashing && CanExecuteWhileAttacking() && value.isPressed)
         {
             //Jump
             if (CanJump() && LastPressedJumpTime > 0)
@@ -506,7 +500,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
         else
         {
-            CameraManager.Instance.Reset();
+            CameraManager.Instance.CameraLookReset();
         }
     }
 
@@ -618,7 +612,7 @@ public class PlayerControllerForces : MonoBehaviour
             return;
 
         //Check to make sure the player does not hit on combo cooldown
-        if (playerCombat.LastComboTime < 0)
+        if (playerCombat.LastComboTime < 0 && Data.hasStallForce)
         {
             //Aerial attack sleep / hitstop 
             if (!Grounded())
@@ -658,14 +652,17 @@ public class PlayerControllerForces : MonoBehaviour
             return;
 
         //Aerial attack check
-        if (Grounded())
-        {
-            Sleep(Data.gUpAttackDuration);
-        }
-        else
-        {
-            Sleep(Data.aUpAttackDuration);
-        }
+        //if (Data.hasStallForce)
+        //{       
+            if (Grounded())
+            {
+                Sleep(Data.gUpAttackDuration);
+            }
+            else
+            {
+                Sleep(Data.aUpAttackDuration);
+            }
+        //}
     }
 
     //Calculate physics for attacks ---------------------------------------------
@@ -675,14 +672,17 @@ public class PlayerControllerForces : MonoBehaviour
             return;
 
         //Aerial attack check
-        if (shouldGroundAttack)
-        {
-            //Sleep(Data.gDownAttackDuration);
-        }
-        else
-        {
-            Sleep(Data.aDownAttackDuration);
-        }
+        //if (Data.hasStallForce)
+        //{
+            if (shouldGroundAttack)
+            {
+                //Sleep(Data.gDownAttackDuration);
+            }
+            else
+            {
+                Sleep(Data.aDownAttackDuration);
+            }
+        //}
     }
 
     public void ExecuteScytheThrow()
@@ -699,7 +699,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Walking
     private async void Walk(float lerpAmount)
     {
-        if (isSleeping)
+        if (isSleeping && !canSleepWalk)
             return;
         //Get direction and normalize it to either 1 or -1 
         int direction = Math.Sign(XInputDirection());
@@ -1305,6 +1305,15 @@ public class PlayerControllerForces : MonoBehaviour
             return false;
     }
 
+    //Checks to see if the player can execute a method when attacking due to the stall force
+    private bool CanExecuteWhileAttacking()
+    {
+        if (Data.hasStallForce)
+            return !playerState.IsAttacking && !playerCombat.IsComboing;
+        else
+            return true;
+    }
+
     //Check health for death
     private void CheckForDeath()
     {
@@ -1411,6 +1420,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     public void SleepWalk()
     {
+        rb.velocity = Vector2.zero;
         isSleeping = true;
         canSleepWalk = true;
     }
@@ -1479,8 +1489,8 @@ public class PlayerControllerForces : MonoBehaviour
         }
             
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
- 
-        SetGravityScale(1);
+
+        SetGravityScale(1); 
         isSleeping = false;
     }
 

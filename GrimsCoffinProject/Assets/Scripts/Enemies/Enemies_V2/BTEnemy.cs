@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BTEnemy : Enemy
 {
+    private Canvas enemyCanvas;
+    protected PlayerControllerForces player;
+    [HideInInspector] public EnemyStateList enemyStateList;
+
     //Direction to face
     private int direction = 1;
-    [SerializeField] private bool isFacingRight;
-    
-
     public int Direction { get { return direction; } set { direction = value; } }
-    public bool IsFacingRight { get { return isFacingRight; } set { isFacingRight = value; } }
 
     //Direction Checkers
     [Header("Direction Collision Checkers")]
@@ -26,18 +26,18 @@ public class BTEnemy : Enemy
     [SerializeField] public float movementDecceleration;
     [HideInInspector] public float movementDeccelAmount;
 
-    private Canvas enemyCanvas;
-
     protected override void Start()
     {
         base.Start();
-        isFacingRight = true;
+        enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
+        player = PlayerControllerForces.Instance;
+        enemyStateList = gameObject.GetComponent<EnemyStateList>();
+
+        enemyStateList.IsFacingRight = true;
         direction = 1;
 
         movementAccelAmount = (1 * movementAcceleration) / movementSpeed;
         movementDeccelAmount = (1 * movementDecceleration) / movementSpeed;
-
-        enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
     }
 
     protected override void FixedUpdate()
@@ -95,7 +95,45 @@ public class BTEnemy : Enemy
         tempScale.x = shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);       
         enemyCanvas.transform.localScale = tempScale;
 
-        IsFacingRight = shouldFaceRight;
+        enemyStateList.IsFacingRight = shouldFaceRight;
         Direction = shouldFaceRight ? Mathf.Abs(Direction) : -1 * Mathf.Abs(Direction);       
+    }
+
+    public void TurnToPlayer()
+    {
+        //Find direction and update it
+        Vector2 direction = FindPlayerDirection();
+
+        if (direction.x > 0 && !enemyStateList.IsFacingRight)
+        {
+            FaceRight(true);
+        }
+        else if (direction.x < 0 && enemyStateList.IsFacingRight)
+        {
+            FaceRight(false);
+        }
+    }
+
+    public float FindPlayerDistanceX()
+    {
+        return Mathf.Abs(player.transform.position.x - transform.position.x);
+    }    
+    
+    public float FindPlayerDistanceY()
+    {
+        return Mathf.Abs(player.transform.position.y - transform.position.y);
+    }
+
+/*    public Vector2 FindAerialPlayerDistance()
+    {
+        return new Vector2(Mathf.Abs(player.transform.position.x - transform.position.x), Mathf.Abs(player.transform.position.y - transform.position.y));
+    }*/
+
+    public Vector2 FindPlayerDirection()
+    {
+        Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y + 1);
+        Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
+
+        return (playerPos - enemyPos).normalized;
     }
 }

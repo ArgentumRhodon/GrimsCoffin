@@ -8,18 +8,30 @@ namespace Core.AI
     public class BasicAttack : EnemyAction
     {
         public string animationTriggerName;
+        public bool startedAttack;
 
         public override void OnStart()
-        {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-                animator.SetTrigger("Idle");
-
-            animator.SetTrigger(animationTriggerName);
+        {           
+            animator.Play(animationTriggerName);
+            //Debug.Log(animationTriggerName);
+            startedAttack = true;
+            enemyScript.enemyStateList.IsAttacking = true;
         }
 
         public override TaskStatus OnUpdate()
         {
-            return TaskStatus.Success;
+            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).ToString());
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("BasicGhost_Attack1") && startedAttack)
+            {
+                return TaskStatus.Success;
+            }
+            else
+                return TaskStatus.Running;
+        }
+
+        public override void OnEnd()
+        {
+            enemyScript.enemyStateList.IsAttacking = false;
         }
     }
 }

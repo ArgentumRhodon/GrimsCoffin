@@ -373,7 +373,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   groundCheckPoint: {fileID: 6407083523203834289}
-  groundCheckSize: {x: 0.5, y: 0.04}
+  groundCheckSize: {x: 0.9, y: 0.04}
   frontWallCheckPoint: {fileID: 7342308081699046411}
   backWallCheckPoint: {fileID: 3769127713801327265}
   wallCheckSize: {x: 0.2, y: 0.75}
@@ -525,6 +525,7 @@ MonoBehaviour:
   currentAttackAmount: 0
   attackQueue: 
   isHoldingAttacking: 0
+  isInterruptingCombo: 0
 --- !u!114 &3338551163740125992
 MonoBehaviour:
   m_ObjectHideFlags: 0

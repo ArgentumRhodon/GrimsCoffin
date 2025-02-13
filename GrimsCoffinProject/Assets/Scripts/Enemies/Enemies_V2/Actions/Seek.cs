@@ -21,7 +21,6 @@ namespace Core.AI
         private Path path;
         private int currentWaypoint = 0;
         private bool reachedEndOfPath = false;     
-        private Seeker seeker;
 
         //Update path modifiers
         private float repeatingNum = .2f;
@@ -36,7 +35,6 @@ namespace Core.AI
         public override void OnStart()
         {
             //Get required components
-            seeker = GetComponent<Seeker>();
             enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
 
             //Start new path and timers
@@ -49,6 +47,7 @@ namespace Core.AI
 
             //Set vision 
             visionRange = enemyScript.visionCollider;
+            enemyScript.enemyStateList.IsSeeking = true;
         }
 
         public override void OnFixedUpdate()
@@ -61,12 +60,12 @@ namespace Core.AI
                 {
                     rb.velocity = Vector2.zero;
                     isWaiting = true;
-                    animator.SetTrigger(nextAnimationTrigger);
+                    animator.Play(animationTriggerName);                 
                 }
                 else if (isWaiting)
                 {
                     UpdateDirection();
-                    if (FindPlayerDistance() <= targetRange)
+                    if (enemyScript.FindPlayerDistanceX() <= targetRange)
                     {
                         reachedEndOfPath = true;
                     }
@@ -91,7 +90,7 @@ namespace Core.AI
 
         public override void OnEnd()
         {
-            animator.SetTrigger(nextAnimationTrigger);
+            enemyScript.enemyStateList.IsSeeking = false;
         }
 
         private void PathFollow()
@@ -110,7 +109,7 @@ namespace Core.AI
             }
 
             //Make sure direction is in x only
-            Vector2 direction = FindPlayerDirection();
+            Vector2 direction = enemyScript.FindPlayerDirection();
 
             if (direction.x != 0)
             {
@@ -152,14 +151,16 @@ namespace Core.AI
                 enemyScript.FaceRight(false);
             }
 
-            if (FindPlayerDistance() <= targetRange)
+            if (enemyScript.FindPlayerDistanceX() <= targetRange)
             {
                 reachedEndOfPath = true;
                 return;
             }
 
             //Start movement animation
-            animator.SetTrigger(animationTriggerName);
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationTriggerName))
+                animator.Play(animationTriggerName);
+            //animator.SetTrigger(animationTriggerName);
         }
 
         private void OnPathComplete(Path p)
@@ -179,6 +180,8 @@ namespace Core.AI
                                     + Mathf.Pow((player.transform.position.y - rb.transform.position.y), 2);
               
                 seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
+
+                //Debug.Log("Path length: " + path.GetTotalLength());
             }
         }
 
@@ -194,7 +197,8 @@ namespace Core.AI
                 if (isWaiting)
                 {
                     isWaiting = false;
-                    animator.SetTrigger(animationTriggerName);
+                    animator.Play(nextAnimationTrigger);
+                    //animator.SetTrigger(animationTriggerName);
                 }
                 return false;
             }
@@ -203,13 +207,13 @@ namespace Core.AI
         private void UpdateDirection()
         {
             //Find direction and update it
-            Vector2 direction = FindPlayerDirection();
+            Vector2 direction = enemyScript.FindPlayerDirection();
 
-            if(direction.x > 0 && !enemyScript.IsFacingRight)
+            if(direction.x > 0 && !enemyScript.enemyStateList.IsFacingRight)
             {
                 enemyScript.FaceRight(true);
             }
-            else if(direction.x < 0 && enemyScript.IsFacingRight)
+            else if(direction.x < 0 && enemyScript.enemyStateList.IsFacingRight)
             {
                 enemyScript.FaceRight(false);
             }
@@ -219,9 +223,15 @@ namespace Core.AI
         {
             //Check for colliders overlapping
             Collider2D[] collidersToCheck = new Collider2D[10];
+
+            //Debug.Log("Colliders to Check Size" + collidersToCheck.Length);
+
             ContactFilter2D filter = new ContactFilter2D();
             filter.useTriggers = true;
+
             int colliderCount = Physics2D.OverlapCollider(visionRange, filter, collidersToCheck);
+            Debug.Log("Colliders Count" + colliderCount);
+
 
             //Go through all colliders and check to see if it is the player
             for (int i = 0; i < colliderCount; i++)
@@ -231,18 +241,7 @@ namespace Core.AI
             }
             return false;
         }
-    
-        private float FindPlayerDistance()
-        {
-            return Mathf.Abs(player.transform.position.x - transform.position.x);
-        }
 
-        private Vector2 FindPlayerDirection()
-        {
-            Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
-            Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
 
-            return (playerPos - enemyPos).normalized;
-        }
     }
 }

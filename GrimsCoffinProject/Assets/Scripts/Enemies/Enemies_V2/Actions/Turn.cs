@@ -16,9 +16,10 @@ namespace Core.AI
         public override void OnStart()
         {
             enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
-            animator.SetTrigger(animationTriggerName);
+            //animator.SetTrigger(animationTriggerName);
+            //animator.Play("BasicSkeleton_Idle");
 
-            if (enemyScript.IsFacingRight)
+            if (enemyScript.enemyStateList.IsFacingRight)
                 enemyScript.FaceRight(false);
             else
                 enemyScript.FaceRight(true);
