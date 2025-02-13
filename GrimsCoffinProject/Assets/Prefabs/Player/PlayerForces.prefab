@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 3908579556561913604}
   - component: {fileID: 3338551163740125992}
   - component: {fileID: 8792364512995316596}
+  - component: {fileID: 5667984482566219530}
   m_Layer: 6
   m_Name: PlayerForces
   m_TagString: Player
@@ -550,6 +551,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _teamIndex: 1
+--- !u!114 &5667984482566219530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754731874771024280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3eacd6e4eaacb440b209b6c1b8351f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToEnable: {fileID: 8880701307876477556}
 --- !u!1 &6693415044721484344
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,7 +717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7501775984290859826
 Transform:
   m_ObjectHideFlags: 0
