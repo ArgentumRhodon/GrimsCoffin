@@ -212,7 +212,7 @@ public class UIManager : MonoBehaviour
             areaText.SetActive(false);
 
         gameUI.SetActive(false);
-        PlayerControllerForces.Instance.ToggleSleep();
+        PlayerControllerForces.Instance.ToggleSleep(true);
 
         //Disable player control
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
@@ -247,7 +247,7 @@ public class UIManager : MonoBehaviour
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
         gameUI.SetActive(true);
         dialogueUI.SetActive(false);
-        PlayerControllerForces.Instance.ToggleSleep();
+        PlayerControllerForces.Instance.ToggleSleep(false);
         playerInput.SwitchCurrentActionMap("Player");
         Debug.Log("1111");
     }
