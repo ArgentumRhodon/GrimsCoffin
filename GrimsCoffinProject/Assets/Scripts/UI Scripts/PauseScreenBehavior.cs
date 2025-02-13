@@ -94,7 +94,7 @@ public class PauseScreenBehavior : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         foreach (Room room in PersistentDataManager.Instance.rooms)
         {
-            if (room.gameObject.activeInHierarchy)
+            if (room.gameObject.activeInHierarchy && room.GetComponent<EnemyManager>() != null)
                 room.GetComponent<EnemyManager>().DeleteEnemies();
         }
         SceneManager.LoadScene("TitleScreen");

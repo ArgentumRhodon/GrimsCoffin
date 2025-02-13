@@ -64,7 +64,7 @@ public class PersistentDataManager : MonoBehaviour
     void Start()
     {
         //If the player is in the cutscene between Onboarding and Denial Area, transition their stats
-        if (SceneManager.GetActiveScene().name == "CutScene")
+        if (SceneManager.GetActiveScene().name == "Scene Transition Cutscene")
             TransitionToDenialArea();
     }
 

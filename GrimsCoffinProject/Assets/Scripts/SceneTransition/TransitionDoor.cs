@@ -45,6 +45,8 @@ public class TransitionDoor : MonoBehaviour
     private EnemyManager enterEnemyMgr;
     [SerializeField]
     private EnemyManager exitEnemyMgr;
+    [SerializeField]
+    private GameObject enemyDropList;
 
     //FMOD Related Variables
     #region FMODRelated
@@ -69,6 +71,7 @@ public class TransitionDoor : MonoBehaviour
             idleInstance = RuntimeManager.CreateInstance(idleSFX);
             idleInstance.start();
         }
+        enemyDropList = GameObject.Find("Enemy Drops");
     }
 
     // Update is called once per frame
@@ -89,6 +92,7 @@ public class TransitionDoor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerControllerForces.Instance.Sleep(1.5f);
             if (areaEntering.GetComponent<Room>().roomIndex == 2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
             {
                 PlayerControllerForces.Instance.Data.canDash = true;
@@ -111,12 +115,17 @@ public class TransitionDoor : MonoBehaviour
                 Debug.Log("Deleting Enemies");
                 exitEnemyMgr.DeleteEnemies();
             }
+
+            foreach (Transform child in enemyDropList.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 
     IEnumerator Transition(Collider2D col)
     {
-        PlayerControllerForces.Instance.Sleep(2);
+        
         if (!areaEntering.activeInHierarchy)
         {
             areaEntering.SetActive(true);
