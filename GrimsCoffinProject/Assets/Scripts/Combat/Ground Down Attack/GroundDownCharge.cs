@@ -7,14 +7,20 @@ public class GroundDownCharge : MeleeBaseState
 {
     PlayerControllerForces playerController;
 
+    public GroundDownCharge() : base()
+    {
+        attackIndex = -1; // Not part of combo
+    }
+
     public override void OnEnter(CStateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
+
         playerController = playerCombat.GetComponent<PlayerControllerForces>();
         playerController.WalkModifier = playerCombat.Data.gDownWalkModifier;
         playerController.SleepWalk();
 
-        animator.SetTrigger("GroundCharge");
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.GroundCharge);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

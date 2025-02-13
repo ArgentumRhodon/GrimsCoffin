@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LostAbilities
   m_EditorClassIdentifier: 
   deadzone: 0.5
+  attackDirectionDeadzone: 0
   cameraOffset: 0.6
   cameraWalkOffset: 0.1
   cameraDashOffset: -1
@@ -73,25 +74,39 @@ MonoBehaviour:
   dashInputBufferTime: 0.052
   canAttack: 1
   canTurnDuringCombo: 1
-  comboSleepTime: 0.3
+  comboCooldownTime: 0
   attackBufferTime: 0.3
-  comboAerialTime: 0.15
+  comboSleepTime: 0.3
   comboTotal: 2
   comboAerialPForce: 5
+  comboGroundPForce: 0
+  comboAttackDuration: 0
   combo1Damage: 4
   combo2Damage: 4
   combo3Damage: 7
   combo4Damage: 10
+  canGUpAttack: 0
   groundUpwardPForce: 0
-  groundUpwardEForce: 0
+  groundUpwardEForce: {x: 0, y: 0}
+  gUpAttackDuration: 0
   groundUpDamage: 5
+  canGDownAttack: 0
   groundDownwardPForce: 0
   groundDownwardEForce: 0
+  gDownWalkModifier: 0.01
   gdHoldDuration: 0
+  gDownAttackDuration: 0
   groundDownDamage: 15
+  canAUpAttack: 0
   hookPlayerForce: 0
+  aUpAttackDuration: 0
   aerialUpDamage: 3
+  canADownAttack: 0
   aerialDownwardPForce: 0
   aerialDownwardEForce: 0
+  aDownAttackDuration: 0
+  aDownAttackReset: 0
   aerialDownDamage: 7
   aerialImpactDamage: 5
+  canScytheThrow: 0
+  canViewMap: 0
