@@ -100,9 +100,12 @@ public class TransitionDoor : MonoBehaviour
                 exitEnemyMgr.DeleteEnemies();
             }
 
-            foreach (Transform child in enemyDropList.transform)
+            if (enemyDropList != null)
             {
-                Destroy(child.gameObject);
+                foreach (Transform child in enemyDropList.transform)
+                {
+                    Destroy(child.gameObject);
+                }
             }
         }
     }
