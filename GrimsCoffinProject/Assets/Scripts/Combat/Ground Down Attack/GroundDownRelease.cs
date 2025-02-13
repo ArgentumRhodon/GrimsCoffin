@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class GroundDownRelease : MeleeBaseState
 {
+    public GroundDownRelease() : base()
+    {
+        attackIndex = -1;
+    }
+
     public override void OnEnter(CStateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
         //Set attack variables and animation
         attackDamage = playerCombat.Data.groundDownDamage;
-        playerCombat.AttackDurationTime = playerCombat.Data.gDownAttackDuration; 
+        playerCombat.AttackDurationTime = playerCombat.Data.gDownAttackDuration;
 
-        //Animations
-        animator.SetTrigger("GroundDown");
-        animator.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator.SetTrigger("Attack");
-        //Debug.Log("Player Attack " + attackIndex);
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.GroundDown);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

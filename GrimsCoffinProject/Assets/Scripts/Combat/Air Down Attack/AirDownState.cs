@@ -8,19 +8,19 @@ public class AirDownState : MeleeBaseState
     private Vector2 impactPoint;
     private  List<Collider2D> collidersAttached;
 
+    public AirDownState() : base()
+    {
+        attackIndex = -1;
+    }
+
     public override void OnEnter(CStateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
-        //Set attack variables and animation
-        attackIndex = 3;
         attackDamage = playerCombat.Data.aerialDownDamage;
         playerCombat.AttackDurationTime = playerCombat.Data.aDownAttackDuration;
 
-        animator.SetTrigger("Attack");
-        animator.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator.SetTrigger("Attack");
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.GroundDown);
     }
 
     //Continue downwards attack until player is on ground
