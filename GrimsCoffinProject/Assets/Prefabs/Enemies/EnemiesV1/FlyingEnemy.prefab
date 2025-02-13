@@ -403,6 +403,7 @@ MonoBehaviour:
   health: 15
   damage: 10
   movementSpeed: 500
+  seekSpeed: 0
   visionRange: 10
   knockbackMult: 1
   hitbox: {fileID: 0}
@@ -410,6 +411,7 @@ MonoBehaviour:
   enemyGFX: {fileID: 2698454589458360526}
   enemy: {fileID: 7044810579388639336}
   playerTarget: {fileID: 0}
+  enemyDropPrefab: {fileID: 5018094658481689379, guid: 83422a90486a2434b9558bea87306358, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

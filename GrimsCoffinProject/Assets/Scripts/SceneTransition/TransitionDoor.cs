@@ -1,4 +1,6 @@
 using Cinemachine;
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +45,18 @@ public class TransitionDoor : MonoBehaviour
     private EnemyManager enterEnemyMgr;
     [SerializeField]
     private EnemyManager exitEnemyMgr;
+    [SerializeField]
+    private GameObject enemyDropList;
+
+    //FMOD Related Variables
+    #region FMODRelated
+
+    [SerializeField] private EventReference idleSFX;
+    [SerializeField] private EventReference testSFX;
+    private EventInstance idleInstance;
+
+
+    #endregion
 
     public Vector3 SpawnPos
     {
@@ -53,12 +67,17 @@ public class TransitionDoor : MonoBehaviour
     void Start()
     {
         spawnPos = transform.GetChild(0).position;
+        if (idleSFX.IsNull != true) {
+            idleInstance = RuntimeManager.CreateInstance(idleSFX);
+            idleInstance.start();
+        }
+        enemyDropList = GameObject.Find("Enemy Drops");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -73,6 +92,7 @@ public class TransitionDoor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerControllerForces.Instance.Sleep(1.5f);
             if (areaEntering.GetComponent<Room>().roomIndex == 2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
             {
                 PlayerControllerForces.Instance.Data.canDash = true;
@@ -95,16 +115,22 @@ public class TransitionDoor : MonoBehaviour
                 Debug.Log("Deleting Enemies");
                 exitEnemyMgr.DeleteEnemies();
             }
+
+            foreach (Transform child in enemyDropList.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 
     IEnumerator Transition(Collider2D col)
     {
-        PlayerControllerForces.Instance.Sleep(2);
+        
         if (!areaEntering.activeInHierarchy)
         {
             areaEntering.SetActive(true);
             yield return null;
+            idleInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         }
         else
         {
