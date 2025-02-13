@@ -6,7 +6,7 @@ public class GroundDownRelease : MeleeBaseState
 {
     public GroundDownRelease() : base()
     {
-        attackIndex = 4;
+        attackIndex = -1;
     }
 
     public override void OnEnter(CStateMachine _stateMachine)
@@ -15,7 +15,9 @@ public class GroundDownRelease : MeleeBaseState
 
         //Set attack variables and animation
         attackDamage = playerCombat.Data.groundDownDamage;
-        playerCombat.AttackDurationTime = playerCombat.Data.gDownAttackDuration; 
+        playerCombat.AttackDurationTime = playerCombat.Data.gDownAttackDuration;
+
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.GroundDown);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

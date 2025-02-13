@@ -466,8 +466,10 @@ public class PlayerCombat : MonoBehaviour
     {
         if (AttackDurationTime > 0)
             playerState.IsAttacking = true;  
-        else if(!isHoldingAttacking)
-            playerState.IsAttacking = false;    
+        else if (!isHoldingAttacking)
+        {
+            playerState.IsAttacking = false;
+        }
 
         //Reset combo if they have not attacked in a specific amount of time
         if (ShouldResetCombo() && AttackClickCounter > 0)

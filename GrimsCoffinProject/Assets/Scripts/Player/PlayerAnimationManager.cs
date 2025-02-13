@@ -46,6 +46,13 @@ public class PlayerAnimationManager : MonoBehaviour
 
     public string CurrentState { get { return currentState; } }
 
+    public float GetCurrentAnimationLength()
+    {
+        if (currentState == null) return 0;
+
+        return playerAnimator.GetCurrentAnimatorStateInfo(0).length;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
