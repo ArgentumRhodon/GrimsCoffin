@@ -107,7 +107,7 @@ public class CutsceneManager : MonoBehaviour
         }
         UpdateIndicator();
         UpdateSkipText();
-        dxInstance.start();
+        //dxInstance.start();
     }
 
     IEnumerator AdvanceSentence()
@@ -124,7 +124,7 @@ public class CutsceneManager : MonoBehaviour
 
         currentSentenceIndex++;
 
-        dxInstance.start();
+        //dxInstance.start();
 
         if (currentSentenceIndex < sentences.Length)
         {
