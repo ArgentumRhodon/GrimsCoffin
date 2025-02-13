@@ -21,7 +21,7 @@ namespace Core.AI
         public override TaskStatus OnUpdate()
         {
             Debug.Log(animator.GetCurrentAnimatorStateInfo(0).ToString());
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationTriggerName) && startedAttack)
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("BasicGhost_Attack1") && startedAttack)
             {
                 return TaskStatus.Success;
             }
