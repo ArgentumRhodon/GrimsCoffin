@@ -114,10 +114,20 @@ public class BTEnemy : Enemy
         }
     }
 
-    public float FindPlayerDistance()
+    public float FindPlayerDistanceX()
     {
         return Mathf.Abs(player.transform.position.x - transform.position.x);
+    }    
+    
+    public float FindPlayerDistanceY()
+    {
+        return Mathf.Abs(player.transform.position.y - transform.position.y);
     }
+
+/*    public Vector2 FindAerialPlayerDistance()
+    {
+        return new Vector2(Mathf.Abs(player.transform.position.x - transform.position.x), Mathf.Abs(player.transform.position.y - transform.position.y));
+    }*/
 
     public Vector2 FindPlayerDirection()
     {

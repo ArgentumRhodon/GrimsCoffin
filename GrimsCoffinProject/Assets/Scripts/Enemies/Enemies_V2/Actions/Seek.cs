@@ -65,7 +65,7 @@ namespace Core.AI
                 else if (isWaiting)
                 {
                     UpdateDirection();
-                    if (enemyScript.FindPlayerDistance() <= targetRange)
+                    if (enemyScript.FindPlayerDistanceX() <= targetRange)
                     {
                         reachedEndOfPath = true;
                     }
@@ -151,7 +151,7 @@ namespace Core.AI
                 enemyScript.FaceRight(false);
             }
 
-            if (enemyScript.FindPlayerDistance() <= targetRange)
+            if (enemyScript.FindPlayerDistanceX() <= targetRange)
             {
                 reachedEndOfPath = true;
                 return;
