@@ -110,12 +110,14 @@ public class PersistentDataManager : MonoBehaviour
                     //Unlocks Minimap and Map access
                     case Spirit.SpiritID.MapSpirit:
                         PlayerPrefs.SetInt("CanViewMap", 1);
+                        UIManager.Instance.ShowAbilityUnlock("Map Unlocked");
                         break;
 
                     //Unlocks Dash
                     case Spirit.SpiritID.DashSpirit:
                         PlayerControllerForces.Instance.Data.canDash = true;
                         PlayerPrefs.SetInt("CanDash", 1);
+                        UIManager.Instance.ShowAbilityUnlock("Dash Unlocked");
                         break;
 
                     //Unlocks Scythe Throw and Spirit Power
@@ -124,6 +126,7 @@ public class PersistentDataManager : MonoBehaviour
                         PlayerControllerForces.Instance.Data.maxSP = 50;
                         PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
                         PlayerPrefs.SetInt("CanScytheThrow", 1);
+                        UIManager.Instance.ShowAbilityUnlock("Scythe Throw Unlocked");
                         PlayerPrefs.SetFloat("MaxSP", 50);
                         break;
 
@@ -132,6 +135,7 @@ public class PersistentDataManager : MonoBehaviour
                         PlayerControllerForces.Instance.Data.maxHP += 15;
                         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP; 
                         PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
+                        UIManager.Instance.ShowAbilityUnlock("Max Health Increased");
                         break;
                 }
             }
