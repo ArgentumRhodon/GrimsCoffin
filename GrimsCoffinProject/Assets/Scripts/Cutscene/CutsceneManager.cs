@@ -15,20 +15,26 @@ public class CutsceneManager : MonoBehaviour
     public TextMeshProUGUI skipText;
     public SceneController sceneController;
 
-    [Header("Sentences and Fade Settings")]
+    [Header("Sentences")]
     public string[] sentences;
-    public float fadeDuration = 0.5f;
-    public string actionDescription = "continue";
+
+    [Header("Typewriter Settings")]
+    [SerializeField] private float charactersPerSecond = 30f;
+    [SerializeField] private float punctuationDelay = 0.5f;
 
     private PlayerControls controls;
     private PlayerInput playerInput;
     private int currentSentenceIndex = 0;
-    private bool isFading = false;
     private bool cutsceneActive = false;
 
+    // State for typewriter effect
+    [SerializeField]private bool isTyping = false;
+    private Coroutine typingCoroutine;
+    private string currentSentence;
+
+    [Header("Prompt Icons and Audio")]
     [SerializeField] private List<Sprite> continuePromptIcons;
     [SerializeField] private List<Sprite> skipPromptIcons;
-
     [SerializeField] private Image continuePrompt;
     [SerializeField] private Image skipPrompt;
     [SerializeField] private EventReference dxTyping;
@@ -39,9 +45,10 @@ public class CutsceneManager : MonoBehaviour
     {
         dxInstance = RuntimeManager.CreateInstance(dxTyping);
         controls = new PlayerControls();
+        controls.Enable();
         playerInput = GetComponent<PlayerInput>();
         StartCutscene();
-        
+        //AdvanceSentence();
     }
 
     void OnEnable()
@@ -64,19 +71,16 @@ public class CutsceneManager : MonoBehaviour
 
     void Update()
     {
-        if (cutsceneActive && !isFading && (controls.UI.Click.triggered || controls.UI.Submit.triggered))
+        // Check for player input:
+        if (cutsceneActive)
         {
-            StartCoroutine(AdvanceSentence());
-            //dxInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            //RuntimeManager.PlayOneShot(dxContinue);
-
+            if (controls.Dialogue.Skip.triggered)
+            {
+                SkipCutsceneImmediately();
+            }
         }
 
-        if (cutsceneActive && controls.UI.SkipCutscene.triggered)
-        {
-            SkipCutsceneImmediately();
-        }
-
+        // Update prompt icons based on the current control scheme:
         if (continuePromptIcons != null)
         {
             switch (playerInput.currentControlScheme)
@@ -105,74 +109,98 @@ public class CutsceneManager : MonoBehaviour
         {
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
-        UpdateIndicator();
         UpdateSkipText();
-        //dxInstance.start();
+        // Optionally start the FMOD event: dxInstance.start();
     }
 
-    IEnumerator AdvanceSentence()
+    /// <summary>
+    /// Handles the player's continue input.
+    /// If the sentence is still typing, this input will skip it (show full text).
+    /// Otherwise, it advances to the next sentence.
+    /// </summary>
+    void OnContinue(InputAction.CallbackContext ctx)
+    {
+        if (isTyping)
+        {
+            // First press: stop typing and show the complete sentence immediately.
+            SkipTyping();
+        }
+        else
+        {
+            // Next press: advance to the next sentence.
+            AdvanceSentence();
+        }
+    }
+
+    /// <summary>
+    /// Advances to the next sentence or loads the next scene if there are no more sentences.
+    /// </summary>
+    void AdvanceSentence()
     {
         RuntimeManager.PlayOneShot(dxContinue);
 
-        isFading = true;
-
-        Coroutine sentenceFade = StartCoroutine(FadeTextAlpha(dialogueText, 1f, 0f, fadeDuration));
-        //Coroutine indicatorFade = StartCoroutine(FadeTextAlpha(indicatorText, 1f, 0f, fadeDuration));
-
-        yield return sentenceFade;
-        //yield return indicatorFade;
-
         currentSentenceIndex++;
-
-        //dxInstance.start();
-
         if (currentSentenceIndex < sentences.Length)
         {
-            yield return StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
+            StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         else
         {
             sceneController.LoadNextScene();
+            controls.Dialogue.Continue.performed -= OnContinue;
         }
-
-        isFading = false;
-
-        
-
-
     }
 
+    /// <summary>
+    /// Begins displaying the given sentence using the typewriter effect.
+    /// </summary>
     IEnumerator ShowSentence(string sentence)
     {
-        dialogueText.text = sentence;
-        SetTextAlpha(dialogueText, 0f);
-        //SetTextAlpha(indicatorText, 0f);
-
-        yield return StartCoroutine(FadeTextAlpha(dialogueText, 0f, 1f, fadeDuration));
-
-        //yield return StartCoroutine(FadeTextAlpha(indicatorText, 0f, 1f, fadeDuration));
+        controls.Dialogue.Continue.performed += OnContinue;
+        currentSentence = sentence;
+        dialogueText.text = "";
+        typingCoroutine = StartCoroutine(TypeTextRoutine(sentence));
+        // Wait until the typewriter effect completes (or is skipped)
+        yield return new WaitUntil(() => !isTyping);
     }
 
-    IEnumerator FadeTextAlpha(TextMeshProUGUI textElement, float startAlpha, float endAlpha, float duration)
+    /// <summary>
+    /// Reveals text character-by-character. Pauses extra on punctuation.
+    /// </summary>
+    IEnumerator TypeTextRoutine(string fullText)
     {
-        float elapsed = 0f;
-        while (elapsed < duration)
+        isTyping = true;
+        WaitForSeconds normalDelay = new WaitForSeconds(1f / charactersPerSecond);
+        WaitForSeconds punctWait = new WaitForSeconds(punctuationDelay);
+
+        for (int i = 0; i < fullText.Length; i++)
         {
-            elapsed += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / duration);
-            SetTextAlpha(textElement, newAlpha);
-            yield return null;
+            dialogueText.text += fullText[i];
+
+            if (IsPunctuation(fullText[i]))
+                yield return punctWait;
+            else
+                yield return normalDelay;
         }
-        SetTextAlpha(textElement, endAlpha);
+        isTyping = false;
     }
 
-    void SetTextAlpha(TextMeshProUGUI textElement, float alpha)
+    /// <summary>
+    /// Immediately stops the typewriter effect and displays the full sentence.
+    /// </summary>
+    void SkipTyping()
     {
-        Color c = textElement.color;
-        c.a = alpha;
-        textElement.color = c;
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+        dialogueText.text = currentSentence;
+        isTyping = false;
     }
 
+    /// <summary>
+    /// Immediately skips the entire cutscene and loads the next scene.
+    /// </summary>
     void SkipCutsceneImmediately()
     {
         StopAllCoroutines();
@@ -181,47 +209,26 @@ public class CutsceneManager : MonoBehaviour
 
     void OnControlsChanged(PlayerInput obj)
     {
-        UpdateIndicator();
         UpdateSkipText();
     }
 
-    private void UpdateIndicator()
-    {
-        if (indicatorText == null || playerInput == null) return;
-
-        string currentScheme = playerInput.currentControlScheme;
-        if (currentScheme.Contains("Keyboard&Mouse"))
-        {
-            indicatorText.text = " to continue";
-        }
-        /*else if (currentScheme.Contains("Xbox"))
-        {
-            indicatorText.text = "press\t to continue";
-        }
-        else if (currentScheme.Contains("PlayStation"))
-        {
-            indicatorText.text = "press\t to continue";
-        }*/
-    }
 
     private void UpdateSkipText()
     {
-        if (skipText == null || playerInput == null) return;
+        if (skipText == null || playerInput == null)
+            return;
 
         string currentScheme = playerInput.currentControlScheme;
-        if (currentScheme.Contains("Keyboard&Mouse"))
-        {
-            skipText.text = "press\tto skip";
-        }
-        else
-        {
-            skipText.text = "press\tto skip";
-        }
+        // Customize the skip text based on the control scheme if needed.
+        skipText.text = "press\tto skip";
     }
 
-    public void SetActionDescription(string newDescription)
+    /// <summary>
+    /// Helper method to determine if a character is punctuation.
+    /// </summary>
+    private bool IsPunctuation(char c)
     {
-        actionDescription = newDescription;
-        UpdateIndicator();
+        return (c == '.' || c == ',' || c == '!' ||
+                c == '?' || c == ';' || c == ':' || c == '-');
     }
 }
