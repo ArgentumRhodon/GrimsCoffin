@@ -25,15 +25,18 @@ public class EnemyDrop : MonoBehaviour
 
     private void Start()
     {
-        if (Random.Range(1, 100) <= 50 && PlayerControllerForces.Instance.Data.canScytheThrow)
+        if (Random.Range(1, 100) <= 50 && PlayerControllerForces.Instance.Data.canScytheThrow && PlayerControllerForces.Instance.currentSP < PlayerControllerForces.Instance.Data.maxSP)
         {
             dropType = EnemyDropType.SpiritPower;
         }
 
-        else
+        else if (PlayerControllerForces.Instance.currentHP < PlayerControllerForces.Instance.Data.maxHP)
         {
             dropType = EnemyDropType.Health;
         }
+
+        else
+            Destroy(gameObject);
 
         switch (dropType)
         {

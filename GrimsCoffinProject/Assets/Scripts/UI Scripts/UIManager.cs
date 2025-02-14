@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject gameUI;
     [SerializeField] public GameObject areaText;
     [SerializeField] private GameObject saveIcon;
+    [SerializeField] private GameObject abilityUnlockPrefab;
 
     //Map Specific References
     [SerializeField] private GameObject minimapUI;
@@ -182,9 +183,9 @@ public class UIManager : MonoBehaviour
 
             for (int i = 0; i < roomsExplored.Count; i++)
             {
-               //If a room is explored, set it active
-               if (roomsExplored[i] && mapRooms.Count > 0)
-                   mapRooms[i].SetActive(true);
+                //If a room is explored, set it active
+                if (roomsExplored[i] && mapRooms.Count > 0)
+                    mapRooms[i].SetActive(true);
             }
         }
     }
@@ -209,6 +210,18 @@ public class UIManager : MonoBehaviour
     {
         if (UIManager.Instance.fullMapUI != null)
             mapScript.ToggleMapKey();
+    }
+
+    //Show a panel to inform an ability has been unlocked
+    public void ShowAbilityUnlock(string abilityName)
+    {
+        Debug.Log("ABILITY UNLOCK");
+
+        if (abilityUnlockPrefab == null)
+            return;
+
+        GameObject popup = Instantiate(abilityUnlockPrefab, gameUI.transform);
+        popup.GetComponent<AbilityUnlock>().unlockMessage = abilityName;
     }
 
     //Show dialogue UI
