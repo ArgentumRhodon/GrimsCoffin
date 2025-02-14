@@ -159,6 +159,7 @@ public class PersistentDataManager : MonoBehaviour
             Mathf.Clamp(collectablesHeld, 0, 100);
 
             PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
+            UIManager.Instance.ShowAbilityUnlock("Max Health Increased");
             UIManager.Instance.RemoveHealthCollectables();
         }
 
