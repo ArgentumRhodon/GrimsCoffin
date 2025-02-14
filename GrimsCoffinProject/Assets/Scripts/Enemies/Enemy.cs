@@ -34,8 +34,12 @@ public abstract class Enemy : MonoBehaviour
     protected float localDeltaTime;
     protected bool isSleeping;
 
-    //DownAttack
+    //Enemy Statuses
     protected bool isHitDown;
+    protected bool isBlocking;
+    protected bool isStaggered;
+    public bool IsBlocking { get { return isBlocking; } set { isBlocking = value; } }
+    public bool IsStaggered { get { return isStaggered; } set { isStaggered = value; } }
 
     //Damaged checked for conditions
     protected bool isDamaged;
@@ -45,9 +49,7 @@ public abstract class Enemy : MonoBehaviour
     [Header("Tile Checks")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheckPoint;
-    //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
-    [SerializeField]
-    private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
+    [SerializeField] private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
 
 
     // Start is called before the first frame update
@@ -74,6 +76,9 @@ public abstract class Enemy : MonoBehaviour
         //Delay enemy movement
         CheckPlayerLoc();
         Sleep(0.5f, knockbackForce);
+
+        if (IsBlocking)
+            return;
 
         //Remove health
         health -= damage;
