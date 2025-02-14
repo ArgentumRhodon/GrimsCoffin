@@ -209,7 +209,7 @@ public class UIManager : MonoBehaviour
             return;
 
         GameObject popup = Instantiate(abilityUnlockPrefab, gameUI.transform);
-        popup.GetComponent<AbilityUnlock>().abilityName = abilityName;
+        popup.GetComponent<AbilityUnlock>().unlockMessage = abilityName;
     }
 
     //Show dialogue UI

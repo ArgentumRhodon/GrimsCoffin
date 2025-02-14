@@ -9,14 +9,14 @@ public class AbilityUnlock : MonoBehaviour
     [SerializeField] private TextMeshProUGUI unlockText;
     [SerializeField] private float lifetime;
 
-    public string abilityName;
+    public string unlockMessage;
     private float timer;
 
     // Start is called before the first frame update
     void Start()
     {
         timer = lifetime;
-        unlockText.text = abilityName + " Unlocked";
+        unlockText.text = unlockMessage;
     }
 
     // Update is called once per frame
