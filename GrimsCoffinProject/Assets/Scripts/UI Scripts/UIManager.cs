@@ -108,6 +108,18 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0.0f;
     }
 
+    public void AddHealthCollectable()
+    {
+        PlayerStatsUI playerStats = gameUI.GetComponentInChildren<PlayerStatsUI>();
+        playerStats.AddHealthCollectable();
+    }
+
+    public void RemoveHealthCollectables()
+    {
+        PlayerStatsUI playerStats = gameUI.GetComponentInChildren<PlayerStatsUI>();
+        playerStats.RemoveHealthCollectables();
+    }
+
     //Toggle minimap on/off
     public void ToggleMap()
     {

@@ -67,11 +67,6 @@ public class EnemyDrop : MonoBehaviour
             if (lifetimeTimer >= lifetime)
                 Destroy(gameObject);
         }
-
-        if (transform.position == PlayerControllerForces.Instance.transform.position)
-        {
-            CollectDrop();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -83,7 +78,7 @@ public class EnemyDrop : MonoBehaviour
         }
     }
 
-    private void CollectDrop()
+    public void CollectDrop()
     {
         switch (dropType)
         {
