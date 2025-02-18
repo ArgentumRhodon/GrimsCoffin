@@ -16,6 +16,9 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] [Range(0f, 5f)] protected float knockbackMult;
     [SerializeField] protected Collider2D hitbox;
     [SerializeField] private bool canBePulledDown;
+    [SerializeField] protected bool canBeStopped = true;
+
+    public bool CanBeStopped { get { return canBeStopped; } set { canBeStopped = value; } }
 
     [Header("GameObjects")]
     [SerializeField] protected Transform enemyGFX;
@@ -38,8 +41,10 @@ public abstract class Enemy : MonoBehaviour
     protected bool isHitDown;
     protected bool isBlocking;
     protected bool isStaggered;
+    protected bool isDead;
     public bool IsBlocking { get { return isBlocking; } set { isBlocking = value; } }
     public bool IsStaggered { get { return isStaggered; } set { isStaggered = value; } }
+
 
     //Damaged checked for conditions
     protected bool isDamaged;
@@ -65,6 +70,8 @@ public abstract class Enemy : MonoBehaviour
         enemyDropList = GameObject.Find("Enemy Drops");
 
         isSleeping = false;
+
+        isDead = false;
     }
 
     //Enemy should implement their own update functionality
@@ -75,7 +82,9 @@ public abstract class Enemy : MonoBehaviour
     {
         //Delay enemy movement
         CheckPlayerLoc();
-        Sleep(0.5f, knockbackForce);
+
+        if(canBeStopped)
+            Sleep(0.5f, knockbackForce);
 
         if (IsBlocking)
             return;
@@ -94,10 +103,33 @@ public abstract class Enemy : MonoBehaviour
     //Damage player if colliding with the enemy
     public virtual void CheckCollisionWithPlayer()
     {
+        if(isDead) return;
+
         Collider2D[] collidersToDamage = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();
         filter.useTriggers = true;
         int colliderCount = Physics2D.OverlapCollider(hitbox, filter, collidersToDamage);
+
+        for (int i = 0; i < colliderCount; i++)
+        {
+            if (!collidersDamaged.Contains(collidersToDamage[i]))
+            {
+                TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
+
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility
+                    && !PlayerControllerForces.Instance.hasDashInvincibility)
+                {            
+                    PlayerControllerForces.Instance.TakeDamage(damage);
+                }
+            }
+        }
+    }
+    public virtual void CheckCollisionWithPlayer(Collider2D hitboxToCheck)
+    {
+        Collider2D[] collidersToDamage = new Collider2D[10];
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
+        int colliderCount = Physics2D.OverlapCollider(hitboxToCheck, filter, collidersToDamage);
 
         for (int i = 0; i < colliderCount; i++)
         {
@@ -140,6 +172,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void RemoveActiveEnemy()
     {
+        isDead = true;
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
     }
 

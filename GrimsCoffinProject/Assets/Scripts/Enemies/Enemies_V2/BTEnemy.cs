@@ -17,6 +17,7 @@ public class BTEnemy : Enemy
     [SerializeField] public GroundChecker wallChecker;
     [SerializeField] public GroundChecker airChecker;
     [SerializeField] public Collider2D visionCollider;
+    [SerializeField] protected Collider2D bodyCollider;
     [SerializeField] public Collider2D attackCollider;
 
     //Acceleration
@@ -43,13 +44,16 @@ public class BTEnemy : Enemy
     protected override void FixedUpdate()
     {
         CheckCollisionWithPlayer();
+        CheckCollisionWithPlayer(attackCollider);
     }
 
     //Take damage is 
     public override void TakeDamage(Vector2 knockbackForce, float damage = 1)
     {
         isDamaged = true;
-        Sleep(0.5f, knockbackForce);
+
+        if (canBeStopped)
+            Sleep(0.5f, knockbackForce);
 
         //Remove health
         health -= damage;
@@ -58,7 +62,7 @@ public class BTEnemy : Enemy
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
     }
 
-    //Damage player if colliding with the enemy
+/*    //Damage player if colliding with the enemy
     public override void CheckCollisionWithPlayer()
     {
         Collider2D[] collidersToDamage = new Collider2D[10];
@@ -79,7 +83,7 @@ public class BTEnemy : Enemy
                 }
             }
         }
-    }
+    }*/
 
     public void FaceRight(bool shouldFaceRight = true)
     {
@@ -135,5 +139,10 @@ public class BTEnemy : Enemy
         Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
 
         return (playerPos - enemyPos).normalized;
+    }
+
+    public int GetPlayerXDirection()
+    {
+        return player.transform.position.x > transform.position.x ? 1 : -1;
     }
 }
