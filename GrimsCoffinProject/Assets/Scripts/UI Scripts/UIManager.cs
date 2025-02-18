@@ -192,23 +192,25 @@ public class UIManager : MonoBehaviour
 
     public void ZoomMap(bool zoomIn)
     {
-        mapScript.ZoomMap(zoomIn);
+        if (mapScript != null)
+            mapScript.ZoomMap(zoomIn);
     }
 
     public void PanMap(Vector2 input, bool drag)
     {
-        mapScript.PanMap(input, drag);
+        if (mapScript != null)
+            mapScript.PanMap(input, drag);
     }
 
     public void ResetMap()
     {
-        if (UIManager.Instance.fullMapUI != null)
+        if (fullMapUI != null && mapScript != null)
             mapScript.ResetMap();
     }
 
     public void ToggleMapKey()
     {
-        if (UIManager.Instance.fullMapUI != null)
+        if (fullMapUI != null && mapScript != null)
             mapScript.ToggleMapKey();
     }
 
