@@ -9,14 +9,18 @@ namespace Core.AI
 {
     public class Jump : EnemyAction
     {
-        public float horizontalForce = 5f;
-        public float jumpForce = 10f;
+        public float horizontalForce = 4f;
+        public float verticalForce = 2f;
 
         public float buildupTime;
-        public float jumpTime;
 
-        public string animationTriggerName;
-        public string animationEndTriggerName; 
+        public string animationStartingName;
+        public string animationRunningTriggerName;
+        public string animationEndTriggerName;
+
+        public bool shouldWait;
+        public float waitTimerMax = 0;
+        private float waitTimer;
 
         private bool isGrounded;
         private bool hasJumped;
@@ -26,24 +30,41 @@ namespace Core.AI
 
         public override void OnStart()
         {
-            DOVirtual.DelayedCall(buildupTime, StartJump, false);           
-            animator.Play(animationTriggerName);
+            //Face player
+            enemyScript.TurnToPlayer();
 
+            //Start Jump
+            animator.Play(animationStartingName);
+            DOVirtual.DelayedCall(buildupTime, StartJump, false);
 
+            //Ground check for animation
             spriteRenderer = animator.gameObject.GetComponent<SpriteRenderer>();
             enemyHalfHeight = spriteRenderer.bounds.extents.y / 2;
         }
 
         private void StartJump()
         {
+            //Calculate jump
             int direction = enemyScript.GetPlayerXDirection();
-            rb.AddForce(new Vector2(horizontalForce * direction, jumpForce), ForceMode2D.Impulse);
-            hasJumped = true;
+            rb.AddForce(new Vector2(horizontalForce * direction, verticalForce), ForceMode2D.Impulse);
+            animator.SetTrigger(animationRunningTriggerName);
+
+            //animation delay check
+            DOVirtual.DelayedCall(.15f, EnabledJump, false);
+
+            if (shouldWait)
+                waitTimer = waitTimerMax;
         }
 
         public override TaskStatus OnUpdate()
         {
-            if(!hasJumped)
+            if (IsCloseToGround() && hasJumped)
+                animator.SetTrigger(animationEndTriggerName);
+
+            if (shouldWait && waitTimer > 0)
+                waitTimer -= Time.deltaTime;
+
+            if (!hasJumped)
             {
                 return TaskStatus.Running;
             }
@@ -51,7 +72,17 @@ namespace Core.AI
             {
                 if (IsGrounded())
                 {
-                    return TaskStatus.Success;
+                    if (shouldWait)
+                    {
+                        if (waitTimer < 0)
+                            return TaskStatus.Success;
+                        else
+                            return TaskStatus.Running;
+                    }
+                    else
+                    {
+                        return TaskStatus.Success;
+                    }       
                 }
                 else
                 {
@@ -60,16 +91,27 @@ namespace Core.AI
             }         
         }
 
+        private void EnabledJump()
+        {
+            hasJumped = true;
+        }
+
+        private bool IsCloseToGround()
+        {
+            Debug.DrawRay(transform.position, Vector2.down * (enemyHalfHeight * 1.1f), Color.red);
+            return Physics2D.Raycast(transform.position, Vector2.down, (enemyHalfHeight * 1.1f), LayerMask.GetMask("Ground"));
+        }
+
         private bool IsGrounded()
         {
-            Debug.DrawRay(transform.position, Vector2.down * (enemyHalfHeight + 0.1f), Color.red);
+            //Debug.DrawRay(transform.position, Vector2.down * (enemyHalfHeight + 0.1f), Color.red);
             return Physics2D.Raycast(transform.position, Vector2.down, (enemyHalfHeight + 0.1f), LayerMask.GetMask("Ground"));            
         }
 
         public override void OnEnd()
         {
-            animator.SetTrigger(animationEndTriggerName);
-            base.OnEnd();
+            isGrounded = true;
+            hasJumped = false;
         }
     }
 }

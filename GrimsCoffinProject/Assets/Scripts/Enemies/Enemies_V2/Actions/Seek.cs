@@ -9,7 +9,6 @@ namespace Core.AI
     public class Seek : EnemyAction
     {
         [Header("Physics")]
-        public float speed = 50f;
         public float nextWaypointDistance = 3f;
         public float targetRange = 1f;
 
@@ -29,8 +28,9 @@ namespace Core.AI
         private bool isWaiting;
         private Canvas enemyCanvas;
 
-        private Collider2D visionRange; 
+        private Collider2D visionCollider;
 
+        private float pathDistance;
 
         public override void OnStart()
         {
@@ -46,7 +46,7 @@ namespace Core.AI
             reachedEndOfPath = false;
 
             //Set vision 
-            visionRange = enemyScript.visionCollider;
+            visionCollider = enemyScript.visionCollider;
             enemyScript.enemyStateList.IsSeeking = true;
         }
 
@@ -74,23 +74,30 @@ namespace Core.AI
         }
 
         public override TaskStatus OnUpdate()
-        {
-            repeatingTimer -= Time.deltaTime;
+        {       
+            if (pathDistance > enemyScript.visionRange)
+                return TaskStatus.Failure;
+
+                repeatingTimer -= Time.deltaTime;
             if (repeatingTimer < 0)// && !CheckEdge())
             {
                 UpdatePath();
                 repeatingTimer = repeatingNum;
             }
 
-            if(!IsOverlapping())
-                return TaskStatus.Failure;
+            /*if(!IsOverlapping())
+                return TaskStatus.Failure;*/
 
             return reachedEndOfPath ? TaskStatus.Success : TaskStatus.Running;
         }
 
         public override void OnEnd()
         {
-            enemyScript.enemyStateList.IsSeeking = false;
+            if (pathDistance > enemyScript.visionRange)
+                enemyScript.enemyStateList.IsSeeking = false;
+
+            if(reachedEndOfPath)
+                enemyScript.enemyStateList.IsSeeking = false;
         }
 
         private void PathFollow()
@@ -169,6 +176,9 @@ namespace Core.AI
             {
                 path = p;
                 currentWaypoint = 0;
+
+                pathDistance = path.GetTotalLength();
+                Debug.Log(pathDistance);
             }
         }
 
@@ -229,7 +239,7 @@ namespace Core.AI
             ContactFilter2D filter = new ContactFilter2D();
             filter.useTriggers = true;
 
-            int colliderCount = Physics2D.OverlapCollider(visionRange, filter, collidersToCheck);
+            int colliderCount = Physics2D.OverlapCollider(visionCollider, filter, collidersToCheck);
             Debug.Log("Colliders Count" + colliderCount);
 
 

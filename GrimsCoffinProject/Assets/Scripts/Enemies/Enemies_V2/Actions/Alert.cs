@@ -18,6 +18,12 @@ namespace Core.AI
             isReady = false;
             enemyScript.TurnToPlayer();
 
+            if (enemyScript.enemyStateList.IsSeeking)
+            {
+                isReady |= true;
+                return;
+            }
+              
             animator.Play(animationTriggerName);
 
             StartCoroutine(nameof(AlertTimer),alertTimer);

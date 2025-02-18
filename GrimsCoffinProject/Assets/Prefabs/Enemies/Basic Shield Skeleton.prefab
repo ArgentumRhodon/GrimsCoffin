@@ -671,13 +671,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 15
-  damage: 5
+  collisionDamage: 0
   movementSpeed: 13
   seekSpeed: 21
   visionRange: 1
   knockbackMult: 0.5
   hitbox: {fileID: 6253059432297718794}
+  canDamageWhenColliding: 1
   canBePulledDown: 0
+  canBeStopped: 1
   enemyGFX: {fileID: 7666600489444073033}
   enemy: {fileID: 4567458006229910762}
   playerTarget: {fileID: 0}
@@ -698,6 +700,8 @@ MonoBehaviour:
   movementAccelAmount: 0
   movementDecceleration: 40
   movementDeccelAmount: 0
+  hurtDodgeMin: 0
+  hurtMaxTimer: 0
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0

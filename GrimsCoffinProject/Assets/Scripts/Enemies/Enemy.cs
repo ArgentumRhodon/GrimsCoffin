@@ -8,54 +8,97 @@ using UnityEngine.Playables;
 public abstract class Enemy : MonoBehaviour
 {
     [Header("Stats")]
+    //General stats ----------------------------------------------------------------------------
     [SerializeField] public float health;
-    [SerializeField] public float damage;
+    [SerializeField] public float visionRange;
+
+    //Damage -----------------------------------------------------------------------------------
+    [SerializeField] public float collisionDamage;
+    [SerializeField][Range(0f, 5f)] protected float knockbackMult;
+
+    //Tracks hits
+    [SerializeField] private float hurtDodgeMin; //Inclusive
+    [SerializeField] private float hurtMaxTimer;
+    private float hurtInSuccessionTotal;
+    private float hurtSuccessionTimer;
+
+    public float HurtDodgeMin { get { return hurtDodgeMin; } set { hurtDodgeMin = value; } }
+    public float HurtInSuccessionTotal { get { return hurtInSuccessionTotal; } set { hurtInSuccessionTotal = value; } }
+    public float HurtSuccessionTimer { get { return hurtSuccessionTimer; } set { hurtSuccessionTimer = value; } }
+
+    //Private attack damage updated in behavior trees 
+    private float attackDamage;
+    public float AttackDamage { get { return attackDamage; } set { attackDamage = value; } }
+
+    //Movement ---------------------------------------------------------------------------------
+    [Header("Movement")]
     [SerializeField] public float movementSpeed;
     [SerializeField] public float seekSpeed;
-    [SerializeField] public float visionRange;
-    [SerializeField] [Range(0f, 5f)] protected float knockbackMult;
-    [SerializeField] protected Collider2D hitbox;
+
+    [SerializeField] public float movementAcceleration;
+    [HideInInspector] public float movementAccelAmount;
+    [SerializeField] public float movementDeacceleration;
+    [HideInInspector] public float movementDeaccelAmount;
+
+    //Attack physics and stats -----------------------------------------------------------------
     [SerializeField] private bool canBePulledDown;
     [SerializeField] protected bool canBeStopped = true;
-
     public bool CanBeStopped { get { return canBeStopped; } set { canBeStopped = value; } }
 
-    [Header("GameObjects")]
+    //Enemy Statuses ---------------------------------------------------------------------------
+    protected bool isSleeping;
+    protected bool isHitDown;
+    protected bool isBlocking;
+    protected bool isStaggered;
+    protected bool isDamaged;
+    protected bool isDead;
+    private int direction = 1;
+
+    //Public get/setters
+    public bool IsBlocking { get { return isBlocking; } set { isBlocking = value; } }
+    public bool IsStaggered { get { return isStaggered; } set { isStaggered = value; } }
+    public bool IsDamaged { get { return isDamaged; } set { isDamaged = value; } }
+    public int Direction { get { return direction; } set { direction = value; } }
+
+
+    [Header("GameObject References")] // -------------------------------------------------------
     [SerializeField] protected Transform enemyGFX;
     [SerializeField] protected GameObject enemy;
     [SerializeField] protected Transform playerTarget;
     [SerializeField] protected GameObject enemyDropPrefab;
     [SerializeField] protected GameObject enemyDropList;
 
-    //Private references
+    //Private references -----------------------------------------------------------------------
     protected Seeker seeker;
     protected Rigidbody2D rb;
+    protected Animator animator;
     protected List<Collider2D> collidersDamaged;
     protected bool isPlayerOnRight;
+    protected Canvas enemyCanvas;
+    protected PlayerControllerForces player;
+    [HideInInspector] public EnemyStateList enemyStateList;
 
-    //Time Variables
-    protected float localDeltaTime;
-    protected bool isSleeping;
+    [Header("Collision Checkers & Associated Variables")] // -----------------------------------
+    [Space(20)]
 
-    //Enemy Statuses
-    protected bool isHitDown;
-    protected bool isBlocking;
-    protected bool isStaggered;
-    protected bool isDead;
-    public bool IsBlocking { get { return isBlocking; } set { isBlocking = value; } }
-    public bool IsStaggered { get { return isStaggered; } set { isStaggered = value; } }
-
-
-    //Damaged checked for conditions
-    protected bool isDamaged;
-    public bool IsDamaged { get { return isDamaged; } set { isDamaged = value; } }
-
-    //Positions used for state checks
-    [Header("Tile Checks")]
+    //Positions used for state checks ----------------------------------------------------------
+    [Header("Ground Tile Checks")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
 
+    //Direction Checkers -----------------------------------------------------------------------
+    [Header("Direction Collision Checkers")]
+    [SerializeField] public GroundChecker wallChecker;
+    [SerializeField] public GroundChecker airChecker;
+    [SerializeField] public Collider2D visionCollider;
+    [SerializeField] protected Collider2D bodyCollider;
+    [SerializeField] public Collider2D attackCollider;
+
+    //Attack Colliders -------------------------------------------------------------------------
+    [Header("Attack Collision")]
+    [SerializeField] protected Collider2D hitbox;
+    [SerializeField] protected bool canDamageWhenColliding;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -64,18 +107,43 @@ public abstract class Enemy : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<Collider2D>();
-        collidersDamaged = new List<Collider2D>();
-        playerTarget = PlayerControllerForces.Instance.gameObject.transform;
+        enemyCanvas = gameObject.GetComponentInChildren<Canvas>();    
+        enemyStateList = gameObject.GetComponent<EnemyStateList>();
 
+        //Player refs
+        playerTarget = PlayerControllerForces.Instance.gameObject.transform;
+        player = PlayerControllerForces.Instance;
+
+        //Set new collider
+        collidersDamaged = new List<Collider2D>();
+
+        //Enemy drop list
         enemyDropList = GameObject.Find("Enemy Drops");
 
+        //Set states and variables
         isSleeping = false;
-
         isDead = false;
+
+        enemyStateList.IsFacingRight = true;
+        direction = 1;
+
+        movementAccelAmount = (1 * movementAcceleration) / movementSpeed;
+        movementDeaccelAmount = (1 * movementDeacceleration) / movementSpeed;
     }
 
     //Enemy should implement their own update functionality
-    protected abstract void FixedUpdate();
+    protected virtual void FixedUpdate()
+    {
+        CheckCollisionWithPlayer();
+        CheckCollisionWithPlayer(attackCollider, attackDamage); //TODO: Have specific classes for different enemy types
+
+        if (hurtInSuccessionTotal > 0)
+            hurtSuccessionTimer -= Time.deltaTime;
+        else
+        {
+            hurtInSuccessionTotal = 0;
+        }
+    }
 
     //Take damage and if below zero, destroy the enemy
     public virtual void TakeDamage(Vector2 knockbackForce, float damage = 1)
@@ -83,9 +151,12 @@ public abstract class Enemy : MonoBehaviour
         //Delay enemy movement
         CheckPlayerLoc();
 
-        if(canBeStopped)
+        //If the enemy can be stopped, sleep and take a knockback force
+        if (canBeStopped)
+        {
             Sleep(0.5f, knockbackForce);
-
+            isStaggered = true;
+        }    
         if (IsBlocking)
             return;
 
@@ -95,7 +166,11 @@ public abstract class Enemy : MonoBehaviour
         //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
 
-        //Enemy death calculation
+        //Tracker for enemies that can dodge
+        hurtSuccessionTimer = hurtMaxTimer;
+        hurtInSuccessionTotal++;
+
+        //Enemy death calculation - TODO: add delayed call for destroy enemy
         if (health <= 0)
             DestroyEnemy();
     }
@@ -104,6 +179,7 @@ public abstract class Enemy : MonoBehaviour
     public virtual void CheckCollisionWithPlayer()
     {
         if(isDead) return;
+        if (!canDamageWhenColliding) return;
 
         Collider2D[] collidersToDamage = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();
@@ -119,12 +195,12 @@ public abstract class Enemy : MonoBehaviour
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility
                     && !PlayerControllerForces.Instance.hasDashInvincibility)
                 {            
-                    PlayerControllerForces.Instance.TakeDamage(damage);
+                    PlayerControllerForces.Instance.TakeDamage(collisionDamage);
                 }
             }
         }
     }
-    public virtual void CheckCollisionWithPlayer(Collider2D hitboxToCheck)
+    public virtual void CheckCollisionWithPlayer(Collider2D hitboxToCheck, float damage)
     {
         Collider2D[] collidersToDamage = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();

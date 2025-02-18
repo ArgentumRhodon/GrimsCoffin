@@ -11,6 +11,7 @@ namespace Core.AI
         public override void OnStart()
         {
             enemyScript.IsDamaged = false;
+            enemyScript.IsStaggered = false;
         }
 
         public override TaskStatus OnUpdate()

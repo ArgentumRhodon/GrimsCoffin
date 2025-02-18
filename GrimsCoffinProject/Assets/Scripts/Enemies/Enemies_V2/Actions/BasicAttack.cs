@@ -12,17 +12,24 @@ namespace Core.AI
         public bool startedAttack;
 
         public float attackDelay = 0;
+        public float attackDuration = 0;
+        public float attackDamage;
+
+        private bool attackCompleted;
 
         public override void OnStart()
         {
+            attackCompleted = false;
+            enemyScript.AttackDamage = attackDamage;
+
             DOVirtual.DelayedCall(attackDelay, Attack, false);
         }
 
         public override TaskStatus OnUpdate()
-        {
-            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).ToString());
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationTriggerName) && startedAttack)
+        {           
+            if (attackCompleted)
             {
+                enemyScript.enemyStateList.IsAttacking = false;
                 return TaskStatus.Success;
             }
             else
@@ -32,14 +39,19 @@ namespace Core.AI
         private void Attack()
         {
             animator.Play(animationTriggerName);
-            startedAttack = true;
             enemyScript.enemyStateList.IsAttacking = true;
+
+            DOVirtual.DelayedCall(attackDuration, FinishAttack, false);
+        }
+
+        private void FinishAttack()
+        {
+            attackCompleted = true;
         }
 
         public override void OnEnd()
         {
-            enemyScript.enemyStateList.IsAttacking = false;
-            startedAttack = false;
+
         }
     }
 }
