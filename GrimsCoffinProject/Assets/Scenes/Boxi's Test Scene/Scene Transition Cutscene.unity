@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 70, y: -119}
-  m_SizeDelta: {x: 632.6475, y: 47.3042}
+  m_AnchoredPosition: {x: 0, y: -132.29477}
+  m_SizeDelta: {x: 162.2175, y: 73.8937}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &115085379
 CanvasRenderer:
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: To Continue
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 278e635cf8f544b45aeec25d23424d8b, type: 2}
   m_sharedMaterial: {fileID: 2265440177711965377, guid: 278e635cf8f544b45aeec25d23424d8b, type: 2}
@@ -293,20 +293,18 @@ MonoBehaviour:
   skipText: {fileID: 1095514357}
   sceneController: {fileID: 164312468}
   sentences:
-  - As Grim enters the room, a mysterious enemy blocks his path.
-  - Although Grim knows he has never met this foe before, it feels strangely familiar.
-  - The mysterious one glances at the coffin behind Grim, shakes its head, and then
-    attacks silently.
-  - Despite his best efforts, Grim is defeated by the mysterious enemy.
-  - He can only helplessly watch as the enemy takes his coffin.
-  - In the silence, Grim can only see the enemy shatter the coffin.
-  - A great pain strikes Grim, and he no longer has the strength to stay awake, passing
-    out.
+  - With Grim having collected the last soul, it is ready to depart. A mysterious
+    enemy stands in its way.
+  - Despite Grim's best efforts, this mysterious enemy eventually defeated Grim and
+    took Grim's coffin.
+  - As this enemy silently smashed the coffin, countless souls screamed and flew
+    out, accompanied by a large amount of unfamiliar memories flooding into Grim's
+    mind.
   - 'Before Grim passes out, he finally hears the enemy''s first words:'
   - In time, this will reveal itself to you.
-  - ' Accompanying these words are the screams of countless souls scattering.'
-  fadeDuration: 1
-  actionDescription: continue
+  charactersPerSecond: 30
+  punctuationDelay: 0.1
+  isTyping: 0
   continuePromptIcons:
   - {fileID: 21300000, guid: c3a78374cb92b424f9f7d820044845b1, type: 3}
   - {fileID: 21300000, guid: 26bf110d02332ab41a52303839e905e2, type: 3}
@@ -645,7 +643,7 @@ RectTransform:
   m_GameObject: {fileID: 1095514355}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1527651053}
@@ -653,7 +651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 658.2, y: -490.2}
+  m_AnchoredPosition: {x: 667, y: -490.2}
   m_SizeDelta: {x: 580.7953, y: 51.3978}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1095514357
@@ -855,7 +853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.073}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: -3}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1214632594
@@ -1192,8 +1190,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 96}
-  m_SizeDelta: {x: 1738.8589, y: 316.0061}
+  m_AnchoredPosition: {x: 0.2737, y: -3}
+  m_SizeDelta: {x: 1280.3562, y: 340.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1761689654
 MonoBehaviour:
@@ -1217,8 +1215,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 278e635cf8f544b45aeec25d23424d8b, type: 2}
-  m_sharedMaterial: {fileID: 2265440177711965377, guid: 278e635cf8f544b45aeec25d23424d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1759d871ced29044182ad8e8ce2e0997, type: 2}
+  m_sharedMaterial: {fileID: -8124081880131944629, guid: 1759d871ced29044182ad8e8ce2e0997, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1250,7 +1248,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 1024
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1278,7 +1276,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 1.5616455, y: -0.000061035156, z: 1.5617676, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
