@@ -25,15 +25,18 @@ public class EnemyDrop : MonoBehaviour
 
     private void Start()
     {
-        if (Random.Range(1, 100) <= 50 && PlayerControllerForces.Instance.Data.canScytheThrow)
+        if (Random.Range(1, 100) <= 50 && PlayerControllerForces.Instance.Data.canScytheThrow && PlayerControllerForces.Instance.currentSP < PlayerControllerForces.Instance.Data.maxSP)
         {
             dropType = EnemyDropType.SpiritPower;
         }
 
-        else
+        else if (PlayerControllerForces.Instance.currentHP < PlayerControllerForces.Instance.Data.maxHP)
         {
             dropType = EnemyDropType.Health;
         }
+
+        else
+            Destroy(gameObject);
 
         switch (dropType)
         {
@@ -64,11 +67,6 @@ public class EnemyDrop : MonoBehaviour
             if (lifetimeTimer >= lifetime)
                 Destroy(gameObject);
         }
-
-        if (transform.position == PlayerControllerForces.Instance.transform.position)
-        {
-            CollectDrop();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -80,7 +78,7 @@ public class EnemyDrop : MonoBehaviour
         }
     }
 
-    private void CollectDrop()
+    public void CollectDrop()
     {
         switch (dropType)
         {
