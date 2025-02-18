@@ -146,6 +146,8 @@ public class CutsceneManager : MonoBehaviour
         }
         else
         {
+            //Debug.Log("1");
+            StopAllCoroutines();
             sceneController.LoadNextScene();
             controls.Dialogue.Continue.performed -= OnContinue;
         }
