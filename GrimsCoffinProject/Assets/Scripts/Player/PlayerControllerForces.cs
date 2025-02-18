@@ -12,6 +12,7 @@ using FMODUnity;
 using Unity.VisualScripting;
 using System.Threading.Tasks;
 using FMOD.Studio;
+using System;
 
 public class PlayerControllerForces : MonoBehaviour
 {
@@ -318,29 +319,23 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //End sleep if moving after combo
-        //if (isSleeping)
-        //    if (moveInput.x != 0)
-        //        if (playerCombat.ShouldResetCombo())
-        //            EndSleep();
-
         //Handle player walking, make sure the player doesn't walk while dashing
         if (!isSleeping)
         {
-            if (!playerState.IsDashing && !playerState.IsAttacking && !playerCombat.IsComboing)
+            //if (!playerState.IsDashing)// && !playerState.IsAttacking && !playerCombat.IsComboing)
+            if (!playerState.IsDashing && CanExecuteWhileAttacking())
             {
                 if (playerState.IsWallJumping)
                     Walk(Data.wallJumpRunLerp);
                 else
                     Walk(1);
             }
-/*            if (playerState.IsAttacking && Grounded() && playerCombat.AttackClickCounter == 1)
-            {
-                Walk(1);
-            }*/
         }
         else if (canSleepWalk)
+        {
             Walk(1);
+        }
+            
 
         if (scytheThrown && !UIManager.Instance.scytheThrowInMenu)
             heldScytheSprite.SetActive(false);
@@ -367,7 +362,18 @@ public class PlayerControllerForces : MonoBehaviour
             Slide();
         }
 
-        animator.SetFloat("xVel", Mathf.Abs(rb.velocity.x));
+        // Grounded() check did not work here
+        if (!playerState.IsJumping && !isJumpFalling && !playerState.IsAttacking && !playerState.IsDashing)
+        {
+            if (Math.Abs(rb.velocity.x) < 1)
+            {
+                PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Idle);
+            }
+            else
+            {
+                PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Run);
+            }
+        }
 
         CheckIdle();     
         if (playerState.IsIdle)
@@ -403,7 +409,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Make sure the player is not dashing
         //Debug.Log(playerState.IsAttacking);
-        if (!playerState.IsDashing && !playerState.IsAttacking && value.isPressed)
+        if (!playerState.IsDashing && CanExecuteWhileAttacking() && value.isPressed)
         {
             //Jump
             if (CanJump() && LastPressedJumpTime > 0)
@@ -494,7 +500,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
         else
         {
-            CameraManager.Instance.Reset();
+            CameraManager.Instance.CameraLookReset();
         }
     }
 
@@ -606,7 +612,7 @@ public class PlayerControllerForces : MonoBehaviour
             return;
 
         //Check to make sure the player does not hit on combo cooldown
-        if (playerCombat.LastComboTime < 0)
+        if (playerCombat.LastComboTime < 0 && Data.hasStallForce)
         {
             //Aerial attack sleep / hitstop 
             if (!Grounded())
@@ -646,14 +652,17 @@ public class PlayerControllerForces : MonoBehaviour
             return;
 
         //Aerial attack check
-        if (Grounded())
-        {
-            Sleep(Data.gUpAttackDuration);
-        }
-        else
-        {
-            Sleep(Data.aUpAttackDuration);
-        }
+        //if (Data.hasStallForce)
+        //{       
+            if (Grounded())
+            {
+                Sleep(Data.gUpAttackDuration);
+            }
+            else
+            {
+                Sleep(Data.aUpAttackDuration);
+            }
+        //}
     }
 
     //Calculate physics for attacks ---------------------------------------------
@@ -663,14 +672,17 @@ public class PlayerControllerForces : MonoBehaviour
             return;
 
         //Aerial attack check
-        if (shouldGroundAttack)
-        {
-            //Sleep(Data.gDownAttackDuration);
-        }
-        else
-        {
-            Sleep(Data.aDownAttackDuration);
-        }
+        //if (Data.hasStallForce)
+        //{
+            if (shouldGroundAttack)
+            {
+                //Sleep(Data.gDownAttackDuration);
+            }
+            else
+            {
+                Sleep(Data.aDownAttackDuration);
+            }
+        //}
     }
 
     public void ExecuteScytheThrow()
@@ -687,17 +699,11 @@ public class PlayerControllerForces : MonoBehaviour
     //Walking
     private async void Walk(float lerpAmount)
     {
-        if (isSleeping)
+        if (isSleeping && !canSleepWalk)
             return;
         //Get direction and normalize it to either 1 or -1 
-        int direction = XInputDirection();
-        if (direction != 0)
-        {
-            if (direction > 0)
-                direction = 1;
-            else
-                direction = -1;
-        }
+        int direction = Math.Sign(XInputDirection());
+
 
         if (direction == 0)
             playerState.IsWalking = false;
@@ -777,6 +783,8 @@ public class PlayerControllerForces : MonoBehaviour
         playJumpSFX(jumpInstance, 0);
         FMODJumpFinished = false;
         FMODIsLandedPlayed = false;
+
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Jump);
     }
 
     //Wall jump
@@ -917,7 +925,9 @@ public class PlayerControllerForces : MonoBehaviour
         if (playerState.IsFacingRight)
             direction = 1;
         else
-            direction = -1;     
+            direction = -1;
+
+        Debug.Log("Basic Attack");
 
         rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
 
@@ -996,6 +1006,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         // Update animator jump variable
         animator.SetBool("IsJumping", playerState.IsJumping || isJumpFalling);
+
     }
 
     //Dash variables
@@ -1020,6 +1031,8 @@ public class PlayerControllerForces : MonoBehaviour
             isJumpCancel = false;
 
             StartCoroutine(nameof(StartDash), lastDashDir);
+
+            PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Dash);
         }
     }
 
@@ -1292,6 +1305,15 @@ public class PlayerControllerForces : MonoBehaviour
             return false;
     }
 
+    //Checks to see if the player can execute a method when attacking due to the stall force
+    private bool CanExecuteWhileAttacking()
+    {
+        if (Data.hasStallForce)
+            return !playerState.IsAttacking && !playerCombat.IsComboing;
+        else
+            return true;
+    }
+
     //Check health for death
     private void CheckForDeath()
     {
@@ -1340,7 +1362,7 @@ public class PlayerControllerForces : MonoBehaviour
             return 0;
     }
 
-    //Set x direction to -1 or 1, even if using analog stick
+    //Set y direction to -1 or 1, even if using analog stick
     public int YInputDirection()
     {
         //Deadzone to account for controller drift
@@ -1396,8 +1418,22 @@ public class PlayerControllerForces : MonoBehaviour
         isSleeping = true;
     }
 
+    public void ToggleSleep(bool toggleOn)
+    {
+        if (toggleOn)
+        {
+            rb.velocity = Vector2.zero;
+            isSleeping = true;
+        }
+
+        else
+            isSleeping = false;
+        
+    }
+
     public void SleepWalk()
     {
+        rb.velocity = Vector2.zero;
         isSleeping = true;
         canSleepWalk = true;
     }
@@ -1447,7 +1483,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Reset impulse from combat
         //if (playerCombat.IsAerialCombo)
-            //rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
+        //rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
 
         if (playerState.IsAttacking)
         {
@@ -1466,8 +1502,8 @@ public class PlayerControllerForces : MonoBehaviour
         }
             
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
- 
-        SetGravityScale(1);
+
+        SetGravityScale(1); 
         isSleeping = false;
     }
 

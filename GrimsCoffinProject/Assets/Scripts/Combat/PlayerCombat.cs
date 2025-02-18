@@ -64,7 +64,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private bool isHoldingAttacking;
     public bool IsHoldingAttacking { get { return isHoldingAttacking; } }
 
-    private bool isInterruptingCombo;
+    [SerializeField] private bool isInterruptingCombo;
 
 
     //Get Setters
@@ -119,6 +119,7 @@ public class PlayerCombat : MonoBehaviour
         //Make sure states are starting correctly
         canAerialCombo = true;
         isAerialCombo = false;
+        isInterruptingCombo = false;
 
         meleeStateMachine.SetNextStateToMain();
     }
@@ -130,7 +131,7 @@ public class PlayerCombat : MonoBehaviour
         UpdateAttackVariables();
 
         //Check to see if it should move on to the next combo
-        if (currentAttackAmount < Data.comboTotal && comboQueueLeft > 0 && AttackDurationTime < 0)
+        if ((currentAttackAmount < Data.comboTotal || isInterruptingCombo) && comboQueueLeft > 0 && AttackDurationTime < 0)
         {
             //If the next attack que is a side attack, progress with the combo
             if (attackQueue[0] == AttackDirection.Side)
@@ -146,11 +147,8 @@ public class PlayerCombat : MonoBehaviour
                     QueueTimer = Data.attackBufferTime;
             }
             //If the next attack is a directional attack, break out of the combo
-            else
+            else if(isInterruptingCombo)
             {
-                //Fully reset combo because it was broken out of
-                ResetCombo();
-
                 //Switch for up or down attack
                 switch (attackQueue[0])
                 {
@@ -164,13 +162,15 @@ public class PlayerCombat : MonoBehaviour
                         Dash();
                         break;
                     case AttackDirection.Throw:
-                        //Throw();
+                        Throw();
                         break;
                 }
 
                 //Remove from queue
                 attackQueue.Clear();
-                isInterruptingCombo = true;
+
+                //Fully reset combo because it was broken out of
+                ResetCombo();
             }
         }
     }
@@ -189,9 +189,6 @@ public class PlayerCombat : MonoBehaviour
         {
             if (value.isPressed && LastComboTime < 0)
             {
-                //Sets holding true since the state is currently pressed
-                isHoldingAttacking = true;
-
                 //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
                 if (playerState.IsDashing || Time.timeScale == 0)
                     return;
@@ -207,6 +204,8 @@ public class PlayerCombat : MonoBehaviour
                         UpAttackCheck();
                         break;
                     case AttackDirection.Down:
+                        //Sets holding true since the state is currently pressed
+                        isHoldingAttacking = true;
                         DownAttackCheck();
                         break;
                     case AttackDirection.Side:
@@ -227,7 +226,7 @@ public class PlayerCombat : MonoBehaviour
     private void OnDash()
     {
         //If the player is currently comboing, interrupt it
-        if (isComboing)
+        if (isComboing && playerState.IsAttacking && Data.canDash)
         {
             InterruptCombo(AttackDirection.Dash);
         }        
@@ -236,8 +235,11 @@ public class PlayerCombat : MonoBehaviour
     private void OnAbility()
     {
         Debug.Log("Trying to throw");
-        if (isComboing)
+        if (isComboing && Data.canScytheThrow)
         {
+            if (playerController.currentSP <= 0 || playerController.scytheThrown || !Data.canScytheThrow)
+                return;
+
             InterruptCombo(AttackDirection.Throw);
         }
     }
@@ -419,7 +421,7 @@ public class PlayerCombat : MonoBehaviour
 
         QueueTimer = 0;
         attackDurationTime = 0;
-
+        isInterruptingCombo = false;
         //meleeStateMachine.SetNextStateToMain();
     }
 
@@ -466,17 +468,17 @@ public class PlayerCombat : MonoBehaviour
     private void UpdateAttackVariables()
     {
         if (AttackDurationTime > 0)
-            playerState.IsAttacking = true;           
-        else
-            playerState.IsAttacking = false;    
+            playerState.IsAttacking = true;  
+        else if (!isHoldingAttacking)
+        {
+            playerState.IsAttacking = false;
+        }
 
         //Reset combo if they have not attacked in a specific amount of time
         if (ShouldResetCombo() && AttackClickCounter > 0)
         {
             AttackClickCounter = 0;
             ResetCombo();
-
-            animator.SetFloat("comboRatio", 0);
 
             //Update aerial combo values
             if(isAerialCombo)

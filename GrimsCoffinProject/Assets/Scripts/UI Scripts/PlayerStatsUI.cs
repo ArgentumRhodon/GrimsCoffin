@@ -12,6 +12,17 @@ public class PlayerStatsUI : MonoBehaviour
     public RectTransform spiritBar;
     public Image spiritBarFill;
 
+    [SerializeField] private GameObject healthCollectablePrefab;
+    [SerializeField] private GameObject healthCollecatbleList;
+
+    private void Start()
+    {
+        for (int i = 0; i < PersistentDataManager.Instance.HealthCollectablesHeld; i++)
+        {
+            AddHealthCollectable();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -29,5 +40,18 @@ public class PlayerStatsUI : MonoBehaviour
     private bool LowHealth()
     {
         return (player.currentHP / player.Data.maxHP) < .25f;
+    }
+
+    public void AddHealthCollectable()
+    {
+        Instantiate(healthCollectablePrefab, healthCollecatbleList.transform);
+    }
+
+    public void RemoveHealthCollectables()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            Destroy(healthCollecatbleList.transform.GetChild(i).gameObject);
+        }
     }
 }

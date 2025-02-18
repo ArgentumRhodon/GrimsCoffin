@@ -3,6 +3,7 @@ using Pathfinding.Ionic.Zip;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,11 +35,14 @@ public class PersistentDataManager : MonoBehaviour
     public bool CanScytheThrow { get { return PlayerPrefs.GetInt("CanScytheThrow", 0) == 1; } }
     public bool CanViewMap { get { return PlayerPrefs.GetInt("CanViewMap", 0) == 1; } }
 
+    public int HealthCollectablesHeld { get { return PlayerPrefs.GetInt("HealthCollectablesHeld", 0); } }
+
     //Whether or not the Player is entering the Denial Area Scene for the first time
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
 
     //List of rooms in the scene
     [SerializeField] public List<Room> rooms;
+    [SerializeField] public List<HealthUpgrade> healthUpgrades;
 
     //Default values to spawn the player at when a New Game is started
     [SerializeField] private float defaultXPos = 0;
@@ -110,12 +114,14 @@ public class PersistentDataManager : MonoBehaviour
                     //Unlocks Minimap and Map access
                     case Spirit.SpiritID.MapSpirit:
                         PlayerPrefs.SetInt("CanViewMap", 1);
+                        UIManager.Instance.ShowAbilityUnlock("Map Unlocked");
                         break;
 
                     //Unlocks Dash
                     case Spirit.SpiritID.DashSpirit:
                         PlayerControllerForces.Instance.Data.canDash = true;
                         PlayerPrefs.SetInt("CanDash", 1);
+                        UIManager.Instance.ShowAbilityUnlock("Dash Unlocked");
                         break;
 
                     //Unlocks Scythe Throw and Spirit Power
@@ -124,6 +130,7 @@ public class PersistentDataManager : MonoBehaviour
                         PlayerControllerForces.Instance.Data.maxSP = 50;
                         PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
                         PlayerPrefs.SetInt("CanScytheThrow", 1);
+                        UIManager.Instance.ShowAbilityUnlock("Scythe Throw Unlocked");
                         PlayerPrefs.SetFloat("MaxSP", 50);
                         break;
 
@@ -132,11 +139,30 @@ public class PersistentDataManager : MonoBehaviour
                         PlayerControllerForces.Instance.Data.maxHP += 15;
                         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP; 
                         PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
+                        UIManager.Instance.ShowAbilityUnlock("Max Health Increased");
                         break;
                 }
             }
                 
         }
+        
+        //Trade in health collectables for health upgrade
+        else if (spirit.spiritID == Spirit.SpiritID.HealthSpirit && spirit.spiritState == Spirit.SpiritState.Idle && PersistentDataManager.Instance.HealthCollectablesHeld >= 3)
+        {
+            PlayerControllerForces.Instance.Data.maxHP += 15;
+            PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
+            PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
+
+            int collectablesHeld = HealthCollectablesHeld;
+
+            collectablesHeld -= 3;
+            Mathf.Clamp(collectablesHeld, 0, 100);
+
+            PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
+            UIManager.Instance.ShowAbilityUnlock("Max Health Increased");
+            UIManager.Instance.RemoveHealthCollectables();
+        }
+
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
     }
 
@@ -214,11 +240,18 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
 
+        PlayerPrefs.SetInt("HealthCollectablesHeld", 0);
+
         //Clear Onboarding Map Data
         for (int i = 0; i < 25; i++)
         {
             PlayerPrefs.SetInt("LevelRoom" + i, 0);
         } 
+
+        for (int i = 0; i < 25; i++)
+        {
+            PlayerPrefs.SetInt("HealthCollectable" + 1, 0);
+        }
     }
 
     //Transition between Onboarding Level and Denial Area
@@ -260,5 +293,27 @@ public class PersistentDataManager : MonoBehaviour
         }
 
         return result;
+    }
+
+    public List<bool> HealthUpgradesCollected()
+    {
+        List<bool> result = new List<bool>();
+        foreach(HealthUpgrade collectable in healthUpgrades)
+        {
+            if (PlayerPrefs.GetInt("HealthCollectable" + collectable.collectableID) == 1)
+                result.Add(true);
+
+            else
+                result.Add(false);
+        }
+
+        return result;
+    }
+
+    public void CollectHealthUpgrade(int collectableID)
+    {
+        UIManager.Instance.AddHealthCollectable();
+        PlayerPrefs.SetInt("HealthCollectablesHeld", HealthCollectablesHeld + 1);
+        PlayerPrefs.SetInt("HealthCollectable" + collectableID, 1);
     }
 }

@@ -90,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 5297061223688076639}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.375, y: -0.187, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 4894866827985537568}
   - component: {fileID: 2225502148986693817}
   - component: {fileID: 2855065712349528262}
+  - component: {fileID: 4202225660046267139}
   - component: {fileID: 1960859601187753200}
   - component: {fileID: 5297759798866308537}
   - component: {fileID: -3555348475411842758}
@@ -232,6 +233,7 @@ GameObject:
   - component: {fileID: 3908579556561913604}
   - component: {fileID: 3338551163740125992}
   - component: {fileID: 8792364512995316596}
+  - component: {fileID: 5667984482566219530}
   m_Layer: 6
   m_Name: PlayerForces
   m_TagString: Player
@@ -333,6 +335,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &4202225660046267139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754731874771024280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4421518e7e9c2b147877d100577c9e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 8317159216238193831}
+  scytheAnimator: {fileID: 4929932698530573072}
 --- !u!114 &1960859601187753200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +373,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   groundCheckPoint: {fileID: 6407083523203834289}
-  groundCheckSize: {x: 0.5, y: 0.04}
+  groundCheckSize: {x: 0.7, y: 0.04}
   frontWallCheckPoint: {fileID: 7342308081699046411}
   backWallCheckPoint: {fileID: 3769127713801327265}
   wallCheckSize: {x: 0.2, y: 0.75}
@@ -509,6 +525,7 @@ MonoBehaviour:
   currentAttackAmount: 0
   attackQueue: 
   isHoldingAttacking: 0
+  isInterruptingCombo: 0
 --- !u!114 &3338551163740125992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +552,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _teamIndex: 1
+--- !u!114 &5667984482566219530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754731874771024280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3eacd6e4eaacb440b209b6c1b8351f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToEnable: {fileID: 8880701307876477556}
 --- !u!1 &6693415044721484344
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7501775984290859826
 Transform:
   m_ObjectHideFlags: 0
@@ -770,7 +800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2697631208148919790, guid: 97011276b258af543b8a31a42fb75a29, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 135.3
+      value: 278.3
       objectReference: {fileID: 0}
     - target: {fileID: 2697631208148919790, guid: 97011276b258af543b8a31a42fb75a29, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
+using Pathfinding;
 
 namespace Core.AI 
 {
@@ -14,6 +15,7 @@ namespace Core.AI
         protected TeamComponent team;
         protected PlayerControllerForces player;
         protected BTEnemy enemyScript;
+        protected Seeker seeker;
 
         public override void OnAwake()
         {
@@ -22,6 +24,7 @@ namespace Core.AI
             team = GetComponent<TeamComponent>();
             animator = gameObject.GetComponentInChildren<Animator>();
             enemyScript = GetComponent<BTEnemy>();
+            seeker = GetComponent<Seeker>();
         }
     }
 }

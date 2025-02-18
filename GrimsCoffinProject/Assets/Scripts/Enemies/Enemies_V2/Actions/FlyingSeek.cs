@@ -1,8 +1,8 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
-using Pathfinding;
 
 namespace Core.AI
 {
@@ -21,13 +21,12 @@ namespace Core.AI
         private Path path;
         private int currentWaypoint = 0;
         private bool reachedEndOfPath = false;
-        private Seeker seeker;
 
         //Update path modifiers
         private float repeatingNum = .2f;
         private float repeatingTimer;
 
-        private bool isWaiting;
+        private Canvas enemyCanvas;
 
         private Collider2D visionRange;
 
@@ -35,18 +34,23 @@ namespace Core.AI
         public override void OnStart()
         {
             //Get required components
-            seeker = GetComponent<Seeker>();
+            enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
 
             //Start new path and timers
             UpdatePath();
             repeatingTimer = repeatingNum;
 
             //Is waiting for player to return
-            isWaiting = false;
             reachedEndOfPath = false;
 
             //Set vision 
             visionRange = enemyScript.visionCollider;
+            enemyScript.enemyStateList.IsSeeking = true;
+        }
+
+        public override void OnFixedUpdate()
+        {
+            PathFollow();
         }
 
         public override TaskStatus OnUpdate()
@@ -58,9 +62,6 @@ namespace Core.AI
                 repeatingTimer = repeatingNum;
             }
 
-            //if(PlayerIsInRoom) ------ TODO add implementation to make sure player is in space that the enemy will want to follow
-            PathFollow();        
-
             if (!IsOverlapping())
                 return TaskStatus.Failure;
 
@@ -69,8 +70,7 @@ namespace Core.AI
 
         public override void OnEnd()
         {
-            base.OnEnd();
-            animator.SetTrigger(nextAnimationTrigger);
+            enemyScript.enemyStateList.IsSeeking = false;
         }
 
         private void PathFollow()
@@ -89,22 +89,24 @@ namespace Core.AI
             }
 
             //Make sure direction is in x only
-            Vector2 direction = FindPlayerDirection();
-
+            //Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+            Vector2 direction = enemyScript.FindPlayerDirection();
             Vector2 targetSpeed = direction * enemyScript.seekSpeed;
 
             //Smooth changes to direction and speed using a lerp function
             targetSpeed = Vector2.Lerp(rb.velocity, targetSpeed, 1);
 
-            float accelRateX = (Mathf.Abs(targetSpeed.x) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeccelAmount;
-            float accelRateY = (Mathf.Abs(targetSpeed.x) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeccelAmount;
+            float accelRate = (Mathf.Abs(targetSpeed.x) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeccelAmount;
+            float accelRateY = (Mathf.Abs(targetSpeed.y) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeccelAmount;
 
             //Calculate difference between current velocity and desired velocity
             Vector2 speedDif = targetSpeed - rb.velocity;
             //Calculate force along x-axis to apply to thr player
-            Vector2 movement = speedDif * accelRateX;
+            Vector2 movement = new Vector2(speedDif.x * accelRate, speedDif.y * accelRateY);
 
-            rb.AddForce(movement * Vector2.one, ForceMode2D.Force);
+
+            //Debug.Log("Ghost movement: " +  movement);
+            rb.AddForce(movement, ForceMode2D.Force);
 
 
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
@@ -123,14 +125,25 @@ namespace Core.AI
                 enemyScript.FaceRight(false);
             }
 
-            if (FindPlayerDistance() <= targetRange)
+            /*            if (rb.velocity.x >= 0.01f)
+                        {
+                            enemyScript.FaceRight(true);
+                        }
+                        else if (rb.velocity.x <= -0.01f)
+                        {
+                            enemyScript.FaceRight(false);
+                        }*/
+
+            if (enemyScript.FindPlayerDistanceX() <= targetRange && enemyScript.FindPlayerDistanceY() <= 1)
             {
                 reachedEndOfPath = true;
                 return;
             }
 
             //Start movement animation
-            animator.SetTrigger(animationTriggerName);
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationTriggerName))
+                animator.Play(animationTriggerName);
+            //animator.SetTrigger(animationTriggerName);
         }
 
         private void OnPathComplete(Path p)
@@ -150,37 +163,21 @@ namespace Core.AI
                                     + Mathf.Pow((player.transform.position.y - rb.transform.position.y), 2);
 
                 seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
-            }
-        }
 
-        private bool CheckEdge()
-        {
-            //Check to see if it is not colliding with the ground or is colliding with a wall
-            if (!enemyScript.airChecker.IsColliding || enemyScript.wallChecker.IsColliding)
-            {
-                return true;
-            }
-            else
-            {
-                if (isWaiting)
-                {
-                    isWaiting = false;
-                    animator.SetTrigger(animationTriggerName);
-                }
-                return false;
+                //Debug.Log("Path length: " + path.GetTotalLength());
             }
         }
 
         private void UpdateDirection()
         {
             //Find direction and update it
-            Vector2 direction = FindPlayerDirection();
+            Vector2 direction = enemyScript.FindPlayerDirection();
 
-            if (direction.x > 0 && !enemyScript.IsFacingRight)
+            if (direction.x > 0 && !enemyScript.enemyStateList.IsFacingRight)
             {
                 enemyScript.FaceRight(true);
             }
-            else if (direction.x < 0 && enemyScript.IsFacingRight)
+            else if (direction.x < 0 && enemyScript.enemyStateList.IsFacingRight)
             {
                 enemyScript.FaceRight(false);
             }
@@ -190,9 +187,15 @@ namespace Core.AI
         {
             //Check for colliders overlapping
             Collider2D[] collidersToCheck = new Collider2D[10];
+
+            //Debug.Log("Colliders to Check Size" + collidersToCheck.Length);
+
             ContactFilter2D filter = new ContactFilter2D();
             filter.useTriggers = true;
+
             int colliderCount = Physics2D.OverlapCollider(visionRange, filter, collidersToCheck);
+            //Debug.Log("Colliders Count" + colliderCount);
+
 
             //Go through all colliders and check to see if it is the player
             for (int i = 0; i < colliderCount; i++)
@@ -203,17 +206,6 @@ namespace Core.AI
             return false;
         }
 
-        private float FindPlayerDistance()
-        {
-            return Mathf.Abs(player.transform.position.x - transform.position.x);
-        }
 
-        private Vector2 FindPlayerDirection()
-        {
-            Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
-            Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
-
-            return (playerPos - enemyPos).normalized;
-        }
     }
 }

@@ -120,6 +120,8 @@ public class PlayerData : ScriptableObject
 
     [Header("General Attacks")]
     public bool canAttack;
+    public bool hasStallForce;
+    public bool hasStallForceOnHit;
 
     [Space(10)]
 

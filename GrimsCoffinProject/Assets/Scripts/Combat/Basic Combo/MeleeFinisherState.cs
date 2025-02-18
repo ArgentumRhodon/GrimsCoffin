@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class MeleeFinisherState : MeleeBaseState
 {
+    public MeleeFinisherState() : base()
+    {
+        attackIndex = 4;
+    }
+
     public override void OnEnter(CStateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
-        //Set attack variables and animation
-        attackIndex = 3;
+        //Set attack variables
         attackDamage = playerCombat.Data.combo4Damage;
         playerCombat.AttackDurationTime = playerCombat.Data.comboAttackDuration;
-
-        //Animations
-        animator.SetTrigger("Attack");
-        animator.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator.SetFloat("comboRatio", attackIndex / 3f);
-        playerAnimator.SetTrigger("Attack");
-        //Debug.Log("Player Attack " + attackIndex);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

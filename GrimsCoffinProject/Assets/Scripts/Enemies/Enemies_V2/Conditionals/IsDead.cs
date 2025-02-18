@@ -10,9 +10,6 @@ namespace Core.AI
         public string animationTriggerName;
         public override TaskStatus OnUpdate()
         {
-        /*    if (enemyScript.health < 0)
-                animator.SetTrigger(animationTriggerName);*/
-
             return enemyScript.health <= 0 ? TaskStatus.Success : TaskStatus.Failure;
         }
 
@@ -20,9 +17,13 @@ namespace Core.AI
         {
             if(enemyScript.health <= 0)
             {
-                animator.SetTrigger(animationTriggerName);
-                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                //animator.SetTrigger(animationTriggerName);
+                animator.Play(animationTriggerName);
+                //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                //gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
+                rb.gravityScale = 1;
+                enemyScript.RemoveActiveEnemy();
             }
         }
     }
