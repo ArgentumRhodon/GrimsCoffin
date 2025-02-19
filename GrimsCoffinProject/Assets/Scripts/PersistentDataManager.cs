@@ -250,7 +250,7 @@ public class PersistentDataManager : MonoBehaviour
 
         for (int i = 0; i < 25; i++)
         {
-            PlayerPrefs.SetInt("HealthCollectable" + 1, 0);
+            PlayerPrefs.SetInt("HealthCollectable" + i, 0);
         }
     }
 
@@ -261,7 +261,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("FirstTimeDenial", 1);
 
         //Auto save the Denial Level (i.e. if the player quits after the cutscene they will load into the denial area instead of onboarding
-        PlayerPrefs.SetString("SceneSave", "ArenaPlaytestLevel2");
+        PlayerPrefs.SetString("SceneSave", "Denial_Level_v1.1");
 
         //Reduce Player Stats and Remove Abilities
         PlayerPrefs.SetFloat("MaxHP", 50);
