@@ -243,7 +243,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("HealthCollectablesHeld", 0);
 
         //Clear Onboarding Map Data
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < 30; i++)
         {
             PlayerPrefs.SetInt("LevelRoom" + i, 0);
         } 
