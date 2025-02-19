@@ -18,8 +18,8 @@ public class EnemyDrop : MonoBehaviour
     [SerializeField] private float lifetime = 3.5f;
     private float lifetimeTimer;
 
-    [SerializeField] private Color healthColor;
-    [SerializeField] private Color spiritPowerColor;
+    [SerializeField] private Sprite healthSprite;
+    [SerializeField] private Sprite spiritPowerSprite;
 
     private bool collected;
 
@@ -41,11 +41,11 @@ public class EnemyDrop : MonoBehaviour
         switch (dropType)
         {
             case EnemyDropType.Health:
-                GetComponent<SpriteRenderer>().color = healthColor;
+                GetComponent<SpriteRenderer>().sprite = healthSprite;
                 break;
 
             case EnemyDropType.SpiritPower:
-                GetComponent<SpriteRenderer>().color = spiritPowerColor;
+                GetComponent<SpriteRenderer>().sprite = spiritPowerSprite;
                 value = 5;
                 break;
         }
@@ -84,12 +84,12 @@ public class EnemyDrop : MonoBehaviour
         {
             case EnemyDropType.Health:
                 PlayerControllerForces.Instance.currentHP += value;
-                Mathf.Clamp(PlayerControllerForces.Instance.currentHP, 0, PlayerControllerForces.Instance.Data.maxHP);
+                PlayerControllerForces.Instance.currentHP = Mathf.Clamp(PlayerControllerForces.Instance.currentHP, 0, PlayerControllerForces.Instance.Data.maxHP);
                 break;
 
             case EnemyDropType.SpiritPower:
                 PlayerControllerForces.Instance.currentSP += value;
-                Mathf.Clamp(PlayerControllerForces.Instance.currentSP, 0, PlayerControllerForces.Instance.Data.maxSP);
+                PlayerControllerForces.Instance.currentHP = Mathf.Clamp(PlayerControllerForces.Instance.currentSP, 0, PlayerControllerForces.Instance.Data.maxSP);
                 break;
         }
 
