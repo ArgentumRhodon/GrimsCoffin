@@ -262,6 +262,7 @@ public class PersistentDataManager : MonoBehaviour
 
         //Auto save the Denial Level (i.e. if the player quits after the cutscene they will load into the denial area instead of onboarding
         PlayerPrefs.SetString("SceneSave", "Denial_Level_v1.1");
+        PlayerPrefs.SetFloat("XSpawnPos", -17.9f);
 
         //Reduce Player Stats and Remove Abilities
         PlayerPrefs.SetFloat("MaxHP", 50);
