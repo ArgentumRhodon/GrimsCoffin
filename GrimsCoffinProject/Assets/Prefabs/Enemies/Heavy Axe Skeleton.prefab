@@ -580,12 +580,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6520852904805063006}
   - component: {fileID: 6208968593074316685}
-  - component: {fileID: 4899740188633124079}
   - component: {fileID: 3798072882021425381}
   - component: {fileID: 94677831419472786}
   - component: {fileID: 6100845016814031525}
   - component: {fileID: 6253059432297718794}
   - component: {fileID: 4799350087178466909}
+  - component: {fileID: 9129667782556860028}
   m_Layer: 6
   m_Name: Heavy Axe Skeleton
   m_TagString: Enemy
@@ -649,8 +649,8 @@ MonoBehaviour:
         Probability","Instant":true,"SharedFloatsuccessProbability":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.3},"SharedIntseed":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBooluseSeed":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false}},{"Type":"Core.AI.Jump","NodeData":{"Offset":"(67.70786,169.047821)"},"ID":15,"Name":"Jump","Instant":true,"SinglehorizontalForce":-20,"SingleverticalForce":2,"SinglebuildupTime":0.2,"StringanimationStartingName":"HeavyAxeSkeleton_JumpStart","StringanimationRunningTriggerName":"Jumping","StringanimationEndTriggerName":"JumpEnd","BooleanshouldWait":true,"SinglewaitTimerMax":0.4}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(16.7003174,273.9847)"},"ID":16,"Name":"Sequence","Instant":true,"AbortTypeabortType":"LowerPriority","Children":[{"Type":"Core.AI.CanSeePlayer","NodeData":{"Offset":"(-236.969452,149.713135)"},"ID":17,"Name":"Can
         See Player","Instant":true},{"Type":"Core.AI.Alert","NodeData":{"Offset":"(-169.513214,281.2321)"},"ID":18,"Name":"Alert","Instant":true,"StringanimationTriggerName":"HeavyAxeSkeleton_Idle","SinglealertTimer":0.3},{"Type":"Core.AI.Seek","NodeData":{"Offset":"(-82.43862,383.2733)"},"ID":19,"Name":"Seek","Instant":true,"SinglenextWaypointDistance":2,"SingletargetRange":2.5,"StringanimationTriggerName":"HeavyAxeSkeleton_Walk","StringnextAnimationTrigger":"HeavyAxeSkeleton_Idle"},{"Type":"BehaviorDesigner.Runtime.Tasks.RandomSelector","NodeData":{"Offset":"(146.5351,199.74736)"},"ID":20,"Name":"Random
         Selector","Instant":true,"Int32seed":0,"BooleanuseSeed":false,"AbortTypeabortType":"None","Children":[{"Type":"Core.AI.BasicAttack","NodeData":{"Offset":"(-63.529377,150.588257)"},"ID":21,"Name":"Basic
-        Attack","Instant":true,"StringanimationTriggerName":"HeavyAxeSkeleton_Attack1","BooleanstartedAttack":false,"SingleattackDelay":0.3,"SingleattackDuration":0.3,"SingleattackDamage":10},{"Type":"Core.AI.BasicAttack","NodeData":{"Offset":"(63.5293541,146.470581)"},"ID":22,"Name":"Basic
-        Attack","Instant":true,"StringanimationTriggerName":"HeavyAxeSkeleton_Attack2","BooleanstartedAttack":false,"SingleattackDelay":0.3,"SingleattackDuration":0.3,"SingleattackDamage":15}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(352.759644,263.4812)"},"ID":23,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(691.522766,278.145966)"},"ID":24,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Core.AI.Wander","NodeData":{"Offset":"(-124.124855,136.080872)"},"ID":25,"Name":"Wander","Instant":true,"StringanimationTriggerName":"HeavyAxeSkeleton_Walk","StringnextAnimationTrigger":"HeavyAxeSkeleton_Idle"},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(0.4126873,272.71582)"},"ID":26,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}},{"Type":"Core.AI.Turn","NodeData":{"Offset":"(144.333267,160.8905)"},"ID":27,"Name":"Turn","Instant":true,"StringanimationTriggerName":"HeavyAxeSkeleton_Idle"},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(267.552917,158.894836)"},"ID":28,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}}]}]}]},"DetachedTasks":[{"Type":"Core.AI.JumpToPlayer","NodeData":{"Offset":"(657.500061,476.25)"},"ID":29,"Name":"Jump
+        Attack","Instant":true,"StringanimationTriggerName":"HeavyAxeSkeleton_Attack1","BooleanstartedAttack":false,"SingleattackDelay":0.3,"SingleattackDuration":0.3,"Int32attackDamageIndex":0},{"Type":"Core.AI.BasicAttack","NodeData":{"Offset":"(63.5293541,146.470581)"},"ID":22,"Name":"Basic
+        Attack","Instant":true,"StringanimationTriggerName":"HeavyAxeSkeleton_Attack2","BooleanstartedAttack":false,"SingleattackDelay":0.3,"SingleattackDuration":0.3,"Int32attackDamageIndex":1}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(352.759644,263.4812)"},"ID":23,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(691.522766,278.145966)"},"ID":24,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Core.AI.Wander","NodeData":{"Offset":"(-124.124855,136.080872)"},"ID":25,"Name":"Wander","Instant":true,"StringanimationTriggerName":"HeavyAxeSkeleton_Walk","StringnextAnimationTrigger":"HeavyAxeSkeleton_Idle"},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(0.4126873,272.71582)"},"ID":26,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":3}},{"Type":"Core.AI.Turn","NodeData":{"Offset":"(144.333267,160.8905)"},"ID":27,"Name":"Turn","Instant":true,"StringanimationTriggerName":"HeavyAxeSkeleton_Idle"},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(267.552917,158.894836)"},"ID":28,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}}]}]}]},"DetachedTasks":[{"Type":"Core.AI.JumpToPlayer","NodeData":{"Offset":"(657.500061,476.25)"},"ID":29,"Name":"Jump
         To Player","Instant":true,"Singleoffset":0.5,"Singleheight":2,"SinglebuildupTime":0.3,"StringanimationStartingName":"HeavyAxeSkeleton_JumpStart","StringanimationRunningTriggerName":"Jumping","StringanimationEndTriggerName":"JumpEnd"}]}'
       fieldSerializationData:
         typeName: []
@@ -663,50 +663,6 @@ MonoBehaviour:
       Version: 1.7.11
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
---- !u!114 &4899740188633124079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4567458006229910762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e5c0213b768d14fbc5be9ef5224ea3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1000
-  collisionDamage: 2
-  movementSpeed: 10
-  seekSpeed: 15
-  visionRange: 7
-  knockbackMult: 0.5
-  hitbox: {fileID: 6253059432297718794}
-  canDamageWhenColliding: 1
-  canBePulledDown: 0
-  canBeStopped: 0
-  enemyGFX: {fileID: 7666600489444073033}
-  enemy: {fileID: 4567458006229910762}
-  playerTarget: {fileID: 0}
-  enemyDropPrefab: {fileID: 5018094658481689379, guid: 83422a90486a2434b9558bea87306358, type: 3}
-  enemyDropList: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  groundCheckPoint: {fileID: 747165569949480985}
-  groundCheckSize: {x: 0.49, y: 0.03}
-  enemyStateList: {fileID: 0}
-  wallChecker: {fileID: 935854789338856834}
-  airChecker: {fileID: 6984276949057077447}
-  visionCollider: {fileID: 7152574433639618853}
-  bodyCollider: {fileID: 6253059432297718794}
-  attackCollider: {fileID: 4699518866355440840}
-  movementAcceleration: 10
-  movementAccelAmount: 0
-  movementDecceleration: 100
-  movementDeccelAmount: 0
-  hurtDodgeMin: 1
-  hurtMaxTimer: 1
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,6 +788,52 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &9129667782556860028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567458006229910762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a17b59627bc9b241968a78f58772b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 45
+  visionRange: 7
+  collisionDamage: 2
+  knockbackMult: 0.5
+  hurtDodgeMin: 1
+  hurtMaxTimer: 1
+  attackDamages:
+  - 10
+  - 15
+  movementSpeed: 10
+  seekSpeed: 12
+  movementAcceleration: 8
+  movementAccelAmount: 0
+  movementDeacceleration: 100
+  movementDeaccelAmount: 0
+  canBePulledDown: 0
+  canBeStopped: 0
+  enemyGFX: {fileID: 7666600489444073033}
+  enemy: {fileID: 4567458006229910762}
+  playerTarget: {fileID: 0}
+  enemyDropPrefab: {fileID: 5018094658481689379, guid: 83422a90486a2434b9558bea87306358, type: 3}
+  enemyDropList: {fileID: 0}
+  enemyStateList: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheckPoint: {fileID: 747165569949480985}
+  groundCheckSize: {x: 0.49, y: 0.03}
+  wallChecker: {fileID: 935854789338856834}
+  airChecker: {fileID: 6984276949057077447}
+  visionCollider: {fileID: 7152574433639618853}
+  bodyCollider: {fileID: 6253059432297718794}
+  attackCollider: {fileID: 4699518866355440840}
+  canDamageWhenColliding: 1
 --- !u!1 &6739004351742520192
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,20 +13,21 @@ namespace Core.AI
 
         public float attackDelay = 0;
         public float attackDuration = 0;
-        public float attackDamage;
+        public int attackDamageIndex;
 
         private bool attackCompleted;
 
         public override void OnStart()
         {
             attackCompleted = false;
-            enemyScript.AttackDamage = attackDamage;
+            //enemyScript.AttackDamage = attackDamage;
 
             DOVirtual.DelayedCall(attackDelay, Attack, false);
         }
 
         public override TaskStatus OnUpdate()
-        {           
+        {
+            enemyScript.CheckCollisionWithPlayer(enemyScript.attackCollider, enemyScript.attackDamages[attackDamageIndex]);
             if (attackCompleted)
             {
                 enemyScript.enemyStateList.IsAttacking = false;

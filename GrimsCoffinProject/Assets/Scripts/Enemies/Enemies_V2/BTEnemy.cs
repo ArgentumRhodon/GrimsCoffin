@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BTEnemy : Enemy
 {
-    private Canvas enemyCanvas;
+    /*private Canvas enemyCanvas;
     protected PlayerControllerForces player;
     [HideInInspector] public EnemyStateList enemyStateList;
 
@@ -136,10 +136,10 @@ public class BTEnemy : Enemy
         return Mathf.Abs(player.transform.position.y - transform.position.y);
     }
 
-/*    public Vector2 FindAerialPlayerDistance()
+*//*    public Vector2 FindAerialPlayerDistance()
     {
         return new Vector2(Mathf.Abs(player.transform.position.x - transform.position.x), Mathf.Abs(player.transform.position.y - transform.position.y));
-    }*/
+    }*//*
 
     public Vector2 FindPlayerDirection()
     {
@@ -152,5 +152,5 @@ public class BTEnemy : Enemy
     public int GetPlayerXDirection()
     {
         return player.transform.position.x > transform.position.x ? 1 : -1;
-    }
+    }*/
 }

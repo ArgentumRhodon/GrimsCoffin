@@ -580,12 +580,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6520852904805063006}
   - component: {fileID: 6208968593074316685}
-  - component: {fileID: 4899740188633124079}
   - component: {fileID: 3798072882021425381}
   - component: {fileID: 94677831419472786}
   - component: {fileID: 6100845016814031525}
   - component: {fileID: 6253059432297718794}
   - component: {fileID: 4799350087178466909}
+  - component: {fileID: 1031609099407972865}
   m_Layer: 6
   m_Name: Basic Skeleton
   m_TagString: Enemy
@@ -658,50 +658,6 @@ MonoBehaviour:
       Version: 1.7.11
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
---- !u!114 &4899740188633124079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4567458006229910762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e5c0213b768d14fbc5be9ef5224ea3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 15
-  collisionDamage: 0
-  movementSpeed: 13
-  seekSpeed: 21
-  visionRange: 1
-  knockbackMult: 0.5
-  hitbox: {fileID: 6253059432297718794}
-  canDamageWhenColliding: 1
-  canBePulledDown: 0
-  canBeStopped: 1
-  enemyGFX: {fileID: 7666600489444073033}
-  enemy: {fileID: 4567458006229910762}
-  playerTarget: {fileID: 0}
-  enemyDropPrefab: {fileID: 5018094658481689379, guid: 83422a90486a2434b9558bea87306358, type: 3}
-  enemyDropList: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  groundCheckPoint: {fileID: 747165569949480985}
-  groundCheckSize: {x: 0.49, y: 0.03}
-  enemyStateList: {fileID: 0}
-  wallChecker: {fileID: 935854789338856834}
-  airChecker: {fileID: 6984276949057077447}
-  visionCollider: {fileID: 7152574433639618853}
-  bodyCollider: {fileID: 6253059432297718794}
-  attackCollider: {fileID: 4699518866355440840}
-  movementAcceleration: 3
-  movementAccelAmount: 0
-  movementDecceleration: 40
-  movementDeccelAmount: 0
-  hurtDodgeMin: 0
-  hurtMaxTimer: 0
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,6 +783,52 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1031609099407972865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567458006229910762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 079eeaa25a2df47438e7d37a14181054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 15
+  visionRange: 7
+  collisionDamage: 2
+  knockbackMult: 1
+  hurtDodgeMin: 0
+  hurtMaxTimer: 0
+  attackDamages:
+  - 5
+  - 5
+  movementSpeed: 13
+  seekSpeed: 17
+  movementAcceleration: 3
+  movementAccelAmount: 0
+  movementDeacceleration: 40
+  movementDeaccelAmount: 0
+  canBePulledDown: 1
+  canBeStopped: 1
+  enemyGFX: {fileID: 7666600489444073033}
+  enemy: {fileID: 4567458006229910762}
+  playerTarget: {fileID: 0}
+  enemyDropPrefab: {fileID: 5018094658481689379, guid: 83422a90486a2434b9558bea87306358, type: 3}
+  enemyDropList: {fileID: 0}
+  enemyStateList: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheckPoint: {fileID: 747165569949480985}
+  groundCheckSize: {x: 0.49, y: 0.03}
+  wallChecker: {fileID: 935854789338856834}
+  airChecker: {fileID: 6984276949057077447}
+  visionCollider: {fileID: 7152574433639618853}
+  bodyCollider: {fileID: 6253059432297718794}
+  attackCollider: {fileID: 4699518866355440840}
+  canDamageWhenColliding: 1
 --- !u!1 &6739004351742520192
 GameObject:
   m_ObjectHideFlags: 0

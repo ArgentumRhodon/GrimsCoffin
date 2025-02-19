@@ -132,7 +132,7 @@ namespace Core.AI
             //Smooth changes to direction and speed using a lerp function
             targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, 1);
 
-            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeccelAmount;
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeaccelAmount;
 
             //Calculate difference between current velocity and desired velocity
             float speedDif = targetSpeed - rb.velocity.x;
