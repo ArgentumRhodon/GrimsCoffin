@@ -27,6 +27,7 @@ namespace Core.AI
 
         public override TaskStatus OnUpdate()
         {
+            Debug.Log(enemyScript.attackDamages[attackDamageIndex]);
             enemyScript.CheckCollisionWithPlayer(enemyScript.attackCollider, enemyScript.attackDamages[attackDamageIndex]);
             if (attackCompleted)
             {

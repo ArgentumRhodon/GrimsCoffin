@@ -178,7 +178,7 @@ namespace Core.AI
                 currentWaypoint = 0;
 
                 pathDistance = path.GetTotalLength();
-                Debug.Log(pathDistance);
+                //Debug.Log(pathDistance);
             }
         }
 
@@ -240,7 +240,7 @@ namespace Core.AI
             filter.useTriggers = true;
 
             int colliderCount = Physics2D.OverlapCollider(visionCollider, filter, collidersToCheck);
-            Debug.Log("Colliders Count" + colliderCount);
+            //Debug.Log("Colliders Count" + colliderCount);
 
 
             //Go through all colliders and check to see if it is the player
