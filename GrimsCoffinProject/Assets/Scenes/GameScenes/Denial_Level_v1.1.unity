@@ -386,6 +386,10 @@ PrefabInstance:
       propertyPath: FollowCameraConfiner
       value: 
       objectReference: {fileID: 2074311004}
+    - target: {fileID: 2385115727201845097, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2527953164283947559, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
@@ -394,10 +398,22 @@ PrefabInstance:
       propertyPath: FollowCameraConfiner
       value: 
       objectReference: {fileID: 2074311004}
+    - target: {fileID: 2591379022390925346, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 47.53
+      objectReference: {fileID: 0}
     - target: {fileID: 2638569593506892014, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
       objectReference: {fileID: 936170979}
+    - target: {fileID: 2692177762637786935, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9234264
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692177762637786935, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.038286805
+      objectReference: {fileID: 0}
     - target: {fileID: 2701511504733940387, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
@@ -774,10 +790,30 @@ PrefabInstance:
       propertyPath: screenFade
       value: 
       objectReference: {fileID: 936170979}
+    - target: {fileID: 7158366729854298287, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349105525541904314, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_Size.y
+      value: 0.8929138
+      objectReference: {fileID: 0}
+    - target: {fileID: 7349105525541904314, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.05354309
+      objectReference: {fileID: 0}
     - target: {fileID: 7407643322407076162, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
       objectReference: {fileID: 936170979}
+    - target: {fileID: 7427152570526447857, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9219041
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427152570526447857, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.039047956
+      objectReference: {fileID: 0}
     - target: {fileID: 7519900171440057810, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
@@ -967,7 +1003,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 936170979}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3863957183267265088, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+    - {fileID: 6282965879626645124, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
@@ -5016,6 +5054,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 342814582511053123, guid: 102bdb445bb57f442b640b777cdbc4d8, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 529263913596895565, guid: 102bdb445bb57f442b640b777cdbc4d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 96.11252
@@ -5055,6 +5097,14 @@ PrefabInstance:
     - target: {fileID: 529263913596895565, guid: 102bdb445bb57f442b640b777cdbc4d8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661975733000199180, guid: 102bdb445bb57f442b640b777cdbc4d8, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493866978963204072, guid: 102bdb445bb57f442b640b777cdbc4d8, type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5798771441896870946, guid: 102bdb445bb57f442b640b777cdbc4d8, type: 3}
       propertyPath: m_Name
