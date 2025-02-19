@@ -98,6 +98,9 @@ public class Map : MonoBehaviour
 
     public void ToggleMapKey()
     {
+        if (!this.gameObject.activeInHierarchy)
+            return;
+
         mapKeyActive = !mapKeyActive;
         mapKey.SetActive(mapKeyActive);
     }

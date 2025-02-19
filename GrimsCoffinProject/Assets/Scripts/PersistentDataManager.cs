@@ -136,7 +136,7 @@ public class PersistentDataManager : MonoBehaviour
 
                     //Unlocks Health Upgrades and gives one for free
                     case Spirit.SpiritID.HealthSpirit:
-                        PlayerControllerForces.Instance.Data.maxHP += 15;
+                        PlayerControllerForces.Instance.Data.maxHP += 10;
                         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP; 
                         PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
                         UIManager.Instance.ShowAbilityUnlock("Max Health Increased");
@@ -149,7 +149,7 @@ public class PersistentDataManager : MonoBehaviour
         //Trade in health collectables for health upgrade
         else if (spirit.spiritID == Spirit.SpiritID.HealthSpirit && spirit.spiritState == Spirit.SpiritState.Idle && PersistentDataManager.Instance.HealthCollectablesHeld >= 3)
         {
-            PlayerControllerForces.Instance.Data.maxHP += 15;
+            PlayerControllerForces.Instance.Data.maxHP += 10;
             PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
             PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
 
