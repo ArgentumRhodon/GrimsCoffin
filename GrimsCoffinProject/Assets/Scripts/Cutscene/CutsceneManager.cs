@@ -207,6 +207,7 @@ public class CutsceneManager : MonoBehaviour
     {
         StopAllCoroutines();
         sceneController.LoadNextScene();
+        controls.Dialogue.Continue.performed -= OnContinue;
     }
 
     void OnControlsChanged(PlayerInput obj)
