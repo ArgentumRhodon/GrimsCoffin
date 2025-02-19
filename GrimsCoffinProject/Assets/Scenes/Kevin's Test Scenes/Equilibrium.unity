@@ -621,11 +621,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2898703141720673520, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_Size.x
-      value: 0.3214991
+      value: 0.102157876
       objectReference: {fileID: 0}
     - target: {fileID: 2898703141720673520, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_Offset.x
-      value: 0.002425462
+      value: -0.00008607842
       objectReference: {fileID: 0}
     - target: {fileID: 3571654701704625484, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_Name
@@ -633,11 +633,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7950690345586759872, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.0076
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7950690345586759872, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.3338351
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7950690345586759872, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_LocalScale.z
@@ -649,7 +649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7950690345586759872, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.81
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: 7950690345586759872, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24037,6 +24037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rooms:
   - {fileID: 1150608254}
+  healthUpgrades: []
   defaultXPos: -11.08
   defaultYPos: -2.85
   defaultSceneName: OnboardingLevel
