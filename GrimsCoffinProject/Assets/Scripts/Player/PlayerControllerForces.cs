@@ -593,6 +593,8 @@ public class PlayerControllerForces : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         this.hasInvincibility = false;
+        invincibilityTimer = 0;
+        SetSpriteColors(Color.white);
 
         currentHP = Data.maxHP;
         currentSP = Data.maxSP;
