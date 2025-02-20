@@ -224,7 +224,7 @@ public class PlayerControllerForces : MonoBehaviour
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
         }
 
-        //TempResetData();
+        TempResetData();
     }
 
     private void Update()
@@ -1589,8 +1589,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         private void TempResetData()
         {
-            Data.canDash = true;
-            Data.canDoubleJump = true;
-            Data.canWallJump = true;
+            //Data.canDash = true;
+            //Data.canDoubleJump = true;
+            //Data.canWallJump = true;
+            currentHP = 50;
         }
     }
