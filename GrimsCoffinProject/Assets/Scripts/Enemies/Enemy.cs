@@ -30,8 +30,8 @@ public abstract class Enemy : MonoBehaviour
     public float HurtSuccessionTimer { get { return hurtSuccessionTimer; } set { hurtSuccessionTimer = value; } }
 
     //Private attack damage updated in behavior trees - TODO: May not need this with restructure of the enemy class
-/*    private float attackDamage;
-    public float AttackDamage { get { return attackDamage; } set { attackDamage = value; } }*/
+    private float attackDamage;
+    public float AttackDamage { get { return attackDamage; } set { attackDamage = value; } }
 
     public float[] attackDamages;
 
@@ -81,9 +81,10 @@ public abstract class Enemy : MonoBehaviour
     protected List<Collider2D> collidersDamaged;
     protected bool isPlayerOnRight;
     protected Canvas enemyCanvas;
+    protected SpriteRenderer spriteRenderer;
     protected PlayerControllerForces player;
     [HideInInspector] public EnemyStateList enemyStateList;
-    protected BehaviorTree behaviorTree;
+    [HideInInspector] public BehaviorTree behaviorTree;
 
     [Header("Collision Checkers & Associated Variables")] // ------------------------------------------------------
     [Space(5)]
@@ -116,7 +117,9 @@ public abstract class Enemy : MonoBehaviour
         //Get components for later reference
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        enemyCanvas = gameObject.GetComponentInChildren<Canvas>();    
+        animator = gameObject.GetComponentInChildren<Animator>();
+        enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
+        spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         enemyStateList = gameObject.GetComponent<EnemyStateList>();
         behaviorTree = GetComponent<BehaviorTree>();
 
@@ -138,16 +141,14 @@ public abstract class Enemy : MonoBehaviour
         direction = 1;
 
         movementAccelAmount = (1 * movementAcceleration) / movementSpeed;
-        movementDeaccelAmount = (1 * movementDeacceleration) / movementSpeed;
-
-      
+        movementDeaccelAmount = (1 * movementDeacceleration) / movementSpeed;     
     }
 
     //Enemy should implement their own update functionality
     protected virtual void FixedUpdate()
     {
         CheckCollisionWithPlayer();
-        //CheckCollisionWithPlayer(attackCollider, attackDamage); //TODO: Have specific classes for different enemy types
+        CheckCollisionWithPlayer(attackCollider, 10); //TODO: Have specific classes for different enemy types
 
         if (hurtInSuccessionTotal > 0)
             hurtSuccessionTimer -= Time.deltaTime;
@@ -192,11 +193,15 @@ public abstract class Enemy : MonoBehaviour
         filter.useTriggers = true;
         int colliderCount = Physics2D.OverlapCollider(hitboxToCheck, filter, collidersToDamage);
 
+        Debug.Log("This is running");
+
         for (int i = 0; i < colliderCount; i++)
         {
             if (!collidersDamaged.Contains(collidersToDamage[i]))
             {
                 TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
+                Debug.Log(hitTeamComponent);
+
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility
                     && !PlayerControllerForces.Instance.hasDashInvincibility)
@@ -216,7 +221,8 @@ public abstract class Enemy : MonoBehaviour
         //If the enemy can be stopped, sleep and take a knockback force
         if (canBeStopped)
         {
-            Sleep(0.5f, knockbackForce);
+            EndSleep();
+            Sleep(.35f, knockbackForce);
             isStaggered = true;
         }    
 
@@ -235,8 +241,8 @@ public abstract class Enemy : MonoBehaviour
         hurtInSuccessionTotal++;
 
         //Enemy death calculation - TODO: add delayed call for destroy enemy
-        if (health <= 0)
-            DestroyEnemy();
+/*        if (health <= 0)
+            DestroyEnemy();*/
     }
 
     //Add knockback to the enemy based off a given force
@@ -328,7 +334,9 @@ public abstract class Enemy : MonoBehaviour
     {
         //Sleeping
         isSleeping = true;
-        behaviorTree.DisableBehavior();
+        behaviorTree.enabled = false;
+        animator.speed = 0;
+        spriteRenderer.color = Color.red;
 
         //Deal knockback impulse
         Knockback(knockbackForce);
@@ -340,7 +348,9 @@ public abstract class Enemy : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
 
-        behaviorTree.EnableBehavior();
+        animator.speed = 1f;
+        behaviorTree.enabled = true;
+        spriteRenderer.color = Color.white;
         isSleeping = false;
     }
 

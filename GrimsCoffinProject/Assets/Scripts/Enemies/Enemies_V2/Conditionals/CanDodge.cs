@@ -7,10 +7,11 @@ namespace Core.AI
 {
     public class CanDodge : EnemyConditional
     {
+        [Range(1, 10)] public int chance;
         public override TaskStatus OnUpdate()
         {
-            return (enemyScript.HurtInSuccessionTotal >= enemyScript.HurtDodgeMin 
-                && !enemyScript.enemyStateList.IsAttacking) ? TaskStatus.Success : TaskStatus.Failure;
+            return (enemyScript.HurtInSuccessionTotal >= enemyScript.HurtDodgeMin
+                && !enemyScript.enemyStateList.IsAttacking && Random.Range(0, 10) < chance) ? TaskStatus.Success : TaskStatus.Failure;
         }
         
         public override void OnEnd()

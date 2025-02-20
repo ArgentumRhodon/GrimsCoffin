@@ -9,7 +9,6 @@ namespace Core.AI
     public class BasicAttack : EnemyAction
     {
         public string animationTriggerName;
-        public bool startedAttack;
 
         public float attackDelay = 0;
         public float attackDuration = 0;
@@ -20,15 +19,12 @@ namespace Core.AI
         public override void OnStart()
         {
             attackCompleted = false;
-            //enemyScript.AttackDamage = attackDamage;
 
             DOVirtual.DelayedCall(attackDelay, Attack, false);
         }
 
         public override TaskStatus OnUpdate()
         {
-            Debug.Log(enemyScript.attackDamages[attackDamageIndex]);
-            enemyScript.CheckCollisionWithPlayer(enemyScript.attackCollider, enemyScript.attackDamages[attackDamageIndex]);
             if (attackCompleted)
             {
                 enemyScript.enemyStateList.IsAttacking = false;
@@ -40,20 +36,18 @@ namespace Core.AI
 
         private void Attack()
         {
+            enemyScript.AttackDamage = enemyScript.attackDamages[attackDamageIndex];
             animator.Play(animationTriggerName);
             enemyScript.enemyStateList.IsAttacking = true;
 
+
             DOVirtual.DelayedCall(attackDuration, FinishAttack, false);
+
         }
 
         private void FinishAttack()
         {
             attackCompleted = true;
-        }
-
-        public override void OnEnd()
-        {
-
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Core.AI
         private Collider2D visionCollider;
 
         private float pathDistance;
+        private bool foundPath;
 
         public override void OnStart()
         {
@@ -38,6 +39,7 @@ namespace Core.AI
             enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
 
             //Start new path and timers
+            foundPath = false;
             UpdatePath();
             repeatingTimer = repeatingNum;
 
@@ -75,7 +77,7 @@ namespace Core.AI
 
         public override TaskStatus OnUpdate()
         {       
-            if (pathDistance > enemyScript.visionRange)
+            if (pathDistance > enemyScript.visionRange && foundPath)
                 return TaskStatus.Failure;
 
                 repeatingTimer -= Time.deltaTime;
@@ -96,8 +98,8 @@ namespace Core.AI
             if (pathDistance > enemyScript.visionRange)
                 enemyScript.enemyStateList.IsSeeking = false;
 
-            if(reachedEndOfPath)
-                enemyScript.enemyStateList.IsSeeking = false;
+/*            if(reachedEndOfPath)
+                enemyScript.enemyStateList.IsSeeking = false;*/
         }
 
         private void PathFollow()
@@ -178,7 +180,7 @@ namespace Core.AI
                 currentWaypoint = 0;
 
                 pathDistance = path.GetTotalLength();
-                //Debug.Log(pathDistance);
+                foundPath = true;
             }
         }
 

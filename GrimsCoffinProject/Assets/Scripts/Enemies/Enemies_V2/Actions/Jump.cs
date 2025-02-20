@@ -22,6 +22,8 @@ namespace Core.AI
         public float waitTimerMax = 0;
         private float waitTimer;
 
+        public bool shouldFacePlayer;
+
         private bool isGrounded;
         private bool hasJumped;
 
@@ -31,7 +33,8 @@ namespace Core.AI
         public override void OnStart()
         {
             //Face player
-            enemyScript.TurnToPlayer();
+            if(shouldFacePlayer)
+                enemyScript.TurnToPlayer();
 
             //Start Jump
             animator.Play(animationStartingName);
