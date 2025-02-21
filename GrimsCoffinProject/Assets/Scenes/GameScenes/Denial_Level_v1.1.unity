@@ -2241,7 +2241,7 @@ Transform:
   m_GameObject: {fileID: 230794420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalPosition: {x: 0, y: -1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2329,7 +2329,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230794420}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -2404,7 +2404,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -2457,7 +2457,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 0
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -2576,7 +2576,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.1
-      minScalar: 0.05
+      minScalar: 0.03
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2960,7 +2960,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 0.5, y: 0.1, z: 1}
+    m_Scale: {x: 0.5, y: 0.2, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -3157,9 +3157,9 @@ ParticleSystem:
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 20
-      minScalar: 10
+      minMaxState: 3
+      scalar: 75
+      minScalar: 50
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -3779,7 +3779,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -4477,7 +4477,7 @@ ParticleSystem:
         m_RotationOrder: 4
     m_Range: {x: 0, y: 1}
   ForceModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -4534,7 +4534,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1.5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4637,7 +4637,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    inWorldSpace: 0
+    inWorldSpace: 1
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
@@ -8386,7 +8386,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 0.5, y: 0.4, z: 1}
+    m_Scale: {x: 0.79, y: 0.21, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -12773,14 +12773,20 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 384255045}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5754731874771024280, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 581325624}
+    - targetCorrespondingSourceObject: {fileID: 7600383986236679275, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2016672230}
   m_SourcePrefab: {fileID: 100100000, guid: 3901873f192e26840810d12d84daf40c, type: 3}
 --- !u!114 &491838783 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -3555348475411842758, guid: 3901873f192e26840810d12d84daf40c, type: 3}
   m_PrefabInstance: {fileID: 491838782}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 581325614}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
@@ -12791,7 +12797,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1960859601187753200, guid: 3901873f192e26840810d12d84daf40c, type: 3}
   m_PrefabInstance: {fileID: 491838782}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 581325614}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f59d3263c108b940b49aa2e3c172821, type: 3}
@@ -12961,6 +12967,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 140d02b4f88d4094c8ce93159fad036b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &581325614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5754731874771024280, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+  m_PrefabInstance: {fileID: 491838782}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &581325624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581325614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 076f07ddca0080244be31eda006062eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 491838784}
+  RunVFX: {fileID: 230794423}
+  JumpVFX: {fileID: 384255047}
 --- !u!114 &678902918 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6722560413971160976, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
@@ -16010,6 +16036,26 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5652564619555494922, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
   m_PrefabInstance: {fileID: 2012193158}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2016672225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7600383986236679275, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+  m_PrefabInstance: {fileID: 491838782}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2016672230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016672225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 076f07ddca0080244be31eda006062eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 491838784}
+  RunVFX: {fileID: 230794423}
+  JumpVFX: {fileID: 384255047}
 --- !u!1001 &2033332955
 PrefabInstance:
   m_ObjectHideFlags: 0
