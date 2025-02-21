@@ -134,6 +134,11 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public EventReference damageSFX;
     protected EventInstance damageInstance;
 
+    // Player VFX 
+    [Header("Player VFX")]
+    [SerializeField] private ParticleSystem RunOnSnow;
+    [SerializeField] private ParticleSystem JumpOnSnow;
+
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -722,7 +727,7 @@ public class PlayerControllerForces : MonoBehaviour
             playerState.IsWalking = false;
         else
             playerState.IsWalking = true;
-
+     
 
         //Calculate the direction and our desired velocity
         float targetSpeed = direction * Data.walkMaxSpeed * walkModifier;
@@ -792,7 +797,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         jumpVelocity = rb.velocity.y;
-
+        JumpSnowVFX();
         playJumpSFX(jumpInstance, 0);
         FMODJumpFinished = false;
         FMODIsLandedPlayed = false;
@@ -1586,6 +1591,15 @@ public class PlayerControllerForces : MonoBehaviour
         slideInstance.setParameterByName("SlideStatus", 1);
         isSlidingPlayed = false;
         //Debug.Log("Stopped Sliding");
+    }
+
+    private void RunSnowVFX() 
+    {
+        RunOnSnow.Play();
+    }
+    private void JumpSnowVFX() 
+    {
+        JumpOnSnow.Play();
     }
         #endregion
 
