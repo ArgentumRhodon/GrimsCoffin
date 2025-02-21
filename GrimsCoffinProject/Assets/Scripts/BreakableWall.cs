@@ -44,7 +44,7 @@ public class BreakableWall : MonoBehaviour
 
     }
 
-    public virtual void TakeDamage(float damage = 1)
+    public void TakeDamage(float damage = 1)
     {
         //Remove health
         if((health - damage) > 0)
