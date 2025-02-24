@@ -67,7 +67,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
 --- !u!114 &3973037433677382994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.713, y: 0.166, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1461717910656351420}
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 879057614, guid: 87b3e497a655b7b408659649bd1bbfd8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.9411765}
   m_FlipX: 0
   m_FlipY: 0
@@ -218,5 +218,5 @@ MonoBehaviour:
   value: 10
   speed: 10
   lifetime: 3.5
-  healthColor: {r: 1, g: 0, b: 0, a: 0.9411765}
-  spiritPowerColor: {r: 0.61960787, g: 0.9372549, b: 0.94509804, a: 0.9411765}
+  healthSprite: {fileID: 879057614, guid: 87b3e497a655b7b408659649bd1bbfd8, type: 3}
+  spiritPowerSprite: {fileID: 198915233, guid: 0b99944c7ecc40a44844a815e0ee5e4e, type: 3}

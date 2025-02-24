@@ -136,7 +136,7 @@ public class PersistentDataManager : MonoBehaviour
 
                     //Unlocks Health Upgrades and gives one for free
                     case Spirit.SpiritID.HealthSpirit:
-                        PlayerControllerForces.Instance.Data.maxHP += 15;
+                        PlayerControllerForces.Instance.Data.maxHP += 10;
                         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP; 
                         PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
                         UIManager.Instance.ShowAbilityUnlock("Max Health Increased");
@@ -149,7 +149,7 @@ public class PersistentDataManager : MonoBehaviour
         //Trade in health collectables for health upgrade
         else if (spirit.spiritID == Spirit.SpiritID.HealthSpirit && spirit.spiritState == Spirit.SpiritState.Idle && PersistentDataManager.Instance.HealthCollectablesHeld >= 3)
         {
-            PlayerControllerForces.Instance.Data.maxHP += 15;
+            PlayerControllerForces.Instance.Data.maxHP += 10;
             PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
             PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
 
@@ -190,7 +190,7 @@ public class PersistentDataManager : MonoBehaviour
                 room.gameObject.SetActive(true);
 
                 if (room.GetComponent<EnemyManager>() != null)
-                    room.GetComponent<EnemyManager>().SpawnEnemies();
+                    //room.GetComponent<EnemyManager>().SpawnEnemies();
 
                 this.GetComponent<CameraManager>().Vcam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = room.GetComponent<PolygonCollider2D>();
             }
@@ -243,14 +243,14 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("HealthCollectablesHeld", 0);
 
         //Clear Onboarding Map Data
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < 30; i++)
         {
             PlayerPrefs.SetInt("LevelRoom" + i, 0);
         } 
 
         for (int i = 0; i < 25; i++)
         {
-            PlayerPrefs.SetInt("HealthCollectable" + 1, 0);
+            PlayerPrefs.SetInt("HealthCollectable" + i, 0);
         }
     }
 
@@ -261,7 +261,8 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("FirstTimeDenial", 1);
 
         //Auto save the Denial Level (i.e. if the player quits after the cutscene they will load into the denial area instead of onboarding
-        PlayerPrefs.SetString("SceneSave", "ArenaPlaytestLevel2");
+        PlayerPrefs.SetString("SceneSave", "Denial_Level_v1.1");
+        PlayerPrefs.SetFloat("XSpawnPos", -17.9f);
 
         //Reduce Player Stats and Remove Abilities
         PlayerPrefs.SetFloat("MaxHP", 50);

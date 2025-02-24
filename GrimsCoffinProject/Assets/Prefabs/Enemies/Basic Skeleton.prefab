@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e5c0213b768d14fbc5be9ef5224ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 15
+  health: 20
   damage: 5
   movementSpeed: 13
   seekSpeed: 21
@@ -682,6 +682,7 @@ MonoBehaviour:
   enemy: {fileID: 4567458006229910762}
   playerTarget: {fileID: 0}
   enemyDropPrefab: {fileID: 5018094658481689379, guid: 83422a90486a2434b9558bea87306358, type: 3}
+  enemyDropList: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
