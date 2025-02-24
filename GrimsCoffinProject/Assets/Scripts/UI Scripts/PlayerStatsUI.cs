@@ -15,8 +15,6 @@ public class PlayerStatsUI : MonoBehaviour
     [SerializeField] private GameObject healthCollectablePrefab;
     [SerializeField] private GameObject healthCollecatbleList;
 
-    private float healthUIDifference = 3.42f;
-
     private void Start()
     {
         for (int i = 0; i < PersistentDataManager.Instance.HealthCollectablesHeld; i++)
