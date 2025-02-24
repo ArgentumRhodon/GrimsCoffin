@@ -15,6 +15,8 @@ public class PlayerStatsUI : MonoBehaviour
     [SerializeField] private GameObject healthCollectablePrefab;
     [SerializeField] private GameObject healthCollecatbleList;
 
+    private float healthUIDifference = 3.42f;
+
     private void Start()
     {
         for (int i = 0; i < PersistentDataManager.Instance.HealthCollectablesHeld; i++)
@@ -27,9 +29,7 @@ public class PlayerStatsUI : MonoBehaviour
     void Update()
     {
         healthBar.sizeDelta = new Vector2(player.Data.maxHP * 7, 35);
-        healthBarFill.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(player.Data.maxHP * 7, 35);
-        spiritBar.sizeDelta = new Vector2(player.Data.maxSP * 3, 35);
-        spiritBarFill.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(player.Data.maxSP * 3, 35);
+        healthBarFill.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2((player.Data.maxHP * 7) - 3.42f, 35);
 
         healthBarFill.fillAmount = player.currentHP / player.Data.maxHP;
         spiritBarFill.fillAmount = player.currentSP / player.Data.maxSP;

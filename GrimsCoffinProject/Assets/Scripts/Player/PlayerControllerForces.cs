@@ -212,6 +212,9 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canScytheThrow = PersistentDataManager.Instance.CanScytheThrow;
         Data.canViewMap = PersistentDataManager.Instance.CanViewMap;
 
+        if (!PersistentDataManager.Instance.CanScytheThrow)
+            currentSP = 0;
+
         LastJumpTime = 0;
         LastWallJumpTime = 0;
 
