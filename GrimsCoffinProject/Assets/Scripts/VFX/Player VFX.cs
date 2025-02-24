@@ -1,6 +1,9 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerVFX : MonoBehaviour
 {
@@ -8,6 +11,8 @@ public class PlayerVFX : MonoBehaviour
     [SerializeField] ParticleSystem RunVFX;
     [SerializeField] ParticleSystem JumpVFX;
     [SerializeField] ParticleSystem LandVFX;
+    [SerializeField] private UnityEvent landTrigger;
+
 
     public void Run() 
     {
@@ -23,5 +28,6 @@ public class PlayerVFX : MonoBehaviour
     public void Land() 
     {
         LandVFX.Play();
+        landTrigger.Invoke();
     }
 }

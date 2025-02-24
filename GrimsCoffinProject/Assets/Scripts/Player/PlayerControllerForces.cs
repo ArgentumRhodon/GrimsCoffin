@@ -13,6 +13,7 @@ using Unity.VisualScripting;
 using System.Threading.Tasks;
 using FMOD.Studio;
 using System;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityCharacterController;
 
 public class PlayerControllerForces : MonoBehaviour
 {
@@ -231,6 +232,11 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void Update()
     {
+        //Extra debug line to prevent sliding sound if there's none.
+        if (Grounded())
+        {
+            stopSlideSFX(slideInstance);
+        }
 
         if (!isSleeping)
         {
@@ -1577,7 +1583,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void playSlideSFX(EventInstance slideInstance)
     {
-        if(isSlidingPlayed == false)
+        if(isSlidingPlayed == false && Grounded() == false)
         {
             isSlidingPlayed = true;
             slideInstance.start();
