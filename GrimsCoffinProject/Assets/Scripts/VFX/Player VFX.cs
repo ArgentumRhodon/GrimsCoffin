@@ -7,6 +7,7 @@ public class PlayerVFX : MonoBehaviour
     [SerializeField] PlayerControllerForces Player;
     [SerializeField] ParticleSystem RunVFX;
     [SerializeField] ParticleSystem JumpVFX;
+    [SerializeField] ParticleSystem LandVFX;
 
     public void Run() 
     {
@@ -18,5 +19,9 @@ public class PlayerVFX : MonoBehaviour
     public void Jump() 
     {
         JumpVFX.Play();
+    }
+    public void Land() 
+    {
+        LandVFX.Play();
     }
 }

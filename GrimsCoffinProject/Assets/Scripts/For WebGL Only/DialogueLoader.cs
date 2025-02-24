@@ -31,7 +31,7 @@ public class DialogueLoader : MonoBehaviour
         {
             string json = request.downloadHandler.text;
             // Use the new method to parse the JSON string.
-            DialogueEntry[] entries = SaveData.ReadFromJSONString<DialogueEntry>(json).ToArray();
+            DialogueEntry[] entries = SaveDataWebGL.ReadFromJSONString<DialogueEntry>(json).ToArray();
             dialogues = new List<DialogueEntry>(entries);
             Debug.Log($"Loaded {dialogues.Count} dialogue entries.");
 

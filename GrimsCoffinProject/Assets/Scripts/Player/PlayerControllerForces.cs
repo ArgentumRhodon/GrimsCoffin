@@ -134,7 +134,8 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public EventReference damageSFX;
     protected EventInstance damageInstance;
 
-
+    [Header("Player VFX Reference")]
+    [SerializeField] private PlayerVFX playervfx;
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -1005,6 +1006,7 @@ public class PlayerControllerForces : MonoBehaviour
             {
                 stopSlideSFX(slideInstance);
                 playLandSFX(landInstance);
+                playervfx.Land();
                 FMODIsLandedPlayed = true;
             }
             
