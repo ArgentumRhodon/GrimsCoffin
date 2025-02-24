@@ -1006,7 +1006,10 @@ public class PlayerControllerForces : MonoBehaviour
             {
                 stopSlideSFX(slideInstance);
                 playLandSFX(landInstance);
-                playervfx.Land();
+                if (playervfx != null) 
+                {
+                    playervfx.Land();
+                }
                 FMODIsLandedPlayed = true;
             }
             
