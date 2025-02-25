@@ -12,37 +12,40 @@ public class EnemyDrop : MonoBehaviour
 
 
     [SerializeField] public EnemyDropType dropType;
-    [SerializeField] public float value = 10;
+    [SerializeField] public float value = 5;
 
     [SerializeField] private float speed = 15;
     [SerializeField] private float lifetime = 3.5f;
     private float lifetimeTimer;
 
-    [SerializeField] private Color healthColor;
-    [SerializeField] private Color spiritPowerColor;
+    [SerializeField] private Sprite healthSprite;
+    [SerializeField] private Sprite spiritPowerSprite;
 
     private bool collected;
 
     private void Start()
     {
-        if (Random.Range(1, 100) <= 50 && PlayerControllerForces.Instance.Data.canScytheThrow)
+        if (Random.Range(1, 100) <= 50 && PlayerControllerForces.Instance.Data.canScytheThrow && PlayerControllerForces.Instance.currentSP < PlayerControllerForces.Instance.Data.maxSP)
         {
             dropType = EnemyDropType.SpiritPower;
         }
 
-        else
+        else if (PlayerControllerForces.Instance.currentHP < PlayerControllerForces.Instance.Data.maxHP)
         {
             dropType = EnemyDropType.Health;
         }
 
+        else
+            Destroy(gameObject);
+
         switch (dropType)
         {
             case EnemyDropType.Health:
-                GetComponent<SpriteRenderer>().color = healthColor;
+                GetComponent<SpriteRenderer>().sprite = healthSprite;
                 break;
 
             case EnemyDropType.SpiritPower:
-                GetComponent<SpriteRenderer>().color = spiritPowerColor;
+                GetComponent<SpriteRenderer>().sprite = spiritPowerSprite;
                 value = 5;
                 break;
         }
@@ -64,11 +67,6 @@ public class EnemyDrop : MonoBehaviour
             if (lifetimeTimer >= lifetime)
                 Destroy(gameObject);
         }
-
-        if (transform.position == PlayerControllerForces.Instance.transform.position)
-        {
-            CollectDrop();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -80,18 +78,18 @@ public class EnemyDrop : MonoBehaviour
         }
     }
 
-    private void CollectDrop()
+    public void CollectDrop()
     {
         switch (dropType)
         {
             case EnemyDropType.Health:
                 PlayerControllerForces.Instance.currentHP += value;
-                Mathf.Clamp(PlayerControllerForces.Instance.currentHP, 0, PlayerControllerForces.Instance.Data.maxHP);
+                PlayerControllerForces.Instance.currentHP = Mathf.Clamp(PlayerControllerForces.Instance.currentHP, 0, PlayerControllerForces.Instance.Data.maxHP);
                 break;
 
             case EnemyDropType.SpiritPower:
                 PlayerControllerForces.Instance.currentSP += value;
-                Mathf.Clamp(PlayerControllerForces.Instance.currentSP, 0, PlayerControllerForces.Instance.Data.maxSP);
+                PlayerControllerForces.Instance.currentSP = Mathf.Clamp(PlayerControllerForces.Instance.currentSP, 0, PlayerControllerForces.Instance.Data.maxSP);
                 break;
         }
 

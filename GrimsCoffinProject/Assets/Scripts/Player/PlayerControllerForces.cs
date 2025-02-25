@@ -134,6 +134,8 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public EventReference damageSFX;
     protected EventInstance damageInstance;
 
+    [Header("Player VFX Reference")]
+    [SerializeField] private PlayerVFX playervfx;
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -211,6 +213,9 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canDash = PersistentDataManager.Instance.CanDash;
         Data.canScytheThrow = PersistentDataManager.Instance.CanScytheThrow;
         Data.canViewMap = PersistentDataManager.Instance.CanViewMap;
+
+        if (!PersistentDataManager.Instance.CanScytheThrow)
+            currentSP = 0;
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
@@ -582,7 +587,7 @@ public class PlayerControllerForces : MonoBehaviour
     public void TakeDamage(float damageTaken)
     {
         currentHP -= damageTaken;
-        invincibilityTimer = 2.0f;
+        invincibilityTimer = 1.0f;
         hasInvincibility = true;
         takeDamageSFX();
 
@@ -593,11 +598,24 @@ public class PlayerControllerForces : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         this.hasInvincibility = false;
+        invincibilityTimer = 0;
+        SetSpriteColors(Color.white);
 
         currentHP = Data.maxHP;
         currentSP = Data.maxSP;
 
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
+        foreach (Room room in PersistentDataManager.Instance.rooms)
+        {
+            if (room.gameObject.activeInHierarchy)
+                room.GetComponent<EnemyManager>().DeleteEnemies();
+
+
+            if (room.GetComponentInChildren<ArenaManager>() != null)
+            {
+                room.GetComponentInChildren<ArenaManager>().CombatEnd();
+            }
+        }
 
         if (!playerState.IsFacingRight)
             Turn();
@@ -709,7 +727,7 @@ public class PlayerControllerForces : MonoBehaviour
             playerState.IsWalking = false;
         else
             playerState.IsWalking = true;
-
+     
 
         //Calculate the direction and our desired velocity
         float targetSpeed = direction * Data.walkMaxSpeed * walkModifier;
@@ -779,7 +797,6 @@ public class PlayerControllerForces : MonoBehaviour
 
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         jumpVelocity = rb.velocity.y;
-
         playJumpSFX(jumpInstance, 0);
         FMODJumpFinished = false;
         FMODIsLandedPlayed = false;
@@ -996,6 +1013,10 @@ public class PlayerControllerForces : MonoBehaviour
             {
                 stopSlideSFX(slideInstance);
                 playLandSFX(landInstance);
+                if (playervfx != null) 
+                {
+                    playervfx.Land();
+                }
                 FMODIsLandedPlayed = true;
             }
             
@@ -1324,17 +1345,6 @@ public class PlayerControllerForces : MonoBehaviour
         if (currentHP <= 0)
         {
             UIManager.Instance.HandlePlayerDeath();
-            foreach (Room room in PersistentDataManager.Instance.rooms)
-            {
-                if (room.gameObject.activeInHierarchy)
-                    room.GetComponent<EnemyManager>().DeleteEnemies();
-
-
-                if (room.GetComponentInChildren<ArenaManager>() != null)
-                {
-                    room.GetComponentInChildren<ArenaManager>().CombatEnd();
-                }
-            }
         }
 
         else
@@ -1589,6 +1599,7 @@ public class PlayerControllerForces : MonoBehaviour
         isSlidingPlayed = false;
         //Debug.Log("Stopped Sliding");
     }
+
         #endregion
 
         private void TempResetData()

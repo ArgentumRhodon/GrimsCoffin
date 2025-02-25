@@ -92,12 +92,13 @@ public class TransitionDoor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerControllerForces.Instance.Sleep(1.5f);
-            if (areaEntering.GetComponent<Room>().roomIndex == 2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
+            PlayerControllerForces.Instance.EndSleep();
+            PlayerControllerForces.Instance.ToggleSleep(true);
+            if (areaEntering.GetComponent<Room>().roomIndex == -2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
             {
                 PlayerControllerForces.Instance.Data.canDash = true;
             }
-            else if(areaEntering.GetComponent<Room>().roomIndex == 3 && SceneManager.GetActiveScene().name == "OnboardingLevel")
+            else if(areaEntering.GetComponent<Room>().roomIndex == -3 && SceneManager.GetActiveScene().name == "OnboardingLevel")
             {
                 PlayerControllerForces.Instance.Data.canDoubleJump = true;
                 PlayerControllerForces.Instance.Data.canWallJump = true;
@@ -161,7 +162,8 @@ public class TransitionDoor : MonoBehaviour
         areaExiting.SetActive(false);
         Room Exit = areaExiting.GetComponent<Room>();
         Exit.RoomLive = false;
-            
+
+        PlayerControllerForces.Instance.ToggleSleep(false);    
     }
     IEnumerator FadeOut(float duration)
     {
