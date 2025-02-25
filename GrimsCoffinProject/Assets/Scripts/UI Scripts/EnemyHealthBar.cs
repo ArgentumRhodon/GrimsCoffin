@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField] private Enemy enemyScript;
-    [SerializeField] private GameObject healthBar;
     [SerializeField] private Image fill;
 
     private float maxHP;
@@ -21,11 +20,13 @@ public class EnemyHealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyScript.health < maxHP)
-        {
-            healthBar.SetActive(true);
-        }
+        if (enemyScript.health < maxHP && enemyScript.health > 0)
+            this.GetComponent<Canvas>().enabled = true;
 
-        fill.fillAmount = enemyScript.health / maxHP;
+        else if (enemyScript.health <= 0 || enemyScript.health >= maxHP)
+            this.GetComponent<Canvas>().enabled = false;
+
+
+        fill.fillAmount = Mathf.MoveTowards(fill.fillAmount, (enemyScript.health / maxHP), Time.unscaledDeltaTime);
     }
 }

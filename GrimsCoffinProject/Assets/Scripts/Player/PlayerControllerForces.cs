@@ -214,6 +214,9 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canScytheThrow = PersistentDataManager.Instance.CanScytheThrow;
         Data.canViewMap = PersistentDataManager.Instance.CanViewMap;
 
+        if (!PersistentDataManager.Instance.CanScytheThrow)
+            currentSP = 0;
+
         LastJumpTime = 0;
         LastWallJumpTime = 0;
 
@@ -584,7 +587,7 @@ public class PlayerControllerForces : MonoBehaviour
     public void TakeDamage(float damageTaken)
     {
         currentHP -= damageTaken;
-        invincibilityTimer = 2.0f;
+        invincibilityTimer = 1.0f;
         hasInvincibility = true;
         takeDamageSFX();
 
