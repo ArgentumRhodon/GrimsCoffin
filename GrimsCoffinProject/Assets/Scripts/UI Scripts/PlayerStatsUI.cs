@@ -27,8 +27,8 @@ public class PlayerStatsUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthBar.sizeDelta = new Vector2(player.Data.maxHP * 7, 35);
-        healthBarFill.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2((player.Data.maxHP * 7), 28.8f);
+        healthBar.sizeDelta = new Vector2(player.Data.maxHP * 5, 35);
+        healthBarFill.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2((player.Data.maxHP * 5), 28.8f);
 
         healthBarFill.fillAmount = Mathf.MoveTowards(healthBarFill.fillAmount, (player.currentHP / player.Data.maxHP), Time.unscaledDeltaTime);
         spiritBarFill.fillAmount = Mathf.MoveTowards(spiritBarFill.fillAmount, (player.currentSP / player.Data.maxSP), Time.unscaledDeltaTime);
