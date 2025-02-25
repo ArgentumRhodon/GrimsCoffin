@@ -587,7 +587,7 @@ public class PlayerControllerForces : MonoBehaviour
     public void TakeDamage(float damageTaken)
     {
         currentHP -= damageTaken;
-        invincibilityTimer = 2.0f;
+        invincibilityTimer = 1.0f;
         hasInvincibility = true;
         takeDamageSFX();
 
