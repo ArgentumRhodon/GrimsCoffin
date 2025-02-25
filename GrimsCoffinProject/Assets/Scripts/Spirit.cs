@@ -11,6 +11,7 @@ public class Spirit : Interactable
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] public DialogueManager dialogueManager;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject mapIcon;
 
     public enum SpiritID
     {
@@ -38,6 +39,7 @@ public class Spirit : Interactable
     {
         spiritUI = UIManager.Instance.gameUI.GetComponentInChildren<SpiritCollectUI>();
         dialogueManager = FindObjectOfType<DialogueManager>();
+        mapIcon.SetActive(true);
 
         spiritState = PersistentDataManager.Instance.GetSpiritState(this);
     }
