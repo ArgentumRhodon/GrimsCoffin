@@ -786,13 +786,13 @@ MonoBehaviour:
   health: 45
   visionRange: 20
   collisionDamage: 3
-  damageOnCollision: 1
+  damageOnCollision: 0
   knockbackMult: 0.5
   hurtDodgeMin: 2
   hurtMaxTimer: 1
   attackDamages:
-  - 10
   - 15
+  - 20
   movementSpeed: 10
   seekSpeed: 12
   movementAcceleration: 8
@@ -1092,5 +1092,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyScript: {fileID: 0}
-  healthBar: {fileID: 217673794023832414}
   fill: {fileID: 6073276399731331197}
