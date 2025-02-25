@@ -12,7 +12,7 @@ public class EnemyDrop : MonoBehaviour
 
 
     [SerializeField] public EnemyDropType dropType;
-    [SerializeField] public float value = 10;
+    [SerializeField] public float value = 5;
 
     [SerializeField] private float speed = 15;
     [SerializeField] private float lifetime = 3.5f;
@@ -89,7 +89,7 @@ public class EnemyDrop : MonoBehaviour
 
             case EnemyDropType.SpiritPower:
                 PlayerControllerForces.Instance.currentSP += value;
-                PlayerControllerForces.Instance.currentHP = Mathf.Clamp(PlayerControllerForces.Instance.currentSP, 0, PlayerControllerForces.Instance.Data.maxSP);
+                PlayerControllerForces.Instance.currentSP = Mathf.Clamp(PlayerControllerForces.Instance.currentSP, 0, PlayerControllerForces.Instance.Data.maxSP);
                 break;
         }
 
