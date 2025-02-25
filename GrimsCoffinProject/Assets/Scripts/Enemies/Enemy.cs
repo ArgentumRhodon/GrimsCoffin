@@ -17,6 +17,7 @@ public abstract class Enemy : MonoBehaviour
 
     //Damage ------------------------------------------------------------------------------------------------------
     [SerializeField] public float collisionDamage;
+    [SerializeField] public bool damageOnCollision;
     [SerializeField][Range(0f, 5f)] protected float knockbackMult;
 
     //Tracks hits
@@ -100,6 +101,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] public GroundChecker wallChecker;
     [SerializeField] public GroundChecker airChecker;
     [SerializeField] public Collider2D visionCollider;
+    [SerializeField] public Collider2D kinematicCollider;
 
     //Attack Colliders --------------------------------------------------------------------------------------------
     [Header("Attack Collision")]
@@ -122,6 +124,10 @@ public abstract class Enemy : MonoBehaviour
         spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         enemyStateList = gameObject.GetComponent<EnemyStateList>();
         behaviorTree = GetComponent<BehaviorTree>();
+
+        //Make sure kinematicCollider doesn't do weird things
+        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), kinematicCollider);
+        Physics2D.IgnoreCollision(attackCollider, kinematicCollider);
 
         //Player refs
         playerTarget = PlayerControllerForces.Instance.gameObject.transform;
@@ -147,7 +153,9 @@ public abstract class Enemy : MonoBehaviour
     //Enemy should implement their own update functionality
     protected virtual void FixedUpdate()
     {
-        CheckCollisionWithPlayer();
+        if(damageOnCollision)
+            CheckCollisionWithPlayer();
+
         CheckCollisionWithPlayer(attackCollider, 10); //TODO: Have specific classes for different enemy types
 
         if (hurtInSuccessionTotal > 0)
@@ -200,8 +208,7 @@ public abstract class Enemy : MonoBehaviour
             if (!collidersDamaged.Contains(collidersToDamage[i]))
             {
                 TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
-                Debug.Log(hitTeamComponent);
-
+                //Debug.Log(hitTeamComponent);
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility
                     && !PlayerControllerForces.Instance.hasDashInvincibility)
@@ -353,6 +360,16 @@ public abstract class Enemy : MonoBehaviour
         spriteRenderer.color = Color.white;
         isSleeping = false;
     }
+
+/*    //Toggle if the Rigidbody is kinematic or not
+    public void ToggleRigidBody(bool isKinematic)
+    {
+        if (isKinematic)
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = isKinematic;
+    }*/
+
 
     #endregion
 

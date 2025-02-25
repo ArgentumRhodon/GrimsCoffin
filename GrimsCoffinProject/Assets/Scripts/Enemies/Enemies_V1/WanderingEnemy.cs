@@ -14,11 +14,6 @@ public class WanderingEnemy : Enemy
     private int direction = 1;
     private bool isFacingRight;
 
-    //Direction Checkers
-    [Header("Direction Collision Checkers")]
-    [SerializeField] private GroundChecker wallChecker;
-    [SerializeField] private GroundChecker airChecker;
-
     //Acceleration
     [Header("Acceleration Rate")]
     [SerializeField] private float walkAcceleration; 
