@@ -18,6 +18,7 @@ public abstract class Enemy : MonoBehaviour
     //Damage ------------------------------------------------------------------------------------------------------
     [SerializeField] public float collisionDamage;
     [SerializeField] public bool damageOnCollision;
+    [SerializeField] public bool canOverlapPlayer;
     [SerializeField][Range(0f, 5f)] protected float knockbackMult;
 
     //Tracks hits
@@ -129,6 +130,9 @@ public abstract class Enemy : MonoBehaviour
         Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), kinematicCollider);
         Physics2D.IgnoreCollision(attackCollider, kinematicCollider);
 
+        if(canOverlapPlayer)
+            ToggleCollide();
+
         //Player refs
         playerTarget = PlayerControllerForces.Instance.gameObject.transform;
         player = PlayerControllerForces.Instance;
@@ -200,8 +204,6 @@ public abstract class Enemy : MonoBehaviour
         ContactFilter2D filter = new ContactFilter2D();
         filter.useTriggers = true;
         int colliderCount = Physics2D.OverlapCollider(hitboxToCheck, filter, collidersToDamage);
-
-        Debug.Log("This is running");
 
         for (int i = 0; i < colliderCount; i++)
         {
@@ -302,6 +304,11 @@ public abstract class Enemy : MonoBehaviour
     public bool Grounded()
     {
         return Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
+    }
+
+    public void ToggleCollide()
+    {
+        rb.excludeLayers = LayerMask.GetMask("Agent");
     }
 
     //Faces specific direction based off of passed in parameter and updates all associated values
