@@ -134,6 +134,8 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public EventReference damageSFX;
     protected EventInstance damageInstance;
 
+    [Header("Player VFX Reference")]
+    [SerializeField] private PlayerVFX playervfx;
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -725,7 +727,7 @@ public class PlayerControllerForces : MonoBehaviour
             playerState.IsWalking = false;
         else
             playerState.IsWalking = true;
-
+     
 
         //Calculate the direction and our desired velocity
         float targetSpeed = direction * Data.walkMaxSpeed * walkModifier;
@@ -795,7 +797,6 @@ public class PlayerControllerForces : MonoBehaviour
 
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         jumpVelocity = rb.velocity.y;
-
         playJumpSFX(jumpInstance, 0);
         FMODJumpFinished = false;
         FMODIsLandedPlayed = false;
@@ -1008,6 +1009,10 @@ public class PlayerControllerForces : MonoBehaviour
             {
                 stopSlideSFX(slideInstance);
                 playLandSFX(landInstance);
+                if (playervfx != null) 
+                {
+                    playervfx.Land();
+                }
                 FMODIsLandedPlayed = true;
             }
             
@@ -1590,6 +1595,7 @@ public class PlayerControllerForces : MonoBehaviour
         isSlidingPlayed = false;
         //Debug.Log("Stopped Sliding");
     }
+
         #endregion
 
         private void TempResetData()
