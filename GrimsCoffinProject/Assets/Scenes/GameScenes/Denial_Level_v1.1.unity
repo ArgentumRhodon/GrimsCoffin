@@ -2575,7 +2575,7 @@ MonoBehaviour:
   dialogueFileName: Dialogue.json
   uiManager: {fileID: 282942411}
   continuePrompt: {fileID: 1352976954}
-  speakerIcon: {fileID: 1125300147}
+  speakerIcon: {fileID: 2035117932}
   continuePromptIcons:
   - {fileID: 21300000, guid: c3a78374cb92b424f9f7d820044845b1, type: 3}
   - {fileID: 21300000, guid: 26bf110d02332ab41a52303839e905e2, type: 3}
@@ -4320,17 +4320,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 140d02b4f88d4094c8ce93159fad036b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1125300147 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4803867170304400887, guid: 1a151c047f48a02478ad33cf0d50b415, type: 3}
-  m_PrefabInstance: {fileID: 2035117930}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1127491821
@@ -6597,6 +6586,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6891082104787685179, guid: 1a151c047f48a02478ad33cf0d50b415, type: 3}
   m_PrefabInstance: {fileID: 2035117930}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2035117932 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9168999391568993081, guid: 1a151c047f48a02478ad33cf0d50b415, type: 3}
+  m_PrefabInstance: {fileID: 2035117930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2040262792 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6256868413404087044, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
