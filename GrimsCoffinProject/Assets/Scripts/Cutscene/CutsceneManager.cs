@@ -17,6 +17,7 @@ public class CutsceneManager : MonoBehaviour
 
     [Header("Sentences")]
     public string[] sentences;
+    public GameObject[] Image;
 
     [Header("Typewriter Settings")]
     [SerializeField] private float charactersPerSecond = 30f;
@@ -107,6 +108,7 @@ public class CutsceneManager : MonoBehaviour
         currentSentenceIndex = 0;
         if (sentences.Length > 0)
         {
+            StartCoroutine(ShowImage());
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         UpdateSkipText();
@@ -224,6 +226,16 @@ public class CutsceneManager : MonoBehaviour
         string currentScheme = playerInput.currentControlScheme;
         // Customize the skip text based on the control scheme if needed.
         skipText.text = "press\tto skip";
+    }
+
+    IEnumerator ShowImage() 
+    {
+        if (Image[currentSentenceIndex] != null) 
+        {
+            Image[currentSentenceIndex].SetActive(true);
+
+        }
+        
     }
 
     /// <summary>
