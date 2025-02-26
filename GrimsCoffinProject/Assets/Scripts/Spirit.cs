@@ -12,6 +12,7 @@ public class Spirit : Interactable
     [SerializeField] public DialogueManager dialogueManager;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject mapIcon;
+    [SerializeField] private GameObject exclamationMark;
 
     public enum SpiritID
     {
@@ -42,6 +43,15 @@ public class Spirit : Interactable
         mapIcon.SetActive(true);
 
         spiritState = PersistentDataManager.Instance.GetSpiritState(this);
+
+        if (spiritState == SpiritState.Collected
+            || spiritID == SpiritID.HealthSpirit && PersistentDataManager.Instance.HealthCollectablesHeld >= 3)
+        {
+            exclamationMark.SetActive(true);
+        }
+
+        else
+            exclamationMark.SetActive(false);
     }
 
     // Update is called once per frame
@@ -58,22 +68,25 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
-        if (dialogueManager != null) 
+        if (dialogueManager != null)
+        {
+            exclamationMark.SetActive(false);
             dialogueManager.ShowDialogueForSpirit(this);
+        }
 
         //if (spiritState == SpiritState.Uncollected)
         //{
-            //PersistentDataManager.Instance.UpdateSpiritState(this);
+        //PersistentDataManager.Instance.UpdateSpiritState(this);
 
-            //spiritUI.ShowSpiritCollectedText();
+        //spiritUI.ShowSpiritCollectedText();
 
-            //Debug.Log("Spirit Collected: " + spiritID.ToString());
+        //Debug.Log("Spirit Collected: " + spiritID.ToString());
 
-            //Destroy(this.gameObject.transform.parent.gameObject);
-       // }
+        //Destroy(this.gameObject.transform.parent.gameObject);
+        // }
         //else if (spiritState == SpiritState.Collected)
         //{
-           // PersistentDataManager.Instance.UpdateSpiritState(this);
-       // }
+        // PersistentDataManager.Instance.UpdateSpiritState(this);
+        // }
     }
 }
