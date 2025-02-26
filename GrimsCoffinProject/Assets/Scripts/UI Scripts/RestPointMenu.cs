@@ -13,6 +13,8 @@ public class RestPointMenu: MonoBehaviour
     [SerializeField] private GameObject outsideEQPanel;
     [SerializeField] private GameObject insideEQPanel;
 
+    [SerializeField] public SavePoint restPoint;
+
 
     // Start is called before the first frame update
     void Start()
@@ -80,6 +82,8 @@ public class RestPointMenu: MonoBehaviour
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
             Time.timeScale = 1;
         }
+
+        restPoint.coffinOpen = !restPoint.coffinOpen;
     }
 
     public void Heal()
