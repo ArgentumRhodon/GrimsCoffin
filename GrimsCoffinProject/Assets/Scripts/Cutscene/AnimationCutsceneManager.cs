@@ -15,10 +15,12 @@ public class AnimationCutsceneManager : MonoBehaviour
     public TextMeshProUGUI indicatorText;
     public TextMeshProUGUI skipText;
     public SceneController sceneController;
+    public GameObject DialogueUI;
 
     [Header("Sentences")]
     public string[] sentences;
-    public PlayableDirector[] Animation;
+    public PlayableDirector NextAnimation;
+    public PlayableDirector PrevAnimation;
 
     [Header("Typewriter Settings")]
     [SerializeField] private float charactersPerSecond = 30f;
@@ -109,7 +111,6 @@ public class AnimationCutsceneManager : MonoBehaviour
         currentSentenceIndex = 0;
         if (sentences.Length > 0)
         {
-            StartCoroutine(ShowImage());
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         UpdateSkipText();
@@ -145,13 +146,14 @@ public class AnimationCutsceneManager : MonoBehaviour
         currentSentenceIndex++;
         if (currentSentenceIndex < sentences.Length)
         {
-            StartCoroutine(ShowImage());
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         else
         {
-            StopAllCoroutines();
-            sceneController.LoadNextScene();
+            PrevAnimation.Stop();
+            NextAnimation.Play();
+            Debug.Log("Continue");
+            //StopAllCoroutines();
             controls.Dialogue.Continue.performed -= OnContinue;
         }
     }
@@ -229,17 +231,10 @@ public class AnimationCutsceneManager : MonoBehaviour
         skipText.text = "press\tto skip";
     }
 
-    IEnumerator ShowImage()
+    public void ShowUI() 
     {
-        if (Animation[currentSentenceIndex] != null)
-        {
-            Animation[currentSentenceIndex].Play();
-            yield return new WaitForSeconds(0.5f);
-        }
-        else 
-        {
-            Debug.Log("No Image & animation");
-        }
+        DialogueUI.SetActive(true);
+        StartCutscene();
     }
 
     /// <summary>
