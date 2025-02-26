@@ -6,7 +6,8 @@ public static class PlayerAnimationStates
 {
     public static readonly string Idle = "Idle";
     public static readonly string Run = "Run";
-    public static readonly string Jump = "Jump";
+    public static readonly string JumpUp = "JumpUp";
+    public static readonly string JumpDown = "JumpDown";
     public static readonly string Dash = "Dash";
     public static readonly string GroundCharge = "GroundCharge";
     public static readonly string GroundDown = "GroundDown";
