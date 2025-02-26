@@ -19,6 +19,8 @@ public class AnimationCutsceneManager : MonoBehaviour
 
     [Header("Sentences")]
     public string[] sentences;
+    public int[] SpeakerID;
+    public Sprite[] Speaker;
     public PlayableDirector NextAnimation;
     public PlayableDirector PrevAnimation;
 
@@ -105,7 +107,7 @@ public class AnimationCutsceneManager : MonoBehaviour
         }
     }
 
-    public void StartCutscene()
+    public void StartCutscene(int speaker)
     {
         cutsceneActive = true;
         currentSentenceIndex = 0;
@@ -150,6 +152,8 @@ public class AnimationCutsceneManager : MonoBehaviour
         }
         else
         {
+            PrevAnimation.time = 0;
+            StopAllCoroutines();
             PrevAnimation.Stop();
             NextAnimation.Play();
             Debug.Log("Continue");
@@ -229,12 +233,6 @@ public class AnimationCutsceneManager : MonoBehaviour
         string currentScheme = playerInput.currentControlScheme;
         // Customize the skip text based on the control scheme if needed.
         skipText.text = "press\tto skip";
-    }
-
-    public void ShowUI() 
-    {
-        DialogueUI.SetActive(true);
-        StartCutscene();
     }
 
     /// <summary>

@@ -19,7 +19,6 @@ public class CutsceneManager : MonoBehaviour
     [Header("Sentences")]
     public string[] sentences;
     public GameObject[] Image;
-    public PlayableDirector[] Animation;
 
     [Header("Typewriter Settings")]
     [SerializeField] private float charactersPerSecond = 30f;
@@ -232,10 +231,9 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator ShowImage()
     {
-        if (Image[currentSentenceIndex] != null && Animation[currentSentenceIndex] != null)
+        if (Image[currentSentenceIndex] != null)
         {
             Image[currentSentenceIndex].SetActive(true);
-            Animation[currentSentenceIndex].Play();
             yield return new WaitForSeconds(0.5f);
         }
         else 
