@@ -10,7 +10,7 @@ namespace Core.AI
         public string animationTriggerName;
         public override TaskStatus OnUpdate()
         {
-            if(enemyScript.IsDamaged && !enemyScript.enemyStateList.IsAttacking && enemyScript.CanBeStopped)// && enemyScript.IsStaggered)
+            if(enemyScript.enemyStateList.IsDamaged && !enemyScript.enemyStateList.IsAttacking && enemyScript.CanBeStopped)// && enemyScript.IsStaggered)
             {
                 animator.Play(animationTriggerName);
                 return TaskStatus.Success;

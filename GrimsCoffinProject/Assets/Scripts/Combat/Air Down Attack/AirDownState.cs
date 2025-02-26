@@ -52,4 +52,11 @@ public class AirDownState : MeleeBaseState
 
         return new Vector2(direction * playerCombat.Data.aerialDownwardEForce.x, playerCombat.Data.aerialDownwardEForce.y);
     }
+
+    protected override void RegisterAttack(Collider2D collidersToDamage)
+    {
+        Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
+        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage, true, .5f);
+        collidersDamaged.Add(collidersToDamage);
+    }
 }

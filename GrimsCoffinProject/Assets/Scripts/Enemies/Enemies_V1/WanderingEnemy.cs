@@ -37,7 +37,7 @@ public class WanderingEnemy : Enemy
 
     protected override void FixedUpdate()
     {
-        if (!isSleeping)
+        if (!enemyStateList.IsSleeping)
         {
             UpdatePath();          
         }
@@ -47,7 +47,7 @@ public class WanderingEnemy : Enemy
     {
         CheckFlip();
 
-        if (!isSleeping)
+        if (!enemyStateList.IsSleeping)
         {
             Walk(1);
         }

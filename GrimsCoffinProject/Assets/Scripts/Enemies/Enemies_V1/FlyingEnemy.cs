@@ -24,7 +24,7 @@ public class FlyingEnemy : Enemy
 
     protected override void FixedUpdate()
     {
-        if (!isSleeping)
+        if (!enemyStateList.IsSleeping)
         {
             PathFollow();
         }

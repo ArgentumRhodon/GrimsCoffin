@@ -874,7 +874,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         //Become invincible and make sprite transparent while dashing
         hasDashInvincibility = true;
-        rb.excludeLayers = LayerMask.GetMask("Agent");
+        rb.excludeLayers = LayerMask.GetMask("Enemy");
    
         Color tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 0.5f;

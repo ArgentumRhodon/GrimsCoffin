@@ -5,6 +5,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Playables;
 using BehaviorDesigner.Runtime;
+using UnityEngine.UIElements;
+using UnityEngine.Rendering;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -54,20 +56,11 @@ public abstract class Enemy : MonoBehaviour
     public bool CanBeStopped { get { return canBeStopped; } set { canBeStopped = value; } }
 
     //Enemy Statuses ----------------------------------------------------------------------------------------------
-    protected bool isSleeping;
-    protected bool isHitDown;
-    protected bool isBlocking;
-    protected bool isStaggered;
-    protected bool isDamaged;
-    protected bool isDead;
     private int direction = 1;
+    private float staggerTimer;
 
     //Public get/setters
-    public bool IsBlocking { get { return isBlocking; } set { isBlocking = value; } }
-    public bool IsStaggered { get { return isStaggered; } set { isStaggered = value; } }
-    public bool IsDamaged { get { return isDamaged; } set { isDamaged = value; } }
     public int Direction { get { return direction; } set { direction = value; } }
-
 
     [Header("GameObject References")] // --------------------------------------------------------------------------
     [SerializeField] protected Transform enemyGFX;
@@ -144,8 +137,8 @@ public abstract class Enemy : MonoBehaviour
         enemyDropList = GameObject.Find("Enemy Drops");
 
         //Set states and variables
-        isSleeping = false;
-        isDead = false;
+        enemyStateList.IsSleeping = false;
+        enemyStateList.IsDead = false;
 
         enemyStateList.IsFacingRight = true;
         direction = 1;
@@ -168,6 +161,11 @@ public abstract class Enemy : MonoBehaviour
         {
             hurtInSuccessionTotal = 0;
         }
+
+        if (enemyStateList.IsStaggered)
+        {
+
+        }
     }
     #endregion
 
@@ -176,7 +174,7 @@ public abstract class Enemy : MonoBehaviour
     //Damage player if colliding with the enemy
     public virtual void CheckCollisionWithPlayer()
     {
-        if (isDead) return;
+        if (enemyStateList.IsDead) return;
         if (!canDamageWhenColliding) return;
 
         Collider2D[] collidersToDamage = new Collider2D[10];
@@ -220,23 +218,28 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
-    
-    //Take damage and if below zero, destroy the enemy
-    public virtual void TakeDamage(Vector2 knockbackForce, float damage = 1)
-    {
-        //Delay enemy movement ----- TODO: Check to see if I even need this with the knockbackForce
-        CheckPlayerLoc();
 
+    //Take damage and if below zero, destroy the enemy
+    public virtual void TakeDamage(Vector2 knockbackForce, float damage = 1, bool shouldStagger = false, float staggerDuration = 0.1f)
+    {
         //If the enemy can be stopped, sleep and take a knockback force
         if (canBeStopped)
         {
             EndSleep();
-            isStaggered = true;
-            Sleep(.35f, knockbackForce);
-        }    
+            enemyStateList.IsStaggered = true;
+            Sleep(staggerDuration, knockbackForce);
+        }
+        else
+        {
+            EndSleep();
+            Sleep(.05f, Vector2.zero);
+        }
+
+        //Update the player location
+        UpdatePlayerLoc();
 
         //If the enemy is blocking, don't take damage
-        if (IsBlocking)
+        if (enemyStateList.IsBlocking && isPlayerOnRight && enemyStateList.IsFacingRight)
             return;
 
         //Remove health
@@ -280,7 +283,7 @@ public abstract class Enemy : MonoBehaviour
     //Remove enemy from the room pool
     public virtual void RemoveActiveEnemy()
     {
-        isDead = true;
+        enemyStateList.IsDead = true;
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
     }
 
@@ -341,19 +344,26 @@ public abstract class Enemy : MonoBehaviour
     {
         //Method to stop the coroutine from running 
         StopCoroutine(nameof(PerformSleep));
-        isSleeping = false;
+        enemyStateList.IsSleeping = false;
     }
 
     private IEnumerator PerformSleep(float duration, Vector2 knockbackForce)
     {
         //Sleeping
-        isSleeping = true;
+        enemyStateList.IsSleeping = true;
         behaviorTree.enabled = false;
         animator.speed = 0;
         spriteRenderer.color = Color.red;
 
+        //Updated gravity if there is knockback 
+        if (knockbackForce.x != 0 && knockbackForce.y != 0)
+        {
+            rb.gravityScale = 2;
+        }
         //Deal knockback impulse
         Knockback(knockbackForce);
+
+
 /*        if (knockbackForce.x == 0 && knockbackForce.y == 0)
             Knockback(knockbackForce);
         else
@@ -370,25 +380,18 @@ public abstract class Enemy : MonoBehaviour
         animator.speed = 1f;
         behaviorTree.enabled = true;
         spriteRenderer.color = Color.white;
-        isSleeping = false;
+        enemyStateList.IsSleeping = false;
+        rb.gravityScale = 1;
+
+        if (enemyStateList.IsStaggered)
+            enemyStateList.IsStaggered = false;
     }
-
-/*    //Toggle if the Rigidbody is kinematic or not
-    public void ToggleRigidBody(bool isKinematic)
-    {
-        if (isKinematic)
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-
-        gameObject.GetComponent<Rigidbody2D>().isKinematic = isKinematic;
-    }*/
-
-
     #endregion
 
     //Player Checks & Methods -------------------------------------------------------------------------------------
     #region Player Checks & Methods  
     //Check player location, used when player takes damage (may not be needed since knockback is calculated in the combat scripts)
-    protected void CheckPlayerLoc()
+    protected void UpdatePlayerLoc()
     {
         if (playerTarget.position.x > transform.position.x)
             isPlayerOnRight = true;
