@@ -877,6 +877,8 @@ public class PlayerControllerForces : MonoBehaviour
         dashesLeft--;
         isDashAttacking = true;
 
+        transform.position = new Vector2(transform.position.x, transform.position.y + .02f);
+
         //Become invincible and make sprite transparent while dashing
         hasDashInvincibility = true;
         Color tmp = animator.GetComponent<SpriteRenderer>().color;
