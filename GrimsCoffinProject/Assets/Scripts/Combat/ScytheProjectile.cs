@@ -80,7 +80,7 @@ public class ScytheProjectile : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {  
+    {
         if (collision.gameObject.layer == 3)
         {
             distance = maxDistance;
@@ -89,8 +89,12 @@ public class ScytheProjectile : MonoBehaviour
         if (collision.gameObject.GetComponent<TeamComponent>() != null)
         {
             if (collision.gameObject.GetComponent<TeamComponent>().teamIndex == TeamIndex.Enemy)
-            {
                 collision.gameObject.GetComponent<Enemy>().TakeDamage(Vector2.zero, damage);
+
+            else if (collision.gameObject.GetComponent<TeamComponent>().teamIndex == TeamIndex.BreakWall)
+            {
+                distance = maxDistance;
+                collision.gameObject.GetComponent<BreakableWall>().TakeDamage(damage);
             }
         }
     }

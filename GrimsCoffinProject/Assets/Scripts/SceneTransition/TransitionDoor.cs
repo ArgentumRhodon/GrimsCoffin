@@ -94,11 +94,11 @@ public class TransitionDoor : MonoBehaviour
         {
             PlayerControllerForces.Instance.EndSleep();
             PlayerControllerForces.Instance.ToggleSleep(true);
-            if (areaEntering.GetComponent<Room>().roomIndex == 2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
+            if (areaEntering.GetComponent<Room>().roomIndex == -2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
             {
                 PlayerControllerForces.Instance.Data.canDash = true;
             }
-            else if(areaEntering.GetComponent<Room>().roomIndex == 3 && SceneManager.GetActiveScene().name == "OnboardingLevel")
+            else if(areaEntering.GetComponent<Room>().roomIndex == -3 && SceneManager.GetActiveScene().name == "OnboardingLevel")
             {
                 PlayerControllerForces.Instance.Data.canDoubleJump = true;
                 PlayerControllerForces.Instance.Data.canWallJump = true;

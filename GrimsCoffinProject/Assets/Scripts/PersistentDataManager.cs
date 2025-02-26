@@ -228,9 +228,9 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetFloat("DamageMultiplier", 1);
 
         //Reset Player Abilities
-        PlayerPrefs.SetInt("CanDoubleJump", 0);
-        PlayerPrefs.SetInt("CanWallJump", 0);
-        PlayerPrefs.SetInt("CanDash", 0);
+        PlayerPrefs.SetInt("CanDoubleJump", 1);
+        PlayerPrefs.SetInt("CanWallJump", 1);
+        PlayerPrefs.SetInt("CanDash", 1);
         PlayerPrefs.SetInt("CanViewMap", 0);
         PlayerPrefs.SetInt("CanScytheThrow", 0);
 
