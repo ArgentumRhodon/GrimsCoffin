@@ -8,7 +8,7 @@ using FMODUnity;
 using FMOD.Studio;
 using UnityEngine.Playables;
 
-public class CutsceneManager : MonoBehaviour
+public class AnimationCutsceneManager : MonoBehaviour
 {
     [Header("UI References")]
     public TextMeshProUGUI dialogueText;
@@ -18,7 +18,6 @@ public class CutsceneManager : MonoBehaviour
 
     [Header("Sentences")]
     public string[] sentences;
-    public GameObject[] Image;
     public PlayableDirector[] Animation;
 
     [Header("Typewriter Settings")]
@@ -50,7 +49,7 @@ public class CutsceneManager : MonoBehaviour
         controls = new PlayerControls();
         controls.Enable();
         playerInput = GetComponent<PlayerInput>();
-        StartCutscene();
+        //StartCutscene();
         //AdvanceSentence();
     }
 
@@ -232,9 +231,8 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator ShowImage()
     {
-        if (Image[currentSentenceIndex] != null && Animation[currentSentenceIndex] != null)
+        if (Animation[currentSentenceIndex] != null)
         {
-            Image[currentSentenceIndex].SetActive(true);
             Animation[currentSentenceIndex].Play();
             yield return new WaitForSeconds(0.5f);
         }
