@@ -231,8 +231,8 @@ public abstract class Enemy : MonoBehaviour
         if (canBeStopped)
         {
             EndSleep();
-            Sleep(.35f, knockbackForce);
             isStaggered = true;
+            Sleep(.35f, knockbackForce);
         }    
 
         //If the enemy is blocking, don't take damage
@@ -354,11 +354,16 @@ public abstract class Enemy : MonoBehaviour
 
         //Deal knockback impulse
         Knockback(knockbackForce);
+/*        if (knockbackForce.x == 0 && knockbackForce.y == 0)
+            Knockback(knockbackForce);
+        else
+            Knockback(knockbackForce);*/
+
         yield return new WaitForSecondsRealtime(duration / 8);
 
         //Reset impulse from combat
-        if (knockbackMult != 0)
-            rb.velocity = new Vector2(rb.velocity.x * .05f, 0);
+/*        if (knockbackMult != 0)
+            rb.velocity = new Vector2(rb.velocity.x * .05f, 0);*/
 
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
 

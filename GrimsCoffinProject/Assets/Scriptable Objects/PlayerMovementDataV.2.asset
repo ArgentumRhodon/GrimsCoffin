@@ -89,12 +89,12 @@ MonoBehaviour:
   combo4Damage: 10
   canGUpAttack: 1
   groundUpwardPForce: -20
-  groundUpwardEForce: {x: 0, y: 0}
+  groundUpwardEForce: {x: 1.2, y: 5}
   gUpAttackDuration: 0.4
   groundUpDamage: 5
   canGDownAttack: 1
   groundDownwardPForce: 0
-  groundDownwardEForce: 0
+  groundDownwardEForce: {x: 5, y: 2}
   gDownWalkModifier: 0.2
   gdHoldDuration: 1.25
   gDownAttackDuration: 0.25
@@ -105,7 +105,7 @@ MonoBehaviour:
   aerialUpDamage: 3
   canADownAttack: 1
   aerialDownwardPForce: 50
-  aerialDownwardEForce: 0
+  aerialDownwardEForce: {x: 0, y: -5}
   aDownAttackDuration: 5
   aDownAttackReset: 0.4
   aerialDownDamage: 7

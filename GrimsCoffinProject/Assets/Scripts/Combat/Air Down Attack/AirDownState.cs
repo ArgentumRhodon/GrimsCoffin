@@ -41,22 +41,15 @@ public class AirDownState : MeleeBaseState
 
     }
 
-/*    protected virtual void RegisterAttack(Collider2D collidersToDamage)
+    protected override Vector2 KnockbackForce(Vector2 enemyPos)
     {
-        Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
-        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
-        collidersDamaged.Add(collidersToDamage);
-    }*/
+        //Check direction for knockback
+        int direction;
+        if (IsPlayerOnRight(enemyPos))
+            direction = -1;
+        else
+            direction = 1;
 
-    /*    protected override Vector2 KnockbackForce(Vector2 enemyPos)
-        {
-            //Check direction for knockback
-            int direction;
-            if (IsPlayerOnRight(enemyPos))
-                direction = -1;
-            else
-                direction = 1;
-
-            return new Vector2(direction, 0);
-        }*/
+        return new Vector2(direction * playerCombat.Data.aerialDownwardEForce.x, playerCombat.Data.aerialDownwardEForce.y);
+    }
 }
