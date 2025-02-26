@@ -1,3 +1,4 @@
+using BehaviorDesigner.Runtime.Tasks.Unity.Math;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,13 +27,11 @@ public class PlayerStatsUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthBar.sizeDelta = new Vector2(player.Data.maxHP * 7, 35);
-        healthBarFill.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(player.Data.maxHP * 7, 35);
-        spiritBar.sizeDelta = new Vector2(player.Data.maxSP * 3, 35);
-        spiritBarFill.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(player.Data.maxSP * 3, 35);
+        healthBar.sizeDelta = new Vector2(player.Data.maxHP * 5, 35);
+        healthBarFill.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2((player.Data.maxHP * 5), 28.8f);
 
-        healthBarFill.fillAmount = player.currentHP / player.Data.maxHP;
-        spiritBarFill.fillAmount = player.currentSP / player.Data.maxSP;
+        healthBarFill.fillAmount = Mathf.MoveTowards(healthBarFill.fillAmount, (player.currentHP / player.Data.maxHP), Time.unscaledDeltaTime);
+        spiritBarFill.fillAmount = Mathf.MoveTowards(spiritBarFill.fillAmount, (player.currentSP / player.Data.maxSP), Time.unscaledDeltaTime);
 
         UIManager.Instance.LowHealthVignette(LowHealth());
     }
