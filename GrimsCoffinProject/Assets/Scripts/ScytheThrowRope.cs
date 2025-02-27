@@ -6,6 +6,7 @@ public class ScytheThrowRope : MonoBehaviour
 {
     private float health = 1;
     [SerializeField] public int ropeIndex;
+    [SerializeField] private GameObject mapIcon;
 
     [SerializeField]
     private ScytheThrowPlatform pf;
@@ -39,6 +40,7 @@ public class ScytheThrowRope : MonoBehaviour
         if (health <= 0)
         {
             PersistentDataManager.Instance.CutPlatform(ropeIndex);
+            Destroy(mapIcon);
             pf.PlatformFall();
             Destroy(this.gameObject);
         }
