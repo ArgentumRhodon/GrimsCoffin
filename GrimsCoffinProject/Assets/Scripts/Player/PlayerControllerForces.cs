@@ -1444,6 +1444,23 @@ public class PlayerControllerForces : MonoBehaviour
         
     }
 
+    public void ToggleSleepGravity(bool toggleOn)
+    {
+        if (toggleOn)
+        {
+            rb.velocity = Vector2.zero;
+            SetGravityScale(0);
+            isSleeping = true;
+        }
+
+        else
+        {
+            isSleeping = false;
+            SetGravityScale(1);
+        }
+    }
+
+
     public void SleepWalk()
     {
         rb.velocity = Vector2.zero;

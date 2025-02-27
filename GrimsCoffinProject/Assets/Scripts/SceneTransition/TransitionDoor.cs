@@ -93,7 +93,7 @@ public class TransitionDoor : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerControllerForces.Instance.EndSleep();
-            PlayerControllerForces.Instance.ToggleSleep(true);
+            PlayerControllerForces.Instance.ToggleSleepGravity(true);
             if (areaEntering.GetComponent<Room>().roomIndex == -2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
             {
                 PlayerControllerForces.Instance.Data.canDash = true;
@@ -163,7 +163,7 @@ public class TransitionDoor : MonoBehaviour
         Room Exit = areaExiting.GetComponent<Room>();
         Exit.RoomLive = false;
 
-        PlayerControllerForces.Instance.ToggleSleep(false);    
+        PlayerControllerForces.Instance.ToggleSleepGravity(false);    
     }
     IEnumerator FadeOut(float duration)
     {
