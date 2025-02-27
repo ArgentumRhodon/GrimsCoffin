@@ -152,7 +152,7 @@ public abstract class Enemy : MonoBehaviour
         if (damageOnCollision)
             CheckCollisionWithPlayer();
 
-        CheckCollisionWithPlayer(attackCollider, 10); //TODO: Have specific classes for different enemy types
+        CheckCollisionWithPlayer(attackCollider, attackDamage); //TODO: Have specific classes for different enemy types
 
         if (hurtInSuccessionTotal > 0)
             hurtSuccessionTimer -= Time.deltaTime;
