@@ -368,7 +368,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         // Grounded() check did not work here
-        if (!playerState.IsJumping && !isJumpFalling && !playerState.IsAttacking && !playerState.IsDashing)
+        if (!playerState.IsJumping && rb.velocity.y > -.1f && !playerState.IsAttacking && !playerState.IsDashing)
         {
             if (Math.Abs(rb.velocity.x) < 1)
             {
@@ -378,6 +378,11 @@ public class PlayerControllerForces : MonoBehaviour
             {
                 PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Run);
             }
+        }
+
+        if(rb.velocity.y < -.1f && !playerState.IsAttacking && !playerState.IsDashing)
+        {
+            PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.JumpDown);
         }
 
         CheckIdle();     
@@ -801,7 +806,7 @@ public class PlayerControllerForces : MonoBehaviour
         FMODJumpFinished = false;
         FMODIsLandedPlayed = false;
 
-        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Jump);
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.JumpUp);
     }
 
     //Wall jump
@@ -871,6 +876,8 @@ public class PlayerControllerForces : MonoBehaviour
         //Update states
         dashesLeft--;
         isDashAttacking = true;
+
+        transform.position = new Vector2(transform.position.x, transform.position.y + .02f);
 
         //Become invincible and make sprite transparent while dashing
         hasDashInvincibility = true;
@@ -1028,10 +1035,6 @@ public class PlayerControllerForces : MonoBehaviour
             //Debug.Log("Reseting wall jump");
             airJumpCounter = 0;
         }
-
-        // Update animator jump variable
-        animator.SetBool("IsJumping", playerState.IsJumping || isJumpFalling);
-
     }
 
     //Dash variables
@@ -1444,6 +1447,23 @@ public class PlayerControllerForces : MonoBehaviour
             isSleeping = false;
         
     }
+
+    public void ToggleSleepGravity(bool toggleOn)
+    {
+        if (toggleOn)
+        {
+            rb.velocity = Vector2.zero;
+            SetGravityScale(0);
+            isSleeping = true;
+        }
+
+        else
+        {
+            isSleeping = false;
+            SetGravityScale(1);
+        }
+    }
+
 
     public void SleepWalk()
     {
