@@ -147,7 +147,7 @@ Rigidbody2D:
   m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -356,6 +356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f6c2c1101f4744e9e985fb5df6216f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ropeIndex: 0
+  mapIcon: {fileID: 0}
   pf: {fileID: 5295142033377170175}
 --- !u!1 &6548644531935473114
 GameObject:
