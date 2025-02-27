@@ -641,8 +641,8 @@ MonoBehaviour:
   hurtDodgeMin: 2
   hurtMaxTimer: 1
   attackDamages:
-  - 15
   - 20
+  - 25
   movementSpeed: 10
   seekSpeed: 12
   movementAcceleration: 8
@@ -669,7 +669,6 @@ MonoBehaviour:
   kinematicCollider: {fileID: 7977824621013812351}
   bodyCollider: {fileID: 7977824621013812351}
   attackCollider: {fileID: 4699518866355440840}
-  canDamageWhenColliding: 1
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0

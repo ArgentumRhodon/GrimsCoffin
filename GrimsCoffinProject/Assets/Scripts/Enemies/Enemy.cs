@@ -230,7 +230,14 @@ public abstract class Enemy : MonoBehaviour
         {
             EndSleep();
             enemyStateList.IsStaggered = true;
-            Sleep(staggerDuration, knockbackForce);
+            
+            if (!Grounded() && enemyStateList.IsStaggered)
+            {
+                Sleep(.4f, knockbackForce, 0);
+                staggerTimer = .4f;
+            }             
+            else
+                Sleep(staggerDuration, knockbackForce);
         }
         else
         {
@@ -347,6 +354,13 @@ public abstract class Enemy : MonoBehaviour
         StartCoroutine(PerformSleep(duration, knockbackForce));
     }
 
+    //Sleep methods to run, end, and execute the sleep coroutine
+    public void Sleep(float duration, Vector2 knockbackForce, int gravityOverride)
+    {
+        //Method to help delay time for movement
+        StartCoroutine(PerformSleep(duration, knockbackForce, gravityOverride));
+    }
+
     public void EndSleep()
     {
         //Method to stop the coroutine from running 
@@ -354,7 +368,7 @@ public abstract class Enemy : MonoBehaviour
         enemyStateList.IsSleeping = false;
     }
 
-    private IEnumerator PerformSleep(float duration, Vector2 knockbackForce)
+    private IEnumerator PerformSleep(float duration, Vector2 knockbackForce, int gravityOverride = -1)
     {
         Debug.Log(knockbackForce);
         //Sleeping
@@ -367,6 +381,11 @@ public abstract class Enemy : MonoBehaviour
         if (Mathf.Abs(knockbackForce.y) > 1)
         {
             rb.gravityScale = 3;
+        }
+
+        if (gravityOverride != -1)
+        {
+            rb.gravityScale = gravityOverride;
         }
 
         //Deal knockback impulse
@@ -384,6 +403,11 @@ public abstract class Enemy : MonoBehaviour
 
         if (enemyStateList.IsStaggered)
             enemyStateList.IsStaggered = false;
+
+        if (gravityOverride != -1)
+        {
+            rb.gravityScale = 3;
+        }
     }
     #endregion
 

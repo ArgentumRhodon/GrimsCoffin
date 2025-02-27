@@ -19,8 +19,9 @@ namespace Core.AI
         public override void OnStart()
         {
             attackCompleted = false;
-
-            DOVirtual.DelayedCall(attackDelay, Attack, false);
+            
+            if(!enemyScript.enemyStateList.IsStaggered)
+                DOVirtual.DelayedCall(attackDelay, Attack, false);
         }
 
         public override TaskStatus OnUpdate()
@@ -30,8 +31,11 @@ namespace Core.AI
                 enemyScript.enemyStateList.IsAttacking = false;
                 return TaskStatus.Success;
             }
+            else if(enemyScript.enemyStateList.IsStaggered)
+                return TaskStatus.Failure;
             else
                 return TaskStatus.Running;
+            
         }
 
         private void Attack()
