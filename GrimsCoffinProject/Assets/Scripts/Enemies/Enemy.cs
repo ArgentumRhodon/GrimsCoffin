@@ -7,6 +7,7 @@ using UnityEngine.Playables;
 using BehaviorDesigner.Runtime;
 using UnityEngine.UIElements;
 using UnityEngine.Rendering;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityCharacterController;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -162,9 +163,13 @@ public abstract class Enemy : MonoBehaviour
             hurtInSuccessionTotal = 0;
         }
 
-        if (enemyStateList.IsStaggered)
+        if (rb.gravityScale > 1 && !enemyStateList.IsStaggered)
         {
-
+            if (Grounded())
+            {
+                rb.gravityScale = 1;
+            }
+                
         }
     }
     #endregion
@@ -235,6 +240,13 @@ public abstract class Enemy : MonoBehaviour
             Sleep(.05f, Vector2.zero);
         }
 
+        if (shouldStagger)
+        {
+            enemyStateList.IsStaggered = true;
+            staggerTimer = staggerDuration;         
+        }
+            
+
         //Update the player location
         UpdatePlayerLoc();
 
@@ -251,10 +263,6 @@ public abstract class Enemy : MonoBehaviour
         //Tracker for enemies that can dodge
         hurtSuccessionTimer = hurtMaxTimer;
         hurtInSuccessionTotal++;
-
-        //Enemy death calculation - TODO: add delayed call for destroy enemy
-/*        if (health <= 0)
-            DestroyEnemy();*/
     }
 
     //Add knockback to the enemy based off a given force
@@ -349,39 +357,31 @@ public abstract class Enemy : MonoBehaviour
 
     private IEnumerator PerformSleep(float duration, Vector2 knockbackForce)
     {
+        Debug.Log(knockbackForce);
         //Sleeping
         enemyStateList.IsSleeping = true;
         behaviorTree.enabled = false;
         animator.speed = 0;
-        spriteRenderer.color = Color.red;
+        //spriteRenderer.color = Color.red;
 
         //Updated gravity if there is knockback 
-        if (knockbackForce.x != 0 && knockbackForce.y != 0)
+        if (Mathf.Abs(knockbackForce.y) > 1)
         {
-            rb.gravityScale = 2;
+            rb.gravityScale = 3;
         }
+
         //Deal knockback impulse
         Knockback(knockbackForce);
 
+        //yield return new WaitForSecondsRealtime(duration / 8);
+        //yield return new WaitForSecondsRealtime(duration / 8 * 7);
 
-/*        if (knockbackForce.x == 0 && knockbackForce.y == 0)
-            Knockback(knockbackForce);
-        else
-            Knockback(knockbackForce);*/
-
-        yield return new WaitForSecondsRealtime(duration / 8);
-
-        //Reset impulse from combat
-/*        if (knockbackMult != 0)
-            rb.velocity = new Vector2(rb.velocity.x * .05f, 0);*/
-
-        yield return new WaitForSecondsRealtime(duration / 8 * 7);
+        yield return new WaitForSecondsRealtime(duration);
 
         animator.speed = 1f;
         behaviorTree.enabled = true;
-        spriteRenderer.color = Color.white;
         enemyStateList.IsSleeping = false;
-        rb.gravityScale = 1;
+        //spriteRenderer.color = Color.white;
 
         if (enemyStateList.IsStaggered)
             enemyStateList.IsStaggered = false;

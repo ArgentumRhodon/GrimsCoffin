@@ -36,10 +36,6 @@ public class AirDownState : MeleeBaseState
         }
     }
 
-    private void FindImpactPoint()
-    {
-
-    }
 
     protected override Vector2 KnockbackForce(Vector2 enemyPos)
     {

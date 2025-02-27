@@ -42,7 +42,7 @@ public class GroundDownRelease : MeleeBaseState
         else
             direction = 1;
 
-        return new Vector2(direction * playerCombat.Data.groundUpwardEForce.x, playerCombat.Data.groundUpwardEForce.y);
+        return new Vector2(direction * playerCombat.Data.groundDownwardEForce.x, playerCombat.Data.groundDownwardEForce.y);
     }
 
     protected override void RegisterAttack(Collider2D collidersToDamage)
