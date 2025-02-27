@@ -20,12 +20,11 @@ public class FlyingEnemy : Enemy
         visionRange = visionRange * visionRange;
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
-        //seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
 
     protected override void FixedUpdate()
     {
-        if (!isSleeping)
+        if (!enemyStateList.IsSleeping)
         {
             PathFollow();
         }
