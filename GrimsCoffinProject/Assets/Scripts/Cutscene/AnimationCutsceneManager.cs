@@ -16,17 +16,18 @@ public class AnimationCutsceneManager : MonoBehaviour
     public TextMeshProUGUI skipText;
     public SceneController sceneController;
     public GameObject DialogueUI;
+    public Image Portait;
 
     [Header("Sentences")]
     public string[] sentences;
     public int[] SpeakerID;
     public Sprite[] Speaker;
-    public PlayableDirector NextAnimation;
     public PlayableDirector PrevAnimation;
+    public PlayableDirector NextAnimation;
 
     [Header("Typewriter Settings")]
-    [SerializeField] private float charactersPerSecond = 30f;
-    [SerializeField] private float punctuationDelay = 0.5f;
+    [SerializeField] private float charactersPerSecond = 40f;
+    [SerializeField] private float punctuationDelay =0.2f;
 
     private PlayerControls controls;
     private PlayerInput playerInput;
@@ -107,12 +108,14 @@ public class AnimationCutsceneManager : MonoBehaviour
         }
     }
 
-    public void StartCutscene(int speaker)
+    public void StartCutscene()
     {
+        DialogueUI.SetActive(true);
         cutsceneActive = true;
         currentSentenceIndex = 0;
         if (sentences.Length > 0)
         {
+            Portait.sprite = Speaker[SpeakerID[currentSentenceIndex]];
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         UpdateSkipText();
@@ -148,11 +151,13 @@ public class AnimationCutsceneManager : MonoBehaviour
         currentSentenceIndex++;
         if (currentSentenceIndex < sentences.Length)
         {
+            Portait.sprite = Speaker[SpeakerID[currentSentenceIndex]];
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         else
         {
-            PrevAnimation.time = 0;
+            DialogueUI.SetActive(false);
+            //PrevAnimation.time = 0;
             StopAllCoroutines();
             PrevAnimation.Stop();
             NextAnimation.Play();

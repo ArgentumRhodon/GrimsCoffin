@@ -34,7 +34,7 @@ public class LoadCutscene : MonoBehaviour
     }
     private void LoadNextScene() 
     {
-        SceneManager.LoadScene("Scene Transition Cutscene");
+        SceneManager.LoadScene("Transition Cutscene 1");
     }
     IEnumerator FadeOut(float duration)
     {

@@ -68,7 +68,7 @@ public class PersistentDataManager : MonoBehaviour
     void Start()
     {
         //If the player is in the cutscene between Onboarding and Denial Area, transition their stats
-        if (SceneManager.GetActiveScene().name == "Scene Transition Cutscene")
+        if (SceneManager.GetActiveScene().name == "Transition Cutscene 1")
             TransitionToDenialArea();
     }
 
@@ -269,6 +269,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("CanDoubleJump", 0);
         PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanDash", 0);
+        PlayerPrefs.SetString("HealthSpirit", "Collected");
     }
 
     public void SetRoomExplored(int roomIndex)
