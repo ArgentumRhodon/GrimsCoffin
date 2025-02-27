@@ -8,6 +8,9 @@ public class SavePoint : Interactable
     public Vector3 position;
     public int roomIndex;
 
+    [SerializeField] private Animator coffinAnimator;
+    [SerializeField] public bool coffinOpen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +20,7 @@ public class SavePoint : Interactable
     // Update is called once per frame
     void Update()
     {
-        
+        coffinAnimator.SetBool("CoffinOpen", coffinOpen);
     }
 
     public override void PerformInteraction()
@@ -30,6 +33,7 @@ public class SavePoint : Interactable
             PersistentDataManager.Instance.SaveGame(this);
         }
 
+        UIManager.Instance.restPointMenu.restPoint = this;
         UIManager.Instance.restPointMenu.ToggleEnterPrompt();
     }
 }

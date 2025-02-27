@@ -877,6 +877,8 @@ public class PlayerControllerForces : MonoBehaviour
         dashesLeft--;
         isDashAttacking = true;
 
+        transform.position = new Vector2(transform.position.x, transform.position.y + .02f);
+
         //Become invincible and make sprite transparent while dashing
         hasDashInvincibility = true;
         Color tmp = animator.GetComponent<SpriteRenderer>().color;
@@ -1441,6 +1443,23 @@ public class PlayerControllerForces : MonoBehaviour
             isSleeping = false;
         
     }
+
+    public void ToggleSleepGravity(bool toggleOn)
+    {
+        if (toggleOn)
+        {
+            rb.velocity = Vector2.zero;
+            SetGravityScale(0);
+            isSleeping = true;
+        }
+
+        else
+        {
+            isSleeping = false;
+            SetGravityScale(1);
+        }
+    }
+
 
     public void SleepWalk()
     {

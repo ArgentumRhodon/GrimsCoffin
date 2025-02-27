@@ -104,6 +104,7 @@ public class PersistentDataManager : MonoBehaviour
             if (spirit.spiritState == Spirit.SpiritState.Collected)
             {
                 StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
+                UIManager.Instance.ShowAbilityUnlock("New Spirit in Equilibrium");
             }
 
             //Spirit Ability Unlocks
