@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScytheThrowRope : MonoBehaviour
 {
     private float health = 1;
+    [SerializeField] public int ropeIndex;
 
     [SerializeField]
     private ScytheThrowPlatform pf;
@@ -37,6 +38,7 @@ public class ScytheThrowRope : MonoBehaviour
         //Enemy death calculation
         if (health <= 0)
         {
+            PersistentDataManager.Instance.CutPlatform(ropeIndex);
             pf.PlatformFall();
             Destroy(this.gameObject);
         }
