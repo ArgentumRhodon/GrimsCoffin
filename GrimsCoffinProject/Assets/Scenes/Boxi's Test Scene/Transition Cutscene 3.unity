@@ -253,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 113004557}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.387024, y: -4.3499756, z: 0}
+  m_LocalPosition: {x: -7.387024, y: -4.3499756, z: 1}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -321,7 +321,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5956632765844785297, guid: 7d8e55f32fd26184cb44c872aeb191ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1236,7 +1236,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1767181267, guid: 061e82098bec6914297b32d1da24200a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1317,8 +1317,6 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: -7257305286514347753, guid: beb29c41584ae37458b58ae799a6053b, type: 2}
-    value: {fileID: 113004559}
   - key: {fileID: -8400734763132494739, guid: beb29c41584ae37458b58ae799a6053b, type: 2}
     value: {fileID: 1465763056}
   - key: {fileID: 3223376470118776997, guid: beb29c41584ae37458b58ae799a6053b, type: 2}
