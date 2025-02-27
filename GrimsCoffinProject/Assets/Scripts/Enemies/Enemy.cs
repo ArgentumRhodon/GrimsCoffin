@@ -102,8 +102,6 @@ public abstract class Enemy : MonoBehaviour
     [Header("Attack Collision")]
     [SerializeField] protected Collider2D bodyCollider;
     [SerializeField] public Collider2D attackCollider;
-
-    [SerializeField] protected bool canDamageWhenColliding;
     #endregion
 
     //Runtime Methods ---------------------------------------------------------------------------------------------
@@ -151,7 +149,7 @@ public abstract class Enemy : MonoBehaviour
     //Enemy should implement their own update functionality
     protected virtual void FixedUpdate()
     {
-        if(damageOnCollision)
+        if (damageOnCollision)
             CheckCollisionWithPlayer();
 
         CheckCollisionWithPlayer(attackCollider, 10); //TODO: Have specific classes for different enemy types
@@ -180,7 +178,7 @@ public abstract class Enemy : MonoBehaviour
     public virtual void CheckCollisionWithPlayer()
     {
         if (enemyStateList.IsDead) return;
-        if (!canDamageWhenColliding) return;
+        if (!damageOnCollision) return;
 
         Collider2D[] collidersToDamage = new Collider2D[10];
         ContactFilter2D filter = new ContactFilter2D();
@@ -191,7 +189,7 @@ public abstract class Enemy : MonoBehaviour
         {
             if (!collidersDamaged.Contains(collidersToDamage[i]))
             {
-                TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
+                TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();              
 
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Player && !PlayerControllerForces.Instance.hasInvincibility
                     && !PlayerControllerForces.Instance.hasDashInvincibility)
@@ -292,6 +290,7 @@ public abstract class Enemy : MonoBehaviour
     public virtual void RemoveActiveEnemy()
     {
         enemyStateList.IsDead = true;
+        kinematicCollider.enabled = false;
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
     }
 
@@ -319,7 +318,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void ToggleCollide()
     {
-        rb.excludeLayers = LayerMask.GetMask("Agent");
+        kinematicCollider.excludeLayers = LayerMask.GetMask("Agent");
     }
 
     //Faces specific direction based off of passed in parameter and updates all associated values

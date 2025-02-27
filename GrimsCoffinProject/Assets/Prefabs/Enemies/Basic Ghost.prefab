@@ -541,7 +541,7 @@ MonoBehaviour:
   movementDeacceleration: 0
   movementDeaccelAmount: 0
   canBePulledDown: 0
-  canBeStopped: 1
+  canBeStopped: 0
   enemyGFX: {fileID: 7666600489444073033}
   enemy: {fileID: 4567458006229910762}
   playerTarget: {fileID: 0}
@@ -560,7 +560,6 @@ MonoBehaviour:
   kinematicCollider: {fileID: 2426847185208555203}
   bodyCollider: {fileID: 2426847185208555203}
   attackCollider: {fileID: 2798288149803154148}
-  canDamageWhenColliding: 0
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0

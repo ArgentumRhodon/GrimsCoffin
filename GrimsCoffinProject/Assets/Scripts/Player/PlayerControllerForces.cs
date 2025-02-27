@@ -229,7 +229,7 @@ public class PlayerControllerForces : MonoBehaviour
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
         }
 
-        TempResetData();
+        //TempResetData();
     }
 
     private void Update()
@@ -882,7 +882,8 @@ public class PlayerControllerForces : MonoBehaviour
         //Become invincible and make sprite transparent while dashing
         hasDashInvincibility = true;
         rb.excludeLayers = LayerMask.GetMask("Enemy");
-   
+        rb.excludeLayers += LayerMask.GetMask("Agent");
+
         Color tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 0.5f;
         animator.GetComponent<SpriteRenderer>().color = tmp;
