@@ -18,8 +18,8 @@ MonoBehaviour:
   cameraWalkOffset: -0.1
   cameraDashOffset: -0.15
   maxHP: 50
-  maxSP: 0
-  respawnPoint: {x: -17.900002, y: 0}
+  maxSP: 50
+  respawnPoint: {x: 541.7, y: -84.28001}
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -62,7 +62,7 @@ MonoBehaviour:
   slideAccel: 1
   coyoteTime: 0.2
   jumpInputBufferTime: 0.2
-  canDash: 1
+  canDash: 0
   dashAmount: 1
   dashSpeed: 27
   dashSleepTime: 0.025
@@ -110,5 +110,5 @@ MonoBehaviour:
   aDownAttackReset: 0.4
   aerialDownDamage: 7
   aerialImpactDamage: 5
-  canScytheThrow: 0
-  canViewMap: 1
+  canScytheThrow: 1
+  canViewMap: 0
