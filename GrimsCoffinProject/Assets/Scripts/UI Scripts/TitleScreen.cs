@@ -21,6 +21,7 @@ public class TitleScreen : MonoBehaviour
     [SerializeField] private GameObject playstationControls;
 
     [SerializeField] private PlayerInput playerControls;
+    [SerializeField] private GameObject buttons;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +62,7 @@ public class TitleScreen : MonoBehaviour
         if (continueButton.GetComponent<Button>().interactable == true)
         {
             newGameConfirmPrompt.SetActive(true);
+            buttons.SetActive(false);
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(newGameYes);
         }
@@ -79,6 +81,7 @@ public class TitleScreen : MonoBehaviour
     public void CancelNewGame()
     {
         newGameConfirmPrompt.SetActive(false);
+        buttons.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(newGame);
     }
