@@ -20,6 +20,9 @@ namespace Core.AI
 
         public override TaskStatus OnUpdate()
         {
+            if (enemyScript.enemyStateList.IsSeeking)
+                return TaskStatus.Success;
+
             if (IsOverlapping())
             {
                 GraphNode node1 = AstarPath.active.GetNearest(rb.position).node;
@@ -36,7 +39,6 @@ namespace Core.AI
             {
                 return TaskStatus.Failure;                
             }
-            //return IsOverlapping() ? TaskStatus.Success : TaskStatus.Failure;
         }
 
         public bool IsOverlapping()

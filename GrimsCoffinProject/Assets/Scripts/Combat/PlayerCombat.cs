@@ -249,6 +249,8 @@ public class PlayerCombat : MonoBehaviour
     #region Attack Checks
     private void BaseAttackCheck()
     {
+        Debug.Log(meleeStateMachine.CurrentState.GetType());
+
         //Check for combo timer, if the click amount is less then combo total 
         if (LastComboTime < 0 && attackClickCounter < Data.comboTotal &&
             //Check if the attack counter is above, make sure the queue timer still allows for adding an attack

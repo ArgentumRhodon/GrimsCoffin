@@ -80,8 +80,8 @@ MonoBehaviour:
   attackBufferTime: 0.5
   comboSleepTime: 0.3
   comboTotal: 2
-  comboAerialPForce: 7
-  comboGroundPForce: 15
+  comboAerialPForce: 2
+  comboGroundPForce: 7
   comboAttackDuration: 0.35
   combo1Damage: 4
   combo2Damage: 4
@@ -89,12 +89,12 @@ MonoBehaviour:
   combo4Damage: 10
   canGUpAttack: 1
   groundUpwardPForce: 0
-  groundUpwardEForce: {x: 0, y: 0}
+  groundUpwardEForce: {x: 1.2, y: 10}
   gUpAttackDuration: 0.4
   groundUpDamage: 5
   canGDownAttack: 1
   groundDownwardPForce: 0
-  groundDownwardEForce: 0
+  groundDownwardEForce: {x: 5, y: 4}
   gDownWalkModifier: 0.2
   gdHoldDuration: 1.25
   gDownAttackDuration: 0.25
@@ -105,10 +105,10 @@ MonoBehaviour:
   aerialUpDamage: 3
   canADownAttack: 1
   aerialDownwardPForce: 50
-  aerialDownwardEForce: 0
+  aerialDownwardEForce: {x: 4, y: -5}
   aDownAttackDuration: 5
   aDownAttackReset: 0.4
   aerialDownDamage: 7
   aerialImpactDamage: 5
-  canScytheThrow: 1
+  canScytheThrow: 0
   canViewMap: 0
