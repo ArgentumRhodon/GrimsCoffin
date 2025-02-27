@@ -43,6 +43,7 @@ public class PersistentDataManager : MonoBehaviour
     //List of rooms in the scene
     [SerializeField] public List<Room> rooms;
     [SerializeField] public List<HealthUpgrade> healthUpgrades;
+    [SerializeField] public List<ScytheThrowRope> scytheThrowPlatforms;
 
     //Default values to spawn the player at when a New Game is started
     [SerializeField] private float defaultXPos = 0;
@@ -70,6 +71,12 @@ public class PersistentDataManager : MonoBehaviour
         //If the player is in the cutscene between Onboarding and Denial Area, transition their stats
         if (SceneManager.GetActiveScene().name == "Transition Cutscene 1")
             TransitionToDenialArea();
+
+        for (int i = 0; i < scytheThrowPlatforms.Count; i++)
+        {
+            if (PlayerPrefs.GetInt("ScythePlatform" + scytheThrowPlatforms[i].ropeIndex) == 1)
+                scytheThrowPlatforms[i].TakeDamage(1);
+        }
     }
 
     //Returns whether a spirit is collected or not (for spawning them in The Drift vs. Equilibrium)
@@ -104,6 +111,7 @@ public class PersistentDataManager : MonoBehaviour
             if (spirit.spiritState == Spirit.SpiritState.Collected)
             {
                 StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
+                UIManager.Instance.ShowAbilityUnlock("New Spirit in Equilibrium");
             }
 
             //Spirit Ability Unlocks
@@ -190,7 +198,7 @@ public class PersistentDataManager : MonoBehaviour
                 room.gameObject.SetActive(true);
 
                 if (room.GetComponent<EnemyManager>() != null)
-                    //room.GetComponent<EnemyManager>().SpawnEnemies();
+                    room.GetComponent<EnemyManager>().SpawnEnemies();
 
                 this.GetComponent<CameraManager>().Vcam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = room.GetComponent<PolygonCollider2D>();
             }
@@ -251,6 +259,11 @@ public class PersistentDataManager : MonoBehaviour
         for (int i = 0; i < 25; i++)
         {
             PlayerPrefs.SetInt("HealthCollectable" + i, 0);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            PlayerPrefs.SetInt("ScythePlatform" + i, 0);
         }
     }
 
@@ -317,5 +330,10 @@ public class PersistentDataManager : MonoBehaviour
         UIManager.Instance.AddHealthCollectable();
         PlayerPrefs.SetInt("HealthCollectablesHeld", HealthCollectablesHeld + 1);
         PlayerPrefs.SetInt("HealthCollectable" + collectableID, 1);
+    }
+
+    internal void CutPlatform(int ropeIndex)
+    {
+        PlayerPrefs.SetInt("ScythePlatform" + ropeIndex, 1);
     }
 }
