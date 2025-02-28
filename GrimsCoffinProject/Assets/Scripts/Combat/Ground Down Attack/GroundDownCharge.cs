@@ -19,6 +19,8 @@ public class GroundDownCharge : MeleeBaseState
         playerController = playerCombat.GetComponent<PlayerControllerForces>();
         playerController.WalkModifier = playerCombat.Data.gDownWalkModifier;
         playerController.SleepWalk();
+        playerCombat.AttackDurationTime = playerCombat.Data.gdHoldDuration;
+
 
         PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.GroundCharge);
     }
