@@ -13,6 +13,7 @@ public class EnemyDrop : MonoBehaviour
 
     [SerializeField] public EnemyDropType dropType;
     [SerializeField] public float value = 5;
+    [SerializeField] private float dropScalar = 5;
 
     [SerializeField] private float speed = 15;
     [SerializeField] private float lifetime = 3.5f;
@@ -25,12 +26,24 @@ public class EnemyDrop : MonoBehaviour
 
     private void Start()
     {
-        if (Random.Range(1, 100) <= 50 && PlayerControllerForces.Instance.Data.canScytheThrow && PlayerControllerForces.Instance.currentSP < PlayerControllerForces.Instance.Data.maxSP)
+        float maxHP = PlayerControllerForces.Instance.Data.maxHP;
+        float currentHP = PlayerControllerForces.Instance.currentHP;
+        float maxSP = PlayerControllerForces.Instance.Data.maxSP;
+        float currentSP = PlayerControllerForces.Instance.currentSP;
+
+        //Check for SP drop chance
+        //Player is more likely to get a SP drop the lower the ratio between their max and current, multiplied by some scalar
+        if (Random.Range(1, 100) <= (50 + maxSP / currentSP) * dropScalar && PlayerControllerForces.Instance.Data.canScytheThrow && currentSP < maxSP)
         {
             dropType = EnemyDropType.SpiritPower;
         }
 
-        else if (PlayerControllerForces.Instance.currentHP < PlayerControllerForces.Instance.Data.maxHP)
+        //Check for health drop chance
+        //Player is more likely to get a health drop the lower the ratio between their max and current, multiplied by some scalar
+        //Check is under SP drop so that health pickups take priority if both are rolled correctly
+
+        //Example: 50 + (50/10) * 5 = 75, 75% chance for health pickup at 10 HP when your max is 50 (higher if max is higher or current is lower) 
+        else if (Random.Range(1,100) <= (50 + (maxHP/currentHP) * dropScalar) && currentHP < maxHP)
         {
             dropType = EnemyDropType.Health;
         }

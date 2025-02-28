@@ -619,6 +619,7 @@ public class PlayerControllerForces : MonoBehaviour
             if (room.GetComponentInChildren<ArenaManager>() != null)
             {
                 room.GetComponentInChildren<ArenaManager>().CombatEnd();
+                room.GetComponentInChildren<ArenaManager>().ResetArena();
             }
         }
 
@@ -877,8 +878,13 @@ public class PlayerControllerForces : MonoBehaviour
         dashesLeft--;
         isDashAttacking = true;
 
+        transform.position = new Vector2(transform.position.x, transform.position.y + .02f);
+
         //Become invincible and make sprite transparent while dashing
         hasDashInvincibility = true;
+        rb.excludeLayers = LayerMask.GetMask("Enemy");
+        rb.excludeLayers += LayerMask.GetMask("Agent");
+
         Color tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 0.5f;
         animator.GetComponent<SpriteRenderer>().color = tmp;
@@ -926,6 +932,8 @@ public class PlayerControllerForces : MonoBehaviour
         //Dash over
         playerState.IsDashing = false;
         hasDashInvincibility = false;
+        //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Agent"), LayerMask.NameToLayer("Agent"), false);
+        rb.excludeLayers = LayerMask.GetMask("Nothing");
         tmp = animator.GetComponent<SpriteRenderer>().color;
         tmp.a = 1f;
         animator.GetComponent<SpriteRenderer>().color = tmp;
@@ -1442,6 +1450,23 @@ public class PlayerControllerForces : MonoBehaviour
         
     }
 
+    public void ToggleSleepGravity(bool toggleOn)
+    {
+        if (toggleOn)
+        {
+            rb.velocity = Vector2.zero;
+            SetGravityScale(0);
+            isSleeping = true;
+        }
+
+        else
+        {
+            isSleeping = false;
+            SetGravityScale(1);
+        }
+    }
+
+
     public void SleepWalk()
     {
         rb.velocity = Vector2.zero;
@@ -1601,8 +1626,9 @@ public class PlayerControllerForces : MonoBehaviour
 
         private void TempResetData()
         {
-            Data.canDash = true;
-            Data.canDoubleJump = true;
-            Data.canWallJump = true;
+            //Data.canDash = true;
+            //Data.canDoubleJump = true;
+            //Data.canWallJump = true;
+            currentHP = 50;
         }
     }

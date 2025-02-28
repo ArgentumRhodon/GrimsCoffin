@@ -93,7 +93,7 @@ public class TransitionDoor : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerControllerForces.Instance.EndSleep();
-            PlayerControllerForces.Instance.ToggleSleep(true);
+            PlayerControllerForces.Instance.ToggleSleepGravity(true);
             if (areaEntering.GetComponent<Room>().roomIndex == -2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
             {
                 PlayerControllerForces.Instance.Data.canDash = true;
@@ -108,21 +108,6 @@ public class TransitionDoor : MonoBehaviour
             {
                 Debug.Log("Spawning Enemies");
                 enterEnemyMgr.SpawnEnemies();
-            }
-                
-
-            if (exitEnemyMgr != null)
-            {
-                Debug.Log("Deleting Enemies");
-                exitEnemyMgr.DeleteEnemies();
-            }
-
-            if (enemyDropList != null)
-            {
-                foreach (Transform child in enemyDropList.transform)
-                {
-                    Destroy(child.gameObject);
-                }
             }
         }
     }
@@ -146,6 +131,21 @@ public class TransitionDoor : MonoBehaviour
             //ColliderEntering.gameObject.SetActive(true);
             FollowCameraConfiner.m_BoundingShape2D = ColliderEntering;
             //yield return new WaitForSeconds(0.5f);
+
+            if (exitEnemyMgr != null)
+            {
+                Debug.Log("Deleting Enemies");
+                exitEnemyMgr.DeleteEnemies();
+            }
+
+            if (enemyDropList != null)
+            {
+                foreach (Transform child in enemyDropList.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
             Color start = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
             Color target = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
             yield return Fade(start, target, 0.5f);
@@ -163,7 +163,7 @@ public class TransitionDoor : MonoBehaviour
         Room Exit = areaExiting.GetComponent<Room>();
         Exit.RoomLive = false;
 
-        PlayerControllerForces.Instance.ToggleSleep(false);    
+        PlayerControllerForces.Instance.ToggleSleepGravity(false);    
     }
     IEnumerator FadeOut(float duration)
     {

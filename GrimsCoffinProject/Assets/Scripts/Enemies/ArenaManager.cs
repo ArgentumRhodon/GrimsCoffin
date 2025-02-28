@@ -10,21 +10,14 @@ public class ArenaManager : MonoBehaviour
     [SerializeField]
     private EnemyManager enemyMgr;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField]
+    public int arenaIndex;
+    public bool arenaCleared = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !arenaCleared)
         {
             this.GetComponent<BoxCollider2D>().enabled = false;
             enemyMgr.SpawnEnemies();
@@ -36,5 +29,17 @@ public class ArenaManager : MonoBehaviour
     {
         enemyMgr.DeleteEnemies();
         arenaDoors.SetActive(false);
+    }
+
+    public void ClearArena()
+    {
+        CombatEnd();
+        UIManager.Instance.ShowSaveIcon(2);
+        PersistentDataManager.Instance.ClearArena(arenaIndex);
+    }
+
+    public void ResetArena()
+    {
+        this.GetComponent<BoxCollider2D>().enabled = true;
     }
 }

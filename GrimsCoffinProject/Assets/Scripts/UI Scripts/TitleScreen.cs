@@ -11,6 +11,8 @@ public class TitleScreen : MonoBehaviour
     [SerializeField] private GameObject titleScreen;
     [SerializeField] private GameObject controlsScreen;
     [SerializeField] private GameObject newGame;
+    [SerializeField] private GameObject newGameConfirmPrompt;
+    [SerializeField] private GameObject newGameYes;
     [SerializeField] private GameObject continueButton;
     [SerializeField] private GameObject back;
 
@@ -19,6 +21,7 @@ public class TitleScreen : MonoBehaviour
     [SerializeField] private GameObject playstationControls;
 
     [SerializeField] private PlayerInput playerControls;
+    [SerializeField] private GameObject buttons;
 
     // Start is called before the first frame update
     void Start()
@@ -56,10 +59,33 @@ public class TitleScreen : MonoBehaviour
 
     public void NewGame()
     {
+        if (continueButton.GetComponent<Button>().interactable == true)
+        {
+            newGameConfirmPrompt.SetActive(true);
+            buttons.SetActive(false);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(newGameYes);
+        }
+
+        else
+            ConfirmNewGame();
+    }
+
+    public void ConfirmNewGame()
+    {
         PersistentDataManager.Instance.ResetSaveData();
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
         SceneManager.LoadScene("Intro Cutscene");
     }
+
+    public void CancelNewGame()
+    {
+        newGameConfirmPrompt.SetActive(false);
+        buttons.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(newGame);
+    }
+
     public void ContinueGame()
     {
         SceneManager.LoadScene(PersistentDataManager.Instance.LastSavedScene);

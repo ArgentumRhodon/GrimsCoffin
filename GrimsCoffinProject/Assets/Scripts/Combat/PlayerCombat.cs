@@ -39,10 +39,12 @@ public class PlayerCombat : MonoBehaviour
     private float lastComboTime;
     private float attackDurationTime;
     private float queueTimer;
+    private float upAttackComboTime;
 
     public float AttackDurationTime { get { return attackDurationTime; } set { attackDurationTime = value; } }
     public float QueueTimer { get { return queueTimer; } set { queueTimer = value; } }
     public float LastComboTime { get { return lastComboTime; } set { lastComboTime = value; } }
+    public float UpAttackComboTime { get {return upAttackComboTime; } set { upAttackComboTime = value; } }
     //[SerializeField] public float HoldAttackTimer;
     [SerializeField] private float holdAttackTimer; //{ get { return lastComboTime; } set { lastComboTime = value; } }
 
@@ -249,6 +251,8 @@ public class PlayerCombat : MonoBehaviour
     #region Attack Checks
     private void BaseAttackCheck()
     {
+        Debug.Log(meleeStateMachine.CurrentState.GetType());
+
         //Check for combo timer, if the click amount is less then combo total 
         if (LastComboTime < 0 && attackClickCounter < Data.comboTotal &&
             //Check if the attack counter is above, make sure the queue timer still allows for adding an attack
@@ -288,7 +292,7 @@ public class PlayerCombat : MonoBehaviour
         {
             InterruptCombo(AttackDirection.Up);
         }
-        else if (attackDurationTime < 0)
+        else if (attackDurationTime < 0 && upAttackComboTime < 0)
         {
             UpAttack();
         }
@@ -358,6 +362,7 @@ public class PlayerCombat : MonoBehaviour
             //Debug.Log("Up Ground Attack");
             meleeStateMachine.SetNextState(new GroundUpState());
             AttackDurationTime = Data.gUpAttackDuration;
+            upAttackComboTime = Data.upAttackDelay;
 
             PlayerControllerForces.Instance.ExecuteUpAttack(true);
         }
@@ -457,6 +462,7 @@ public class PlayerCombat : MonoBehaviour
         LastComboTime -= Time.deltaTime;
         AttackDurationTime -= Time.deltaTime;
         QueueTimer -= Time.deltaTime;
+        upAttackComboTime -= Time.deltaTime;
 
         if(isHoldingAttacking)
         {

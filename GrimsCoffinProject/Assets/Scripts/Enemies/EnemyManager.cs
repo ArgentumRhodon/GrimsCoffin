@@ -50,7 +50,12 @@ public class EnemyManager : MonoBehaviour
         activeEnemies.Remove(enemyToRemove);
         //Debug.Log("Removed");
         //Debug.Log(activeEnemies);
-        if(isArena && activeEnemies.Count == 0)
+        if(isArena && activeEnemies.Count == 0 && PlayerControllerForces.Instance.currentHP > 0)
+        {
+            this.GetComponent<ArenaManager>().ClearArena();
+        }
+
+        else if (isArena && activeEnemies.Count == 0)
         {
             this.GetComponent<ArenaManager>().CombatEnd();
         }
