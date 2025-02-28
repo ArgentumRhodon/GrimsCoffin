@@ -37,4 +37,9 @@ public class ArenaManager : MonoBehaviour
         UIManager.Instance.ShowSaveIcon(2);
         PersistentDataManager.Instance.ClearArena(arenaIndex);
     }
+
+    public void ResetArena()
+    {
+        this.GetComponent<BoxCollider2D>().enabled = true;
+    }
 }
