@@ -151,6 +151,7 @@ public class PlayerData : ScriptableObject
     public float groundUpwardPForce;
     public Vector2 groundUpwardEForce;
     public float gUpAttackDuration; //How long the duration of the attack should take
+    public float upAttackDelay; //How long before the player can up attack again
 
     [Space(15)]
 
