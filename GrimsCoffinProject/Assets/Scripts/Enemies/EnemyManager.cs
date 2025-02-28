@@ -52,7 +52,7 @@ public class EnemyManager : MonoBehaviour
         //Debug.Log(activeEnemies);
         if(isArena && activeEnemies.Count == 0)
         {
-            this.GetComponent<ArenaManager>().CombatEnd();
+            this.GetComponent<ArenaManager>().ClearArena();
         }
     }
 }
