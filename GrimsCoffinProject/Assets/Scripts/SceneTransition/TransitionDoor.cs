@@ -109,6 +109,9 @@ public class TransitionDoor : MonoBehaviour
                 Debug.Log("Spawning Enemies");
                 enterEnemyMgr.SpawnEnemies();
             }
+
+            StartCoroutine(Transition(collision));
+
         }
     }
 
