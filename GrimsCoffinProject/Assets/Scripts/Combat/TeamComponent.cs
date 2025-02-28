@@ -8,7 +8,8 @@ public enum TeamIndex
     Player,
     Enemy,
     Count,
-    BreakWall
+    BreakWall,
+    Rope
 }
 
 public class TeamComponent : MonoBehaviour

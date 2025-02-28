@@ -39,6 +39,8 @@ public class UIManager : MonoBehaviour
     //Player Input
     [SerializeField] public PlayerInput playerInput;
 
+    [SerializeField] public SavePoint activeSavePoint;
+
     public bool scytheThrowInMenu;
 
     private void Awake()
