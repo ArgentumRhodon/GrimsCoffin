@@ -109,21 +109,6 @@ public class TransitionDoor : MonoBehaviour
                 Debug.Log("Spawning Enemies");
                 enterEnemyMgr.SpawnEnemies();
             }
-                
-
-            if (exitEnemyMgr != null)
-            {
-                Debug.Log("Deleting Enemies");
-                exitEnemyMgr.DeleteEnemies();
-            }
-
-            if (enemyDropList != null)
-            {
-                foreach (Transform child in enemyDropList.transform)
-                {
-                    Destroy(child.gameObject);
-                }
-            }
         }
     }
 
@@ -146,6 +131,21 @@ public class TransitionDoor : MonoBehaviour
             //ColliderEntering.gameObject.SetActive(true);
             FollowCameraConfiner.m_BoundingShape2D = ColliderEntering;
             //yield return new WaitForSeconds(0.5f);
+
+            if (exitEnemyMgr != null)
+            {
+                Debug.Log("Deleting Enemies");
+                exitEnemyMgr.DeleteEnemies();
+            }
+
+            if (enemyDropList != null)
+            {
+                foreach (Transform child in enemyDropList.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
             Color start = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
             Color target = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
             yield return Fade(start, target, 0.5f);
