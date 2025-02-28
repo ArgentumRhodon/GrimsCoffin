@@ -81,6 +81,11 @@ public class PitRespawn : MonoBehaviour
 
             StartCoroutine(Transition(collision.collider));
         }
+
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<Enemy>().health = 0;
+        }
     }
 
     /*private void OnCollisionEnter2D(Collision2D collision)
