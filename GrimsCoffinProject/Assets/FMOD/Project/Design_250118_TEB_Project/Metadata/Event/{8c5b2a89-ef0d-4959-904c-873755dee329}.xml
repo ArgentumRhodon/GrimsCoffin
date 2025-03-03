@@ -89,6 +89,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{2e196b81-6b7a-4735-b039-9b0da0a92246}">
+		<relationship name="modulators">
+			<destination>{7c6835f5-eda0-44e8-a521-43f992bf3152}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{5d389418-1c77-4f9d-a748-9efb9d2ac698}</destination>
 		</relationship>
@@ -122,6 +125,9 @@
 		<property name="volume">
 			<value>-6</value>
 		</property>
+		<relationship name="modulators">
+			<destination>{56912056-ebf6-4d68-9fce-05a0c6e17323}</destination>
+		</relationship>
 		<relationship name="sounds">
 			<destination>{df27c58a-8915-44f0-b73f-81b76f4ed2fa}</destination>
 			<destination>{145e3992-ee74-4973-a256-0ef4ff3fbdee}</destination>
@@ -171,6 +177,23 @@
 			<destination>{2e196b81-6b7a-4735-b039-9b0da0a92246}</destination>
 		</relationship>
 	</object>
+	<object class="ADSRModulator" id="{7c6835f5-eda0-44e8-a521-43f992bf3152}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackTime">
+			<value>0</value>
+		</property>
+		<property name="releaseTime">
+			<value>940</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
+		</property>
+	</object>
 	<object class="MixerBusEffectChain" id="{5d389418-1c77-4f9d-a748-9efb9d2ac698}">
 		<relationship name="effects">
 			<destination>{33fe433e-1528-4cb1-8a87-03ba7523ec06}</destination>
@@ -207,6 +230,35 @@
 		<relationship name="audioFile">
 			<destination>{5f2df61e-26dd-484d-ba14-f45b22299c68}</destination>
 		</relationship>
+	</object>
+	<object class="ADSRModulator" id="{56912056-ebf6-4d68-9fce-05a0c6e17323}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackTime">
+			<value>0</value>
+		</property>
+		<property name="holdTime">
+			<value>0</value>
+		</property>
+		<property name="decayTime">
+			<value>1807.6925</value>
+		</property>
+		<property name="decayShape">
+			<value>0.0635772571</value>
+		</property>
+		<property name="sustainValue">
+			<value>-80</value>
+		</property>
+		<property name="releaseShape">
+			<value>-0.0475981161</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
+		</property>
 	</object>
 	<object class="SingleSound" id="{df27c58a-8915-44f0-b73f-81b76f4ed2fa}">
 		<relationship name="audioFile">
