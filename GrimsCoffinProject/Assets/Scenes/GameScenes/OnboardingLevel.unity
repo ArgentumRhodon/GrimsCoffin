@@ -1777,6 +1777,7 @@ MonoBehaviour:
   - {fileID: 1757700367}
   - {fileID: 61304448}
   healthUpgrades: []
+  scytheThrowPlatforms: []
   defaultXPos: -16
   defaultYPos: -1.7
   defaultSceneName: OnboardingLevel
@@ -91697,8 +91698,8 @@ PolygonCollider2D:
     - - {x: 31.5, y: -10}
       - {x: 31.5, y: 25}
       - {x: -5.5, y: 25}
-      - {x: -14.065798, y: 24.424347}
-      - {x: -34, y: 18}
+      - {x: -5.5, y: 10}
+      - {x: -34, y: 10}
       - {x: -34, y: -10}
   m_UseDelaunayMesh: 0
 --- !u!1001 &734180855
@@ -92451,6 +92452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 8195261399389570988, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -92512,6 +92517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cc2bca1f8eb32458ce9eb2b09a98e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenFade: {fileID: 1608595488}
 --- !u!61 &1070713956
 BoxCollider2D:
   m_ObjectHideFlags: 0

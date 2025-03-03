@@ -10,7 +10,8 @@ namespace Core.AI
         // Start is called before the first frame update
         public override void OnStart()
         {
-            enemyScript.IsDamaged = false;
+            enemyScript.enemyStateList.IsDamaged = false;
+            enemyScript.enemyStateList.IsStaggered = false;
         }
 
         public override TaskStatus OnUpdate()

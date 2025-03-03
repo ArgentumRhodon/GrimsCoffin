@@ -118,7 +118,7 @@ public class MeleeBaseState : CState
         else
             direction = 1;
 
-        return new Vector2(direction, 0);
+        return new Vector2(0, 0);
     }
 
     protected bool IsPlayerOnRight(Vector2 enemyPos)

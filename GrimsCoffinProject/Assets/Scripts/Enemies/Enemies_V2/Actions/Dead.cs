@@ -11,6 +11,7 @@ namespace Core.AI
         public override void OnStart()
         {
             enemyScript.DestroyEnemyGO();
+            enemyScript.behaviorTree.DisableBehavior();
         }
 
         public override TaskStatus OnUpdate()

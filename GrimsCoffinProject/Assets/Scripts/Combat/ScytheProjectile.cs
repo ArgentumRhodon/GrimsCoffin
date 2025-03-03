@@ -96,6 +96,10 @@ public class ScytheProjectile : MonoBehaviour
                 distance = maxDistance;
                 collision.gameObject.GetComponent<BreakableWall>().TakeDamage(damage);
             }
+            if (collision.gameObject.GetComponent<TeamComponent>().teamIndex == TeamIndex.Rope)
+            {
+                collision.gameObject.GetComponent<ScytheThrowRope>().TakeDamage(damage);
+            }
         }
     }
 

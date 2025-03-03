@@ -151,6 +151,7 @@ public class PlayerData : ScriptableObject
     public float groundUpwardPForce;
     public Vector2 groundUpwardEForce;
     public float gUpAttackDuration; //How long the duration of the attack should take
+    public float upAttackDelay; //How long before the player can up attack again
 
     [Space(15)]
 
@@ -162,7 +163,7 @@ public class PlayerData : ScriptableObject
     public bool canGDownAttack;
 
     public float groundDownwardPForce;
-    public float groundDownwardEForce;
+    public Vector2 groundDownwardEForce;
     [Range(0.01f, 2f)] public float gDownWalkModifier;
     public float gdHoldDuration;
     public float gDownAttackDuration; //How long the duration of the attack should take
@@ -189,7 +190,7 @@ public class PlayerData : ScriptableObject
     public bool canADownAttack;
 
     public float aerialDownwardPForce;
-    public float aerialDownwardEForce;
+    public Vector2 aerialDownwardEForce;
     public float aDownAttackDuration; //How long the duration of the attack should take
     public float aDownAttackReset;
 

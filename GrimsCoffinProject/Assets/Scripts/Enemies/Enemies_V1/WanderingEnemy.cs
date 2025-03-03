@@ -14,11 +14,6 @@ public class WanderingEnemy : Enemy
     private int direction = 1;
     private bool isFacingRight;
 
-    //Direction Checkers
-    [Header("Direction Collision Checkers")]
-    [SerializeField] private GroundChecker wallChecker;
-    [SerializeField] private GroundChecker airChecker;
-
     //Acceleration
     [Header("Acceleration Rate")]
     [SerializeField] private float walkAcceleration; 
@@ -42,7 +37,7 @@ public class WanderingEnemy : Enemy
 
     protected override void FixedUpdate()
     {
-        if (!isSleeping)
+        if (!enemyStateList.IsSleeping)
         {
             UpdatePath();          
         }
@@ -52,7 +47,7 @@ public class WanderingEnemy : Enemy
     {
         CheckFlip();
 
-        if (!isSleeping)
+        if (!enemyStateList.IsSleeping)
         {
             Walk(1);
         }

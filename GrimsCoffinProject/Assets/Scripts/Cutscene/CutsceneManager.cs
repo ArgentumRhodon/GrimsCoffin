@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
 using FMOD.Studio;
+using UnityEngine.Playables;
 
 public class CutsceneManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class CutsceneManager : MonoBehaviour
 
     [Header("Sentences")]
     public string[] sentences;
+    public GameObject[] Image;
 
     [Header("Typewriter Settings")]
     [SerializeField] private float charactersPerSecond = 30f;
@@ -107,6 +109,7 @@ public class CutsceneManager : MonoBehaviour
         currentSentenceIndex = 0;
         if (sentences.Length > 0)
         {
+            StartCoroutine(ShowImage());
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         UpdateSkipText();
@@ -142,11 +145,11 @@ public class CutsceneManager : MonoBehaviour
         currentSentenceIndex++;
         if (currentSentenceIndex < sentences.Length)
         {
+            StartCoroutine(ShowImage());
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         else
         {
-            //Debug.Log("1");
             StopAllCoroutines();
             sceneController.LoadNextScene();
             controls.Dialogue.Continue.performed -= OnContinue;
@@ -224,6 +227,19 @@ public class CutsceneManager : MonoBehaviour
         string currentScheme = playerInput.currentControlScheme;
         // Customize the skip text based on the control scheme if needed.
         skipText.text = "press\tto skip";
+    }
+
+    IEnumerator ShowImage()
+    {
+        if (Image[currentSentenceIndex] != null)
+        {
+            Image[currentSentenceIndex].SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+        }
+        else 
+        {
+            Debug.Log("No Image & animation");
+        }
     }
 
     /// <summary>

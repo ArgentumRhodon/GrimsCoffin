@@ -9,7 +9,6 @@ namespace Core.AI
     public class Seek : EnemyAction
     {
         [Header("Physics")]
-        public float speed = 50f;
         public float nextWaypointDistance = 3f;
         public float targetRange = 1f;
 
@@ -29,8 +28,10 @@ namespace Core.AI
         private bool isWaiting;
         private Canvas enemyCanvas;
 
-        private Collider2D visionRange; 
+        private Collider2D visionCollider;
 
+        private float pathDistance;
+        private bool foundPath;
 
         public override void OnStart()
         {
@@ -38,6 +39,7 @@ namespace Core.AI
             enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
 
             //Start new path and timers
+            foundPath = false;
             UpdatePath();
             repeatingTimer = repeatingNum;
 
@@ -46,7 +48,7 @@ namespace Core.AI
             reachedEndOfPath = false;
 
             //Set vision 
-            visionRange = enemyScript.visionCollider;
+            visionCollider = enemyScript.visionCollider;
             enemyScript.enemyStateList.IsSeeking = true;
         }
 
@@ -74,23 +76,30 @@ namespace Core.AI
         }
 
         public override TaskStatus OnUpdate()
-        {
-            repeatingTimer -= Time.deltaTime;
+        {       
+            if (pathDistance > enemyScript.visionRange && foundPath)
+                return TaskStatus.Failure;
+
+                repeatingTimer -= Time.deltaTime;
             if (repeatingTimer < 0)// && !CheckEdge())
             {
                 UpdatePath();
                 repeatingTimer = repeatingNum;
             }
 
-            if(!IsOverlapping())
-                return TaskStatus.Failure;
+            /*if(!IsOverlapping())
+                return TaskStatus.Failure;*/
 
             return reachedEndOfPath ? TaskStatus.Success : TaskStatus.Running;
         }
 
         public override void OnEnd()
         {
-            enemyScript.enemyStateList.IsSeeking = false;
+            if (pathDistance > enemyScript.visionRange)
+                enemyScript.enemyStateList.IsSeeking = false;
+
+/*            if(reachedEndOfPath)
+                enemyScript.enemyStateList.IsSeeking = false;*/
         }
 
         private void PathFollow()
@@ -125,7 +134,7 @@ namespace Core.AI
             //Smooth changes to direction and speed using a lerp function
             targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, 1);
 
-            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeccelAmount;
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeaccelAmount;
 
             //Calculate difference between current velocity and desired velocity
             float speedDif = targetSpeed - rb.velocity.x;
@@ -169,6 +178,9 @@ namespace Core.AI
             {
                 path = p;
                 currentWaypoint = 0;
+
+                pathDistance = path.GetTotalLength();
+                foundPath = true;
             }
         }
 
@@ -229,8 +241,8 @@ namespace Core.AI
             ContactFilter2D filter = new ContactFilter2D();
             filter.useTriggers = true;
 
-            int colliderCount = Physics2D.OverlapCollider(visionRange, filter, collidersToCheck);
-            Debug.Log("Colliders Count" + colliderCount);
+            int colliderCount = Physics2D.OverlapCollider(visionCollider, filter, collidersToCheck);
+            //Debug.Log("Colliders Count" + colliderCount);
 
 
             //Go through all colliders and check to see if it is the player

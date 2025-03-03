@@ -14,7 +14,7 @@ namespace Core.AI
         protected Animator animator;
         protected TeamComponent team;
         protected PlayerControllerForces player;
-        protected BTEnemy enemyScript;
+        protected Enemy enemyScript;
         protected Seeker seeker;
 
         public override void OnAwake()
@@ -23,7 +23,7 @@ namespace Core.AI
             player = PlayerControllerForces.Instance;
             team = GetComponent<TeamComponent>();
             animator = gameObject.GetComponentInChildren<Animator>();
-            enemyScript = GetComponent<BTEnemy>();
+            enemyScript = GetComponent<Enemy>();
             seeker = GetComponent<Seeker>();
         }
     }

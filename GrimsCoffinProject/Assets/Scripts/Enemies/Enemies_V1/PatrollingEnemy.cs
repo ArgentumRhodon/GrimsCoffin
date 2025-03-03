@@ -63,7 +63,7 @@ public class PatrollingEnemy : Enemy
 
     protected override void FixedUpdate()
     {
-        if (!isSleeping)
+        if (!enemyStateList.IsSleeping)
         {
             PathFollow();          
         }

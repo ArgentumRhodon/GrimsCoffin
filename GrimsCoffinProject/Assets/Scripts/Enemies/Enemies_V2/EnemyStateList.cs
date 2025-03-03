@@ -12,4 +12,11 @@ public class EnemyStateList : MonoBehaviour
     public bool IsAttacking { get; set; }
     public bool IsLooking { get; set; }
     public bool IsIdle { get; set; }
+    public bool IsSleeping { get; set; }
+    public bool IsHitDown { get; set; }
+    public bool IsBlocking { get; set; }
+    public bool IsStaggered { get; set; }
+    public bool IsDamaged { get; set; }
+    public bool IsDead { get; set; }
+
 }

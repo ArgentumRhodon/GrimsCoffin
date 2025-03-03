@@ -2,36 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
+using DG.Tweening;
 
 namespace Core.AI
 {
     public class BasicAttack : EnemyAction
     {
         public string animationTriggerName;
-        public bool startedAttack;
+
+        public float attackDelay = 0;
+        public float attackDuration = 0;
+        public int attackDamageIndex;
+
+        private bool attackCompleted;
 
         public override void OnStart()
-        {           
-            animator.Play(animationTriggerName);
-            //Debug.Log(animationTriggerName);
-            startedAttack = true;
-            enemyScript.enemyStateList.IsAttacking = true;
+        {
+            attackCompleted = false;
+            
+            if(!enemyScript.enemyStateList.IsStaggered)
+                DOVirtual.DelayedCall(attackDelay, Attack, false);
         }
 
         public override TaskStatus OnUpdate()
         {
-            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).ToString());
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("BasicGhost_Attack1") && startedAttack)
+            if (attackCompleted)
             {
+                enemyScript.enemyStateList.IsAttacking = false;
                 return TaskStatus.Success;
             }
+            else if(enemyScript.enemyStateList.IsStaggered)
+                return TaskStatus.Failure;
             else
                 return TaskStatus.Running;
+            
         }
 
-        public override void OnEnd()
+        private void Attack()
         {
-            enemyScript.enemyStateList.IsAttacking = false;
+            enemyScript.AttackDamage = enemyScript.attackDamages[attackDamageIndex];
+            animator.Play(animationTriggerName);
+            enemyScript.enemyStateList.IsAttacking = true;
+
+
+            DOVirtual.DelayedCall(attackDuration, FinishAttack, false);
+
+        }
+
+        private void FinishAttack()
+        {
+            attackCompleted = true;
         }
     }
 }
