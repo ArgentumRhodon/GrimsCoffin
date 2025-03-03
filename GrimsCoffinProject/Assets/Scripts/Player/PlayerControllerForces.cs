@@ -610,6 +610,10 @@ public class PlayerControllerForces : MonoBehaviour
         currentSP = Data.maxSP;
 
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
+
+        PlayerAnimationManager.Instance.ChangeSpriteLayer(0);
+        UIManager.Instance.gameUI.SetActive(true);
+
         foreach (Room room in PersistentDataManager.Instance.rooms)
         {
             if (room.gameObject.activeInHierarchy)
@@ -1349,6 +1353,8 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            PlayerAnimationManager.Instance.ChangeSpriteLayer(5);
+            PlayerAnimationManager.Instance.ChangeAnimationState("Death", false);
             UIManager.Instance.HandlePlayerDeath();
         }
 
