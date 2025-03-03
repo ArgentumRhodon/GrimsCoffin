@@ -19,7 +19,7 @@ namespace Core.AI
             {
                 animator.Play(animationTriggerName);
                 gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
-                rb.gravityScale = 1;
+                //rb.gravityScale = 1;
                 enemyScript.RemoveActiveEnemy();
             }
         }

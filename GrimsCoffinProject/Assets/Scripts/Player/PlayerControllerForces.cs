@@ -625,6 +625,7 @@ public class PlayerControllerForces : MonoBehaviour
             if (room.GetComponentInChildren<ArenaManager>() != null)
             {
                 room.GetComponentInChildren<ArenaManager>().CombatEnd();
+                room.GetComponentInChildren<ArenaManager>().ResetArena();
             }
         }
 

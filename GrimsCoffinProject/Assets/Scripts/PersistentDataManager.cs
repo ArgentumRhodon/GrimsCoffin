@@ -40,10 +40,11 @@ public class PersistentDataManager : MonoBehaviour
     //Whether or not the Player is entering the Denial Area Scene for the first time
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
 
-    //List of rooms in the scene
+    //List of pesistently tracked objects in the scene
     [SerializeField] public List<Room> rooms;
     [SerializeField] public List<HealthUpgrade> healthUpgrades;
     [SerializeField] public List<ScytheThrowRope> scytheThrowPlatforms;
+    [SerializeField] public List<ArenaManager> arenas;
 
     //Default values to spawn the player at when a New Game is started
     [SerializeField] private float defaultXPos = 0;
@@ -76,6 +77,12 @@ public class PersistentDataManager : MonoBehaviour
         {
             if (PlayerPrefs.GetInt("ScythePlatform" + scytheThrowPlatforms[i].ropeIndex) == 1)
                 scytheThrowPlatforms[i].TakeDamage(1);
+        }
+
+        for (int i = 0; i < arenas.Count; i++)
+        {
+            if (PlayerPrefs.GetInt("Arena" + arenas[i].arenaIndex) == 1)
+                arenas[i].arenaCleared = true;
         }
     }
 
@@ -256,14 +263,22 @@ public class PersistentDataManager : MonoBehaviour
             PlayerPrefs.SetInt("LevelRoom" + i, 0);
         } 
 
+        //Reset health collectables
         for (int i = 0; i < 25; i++)
         {
             PlayerPrefs.SetInt("HealthCollectable" + i, 0);
         }
 
+        //Reset Scythe Throw Platforms
         for (int i = 0; i < 10; i++)
         {
             PlayerPrefs.SetInt("ScythePlatform" + i, 0);
+        }
+
+        //Reset Arenas
+        for (int i = 0; i < 10; i++)
+        {
+            PlayerPrefs.SetInt("Arena" + i, 0);
         }
     }
 
@@ -331,9 +346,13 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("HealthCollectablesHeld", HealthCollectablesHeld + 1);
         PlayerPrefs.SetInt("HealthCollectable" + collectableID, 1);
     }
-
-    internal void CutPlatform(int ropeIndex)
+    public void CutPlatform(int ropeIndex)
     {
         PlayerPrefs.SetInt("ScythePlatform" + ropeIndex, 1);
+    }
+
+    public void ClearArena(int arenaIndex)
+    {
+        PlayerPrefs.SetInt("Arena" + arenaIndex, 1);
     }
 }
