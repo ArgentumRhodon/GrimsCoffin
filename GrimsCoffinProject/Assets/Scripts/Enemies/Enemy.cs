@@ -8,6 +8,7 @@ using BehaviorDesigner.Runtime;
 using UnityEngine.UIElements;
 using UnityEngine.Rendering;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityCharacterController;
+using DG.Tweening;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -143,7 +144,10 @@ public abstract class Enemy : MonoBehaviour
         direction = 1;
 
         movementAccelAmount = (1 * movementAcceleration) / movementSpeed;
-        movementDeaccelAmount = (1 * movementDeacceleration) / movementSpeed;     
+        movementDeaccelAmount = (1 * movementDeacceleration) / movementSpeed;
+
+        //Make sure it waits to start doing stuff so player can spawn in
+        Sleep(1.5f, Vector2.zero);
     }
 
     //Enemy should implement their own update functionality
@@ -225,6 +229,27 @@ public abstract class Enemy : MonoBehaviour
     //Take damage and if below zero, destroy the enemy
     public virtual void TakeDamage(Vector2 knockbackForce, float damage = 1, bool shouldStagger = false, float staggerDuration = 0.1f)
     {
+        //Remove health
+        health -= damage;
+
+        //Check for death
+        if (health <= 0)
+        {
+            behaviorTree.DisableBehavior(false);
+            animator.enabled = false;
+            animator.enabled = true;
+            animator.Play("Dead");
+            gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
+            RemoveActiveEnemy();
+
+            DOVirtual.DelayedCall(1, DestroyEnemyGO, false);
+            return;
+        }
+        else
+        {
+            animator.SetTrigger("Hit");
+        }
+
         //If the enemy can be stopped, sleep and take a knockback force
         if (canBeStopped)
         {
@@ -258,9 +283,6 @@ public abstract class Enemy : MonoBehaviour
         //If the enemy is blocking, don't take damage
         if (enemyStateList.IsBlocking && isPlayerOnRight && enemyStateList.IsFacingRight)
             return;
-
-        //Remove health
-        health -= damage;
 
         //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
@@ -301,7 +323,7 @@ public abstract class Enemy : MonoBehaviour
     public virtual void DestroyEnemyGO()
     {
         SpawnDrop();
-        
+
         Destroy(this.gameObject);
     }
 
