@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000013DB06B6508 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 00000219C144A868 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -18,10 +18,166 @@
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 000002185AE64D88, queue head = 0000021948B9F4E8, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002185AE64D88
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 40583360
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 1372864
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000002185F2298C0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='FX_104_PL_Grim_Scyche_DownAttack_Charging_01', format=5, channels=2, frequency=48000, lengthbytes=710752, lengthpcm=768000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002185AE64D88
+[LOG] SoundI::release                          : FX_104_PL_Grim_Scyche_DownAttack_Charging_01 (000002185AE64D88)
+[LOG] SoundI::release                          :     FX_104_PL_Grim_Scyche_DownAttack_Charging_01 (0000021A3C7E7E38)
+[LOG] SoundI::release                          :     FX_104_PL_Grim_Scyche_DownAttack_Charging_01 (00000219CA376808)
+[LOG] SoundI::release                          :  (00000219C1248208)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_01 (0000021A3C7E60F8)
+[LOG] SoundI::release                          :  (000002184C8DE648)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_02 (0000021A3C7E72D8)
+[LOG] SoundI::release                          :  (0000021A38E36918)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_03 (000002182CD8EBD8)
+[LOG] SoundI::release                          :  (000002184C8DEA98)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_04 (0000021A3C7E8318)
+[LOG] SoundI::release                          :  (000002185934C318)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_05 (000002182CD8F738)
+[LOG] SoundI::release                          :  (000002185934BD58)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_06 (000002184E046608)
+[LOG] SoundI::release                          :  (00000219C119FF88)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_01 (000002184C8119B8)
+[LOG] SoundI::release                          :  (000002185934C1A8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_02 (000002182CD8E898)
+[LOG] SoundI::release                          :  (000002184C8DED78)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_03 (0000021A3C7E8E78)
+[LOG] SoundI::release                          :  (00000219C1247DB8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_04 (0000021A3C7E5A78)
+[LOG] SoundI::release                          :  (00000219C1247F28)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_05 (0000021A3C7E5C18)
+[LOG] SoundI::release                          :  (000002184CF83DD8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_06 (0000021A3C7E3D38)
+[LOG] SoundI::release                          :  (000002184CF83818)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_01 (0000021A3C7E4A38)
+[LOG] SoundI::release                          :  (0000021A38E36078)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_02 (000002184C814738)
+[LOG] SoundI::release                          :  (00000219C1248098)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_03 (0000021A3C7E3858)
+[LOG] SoundI::release                          :  (000002185934C488)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_04 (000002182CD8F598)
+[LOG] SoundI::release                          :  (000002184CF83AF8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_05 (00000218433FF278)
+[LOG] SoundI::release                          :  (0000021A38E361E8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_06 (000002184C8148D8)
+[LOG] SoundI::release                          :  (0000021948DF9FF8)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_01 (0000021A3C7E4898)
+[LOG] SoundI::release                          :  (000002184CF83F48)
+[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Soil_01 (0000021A3C7E1FF8)
+[LOG] SoundI::release                          :  (000002185934C768)
+[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Snow_01 (000002185B7AFAB8)
+[LOG] SoundI::release                          :  (0000021948DF9A38)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_02 (0000021A3C7E2E98)
+[LOG] SoundI::release                          :  (000002184C8DE368)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_03 (0000021A3C7E6778)
+[LOG] SoundI::release                          :  (00000219C1247688)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_01 (0000021A3C7E6438)
+[LOG] SoundI::release                          :  (000002185934BBE8)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_02 (000002182CD8F0B8)
+[LOG] SoundI::release                          :  (0000021948DF95E8)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_03 (0000021A3C7E2CF8)
+[LOG] SoundI::release                          :  (00000219C1247968)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_01 (0000021A3C7E43B8)
+[LOG] SoundI::release                          :  (000002185934BEC8)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_02 (000002182CD8FA78)
+[LOG] SoundI::release                          :  (000002185934C038)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_03 (000002185B7B0C98)
+[LOG] SoundI::release                          :  (0000021948DF9E88)
+[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Stone_01 (0000021A3C7E50B8)
+[LOG] SoundI::release                          :  (00000219C1247C48)
+[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_01 (0000021A3C7E5258)
+[LOG] SoundI::release                          :  (000002184CF833C8)
+[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_02 (0000021A3C7E2678)
+[LOG] SoundI::release                          :  (000002185934BA78)
+[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_03 (000002185B7B1658)
+[LOG] SoundI::release                          :  (0000021A38E36358)
+[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_01 (000002182CD8E6F8)
+[LOG] SoundI::release                          :  (000002184C8DE7B8)
+[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_02 (0000021A3C7E7478)
+[LOG] SoundI::release                          :  (00000219C11A03D8)
+[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_03 (000002184C812B98)
+[LOG] SoundI::release                          :  (0000021A38E35F08)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_01 (000002184C8129F8)
+[LOG] SoundI::release                          :  (00000219C1248378)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_02 (0000021A3C7E58D8)
+[LOG] SoundI::release                          :  (0000021948DF9BA8)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_03 (0000021A3C7E1978)
+[LOG] SoundI::release                          :  (00000219C119FE18)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_04 (000002184C812858)
+[LOG] SoundI::release                          :  (000002184CF83C68)
+[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_01 (0000021A3C7E2B58)
+[LOG] SoundI::release                          :  (0000021948DF9758)
+[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_02 (0000021A3C7E31D8)
+[LOG] SoundI::release                          :  (000002184C8DE088)
+[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_03 (0000021A3C7E6AB8)
+[LOG] SoundI::release                          :  (000002185934C5F8)
+[LOG] SoundI::release                          :     FX_105_PL_Grim_Scyche_DownAttack_Release_01 (000002182CD8E078)
+[LOG] SoundI::release                          :  (00000219C11A0998)
+[LOG] SoundI::release                          :     FX_103_PL_Grim_Scyche_Slam_01 (000002184C812378)
+[LOG] SoundI::release                          :  (000002184C8DEC08)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Sand_01 (0000021A3C7E7958)
+[LOG] SoundI::release                          :  (0000021A38E35C28)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Sand_02 (000002184C813898)
+[LOG] SoundI::release                          :  (000002184C8DE928)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Sand_03 (0000021A3C7E7FD8)
+[LOG] SoundI::release                          :  (0000021A38E36638)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Snow_01 (000002184C813218)
+[LOG] SoundI::release                          :  (000002184CF840B8)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Snow_02 (00000218438AF7D8)
+[LOG] SoundI::release                          :  (0000021948DFA168)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Snow_03 (0000021A3C7E2338)
+[LOG] SoundI::release                          :  (0000021948DF98C8)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Stone_01 (0000021A3C7E3518)
+[LOG] SoundI::release                          :  (0000021948DF9D18)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Stone_02 (0000021A3C7E2818)
+[LOG] SoundI::release                          :  (0000021948DFA2D8)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Stone_03 (0000021A3C7E29B8)
+[LOG] SoundI::release                          :  (0000021A38E364C8)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Ice_01 (000002184C812D38)
+[LOG] SoundI::release                          :  (000002184CF83538)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Ice_02 (000002184E046948)
+[LOG] SoundI::release                          :  (000002184CF836A8)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Ice_03 (0000021843432CD8)
+[LOG] SoundI::release                          :  (0000021A38E367A8)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Stone_01 (000002184C8133B8)
+[LOG] SoundI::release                          :  (0000021A38E35D98)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Stone_02 (000002184C8136F8)
+[LOG] SoundI::release                          :  (000002184C8DE1F8)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Stone_03 (0000021A3C7E6DF8)
+[LOG] SoundI::release                          : Demo 0202-Ver.2 (0000021947701D08)
+[LOG] SoundI::release                          :     Demo 0202-Ver.2 (000002184C811338)
+[LOG] SoundI::release                          :     Demo 0202-Ver.2 (0000021947702578)
+[LOG] SoundI::release                          : FX_005_LM_MapDenial_Ambience_01 (00000219C19E8928)
+[LOG] SoundI::release                          :     FX_005_LM_MapDenial_Ambience_01 (0000021A3C7E4558)
+[LOG] SoundI::release                          :     FX_005_LM_MapDenial_Ambience_01 (00000219477028D8)
+[LOG] SoundI::release                          :  (00000219C1247AD8)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Soil_01 (0000021A3C7E5738)
+[LOG] SoundI::release                          :  (00000219C12477F8)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Soil_02 (0000021A3C7E1498)
+[LOG] SoundI::release                          :  (000002184CF83988)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Soil_03 (0000021A3C7E1E58)
+[LOG] Thread::callback                         : FMOD Convolution thread finished.
+[LOG] Thread::callback                         : FMOD Convolution thread finished.
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 
 [LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] SystemI::close                           : Closed.
+[ERR] assert                                   : assertion: 'gSystemInitCount == 0' failed

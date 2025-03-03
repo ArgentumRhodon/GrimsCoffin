@@ -91,6 +91,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{7372b558-7410-4af4-ad84-056ce150e9bf}">
+		<relationship name="modulators">
+			<destination>{5916d018-0d1b-40bf-849a-e475c50ca35d}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{99fc3274-d283-4ba1-9782-c396d46c1efa}</destination>
 		</relationship>
@@ -208,6 +211,20 @@
 			<destination>{d526aae6-1a7b-47fd-a94a-5df4852f552f}</destination>
 		</relationship>
 	</object>
+	<object class="ADSRModulator" id="{5916d018-0d1b-40bf-849a-e475c50ca35d}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackTime">
+			<value>0</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
+		</property>
+	</object>
 	<object class="MixerBusEffectChain" id="{99fc3274-d283-4ba1-9782-c396d46c1efa}">
 		<relationship name="effects">
 			<destination>{67a9c418-b9bd-4d1c-889f-3599d3a5033a}</destination>
@@ -247,6 +264,7 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{e42f265f-a52a-40c1-bc57-485d8d955a4e}">
 		<relationship name="effects">
+			<destination>{736c5d06-f5fc-4c02-9a45-9d4993ac42fa}</destination>
 			<destination>{b165af2a-87ce-49a0-85db-832cb6b16a09}</destination>
 		</relationship>
 	</object>
@@ -326,6 +344,32 @@
 		</property>
 		<property name="value">
 			<value>1</value>
+		</property>
+	</object>
+	<object class="MultibandEqEffect" id="{736c5d06-f5fc-4c02-9a45-9d4993ac42fa}">
+		<property name="filterTypeB">
+			<value>5</value>
+		</property>
+		<property name="filterTypeC">
+			<value>9</value>
+		</property>
+		<property name="frequencyA">
+			<value>21999.9902</value>
+		</property>
+		<property name="frequencyB">
+			<value>183.58522</value>
+		</property>
+		<property name="frequencyC">
+			<value>539.192993</value>
+		</property>
+		<property name="qualityA">
+			<value>0.518620729</value>
+		</property>
+		<property name="qualityB">
+			<value>0.840758622</value>
+		</property>
+		<property name="gainC">
+			<value>8.27586269</value>
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{b165af2a-87ce-49a0-85db-832cb6b16a09}" />
