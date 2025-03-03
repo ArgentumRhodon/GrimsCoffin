@@ -435,6 +435,7 @@ GameObject:
   - component: {fileID: 94677831419472786}
   - component: {fileID: 6253059432297718794}
   - component: {fileID: 4799350087178466909}
+  - component: {fileID: -7325185424103787221}
   m_Layer: 6
   m_Name: Basic Ghost
   m_TagString: Enemy
@@ -560,6 +561,36 @@ MonoBehaviour:
   kinematicCollider: {fileID: 2426847185208555203}
   bodyCollider: {fileID: 2426847185208555203}
   attackCollider: {fileID: 2798288149803154148}
+  oneShotNotifierA:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7325185424103787221}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  oneShotNotifierB:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7325185424103787221}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,6 +716,47 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-7325185424103787221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567458006229910762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92623db9bba39764babfdc9a57b554a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneShotFXA:
+    Guid:
+      Data1: -1752065024
+      Data2: 1331801174
+      Data3: 610437012
+      Data4: 1948479402
+    Path: event:/ENM/Ghost/202_Injured
+  oneShotFXB:
+    Guid:
+      Data1: 2123178684
+      Data2: 1152742731
+      Data3: -526411102
+      Data4: -89292590
+    Path: event:/ENM/Ghost/204_Die
+  oneShotFXC:
+    Guid:
+      Data1: -1567834144
+      Data2: 1245494522
+      Data3: 1599080376
+      Data4: 2019967672
+    Path: event:/Test/Test SFX/Test_007_IdleSound
+  oneShotFXD:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  target2: {fileID: 0}
 --- !u!1 &6739004351742520192
 GameObject:
   m_ObjectHideFlags: 0

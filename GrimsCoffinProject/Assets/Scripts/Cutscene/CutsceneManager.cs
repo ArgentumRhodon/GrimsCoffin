@@ -250,4 +250,5 @@ public class CutsceneManager : MonoBehaviour
         return (c == '.' || c == ',' || c == '!' ||
                 c == '?' || c == ';' || c == ':' || c == '-');
     }
+
 }

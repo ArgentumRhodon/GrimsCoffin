@@ -8,6 +8,7 @@ using BehaviorDesigner.Runtime;
 using UnityEngine.UIElements;
 using UnityEngine.Rendering;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityCharacterController;
+using UnityEngine.Events;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -102,7 +103,15 @@ public abstract class Enemy : MonoBehaviour
     [Header("Attack Collision")]
     [SerializeField] protected Collider2D bodyCollider;
     [SerializeField] public Collider2D attackCollider;
+
+    //Event Notifier for FMOD -------------------------------------------------------------------------------------
+    [SerializeField] private UnityEvent oneShotNotifierA;
+    [SerializeField] private UnityEvent oneShotNotifierB;
+    [SerializeField] private UnityEvent oneShotNotifierD;
     #endregion
+
+
+
 
     //Runtime Methods ---------------------------------------------------------------------------------------------
     #region Runtime
@@ -262,6 +271,8 @@ public abstract class Enemy : MonoBehaviour
         //Remove health
         health -= damage;
 
+        oneShotNotifierA.Invoke();
+
         //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
 
@@ -284,6 +295,8 @@ public abstract class Enemy : MonoBehaviour
     public virtual void DestroyEnemy()
     {
         SpawnDrop();
+
+        oneShotNotifierB.Invoke();
 
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);

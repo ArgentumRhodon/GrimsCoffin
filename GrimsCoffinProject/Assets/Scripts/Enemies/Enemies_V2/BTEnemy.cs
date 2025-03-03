@@ -43,6 +43,10 @@ public class BTEnemy : Enemy
     private float attackDamage;
     public float AttackDamage { get { return attackDamage; } set { attackDamage = value; } }
 
+    //FMODRelatedEvents
+    [SerializeField] private UnityEvent damagedTrigger;
+    [SerializeField] private UnityEvent deadTrigger;
+
     protected Animator animator;
 
     protected override void Start()
