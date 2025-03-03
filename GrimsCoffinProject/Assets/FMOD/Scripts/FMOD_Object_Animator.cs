@@ -65,6 +65,13 @@ public class FMOD_Object_Animator : MonoBehaviour
 
     }
 
+    void fmodChargeStop()
+    {
+        chargeStarted = false;
+        chargeInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+
     void fmodReleaseStart()
     {
         chargeStarted = false;
