@@ -43,7 +43,7 @@ public class EnemyDrop : MonoBehaviour
         //Check is under SP drop so that health pickups take priority if both are rolled correctly
 
         //Example: 50 + (50/10) * 5 = 75, 75% chance for health pickup at 10 HP when your max is 50 (higher if max is higher or current is lower) 
-        else if (Random.Range(1,100) <= (50 + (maxHP/currentHP) * dropScalar) && currentHP < maxHP)
+        if (Random.Range(1,100) <= (50 + (maxHP/currentHP) * dropScalar) && currentHP < maxHP)
         {
             dropType = EnemyDropType.Health;
         }
