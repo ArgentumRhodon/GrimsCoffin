@@ -13,6 +13,8 @@ public class BreakableWall : MonoBehaviour
 
     private float health = 5;
 
+    [SerializeField] private GameObject hitEffect;
+
     //FMOD Related Variables
     #region FMODRelated
     private enum wallNameEnum
@@ -57,6 +59,8 @@ public class BreakableWall : MonoBehaviour
 
         //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
+
+        Instantiate(hitEffect, this.transform.position, Quaternion.identity);
 
         //Enemy death calculation
         if (health <= 0)
