@@ -359,9 +359,12 @@ public abstract class Enemy : MonoBehaviour
         transform.localScale = scale;
 
         //Updates scale of UI so that it is always facing right
-        Vector3 tempScale = enemyCanvas.transform.localScale;
-        tempScale.x = shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);
-        enemyCanvas.transform.localScale = tempScale;
+        if (enemyCanvas != null)
+        {
+            Vector3 tempScale = enemyCanvas.transform.localScale;
+            tempScale.x = shouldFaceRight ? Mathf.Abs(tempScale.x) : -1 * Mathf.Abs(tempScale.x);
+            enemyCanvas.transform.localScale = tempScale;
+        }
 
         enemyStateList.IsFacingRight = shouldFaceRight;
         Direction = shouldFaceRight ? Mathf.Abs(Direction) : -1 * Mathf.Abs(Direction);

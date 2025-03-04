@@ -623,6 +623,9 @@ public class PlayerControllerForces : MonoBehaviour
             }
         }
 
+        if (UIManager.Instance.bossHealthBar != null)
+            Destroy(UIManager.Instance.bossHealthBar);
+
         if (!playerState.IsFacingRight)
             Turn();
 

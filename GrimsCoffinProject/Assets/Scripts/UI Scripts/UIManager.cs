@@ -41,6 +41,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] public SavePoint activeSavePoint;
 
+    public GameObject bossHealthBar;
+
     public bool scytheThrowInMenu;
 
     private void Awake()
