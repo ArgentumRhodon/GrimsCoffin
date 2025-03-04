@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EffectPreset" id="{8366650b-8aca-4969-a711-8e3639425c58}">
+		<property name="name">
+			<value>Panner</value>
+		</property>
+		<relationship name="folder">
+			<destination>{b664ca3c-95d8-4f93-9adf-1f33184cee70}</destination>
+		</relationship>
+		<relationship name="effect">
+			<destination>{ab2b92c3-f682-4f43-8df0-cb46e2a8900f}</destination>
+		</relationship>
+	</object>
+	<object class="PannerEffect" id="{ab2b92c3-f682-4f43-8df0-cb46e2a8900f}">
+		<property name="overridingOutputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="automators">
+			<destination>{06897235-8c5a-4405-b423-6be7fb664dfc}</destination>
+		</relationship>
+	</object>
+	<object class="Automator" id="{06897235-8c5a-4405-b423-6be7fb664dfc}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>stereoPan</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{094ea473-4ab3-41f1-91cf-7b1513c2e6b8}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationCurve" id="{094ea473-4ab3-41f1-91cf-7b1513c2e6b8}">
+		<relationship name="parameter">
+			<destination>{ed0b892e-7c63-45b3-81b8-6c199bb23736}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{5edbecc2-3b14-4204-8c2b-038156bcfbd0}</destination>
+			<destination>{1f391c0f-6e19-4ad0-aef7-b2c49ad455ef}</destination>
+			<destination>{8a219f50-c2fa-4b57-b680-c16abd0381fc}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationPoint" id="{5edbecc2-3b14-4204-8c2b-038156bcfbd0}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+		<property name="curveShape">
+			<value>-1</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{1f391c0f-6e19-4ad0-aef7-b2c49ad455ef}">
+		<property name="position">
+			<value>-10</value>
+		</property>
+		<property name="value">
+			<value>-100</value>
+		</property>
+		<property name="curveShape">
+			<value>1</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{8a219f50-c2fa-4b57-b680-c16abd0381fc}">
+		<property name="position">
+			<value>10</value>
+		</property>
+		<property name="value">
+			<value>100</value>
+		</property>
+	</object>
+</objects>

@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 4911824634375459305}
   - component: {fileID: 1476770557332564771}
   - component: {fileID: 4699518866355440840}
+  - component: {fileID: 7760601862594982764}
   m_Layer: 6
   m_Name: SkeletonSprite
   m_TagString: Untagged
@@ -229,6 +230,60 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.125, y: 3}
   m_EdgeRadius: 0
+--- !u!114 &7760601862594982764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543663855852809514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ad2f12fb6fb4e449dcbe553eed9d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runFX:
+    Guid:
+      Data1: -198292960
+      Data2: 1142966131
+      Data3: 1217122709
+      Data4: -1048581206
+    Path: event:/Test/Test SFX/Test_006_Sword
+  jumpFX:
+    Guid:
+      Data1: -1488066221
+      Data2: 1310704095
+      Data3: -1764610688
+      Data4: 1517431551
+    Path: event:/ENM/Skeleton/203_Die
+  dashFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  landFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  chargeFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  releaseFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
 --- !u!1 &1908118081788846629
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,6 +595,7 @@ GameObject:
   - component: {fileID: 6100845016814031525}
   - component: {fileID: 6253059432297718794}
   - component: {fileID: 4799350087178466909}
+  - component: {fileID: 7172211806279211375}
   m_Layer: 6
   m_Name: Basic Skeleton
   m_TagString: Enemy
@@ -662,7 +718,39 @@ MonoBehaviour:
   kinematicCollider: {fileID: 8876281707678914780}
   bodyCollider: {fileID: 8876281707678914780}
   attackCollider: {fileID: 4699518866355440840}
-  canDamageWhenColliding: 0
+  oneShotNotifierA:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7172211806279211375}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  oneShotNotifierB:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7172211806279211375}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  oneShotNotifierD:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,6 +876,47 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7172211806279211375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567458006229910762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92623db9bba39764babfdc9a57b554a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneShotFXA:
+    Guid:
+      Data1: -1669518742
+      Data2: 1225641709
+      Data3: -2085981297
+      Data4: -1689362602
+    Path: event:/ENM/Skeleton/201_Injured
+  oneShotFXB:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  oneShotFXC:
+    Guid:
+      Data1: -1567834144
+      Data2: 1245494522
+      Data3: 1599080376
+      Data4: 2019967672
+    Path: event:/Test/Test SFX/Test_007_IdleSound
+  oneShotFXD:
+    Guid:
+      Data1: -198292960
+      Data2: 1142966131
+      Data3: 1217122709
+      Data4: -1048581206
+    Path: event:/Test/Test SFX/Test_006_Sword
+  attenuation: 1
 --- !u!1 &6739004351742520192
 GameObject:
   m_ObjectHideFlags: 0
