@@ -5,11 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
+using Pathfinding.Ionic.Zip;
 
 
 public class BossHealthBar : MonoBehaviour
 {
-    [SerializeField] private string bossName = "???";
+    [SerializeField] private string bossName = "DenialBoss";
+    [SerializeField] private string bossDisplayName = "???";
     [SerializeField] private Image healthFill;
     [SerializeField] private TextMeshProUGUI nameText;
 
@@ -19,23 +22,29 @@ public class BossHealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //bossScript = GameObject.Find(bossName).GetComponent<DenialBoss>();
-        //maxHP = bossScript.health;
-        DOVirtual.DelayedCall(.1f, SetReferences, false);
+        
+        if (GameObject.Find(bossName) == null)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (bossScript.health <= 0)
-            Destroy(this.gameObject);
+        if (bossScript != null)
+        {
+            if (bossScript.health <= 0)
+                Destroy(this.gameObject);
 
-        healthFill.fillAmount = Mathf.MoveTowards(healthFill.fillAmount, (bossScript.health / maxHP), Time.deltaTime);
+            healthFill.fillAmount = Mathf.MoveTowards(healthFill.fillAmount, (bossScript.health / maxHP), Time.deltaTime);
+        }
     }
 
-    private void SetReferences()
+    public void SetupHealthBar()
     {
-        nameText.text = bossName;
-        UIManager.Instance.bossHealthBar = this.gameObject;
+        bossScript = GameObject.Find(bossName + "(Clone)").GetComponent<DenialBoss>();
+        maxHP = bossScript.health;
+        nameText.text = bossDisplayName;
     }
 }

@@ -21,7 +21,9 @@ public class DenialBoss : Enemy
     {
         base.Start();
         roomBounds = GameObject.Find("RoomBounds").GetComponent<Collider2D>();
-        DOVirtual.DelayedCall(1, CreateHealthBar, false);
+        UIManager.Instance.bossHealthBar.GetComponent<BossHealthBar>().SetupHealthBar();
+        UIManager.Instance.bossHealthBar.SetActive(true);
+
     }
 
     private void CreateHealthBar()
