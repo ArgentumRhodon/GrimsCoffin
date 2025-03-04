@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Spirit : Interactable
 {
@@ -13,6 +14,7 @@ public class Spirit : Interactable
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject mapIcon;
     [SerializeField] private GameObject exclamationMark;
+    [SerializeField] private PlayableDirector Collect;
 
     public enum SpiritID
     {
@@ -62,6 +64,15 @@ public class Spirit : Interactable
         
         else
             sprite.flipX = false;
+    }
+
+    public void DestroySpirit() 
+    {
+        Collect.Play();
+    }
+    public void SelfDestroy() 
+    {
+        Destroy(this.gameObject.transform.parent.gameObject);
     }
 
 

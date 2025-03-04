@@ -15,6 +15,7 @@ public static class PlayerAnimationStates
     public static readonly string Attack2 = "Attack2";
     public static readonly string Attack3 = "Attack3";
     public static readonly string Attack4 = "Attack4";
+    public static readonly string Death = "Death";
 
     public static string GetComboAnimation(int index)
     {
@@ -76,5 +77,17 @@ public class PlayerAnimationManager : MonoBehaviour
         scytheAnimator.Play(newState);
 
         currentState = newState;
+    }
+
+    public void ChangeAnimationSpeed(float speed)
+    {
+        playerAnimator.speed = speed;
+        scytheAnimator.speed = speed;
+    }
+
+    public void ChangeSpriteLayer(int layer)
+    {
+        playerAnimator.gameObject.layer = layer;
+        scytheAnimator.gameObject.layer = layer;
     }
 }

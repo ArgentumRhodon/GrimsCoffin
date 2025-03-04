@@ -52,6 +52,8 @@ public class RestPointMenu: MonoBehaviour
 
             Time.timeScale = 0;
 
+            PlayerAnimationManager.Instance.ChangeAnimationSpeed(0);
+
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
 
             if (UIManager.Instance.areaText != null)
@@ -69,6 +71,8 @@ public class RestPointMenu: MonoBehaviour
 
             Time.timeScale = 0;
 
+            PlayerAnimationManager.Instance.ChangeAnimationSpeed(0);
+
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
 
             if (UIManager.Instance.areaText != null)
@@ -78,6 +82,8 @@ public class RestPointMenu: MonoBehaviour
         else
         {
             EventSystem.current.SetSelectedGameObject(null);
+
+            PlayerAnimationManager.Instance.ChangeAnimationSpeed(1);
 
             PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
             Time.timeScale = 1;

@@ -172,7 +172,8 @@ public class DialogueManager : MonoBehaviour
             // Example: if spirit state is 0, destroy the object
             if (spirit.spiritState == 0)
             {
-                Destroy(spirit.gameObject.transform.parent.gameObject);
+                //Destroy(spirit.gameObject.transform.parent.gameObject);
+                spirit.DestroySpirit();
             }
 
             // Update persistent data, reset line, hide UI
@@ -213,16 +214,47 @@ public class DialogueManager : MonoBehaviour
     /// Coroutine that reveals the text character-by-character, 
     /// with optional punctuation delay and skip logic.
     /// </summary>
-    private IEnumerator TypeTextRoutine(string fullText)
-    {
-        WaitForSeconds normalDelay = new WaitForSeconds(1f / charactersPerSecond);
-        //WaitForSeconds skipDelay   = new WaitForSeconds(1f / (charactersPerSecond * skipMultiplier));
-        WaitForSeconds punctWait   = new WaitForSeconds(punctuationDelay);
+private IEnumerator TypeTextRoutine(string fullText)
+{
+    WaitForSeconds normalDelay = new WaitForSeconds(1f / charactersPerSecond);
+    WaitForSeconds punctWait   = new WaitForSeconds(punctuationDelay);
 
-        for (int i = 0; i < fullText.Length; i++)
+    int i = 0;
+    while (i < fullText.Length)
+    {
+        // 1) Check if the current character starts a tag
+        if (fullText[i] == '<')
         {
+            // 2) Find where this tag ends
+            int closeTagIndex = fullText.IndexOf('>', i);
+            if (closeTagIndex == -1)
+            {
+                // No closing '>' found ¡ª treat it like normal text 
+                // (optional: or break out if malformed)
+                dialogueText.text += fullText[i];
+                i++;
+                yield return normalDelay;
+            }
+            else
+            {
+                // 3) Extract the entire tag: e.g. "<sprite index=4>"
+                string tagText = fullText.Substring(i, (closeTagIndex - i) + 1);
+
+                // 4) Append the entire tag instantly (so TMP shows the sprite/formatting)
+                dialogueText.text += tagText;
+
+                // 5) Move index to the end of the tag
+                i = closeTagIndex + 1;
+
+                // 6) We skip any typewriter delay here so it appears immediately
+            }
+        }
+        else
+        {
+            // Normal character ¡ú type it out
             dialogueText.text += fullText[i];
 
+            // If it's punctuation, delay a bit
             if (IsPunctuation(fullText[i]))
             {
                 yield return punctWait;
@@ -231,13 +263,14 @@ public class DialogueManager : MonoBehaviour
             {
                 yield return normalDelay;
             }
+            i++;
         }
-
-        // Finished typing fully
-        isTyping = false;
-        //isSkipping = false;
-        canProgressDialogue = true; // Now the user can press Continue to move on
     }
+
+    // Finished typing fully
+    isTyping = false;
+    canProgressDialogue = true;
+}
 
     /// <summary>
     /// If the user presses Continue while we're typing, 

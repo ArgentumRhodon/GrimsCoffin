@@ -77,6 +77,8 @@ public class PauseScreenBehavior : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(resume.gameObject);
             Time.timeScale = 0.0f;
+
+            PlayerAnimationManager.Instance.ChangeAnimationSpeed(0);
         }
             
 
@@ -84,6 +86,7 @@ public class PauseScreenBehavior : MonoBehaviour
         {
             //Reactivate player control and unpause
             playerInput.ActivateInput();
+            PlayerAnimationManager.Instance.ChangeAnimationSpeed(1);
             Time.timeScale = 1.0f;
         }
     }
