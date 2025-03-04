@@ -1080,6 +1080,7 @@ MonoBehaviour:
   - {fileID: -7318547687938819160}
   - {fileID: 1661022813571528912}
   - {fileID: -2877980400413261351}
+  - {fileID: 5448314983745278536}
   EditorParameters:
   - {fileID: -3355277177704017374}
   - {fileID: -3685714587446246573}
@@ -1089,7 +1090,7 @@ MonoBehaviour:
   - {fileID: 971634653438544226}
   StringsBanks:
   - {fileID: 861109146523642461}
-  cacheTime: 638766054187662682
+  cacheTime: 638766976629708972
   cacheVersion: 131620
 --- !u!114 &345798425835584846
 MonoBehaviour:
@@ -1133,10 +1134,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638766054187662682
+  lastModified: 638766976629708972
   FileSizes:
   - Name: Desktop
-    Value: 3882
+    Value: 3926
   Exists: 1
 --- !u!114 &971634653438544226
 MonoBehaviour:
@@ -1153,10 +1154,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638766054187632872
+  lastModified: 638766976629669156
   FileSizes:
   - Name: Desktop
-    Value: 41956224
+    Value: 44212384
   Exists: 1
 --- !u!114 &1142629764556526091
 MonoBehaviour:
@@ -1606,6 +1607,33 @@ MonoBehaviour:
   - SlideStart
   - SlideStop
   Exists: 1
+--- !u!114 &5448314983745278536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MX/005_Equilibrium
+  m_EditorClassIdentifier: 
+  Path: event:/MX/005_Equilibrium
+  Guid:
+    Data1: -975779487
+    Data2: 1126138371
+    Data3: 1060633728
+    Data4: -1221695334
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 51648
 --- !u!114 &5532144973963729005
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ public class FMODGlobalParameterTester : MonoBehaviour
         Denial,
         Menu,
         Menu2,
+        Equi,
     }
 
 
@@ -32,6 +33,7 @@ public class FMODGlobalParameterTester : MonoBehaviour
     [SerializeField] public EventReference mapMXDenial;
     [SerializeField] public EventReference mapMXMenu;
     [SerializeField] public EventReference mapMXMenu2;
+    [SerializeField] public EventReference mapMXEqui;
     protected EventInstance MXInstance;
 
 
@@ -122,6 +124,9 @@ public class FMODGlobalParameterTester : MonoBehaviour
             case 3:
                 MXInstance = RuntimeManager.CreateInstance(mapMXMenu2);
                 break;
+            case 4:
+                MXInstance = RuntimeManager.CreateInstance(mapMXEqui);
+                break;
 
             default:
                 MXInstance = RuntimeManager.CreateInstance(mapMXMenu2);
@@ -192,6 +197,9 @@ public class FMODGlobalParameterTester : MonoBehaviour
                     break;
                 case 3:
                     MXInstance = RuntimeManager.CreateInstance(mapMXMenu2);
+                    break;
+                case 4:
+                    MXInstance = RuntimeManager.CreateInstance(mapMXEqui);
                     break;
                 default:
                     MXInstance = RuntimeManager.CreateInstance(mapMXMenu);
