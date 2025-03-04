@@ -101,7 +101,7 @@ public abstract class Enemy : MonoBehaviour
 
     //Attack Colliders --------------------------------------------------------------------------------------------
     [Header("Attack Collision")]
-    [SerializeField] protected Collider2D bodyCollider;
+    [SerializeField] public Collider2D bodyCollider;
     [SerializeField] public Collider2D attackCollider;
     #endregion
 
