@@ -21,7 +21,8 @@ public class FMODGlobalParameterTester : MonoBehaviour
     {
         Tutorial,
         Denial,
-        Menu
+        Menu,
+        Menu2,
     }
 
 
@@ -30,6 +31,7 @@ public class FMODGlobalParameterTester : MonoBehaviour
     [SerializeField] public EventReference mapMXTutorial;
     [SerializeField] public EventReference mapMXDenial;
     [SerializeField] public EventReference mapMXMenu;
+    [SerializeField] public EventReference mapMXMenu2;
     protected EventInstance MXInstance;
 
 
@@ -48,6 +50,8 @@ public class FMODGlobalParameterTester : MonoBehaviour
     [Tooltip("Selection of available ground names")]
     [SerializeField] public levelNamesEnum levelName;
     private levelNamesEnum initialLevel;
+
+    public GameObject Test;
 
     #region valueA
     [Range(0f, 1f)]
@@ -83,6 +87,7 @@ public class FMODGlobalParameterTester : MonoBehaviour
 
     void Awake()
     {
+        
         //Debug.Log("Current Ground Name is: " + (float)groundName);
         
         //Debug.Log("initialGround is: " + initialGround);
@@ -114,8 +119,12 @@ public class FMODGlobalParameterTester : MonoBehaviour
             case 2:
                 MXInstance = RuntimeManager.CreateInstance(mapMXMenu);
                 break;
+            case 3:
+                MXInstance = RuntimeManager.CreateInstance(mapMXMenu2);
+                break;
+
             default:
-                MXInstance = RuntimeManager.CreateInstance(mapMXMenu);
+                MXInstance = RuntimeManager.CreateInstance(mapMXMenu2);
                 break;
         }
         initialGround = groundName;
@@ -125,6 +134,11 @@ public class FMODGlobalParameterTester : MonoBehaviour
     void Start()
     {
         //initialGround = groundName;
+        GameObject obj = GameObject.Find("MusicController_Temp");
+        if (obj != null)
+        {
+            Destroy(obj);
+        }
         MXInstance.start();
         mapAmbInstance.start();
     }
@@ -176,6 +190,9 @@ public class FMODGlobalParameterTester : MonoBehaviour
                 case 2:
                     MXInstance = RuntimeManager.CreateInstance(mapMXMenu);
                     break;
+                case 3:
+                    MXInstance = RuntimeManager.CreateInstance(mapMXMenu2);
+                    break;
                 default:
                     MXInstance = RuntimeManager.CreateInstance(mapMXMenu);
                     break;
@@ -187,8 +204,8 @@ public class FMODGlobalParameterTester : MonoBehaviour
 
     private void OnDestroy()
     {
-        mapAmbInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        MXInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        mapAmbInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        MXInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         mapAmbInstance.release();
         mapAmbInstance.clearHandle();
         MXInstance.release();
