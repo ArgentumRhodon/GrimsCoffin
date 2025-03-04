@@ -46,11 +46,11 @@ namespace Core.AI
 
 
             DOVirtual.DelayedCall(attackDuration, FinishAttack, false);
-
         }
 
         private void FinishAttack()
         {
+            Debug.Log("Attack is completed");
             attackCompleted = true;
         }
     }

@@ -390,7 +390,7 @@ public abstract class Enemy : MonoBehaviour
 
     private IEnumerator PerformSleep(float duration, Vector2 knockbackForce, int gravityOverride = -1)
     {
-        Debug.Log(knockbackForce);
+        //Debug.Log(knockbackForce);
         //Sleeping
         enemyStateList.IsSleeping = true;
         behaviorTree.enabled = false;

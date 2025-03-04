@@ -12,8 +12,14 @@ public class DenialBoss : Enemy
     }
 
     [SerializeField] public Collider2D[] AOEColliders;
-    [SerializeField] public Collider2D LaserCollider;
-    [SerializeField] public Collider2D RoomBounds;
+    [SerializeField] public Collider2D laserCollider;
+    [SerializeField] public Collider2D roomBounds;
+
+    protected override void Start()
+    {
+        base.Start();
+        roomBounds = GameObject.Find("RoomBounds").GetComponent<Collider2D>();
+    }
 
     protected override void FixedUpdate()
     {
@@ -23,6 +29,6 @@ public class DenialBoss : Enemy
         {
             CheckCollisionWithPlayer(collider, AttackDamage);
         }
-        CheckCollisionWithPlayer(LaserCollider, AttackDamage);
+        CheckCollisionWithPlayer(laserCollider, AttackDamage);
     }
 }
