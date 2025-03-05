@@ -7,7 +7,7 @@ public class DeathScreenBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > .7f)
+        if (this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > .8f)
         {
             PlayerControllerForces.Instance.Respawn();
         }

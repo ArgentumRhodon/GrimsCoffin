@@ -898,9 +898,9 @@ public class PlayerControllerForces : MonoBehaviour
         rb.excludeLayers = LayerMask.GetMask("Enemy");
         rb.excludeLayers += LayerMask.GetMask("Agent");
 
-        Color tmp = animator.GetComponent<SpriteRenderer>().color;
-        tmp.a = 0.5f;
-        animator.GetComponent<SpriteRenderer>().color = tmp;
+        //Color tmp = animator.GetComponent<SpriteRenderer>().color;
+        //tmp.a = 0.5f;
+        //animator.GetComponent<SpriteRenderer>().color = tmp;
 
         //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
@@ -947,9 +947,9 @@ public class PlayerControllerForces : MonoBehaviour
         hasDashInvincibility = false;
         //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Agent"), LayerMask.NameToLayer("Agent"), false);
         rb.excludeLayers = LayerMask.GetMask("Nothing");
-        tmp = animator.GetComponent<SpriteRenderer>().color;
-        tmp.a = 1f;
-        animator.GetComponent<SpriteRenderer>().color = tmp;
+        //tmp = animator.GetComponent<SpriteRenderer>().color;
+        //tmp.a = 1f;
+        //animator.GetComponent<SpriteRenderer>().color = tmp;
         //Debug.Log("Current Transparency2: " + animator_T.GetComponent<SpriteRenderer>().color.a);
     }
 
