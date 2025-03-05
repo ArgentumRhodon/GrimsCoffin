@@ -68,6 +68,16 @@ public class FMOD_Object_OneShotSoundListener : MonoBehaviour
         instanceB.start();
     }
 
+    public void RespondToEventC()
+    {
+        instanceC.start();
+    }
+
+    public void RespondToEventD()
+    {
+        instanceD.start();
+    }
+
     private void distanceUpdater()
     {
         if (object1 != null && object2 != null)

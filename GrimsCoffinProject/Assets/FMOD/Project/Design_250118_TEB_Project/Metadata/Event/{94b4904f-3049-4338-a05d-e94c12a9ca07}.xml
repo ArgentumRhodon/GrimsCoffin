@@ -161,6 +161,9 @@
 		</property>
 	</object>
 	<object class="SingleSound" id="{4a290d65-dd1f-4d27-810b-e99faad62a6a}">
+		<property name="start">
+			<value>1</value>
+		</property>
 		<property name="length">
 			<value>55.512</value>
 		</property>
@@ -265,7 +268,7 @@
 	</object>
 	<object class="LoopRegion" id="{8d8ab22d-5837-447c-9ff8-1dbc6c03df0f}">
 		<property name="position">
-			<value>0.04645077242719748</value>
+			<value>1.0464507724271974</value>
 		</property>
 		<property name="length">
 			<value>52.283712158607287</value>
@@ -289,6 +292,9 @@
 		</property>
 		<property name="attackTime">
 			<value>0</value>
+		</property>
+		<property name="releaseTime">
+			<value>2000</value>
 		</property>
 		<property name="finalValue">
 			<value>-80</value>
