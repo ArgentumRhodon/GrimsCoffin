@@ -633,6 +633,9 @@ public class PlayerControllerForces : MonoBehaviour
             }
         }
 
+        if (UIManager.Instance.bossHealthBar.activeInHierarchy)
+            UIManager.Instance.bossHealthBar.SetActive(false);
+
         if (!playerState.IsFacingRight)
             Turn();
 
@@ -986,6 +989,8 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void DownAttack()
     {
+        rb.excludeLayers = LayerMask.GetMask("Enemy");
+        rb.excludeLayers += LayerMask.GetMask("Agent");
         SetGravityScale(1);
         //rb.AddForce(Vector2.down * Data.aerialDownwardPForce, ForceMode2D.Impulse);
         rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
@@ -1551,6 +1556,10 @@ public class PlayerControllerForces : MonoBehaviour
         }
             
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
+
+        //Make sure player doesn't avoid enemies
+        if (!playerState.IsDashing)
+            rb.excludeLayers = LayerMask.GetMask("Nothing");
 
         SetGravityScale(1); 
         isSleeping = false;
