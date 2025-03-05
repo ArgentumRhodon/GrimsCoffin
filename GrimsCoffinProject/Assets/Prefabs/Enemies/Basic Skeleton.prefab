@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4911824634375459305}
   - component: {fileID: 1476770557332564771}
   - component: {fileID: 4699518866355440840}
-  - component: {fileID: 7760601862594982764}
+  - component: {fileID: 7940217293665787908}
   m_Layer: 6
   m_Name: SkeletonSprite
   m_TagString: Untagged
@@ -230,7 +230,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.125, y: 3}
   m_EdgeRadius: 0
---- !u!114 &7760601862594982764
+--- !u!114 &7940217293665787908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,51 +239,69 @@ MonoBehaviour:
   m_GameObject: {fileID: 543663855852809514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61ad2f12fb6fb4e449dcbe553eed9d9d, type: 3}
+  m_Script: {fileID: 11500000, guid: eaa85f6e75563444f863c104d6824ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runFX:
-    Guid:
-      Data1: -198292960
-      Data2: 1142966131
-      Data3: 1217122709
-      Data4: -1048581206
-    Path: event:/Test/Test SFX/Test_006_Sword
-  jumpFX:
-    Guid:
-      Data1: -1488066221
-      Data2: 1310704095
-      Data3: -1764610688
-      Data4: 1517431551
-    Path: event:/ENM/Skeleton/203_Die
-  dashFX:
-    Guid:
-      Data1: -1866493209
-      Data2: 1099386571
-      Data3: 507551888
-      Data4: -659547312
-    Path: event:/Idle
-  landFX:
-    Guid:
-      Data1: -1866493209
-      Data2: 1099386571
-      Data3: 507551888
-      Data4: -659547312
-    Path: event:/Idle
-  chargeFX:
-    Guid:
-      Data1: -1866493209
-      Data2: 1099386571
-      Data3: 507551888
-      Data4: -659547312
-    Path: event:/Idle
-  releaseFX:
-    Guid:
-      Data1: -1866493209
-      Data2: 1099386571
-      Data3: 507551888
-      Data4: -659547312
-    Path: event:/Idle
+  oneShotNotifierA:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  oneShotNotifierB:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  oneShotNotifierC:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  oneShotNotifierD:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7172211806279211375}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1908118081788846629
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,11 +915,11 @@ MonoBehaviour:
     Path: event:/ENM/Skeleton/201_Injured
   oneShotFXB:
     Guid:
-      Data1: -1866493209
-      Data2: 1099386571
-      Data3: 507551888
-      Data4: -659547312
-    Path: event:/Idle
+      Data1: -1488066221
+      Data2: 1310704095
+      Data3: -1764610688
+      Data4: 1517431551
+    Path: event:/ENM/Skeleton/203_Die
   oneShotFXC:
     Guid:
       Data1: -1567834144

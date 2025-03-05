@@ -174,6 +174,7 @@
 	<object class="MixerBusEffectChain" id="{726fc7f0-3747-4618-9e3b-465002836178}">
 		<relationship name="effects">
 			<destination>{9fffaf13-dc3f-4a0a-84f5-cd0298ac6b30}</destination>
+			<destination>{7aee550e-7438-4948-99b1-983a1ba5d11e}</destination>
 			<destination>{d20b47b2-4b1b-462e-bb22-c8432905cb0f}</destination>
 		</relationship>
 	</object>
@@ -201,6 +202,23 @@
 			<value>-6</value>
 		</property>
 	</object>
+	<object class="PitchShifterEffect" id="{7aee550e-7438-4948-99b1-983a1ba5d11e}">
+		<property name="pitch">
+			<value>0.800000012</value>
+		</property>
+		<property name="fftSize">
+			<value>2140</value>
+		</property>
+		<property name="overlap">
+			<value>1</value>
+		</property>
+		<property name="maxChannels">
+			<value>16</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{6fc7b069-aac4-4a86-a38e-7c832fdcf85f}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{d20b47b2-4b1b-462e-bb22-c8432905cb0f}" />
 	<object class="AutomationPoint" id="{e81b2eb7-3c61-4898-afcf-274e018e6e45}">
 		<property name="position">
@@ -219,6 +237,14 @@
 		</property>
 		<property name="curveShape">
 			<value>0.446385473</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{6fc7b069-aac4-4a86-a38e-7c832fdcf85f}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>13.333334</value>
 		</property>
 	</object>
 </objects>

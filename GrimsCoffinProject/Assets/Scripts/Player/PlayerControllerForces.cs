@@ -102,9 +102,9 @@ public class PlayerControllerForces : MonoBehaviour
     private float currentTime;
 
     [Header("FMOD Events and Controller")]
-    [Range(1f, 10f)]
+    [Range(0.1f, 3f)]
     [Tooltip("This slide controls how fast you want your footstep speed to be")]
-    [SerializeField] public float footstepSpeed = 3f;
+    [SerializeField] public float footstepSpeed = 1f;
     [Tooltip("FMOD events for the walking mechanism")]
     [SerializeField] public EventReference walkSFX;
     protected EventInstance walkInstance;
@@ -1596,7 +1596,7 @@ public class PlayerControllerForces : MonoBehaviour
         stopSlideSFX(slideInstance);
         jumpInstance.start();
         if (jumpStatus == 1) {
-            slideInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            slideInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             wallLeapInstance.start();
             }
     }
@@ -1621,11 +1621,15 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if(isSlidingPlayed == false && Grounded() == false)
         {
-            isSlidingPlayed = true;
-            slideInstance.start();
-            slideInstance.setParameterByName("SlideStatus", 0);
+            float timeDifference = Time.time - currentTime;
+            if (timeDifference > 1 / footstepSpeed)
+            {
+                isSlidingPlayed = true;
+                slideInstance.start();
+                slideInstance.setParameterByName("SlideStatus", 0);
+                currentTime = Time.time;
+            }
         }
-
     }
 
     private void stopSlideSFX(EventInstance slideInstance)
