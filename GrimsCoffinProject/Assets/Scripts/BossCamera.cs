@@ -11,6 +11,9 @@ public class BossCamera : MonoBehaviour
     [SerializeField]
     private CinemachineVirtualCamera bossVirtualCam;
 
+    [SerializeField]
+    private CinemachineVirtualCamera followCam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,7 @@ public class BossCamera : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             camMgr.ChangeCamera(bossVirtualCam);
+            camMgr.Vcam = bossVirtualCam;
         }
     }
 
@@ -36,6 +40,7 @@ public class BossCamera : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             camMgr.CameraReset();
+            camMgr.Vcam = followCam;
         }
     }
 }
