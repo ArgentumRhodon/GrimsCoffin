@@ -5,7 +5,7 @@
 			<value>106_Self_Hit</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{509779a3-7782-4207-a977-f1b4771987b8}</destination>
@@ -115,6 +115,7 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{3e9f0e8a-d641-4fb1-9e52-e53b45dd44c7}">
 		<relationship name="effects">
+			<destination>{9480ee6c-38ad-4c65-a1aa-a423980680cc}</destination>
 			<destination>{931b869c-a502-450e-9a72-4def1657726d}</destination>
 		</relationship>
 	</object>
@@ -142,10 +143,36 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{bfd70bdc-a715-4558-b912-c7a7df562e20}">
 		<relationship name="effects">
+			<destination>{9c3876b7-93cb-4abf-ada6-dca6073b9987}</destination>
 			<destination>{9d800c6c-e1f7-4bd9-9e73-d4de170b7e97}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{25c24e3b-55ef-4c00-b598-5cd472a6b817}" />
+	<object class="PannerEffect" id="{9480ee6c-38ad-4c65-a1aa-a423980680cc}">
+		<property name="overridingOutputFormat">
+			<value>0</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{931b869c-a502-450e-9a72-4def1657726d}" />
+	<object class="MultibandEqEffect" id="{9c3876b7-93cb-4abf-ada6-dca6073b9987}">
+		<property name="filterTypeA">
+			<value>0</value>
+		</property>
+		<property name="filterTypeB">
+			<value>8</value>
+		</property>
+		<property name="frequencyA">
+			<value>143.172394</value>
+		</property>
+		<property name="frequencyB">
+			<value>2299.42065</value>
+		</property>
+		<property name="gainA">
+			<value>-11.3793106</value>
+		</property>
+		<property name="gainB">
+			<value>15</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{9d800c6c-e1f7-4bd9-9e73-d4de170b7e97}" />
 </objects>

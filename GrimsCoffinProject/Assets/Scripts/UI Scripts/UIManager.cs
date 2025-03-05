@@ -107,6 +107,7 @@ public class UIManager : MonoBehaviour
     //Toggle death effect on
     public void HandlePlayerDeath()
     {
+        gameUI.SetActive(false);
         PersistentDataManager.Instance.ToggleFirstSpawn(true);
         deathScreen.SetActive(true);
         Time.timeScale = 0.0f;

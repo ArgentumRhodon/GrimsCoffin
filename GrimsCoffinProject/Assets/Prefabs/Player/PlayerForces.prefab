@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 6355982355014223675}
   - component: {fileID: 4929932698530573072}
   - component: {fileID: 7568753305882926414}
+  - component: {fileID: 306009971840829428}
   m_Layer: 0
   m_Name: Scythe
   m_TagString: Untagged
@@ -160,7 +161,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7fb3d2decfb5918438faee24fa13a7a5, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -214,6 +215,60 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.9601817, y: 1.7696214}
   m_EdgeRadius: 0
+--- !u!114 &306009971840829428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5297061223688076639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ad2f12fb6fb4e449dcbe553eed9d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  jumpFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  dashFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  landFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  chargeFX:
+    Guid:
+      Data1: -215606375
+      Data2: 1079492859
+      Data3: -837860432
+      Data4: 624292752
+    Path: event:/PL/Grim/104_Scyche_DownAttack_Charging
+  releaseFX:
+    Guid:
+      Data1: -1839103076
+      Data2: 1090184900
+      Data3: -601129591
+      Data4: 413326876
+    Path: event:/PL/Grim/105_Scyche_DownAttack_Release
 --- !u!1 &5754731874771024280
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,18 +443,18 @@ MonoBehaviour:
   footstepSpeed: 3.25
   walkSFX:
     Guid:
-      Data1: -1940182391
-      Data2: 1230630669
-      Data3: 931613840
-      Data4: 702799445
-    Path: event:/PL/Grim/107_Self_Run
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
   jumpSFX:
     Guid:
-      Data1: 1562111585
-      Data2: 1194535205
-      Data3: 2106431384
-      Data4: -1159510018
-    Path: event:/PL/Grim/108_Self_Jump
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
   wallLeapSFX:
     Guid:
       Data1: 1798948769
@@ -409,25 +464,25 @@ MonoBehaviour:
     Path: event:/PL/Grim/112_Self_WallLeap
   landSFX:
     Guid:
-      Data1: 2097523222
-      Data2: 1222561803
-      Data3: -1682239845
-      Data4: 1683627875
-    Path: event:/PL/Grim/111_Self_Land
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
   dashSfx:
-    Guid:
-      Data1: -1951803400
-      Data2: 1296177948
-      Data3: -1118050122
-      Data4: 1210164649
-    Path: event:/PL/Grim/109_Self_Dash
-  slidingSFX:
     Guid:
       Data1: -1866493209
       Data2: 1099386571
       Data3: 507551888
       Data4: -659547312
     Path: event:/Idle
+  slidingSFX:
+    Guid:
+      Data1: -1419737013
+      Data2: 1169182696
+      Data3: -1304510785
+      Data4: 1072419083
+    Path: event:/PL/Grim/110_Self_WallSlide
   damageSFX:
     Guid:
       Data1: -1716838928
@@ -5440,6 +5495,7 @@ GameObject:
   - component: {fileID: 8944178990332373370}
   - component: {fileID: 8317159216238193831}
   - component: {fileID: 5067927581455940242}
+  - component: {fileID: 3983412976810264629}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -5502,7 +5558,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1767181267, guid: 061e82098bec6914297b32d1da24200a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5526,7 +5582,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7c29a4504a6b69947957085217d5a89d, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -5551,6 +5607,75 @@ MonoBehaviour:
   RunVFX: {fileID: 1012535118708505403}
   JumpVFX: {fileID: 1012535118708505403}
   LandVFX: {fileID: 1012535118708505403}
+  landTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3983412976810264629}
+        m_TargetAssemblyTypeName: AnimatorFMODController, Assembly-CSharp
+        m_MethodName: RespondToEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3983412976810264629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600383986236679275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ad2f12fb6fb4e449dcbe553eed9d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runFX:
+    Guid:
+      Data1: -1940182391
+      Data2: 1230630669
+      Data3: 931613840
+      Data4: 702799445
+    Path: event:/PL/Grim/107_Self_Run
+  jumpFX:
+    Guid:
+      Data1: 1562111585
+      Data2: 1194535205
+      Data3: 2106431384
+      Data4: -1159510018
+    Path: event:/PL/Grim/108_Self_Jump
+  dashFX:
+    Guid:
+      Data1: -1951803400
+      Data2: 1296177948
+      Data3: -1118050122
+      Data4: 1210164649
+    Path: event:/PL/Grim/109_Self_Dash
+  landFX:
+    Guid:
+      Data1: 2097523222
+      Data2: 1222561803
+      Data3: -1682239845
+      Data4: 1683627875
+    Path: event:/PL/Grim/111_Self_Land
+  chargeFX:
+    Guid:
+      Data1: -215606375
+      Data2: 1079492859
+      Data3: -837860432
+      Data4: 624292752
+    Path: event:/PL/Grim/104_Scyche_DownAttack_Charging
+  releaseFX:
+    Guid:
+      Data1: -1839103076
+      Data2: 1090184900
+      Data3: -601129591
+      Data4: 413326876
+    Path: event:/PL/Grim/105_Scyche_DownAttack_Release
 --- !u!1 &8880701307876477556
 GameObject:
   m_ObjectHideFlags: 0

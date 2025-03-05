@@ -13,6 +13,7 @@ using Unity.VisualScripting;
 using System.Threading.Tasks;
 using FMOD.Studio;
 using System;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityCharacterController;
 
 public class PlayerControllerForces : MonoBehaviour
 {
@@ -234,6 +235,11 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void Update()
     {
+        //Extra debug line to prevent sliding sound if there's none.
+        if (Grounded())
+        {
+            stopSlideSFX(slideInstance);
+        }
 
         if (!isSleeping)
         {
@@ -610,6 +616,10 @@ public class PlayerControllerForces : MonoBehaviour
         currentSP = Data.maxSP;
 
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
+
+        PlayerAnimationManager.Instance.ChangeSpriteLayer(0);
+        UIManager.Instance.gameUI.SetActive(true);
+
         foreach (Room room in PersistentDataManager.Instance.rooms)
         {
             if (room.gameObject.activeInHierarchy)
@@ -1354,6 +1364,9 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            ToggleSleep(true);
+            PlayerAnimationManager.Instance.ChangeSpriteLayer(5);
+            PlayerAnimationManager.Instance.ChangeAnimationState("Death", false);
             UIManager.Instance.HandlePlayerDeath();
         }
 
@@ -1615,7 +1628,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void playSlideSFX(EventInstance slideInstance)
     {
-        if(isSlidingPlayed == false)
+        if(isSlidingPlayed == false && Grounded() == false)
         {
             isSlidingPlayed = true;
             slideInstance.start();

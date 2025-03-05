@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 using UnityEngine.Rendering;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityCharacterController;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -103,7 +104,15 @@ public abstract class Enemy : MonoBehaviour
     [Header("Attack Collision")]
     [SerializeField] public Collider2D bodyCollider;
     [SerializeField] public Collider2D attackCollider;
+
+    //Event Notifier for FMOD -------------------------------------------------------------------------------------
+    [SerializeField] private UnityEvent oneShotNotifierA;
+    [SerializeField] private UnityEvent oneShotNotifierB;
+    [SerializeField] private UnityEvent oneShotNotifierD;
     #endregion
+
+
+
 
     //Runtime Methods ---------------------------------------------------------------------------------------------
     #region Runtime
@@ -284,6 +293,8 @@ public abstract class Enemy : MonoBehaviour
         if (enemyStateList.IsBlocking && isPlayerOnRight && enemyStateList.IsFacingRight)
             return;
 
+        oneShotNotifierA.Invoke();
+
         //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
 
@@ -306,6 +317,8 @@ public abstract class Enemy : MonoBehaviour
     public virtual void DestroyEnemy()
     {
         SpawnDrop();
+
+        oneShotNotifierB.Invoke();
 
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);
