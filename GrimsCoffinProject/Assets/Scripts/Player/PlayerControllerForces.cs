@@ -633,6 +633,9 @@ public class PlayerControllerForces : MonoBehaviour
             }
         }
 
+        if (UIManager.Instance.bossHealthBar.activeInHierarchy)
+            UIManager.Instance.bossHealthBar.SetActive(false);
+
         if (!playerState.IsFacingRight)
             Turn();
 
@@ -895,9 +898,9 @@ public class PlayerControllerForces : MonoBehaviour
         rb.excludeLayers = LayerMask.GetMask("Enemy");
         rb.excludeLayers += LayerMask.GetMask("Agent");
 
-        Color tmp = animator.GetComponent<SpriteRenderer>().color;
-        tmp.a = 0.5f;
-        animator.GetComponent<SpriteRenderer>().color = tmp;
+        //Color tmp = animator.GetComponent<SpriteRenderer>().color;
+        //tmp.a = 0.5f;
+        //animator.GetComponent<SpriteRenderer>().color = tmp;
 
         //Update gravity and sleep other movements to make dash feel more juicy
         SetGravityScale(0);
@@ -944,9 +947,9 @@ public class PlayerControllerForces : MonoBehaviour
         hasDashInvincibility = false;
         //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Agent"), LayerMask.NameToLayer("Agent"), false);
         rb.excludeLayers = LayerMask.GetMask("Nothing");
-        tmp = animator.GetComponent<SpriteRenderer>().color;
-        tmp.a = 1f;
-        animator.GetComponent<SpriteRenderer>().color = tmp;
+        //tmp = animator.GetComponent<SpriteRenderer>().color;
+        //tmp.a = 1f;
+        //animator.GetComponent<SpriteRenderer>().color = tmp;
         //Debug.Log("Current Transparency2: " + animator_T.GetComponent<SpriteRenderer>().color.a);
     }
 
@@ -986,6 +989,8 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void DownAttack()
     {
+        rb.excludeLayers = LayerMask.GetMask("Enemy");
+        rb.excludeLayers += LayerMask.GetMask("Agent");
         SetGravityScale(1);
         //rb.AddForce(Vector2.down * Data.aerialDownwardPForce, ForceMode2D.Impulse);
         rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
@@ -1551,6 +1556,10 @@ public class PlayerControllerForces : MonoBehaviour
         }
             
         yield return new WaitForSecondsRealtime(duration / 8 * 7);
+
+        //Make sure player doesn't avoid enemies
+        if (!playerState.IsDashing)
+            rb.excludeLayers = LayerMask.GetMask("Nothing");
 
         SetGravityScale(1); 
         isSleeping = false;
