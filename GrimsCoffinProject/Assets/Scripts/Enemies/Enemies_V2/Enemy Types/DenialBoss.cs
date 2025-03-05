@@ -1,3 +1,4 @@
+using Cinemachine;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,10 @@ public class DenialBoss : Enemy
     [SerializeField] public Collider2D roomBounds;
     [SerializeField] private GameObject healthBar;
 
+    private CinemachineConfiner followCameraConfiner;
+    private Collider2D bossCameraConfiner;
+    private Collider2D mainCameraConfiner;
+
     protected override void Start()
     {
         base.Start();
@@ -24,6 +29,14 @@ public class DenialBoss : Enemy
         UIManager.Instance.bossHealthBar.GetComponent<BossHealthBar>().SetupHealthBar();
         UIManager.Instance.bossHealthBar.SetActive(true);
 
+/*        //Follow cam confiner
+        followCameraConfiner = GameObject.Find("FollowCam").GetComponent<CinemachineConfiner>();
+
+        //Sets to most recent camera confiner and updates to the main confiner
+        mainCameraConfiner = followCameraConfiner.m_BoundingShape2D;
+        bossCameraConfiner = GameObject.Find("DenialBossCamera").GetComponent<PolygonCollider2D>();
+
+        followCameraConfiner.m_BoundingShape2D = bossCameraConfiner;*/
     }
 
     private void CreateHealthBar()
@@ -43,4 +56,9 @@ public class DenialBoss : Enemy
         }
         CheckCollisionWithPlayer(laserCollider, AttackDamage);
     }
+
+/*    public void BackToMainCamera()
+    {
+        followCameraConfiner.m_BoundingShape2D = mainCameraConfiner;
+    }*/
 }

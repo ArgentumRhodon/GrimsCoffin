@@ -38,6 +38,12 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < activeEnemies.Count; i++)
         {
+/*            //Reset the camera if they are a boss
+            if (activeEnemies[i].GetComponent<Enemy>() is DenialBoss)
+            {
+                activeEnemies[i].GetComponent<DenialBoss>().BackToMainCamera();
+            }*/
+
             activeEnemies[i].GetComponent<Enemy>().DestroyEnemy();
             i--;
         }
@@ -47,6 +53,12 @@ public class EnemyManager : MonoBehaviour
     //Used within the Enemy script whenever they are destroyed
     public void RemoveActiveEnemy(GameObject enemyToRemove)
     {
+        //Reset the camera if they are a boss
+/*        if (enemyToRemove.GetComponent<Enemy>() is DenialBoss)
+        {
+            enemyToRemove.GetComponent<DenialBoss>().BackToMainCamera();
+        }*/
+
         activeEnemies.Remove(enemyToRemove);
         //Debug.Log("Removed");
         //Debug.Log(activeEnemies);
