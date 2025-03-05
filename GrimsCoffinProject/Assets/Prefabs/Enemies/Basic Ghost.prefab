@@ -508,8 +508,8 @@ MonoBehaviour:
         byteData: 
         byteDataArray: 
       Version: 1.7.11
-  gizmoViewMode: 2
-  showBehaviorDesignerGizmo: 1
+  gizmoViewMode: 0
+  showBehaviorDesignerGizmo: 0
 --- !u!114 &4899740188633124079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,6 +589,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  oneShotNotifierD:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,12 +752,12 @@ MonoBehaviour:
     Path: event:/Test/Test SFX/Test_007_IdleSound
   oneShotFXD:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  target2: {fileID: 0}
+      Data1: -198292960
+      Data2: 1142966131
+      Data3: 1217122709
+      Data4: -1048581206
+    Path: event:/Test/Test SFX/Test_006_Sword
+  attenuation: 1
 --- !u!1 &6739004351742520192
 GameObject:
   m_ObjectHideFlags: 0
