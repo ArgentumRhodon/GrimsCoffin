@@ -922,7 +922,7 @@ public class PlayerControllerForces : MonoBehaviour
        
         rb.AddForce(Vector2.right * direction * Data.dashSpeed, ForceMode2D.Impulse);
 
-        playDashSFX();
+        //playDashSFX();
         
         //Update camera
         float cameraOffset = Data.cameraDashOffset * direction;
@@ -1581,7 +1581,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         PersistentDataManager.Instance.LoadRoom();
 
-        Vector3 newSpawn = PersistentDataManager.Instance.SpawnPoint;
+        Vector3 newSpawn = PersistentDataManager.Instance.SpawnPoint;     
 
         this.gameObject.transform.position = newSpawn;
         Data.respawnPoint = newSpawn;
@@ -1607,13 +1607,13 @@ public class PlayerControllerForces : MonoBehaviour
         if (jumpStatus == 1) {
             slideInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             wallLeapInstance.start();
-            }
+        }
     }
     
     private void playDashSFX()
     {
-        stopSlideSFX(slideInstance);
-        FMODUnity.RuntimeManager.PlayOneShot(dashSfx);
+        //stopSlideSFX(slideInstance);
+        //FMODUnity.RuntimeManager.PlayOneShot(dashSfx);
     }
 
     private void takeDamageSFX()
@@ -1645,12 +1645,13 @@ public class PlayerControllerForces : MonoBehaviour
     {
         slideInstance.setParameterByName("SlideStatus", 1);
         isSlidingPlayed = false;
+
         //Debug.Log("Stopped Sliding");
     }
 
-        #endregion
+    #endregion
 
-        private void TempResetData()
+    private void TempResetData()
         {
             //Data.canDash = true;
             //Data.canDoubleJump = true;

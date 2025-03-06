@@ -62,7 +62,6 @@ public class FMOD_Object_Animator : MonoBehaviour
             chargeInstance.start();
             Debug.Log("cHARGED");
         }
-
     }
 
     void fmodChargeStop()
@@ -76,7 +75,6 @@ public class FMOD_Object_Animator : MonoBehaviour
     {
         chargeStarted = false;
         releaseInstance.start();
-        
     }
 }
 
