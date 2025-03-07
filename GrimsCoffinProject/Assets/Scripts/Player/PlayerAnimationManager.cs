@@ -70,6 +70,11 @@ public class PlayerAnimationManager : MonoBehaviour
 
     public void ChangeAnimationState(string newState, bool waitForEnd = false)
     {
+        if (UIManager.Instance.fullMapUI.activeInHierarchy || UIManager.Instance.pauseScript.isPaused)
+        {
+            return;
+        }
+
         // Stop animation from interrupting itself
         if (currentState == newState) return;
 
