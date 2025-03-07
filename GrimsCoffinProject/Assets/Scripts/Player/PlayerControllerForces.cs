@@ -620,6 +620,8 @@ public class PlayerControllerForces : MonoBehaviour
         PlayerAnimationManager.Instance.ChangeSpriteLayer(0);
         UIManager.Instance.gameUI.SetActive(true);
 
+        scytheThrown = false;
+
         foreach (Room room in PersistentDataManager.Instance.rooms)
         {
             if (room.gameObject.activeInHierarchy)
