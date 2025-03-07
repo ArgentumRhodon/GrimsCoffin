@@ -198,6 +198,9 @@ public class PersistentDataManager : MonoBehaviour
     {
         foreach (Room room in rooms)
         {
+            if (room.RoomLive)
+                room.gameObject.SetActive(false);
+
             if (LastSavedRoomIndex == room.roomIndex)
             {
                 room.hasPlayer = true;
