@@ -37,7 +37,7 @@ public class TitleScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (playerControls.currentControlScheme)
+        switch (PersistentDataManager.Instance.ControlScheme)
         {
             case "Keyboard&Mouse":
                 keyboardControls.SetActive(true);

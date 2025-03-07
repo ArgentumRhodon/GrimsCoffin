@@ -85,7 +85,7 @@ public class CutsceneManager : MonoBehaviour
         // Update prompt icons based on the current control scheme:
         if (continuePromptIcons != null)
         {
-            switch (playerInput.currentControlScheme)
+            switch (PersistentDataManager.Instance.ControlScheme)
             {
                 case "Keyboard&Mouse":
                     continuePrompt.sprite = continuePromptIcons[0];

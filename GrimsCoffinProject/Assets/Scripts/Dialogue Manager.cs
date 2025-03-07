@@ -79,7 +79,7 @@ public class DialogueManager : MonoBehaviour
         if (uiManager.dialogueUI.activeSelf)
         {
             // Example for switching the "Continue" icon based on control scheme
-            switch (PlayerControllerForces.Instance.GetComponent<PlayerInput>().currentControlScheme)
+            switch (PersistentDataManager.Instance.ControlScheme)
             {
                 case "Keyboard&Mouse":
                     continuePrompt.sprite = continuePromptIcons[0];

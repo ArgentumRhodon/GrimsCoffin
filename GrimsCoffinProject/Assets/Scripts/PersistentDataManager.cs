@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PersistentDataManager : MonoBehaviour
@@ -39,6 +40,8 @@ public class PersistentDataManager : MonoBehaviour
 
     //Whether or not the Player is entering the Denial Area Scene for the first time
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
+
+    public string ControlScheme { get { return PlayerPrefs.GetString("ControlScheme"); } }
 
     //List of pesistently tracked objects in the scene
     [SerializeField] public List<Room> rooms;
@@ -84,6 +87,15 @@ public class PersistentDataManager : MonoBehaviour
             if (PlayerPrefs.GetInt("Arena" + arenas[i].arenaIndex) == 1)
                 arenas[i].arenaCleared = true;
         }
+    }
+
+    private void Update()
+    {
+        if (UIManager.Instance != null)
+            PlayerPrefs.SetString("ControlScheme", UIManager.Instance.playerInput.currentControlScheme.ToString());
+
+        else
+            PlayerPrefs.SetString("ControlScheme", GameObject.Find("PlayerControls").GetComponent<PlayerInput>().currentControlScheme.ToString());
     }
 
     //Returns whether a spirit is collected or not (for spawning them in The Drift vs. Equilibrium)
