@@ -82,36 +82,26 @@ public class TransitionDoor : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        /*if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(Transition(collision));
-        }
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            StartCoroutine(Transition(collision));
+
             PlayerControllerForces.Instance.EndSleep();
             PlayerControllerForces.Instance.ToggleSleepGravity(true);
-            if (areaEntering.GetComponent<Room>().roomIndex == -2 && SceneManager.GetActiveScene().name == "OnboardingLevel")
-            {
-                PlayerControllerForces.Instance.Data.canDash = true;
-            }
-            else if(areaEntering.GetComponent<Room>().roomIndex == -3 && SceneManager.GetActiveScene().name == "OnboardingLevel")
-            {
-                PlayerControllerForces.Instance.Data.canDoubleJump = true;
-                PlayerControllerForces.Instance.Data.canWallJump = true;
-            }
 
             if (enterEnemyMgr != null)
             {
                 Debug.Log("Spawning Enemies");
                 enterEnemyMgr.SpawnEnemies();
             }
-
-            StartCoroutine(Transition(collision));
-
         }
     }
 
@@ -123,9 +113,7 @@ public class TransitionDoor : MonoBehaviour
             areaEntering.SetActive(true);
             yield return null;
             idleInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        }
-        else
-        {
+
             yield return FadeOut(0.5f);
             Room Enter = areaEntering.GetComponent<Room>();
             Enter.RoomLive = true;
@@ -153,6 +141,36 @@ public class TransitionDoor : MonoBehaviour
             Color target = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
             yield return Fade(start, target, 0.5f);
             yield return FadeIn(0.5f);
+        }
+        else
+        {
+            /*yield return FadeOut(0.5f);
+            Room Enter = areaEntering.GetComponent<Room>();
+            Enter.RoomLive = true;
+            //mainCam.SetBorders(roomXMin, roomXMax, roomYMin, roomYMax);
+            col.gameObject.transform.position = outDoor.SpawnPos;
+            //ColliderEntering.gameObject.SetActive(true);
+            FollowCameraConfiner.m_BoundingShape2D = ColliderEntering;
+            //yield return new WaitForSeconds(0.5f);
+
+            if (exitEnemyMgr != null)
+            {
+                Debug.Log("Deleting Enemies");
+                exitEnemyMgr.DeleteEnemies();
+            }
+
+            if (enemyDropList != null)
+            {
+                foreach (Transform child in enemyDropList.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            Color start = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
+            Color target = new Color(screenFade.color.r, screenFade.color.g, screenFade.color.b, 1f);
+            yield return Fade(start, target, 0.5f);
+            yield return FadeIn(0.5f);*/
         }
     }
 

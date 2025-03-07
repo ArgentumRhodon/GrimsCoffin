@@ -57,6 +57,15 @@ public class DenialBoss : Enemy
         CheckCollisionWithPlayer(laserCollider, AttackDamage);
     }
 
+    public override void DestroyEnemyGO()
+    {
+        if (PlayerControllerForces.Instance.currentHP > 0)
+            UIManager.Instance.endStateText.SetActive(true);
+
+        this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
+        Destroy(this.gameObject);
+    }
+
 /*    public void BackToMainCamera()
     {
         followCameraConfiner.m_BoundingShape2D = mainCameraConfiner;

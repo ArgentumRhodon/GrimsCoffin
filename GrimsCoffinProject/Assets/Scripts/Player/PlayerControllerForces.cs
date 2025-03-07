@@ -620,6 +620,8 @@ public class PlayerControllerForces : MonoBehaviour
         PlayerAnimationManager.Instance.ChangeSpriteLayer(0);
         UIManager.Instance.gameUI.SetActive(true);
 
+        scytheThrown = false;
+
         foreach (Room room in PersistentDataManager.Instance.rooms)
         {
             if (room.gameObject.activeInHierarchy)
@@ -1472,9 +1474,9 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (toggleOn)
         {
-            rb.velocity = Vector2.zero;
-            SetGravityScale(0);
             isSleeping = true;
+            SetGravityScale(0);
+            rb.velocity = Vector2.zero;
         }
 
         else

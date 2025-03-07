@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public SavePoint activeSavePoint;
 
     public GameObject bossHealthBar;
+    public GameObject endStateText;
 
     public bool scytheThrowInMenu;
 
@@ -141,14 +142,16 @@ public class UIManager : MonoBehaviour
         if (mapActive)
         {
             Time.timeScale = 0;
+            PlayerAnimationManager.Instance.ChangeAnimationSpeed(0);
             ResetMap();
         }
             
         else
         {
             Time.timeScale = 1;
+            PlayerAnimationManager.Instance.ChangeAnimationSpeed(1);
         }
-            
+
     }
 
     //Toggle dialogue UI on/off
