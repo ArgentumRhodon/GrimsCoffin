@@ -15,6 +15,7 @@ public class PlayerData : ScriptableObject
     [Header("Player Stats")]
     public float maxHP;
     public float maxSP;
+    public float iFrameTimer;
     public Vector2 respawnPoint;
 
     [HideInInspector] public float gravityStrength; //Downwards force needed for the desired jumpHeight and jumpTimeToApex

@@ -145,6 +145,8 @@ public class PlayerControllerForces : MonoBehaviour
     private PlayerControls playerControls;
     private PlayerCombat playerCombat;
 
+    private GameObject playerSpriteGO;
+
     //Time Variables
     private float localDeltaTime;
     private bool isSleeping;
@@ -158,6 +160,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Set rigidbody
         rb = GetComponent<Rigidbody2D>();
         playerCombat = GetComponent<PlayerCombat>();
+        playerSpriteGO = GameObject.Find("Sprite");
 
         //Set Instance so this script is called as a singleton
         if (Instance != null && Instance != this)
@@ -598,8 +601,10 @@ public class PlayerControllerForces : MonoBehaviour
     public void TakeDamage(float damageTaken)
     {
         currentHP -= damageTaken;
-        invincibilityTimer = 1.0f;
+        invincibilityTimer = Data.iFrameTimer;
         hasInvincibility = true;
+        PerformHitStopShader(.5f);
+
         takeDamageSFX();
 
         CheckForDeath();
@@ -1371,7 +1376,6 @@ public class PlayerControllerForces : MonoBehaviour
             PlayerAnimationManager.Instance.ChangeAnimationState("Death", false);
             UIManager.Instance.HandlePlayerDeath();
         }
-
         else
         {
             UIManager.Instance.DamageVignette();
@@ -1565,6 +1569,15 @@ public class PlayerControllerForces : MonoBehaviour
 
         SetGravityScale(1); 
         isSleeping = false;
+    }
+
+    private IEnumerator PerformHitStopShader(float duration)
+    {
+        playerSpriteGO.GetComponent<Material>().shader = Shader.Find("White_Mat");
+
+        yield return new WaitForSecondsRealtime(duration);
+
+        playerSpriteGO.GetComponent<Material>().shader = Shader.Find("Sprite-Lit-Default");
     }
 
     //Wall collision check gizmos
