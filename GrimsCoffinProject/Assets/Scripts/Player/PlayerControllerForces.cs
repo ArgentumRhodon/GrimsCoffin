@@ -1472,9 +1472,9 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (toggleOn)
         {
-            rb.velocity = Vector2.zero;
-            SetGravityScale(0);
             isSleeping = true;
+            SetGravityScale(0);
+            rb.velocity = Vector2.zero;
         }
 
         else
