@@ -97,7 +97,7 @@ public class DialogueManagerWebGL : MonoBehaviour
         if (uiManager.dialogueUI.activeSelf)
         {
             // Switch the "Continue" icon based on the current control scheme.
-            switch (PlayerControllerForces.Instance.GetComponent<PlayerInput>().currentControlScheme)
+            switch (PersistentDataManager.Instance.ControlScheme)
             {
                 case "Keyboard&Mouse":
                     continuePrompt.sprite = continuePromptIcons[0];

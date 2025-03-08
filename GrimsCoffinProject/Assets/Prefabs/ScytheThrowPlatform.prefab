@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 253766421249828895}
   - component: {fileID: 2057118027432843354}
   - component: {fileID: 5295142033377170175}
+  - component: {fileID: 7842746738599093103}
   m_Layer: 3
   m_Name: Platform
   m_TagString: Untagged
@@ -171,6 +172,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c492cca3d3e3f4a90d30d5f6f50f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7842746738599093103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522633399013252749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 7756476446087159206
+  updateError: 1
+  checkTime: 0.2
 --- !u!1 &5999361455572949882
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +202,7 @@ GameObject:
   - component: {fileID: 1399099883723295920}
   - component: {fileID: 7606545906159000313}
   - component: {fileID: 1706122052216301886}
+  - component: {fileID: 7339833264927969830}
   m_Layer: 3
   m_Name: Rope
   m_TagString: Untagged
@@ -359,6 +377,22 @@ MonoBehaviour:
   ropeIndex: 0
   mapIcon: {fileID: 0}
   pf: {fileID: 5295142033377170175}
+--- !u!114 &7339833264927969830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999361455572949882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 265040624208248097
+  updateError: 1
+  checkTime: 0.2
 --- !u!1 &6548644531935473114
 GameObject:
   m_ObjectHideFlags: 0

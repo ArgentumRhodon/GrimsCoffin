@@ -16,7 +16,7 @@ public class MapPrompt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (UIManager.Instance.playerInput.currentControlScheme)
+        switch (PersistentDataManager.Instance.ControlScheme)
         {
             case "Keyboard&Mouse":
                 this.GetComponent<Image>().sprite = mapPromptIcons[0];

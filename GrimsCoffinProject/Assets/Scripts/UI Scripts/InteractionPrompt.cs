@@ -64,7 +64,7 @@ public class InteractionPrompt : MonoBehaviour
             interact = false;
 
         //Change prompt to the according control scheme being used
-        switch(controlScheme)
+        switch(PersistentDataManager.Instance.ControlScheme)
         {
             case "Keyboard&Mouse":
                 promptIcon.sprite = keyboardSprites[(int) interaction];

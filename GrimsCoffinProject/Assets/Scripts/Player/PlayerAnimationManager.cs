@@ -70,9 +70,15 @@ public class PlayerAnimationManager : MonoBehaviour
 
     public void ChangeAnimationState(string newState, bool waitForEnd = false)
     {
-        if (UIManager.Instance.fullMapUI.activeInHierarchy || UIManager.Instance.pauseScript.isPaused)
-        {
+        //Don't change animation if game is paused
+        if (UIManager.Instance.pauseScript.isPaused)
             return;
+
+        //Also don't change animation if map screen is active
+        if (UIManager.Instance.fullMapUI != null)
+        {
+            if (UIManager.Instance.fullMapUI.activeInHierarchy)
+                return;
         }
 
         // Stop animation from interrupting itself

@@ -60,6 +60,11 @@ public class ScytheProjectile : MonoBehaviour
 
             this.transform.parent.transform.position = Vector3.MoveTowards(this.transform.parent.transform.position, destination, speed * Time.deltaTime * 1.25f);
         }
+
+        if (PlayerControllerForces.Instance.currentHP <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void FlipScythe()

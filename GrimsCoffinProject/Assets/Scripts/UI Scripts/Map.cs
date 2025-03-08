@@ -22,7 +22,7 @@ public class Map : MonoBehaviour
     void Update()
     {
         //Show proper prompt tray based on input used
-        switch (UIManager.Instance.playerInput.currentControlScheme)
+        switch (PersistentDataManager.Instance.ControlScheme)
         {
             case "Keyboard&Mouse":
                 promptTrays[0].SetActive(true);

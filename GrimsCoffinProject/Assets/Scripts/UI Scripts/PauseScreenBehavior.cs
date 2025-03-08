@@ -33,7 +33,7 @@ public class PauseScreenBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (playerInput.currentControlScheme)
+        switch (PersistentDataManager.Instance.ControlScheme)
         {
             case "Keyboard&Mouse":
                 keyboardControls.SetActive(true);
