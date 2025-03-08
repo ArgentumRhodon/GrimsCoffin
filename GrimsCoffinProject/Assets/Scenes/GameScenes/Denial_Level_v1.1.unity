@@ -6552,9 +6552,9 @@ MonoBehaviour:
   - {fileID: 110152692}
   - {fileID: 1169627206}
   mapPromptIcons:
-  - {fileID: 21300000, guid: 1aee2045a30b3a24f9f10765d2281ddc, type: 3}
-  - {fileID: 21300000, guid: a83335bc0083d3b44b6c99f55e8167e5, type: 3}
-  - {fileID: 21300000, guid: c97488ea65b4b6b41aad7db5fd9b7b8e, type: 3}
+  - {fileID: 21300000, guid: a8a11bfb1e9f19a469b3800ea64070b1, type: 3}
+  - {fileID: 21300000, guid: 725c4337254741c4fac2102e7967954f, type: 3}
+  - {fileID: 21300000, guid: d2df73bda9ead324583fefd0e2d40c36, type: 3}
   mapPrompt: {fileID: 1434547619}
   dialogueUI: {fileID: 1242669349}
   playerInput: {fileID: 491838783}
@@ -6667,9 +6667,9 @@ MonoBehaviour:
   continuePrompt: {fileID: 1352976954}
   speakerIcon: {fileID: 2035117932}
   continuePromptIcons:
-  - {fileID: 21300000, guid: c3a78374cb92b424f9f7d820044845b1, type: 3}
-  - {fileID: 21300000, guid: 26bf110d02332ab41a52303839e905e2, type: 3}
-  - {fileID: 21300000, guid: 79c394e37c413954e95877889417fe71, type: 3}
+  - {fileID: 21300000, guid: 2319d99eccb19d141a6266c32cca57eb, type: 3}
+  - {fileID: 21300000, guid: d0d1187fe84bf8c4cb0d4385461ae058, type: 3}
+  - {fileID: 21300000, guid: f03cf344f1e4b2e42b88d162f21e5e58, type: 3}
   speakers:
   - {fileID: 21300000, guid: 65d1d645fb777b143a3b9f86e29716ef, type: 3}
   - {fileID: 1685548561430930329, guid: 6fa5c1277d401974eba303a7213bc93d, type: 3}
@@ -20183,6 +20183,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1497904037406438311, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 106.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497904037406438311, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5652564619555494922, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -20263,6 +20271,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5821210409639095528, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 59.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821210409639095528, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -147.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5854196783089258838, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8a11bfb1e9f19a469b3800ea64070b1, type: 3}
+    - target: {fileID: 6543885359586572909, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
+      propertyPath: mapPromptIcons.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: a8a11bfb1e9f19a469b3800ea64070b1, type: 3}
+    - target: {fileID: 6543885359586572909, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
+      propertyPath: mapPromptIcons.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 725c4337254741c4fac2102e7967954f, type: 3}
+    - target: {fileID: 6543885359586572909, guid: 3bb0924a043e3d548b84309c8a4d2aa0, type: 3}
+      propertyPath: mapPromptIcons.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: d2df73bda9ead324583fefd0e2d40c36, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
