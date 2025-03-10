@@ -179,7 +179,11 @@ public abstract class Enemy : MonoBehaviour
             if (Grounded())
             {
                 rb.gravityScale = 1;
+                kinematicCollider.enabled = true;
             }
+
+            else
+                kinematicCollider.enabled = false;
                 
         }
     }
