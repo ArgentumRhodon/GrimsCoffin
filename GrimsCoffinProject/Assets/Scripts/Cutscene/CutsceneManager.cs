@@ -127,6 +127,7 @@ public class CutsceneManager : MonoBehaviour
         {
             // First press: stop typing and show the complete sentence immediately.
             SkipTyping();
+
         }
         else
         {
@@ -199,6 +200,7 @@ public class CutsceneManager : MonoBehaviour
         {
             StopCoroutine(typingCoroutine);
         }
+        Actions[currentSentenceIndex].time = Actions[currentSentenceIndex].duration;
         dialogueText.text = currentSentence;
         isTyping = false;
     }
