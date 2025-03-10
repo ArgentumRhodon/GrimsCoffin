@@ -50,6 +50,7 @@ public class AnimationCutsceneManager : MonoBehaviour
 
     void Awake()
     {
+        cutsceneActive = true;
         dxInstance = RuntimeManager.CreateInstance(dxTyping);
         controls = new PlayerControls();
         controls.Enable();
