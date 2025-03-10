@@ -109,7 +109,10 @@ public class CutsceneManager : MonoBehaviour
         currentSentenceIndex = 0;
         if (sentences.Length > 0)
         {
-            StartCoroutine(ShowImage());
+            if (Actions[currentSentenceIndex] != null) 
+            {
+                StartCoroutine(ShowImage());
+            }
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         UpdateSkipText();
@@ -146,7 +149,10 @@ public class CutsceneManager : MonoBehaviour
         currentSentenceIndex++;
         if (currentSentenceIndex < sentences.Length)
         {
-            StartCoroutine(ShowImage());
+            if (Actions[currentSentenceIndex] != null)
+            {
+                StartCoroutine(ShowImage());
+            }
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         else
@@ -200,7 +206,11 @@ public class CutsceneManager : MonoBehaviour
         {
             StopCoroutine(typingCoroutine);
         }
-        Actions[currentSentenceIndex].time = Actions[currentSentenceIndex].duration;
+        if(Actions[currentSentenceIndex]!=null)
+        {
+            Actions[currentSentenceIndex].time = Actions[currentSentenceIndex].duration;
+        }
+
         dialogueText.text = currentSentence;
         isTyping = false;
     }
