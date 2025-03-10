@@ -31,21 +31,20 @@ public class EnemyDrop : MonoBehaviour
         float maxSP = PlayerControllerForces.Instance.Data.maxSP;
         float currentSP = PlayerControllerForces.Instance.currentSP;
 
-        //Check for SP drop chance
-        //Player is more likely to get a SP drop the lower the ratio between their max and current, multiplied by some scalar
-        if (Random.Range(1, 100) <= (50 + maxSP / currentSP) * dropScalar && PlayerControllerForces.Instance.Data.canScytheThrow && currentSP < maxSP)
-        {
-            dropType = EnemyDropType.SpiritPower;
-        }
-
-        //Check for health drop chance
-        //Player is more likely to get a health drop the lower the ratio between their max and current, multiplied by some scalar
-        //Check is under SP drop so that health pickups take priority if both are rolled correctly
+        //Check for HP drop chance
+        //Player is more likely to get a HP drop the lower the ratio between their max and current, multiplied by some scalar
 
         //Example: 50 + (50/10) * 5 = 75, 75% chance for health pickup at 10 HP when your max is 50 (higher if max is higher or current is lower) 
-        if (Random.Range(1,100) <= (50 + (maxHP/currentHP) * dropScalar) && currentHP < maxHP)
+        if (Random.Range(1, 100) <= (50 + (maxHP / currentHP) * dropScalar) && currentHP < maxHP)
         {
             dropType = EnemyDropType.Health;
+        }
+
+        //Check for SP drop chance
+        //Player is more likely to get a SP drop the lower the ratio between their max and current, multiplied by some scalar
+        else if (Random.Range(1, 100) <= (50 + maxSP / currentSP) * dropScalar && PlayerControllerForces.Instance.Data.canScytheThrow && currentSP < maxSP)
+        {
+            dropType = EnemyDropType.SpiritPower;
         }
 
         else
