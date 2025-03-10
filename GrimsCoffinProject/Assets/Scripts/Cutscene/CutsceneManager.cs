@@ -18,7 +18,7 @@ public class CutsceneManager : MonoBehaviour
 
     [Header("Sentences")]
     public string[] sentences;
-    public GameObject[] Image;
+    public PlayableDirector[] Actions;
 
     [Header("Typewriter Settings")]
     [SerializeField] private float charactersPerSecond = 30f;
@@ -127,6 +127,7 @@ public class CutsceneManager : MonoBehaviour
         {
             // First press: stop typing and show the complete sentence immediately.
             SkipTyping();
+
         }
         else
         {
@@ -199,6 +200,7 @@ public class CutsceneManager : MonoBehaviour
         {
             StopCoroutine(typingCoroutine);
         }
+        Actions[currentSentenceIndex].time = Actions[currentSentenceIndex].duration;
         dialogueText.text = currentSentence;
         isTyping = false;
     }
@@ -231,9 +233,9 @@ public class CutsceneManager : MonoBehaviour
 
     IEnumerator ShowImage()
     {
-        if (Image[currentSentenceIndex] != null)
+        if (Actions[currentSentenceIndex] != null)
         {
-            Image[currentSentenceIndex].SetActive(true);
+           Actions[currentSentenceIndex].Play();
             yield return new WaitForSeconds(0.5f);
         }
         else 
