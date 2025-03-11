@@ -5,6 +5,9 @@
     "m_Properties": [
         {
             "m_Id": "33cbf990cd174d2f881a56bd76806167"
+        },
+        {
+            "m_Id": "baf574bc87864d7383375a0704ccd537"
         }
     ],
     "m_Keywords": [],
@@ -293,10 +296,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": 10.66664981842041,
+            "y": 40.66667175292969,
+            "width": 200.00003051757813,
+            "height": 42.666648864746097
         }
     },
     "m_Slots": [
@@ -595,6 +598,9 @@
     "m_ChildObjectList": [
         {
             "m_Id": "33cbf990cd174d2f881a56bd76806167"
+        },
+        {
+            "m_Id": "baf574bc87864d7383375a0704ccd537"
         }
     ]
 }
@@ -667,6 +673,34 @@
     "m_ShaderOutputName": "Out",
     "m_StageCapability": 3,
     "m_BareResource": false
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector2ShaderProperty",
+    "m_ObjectId": "baf574bc87864d7383375a0704ccd537",
+    "m_Guid": {
+        "m_GuidSerialized": "4da62830-b041-406b-b02b-0c294db45621"
+    },
+    "m_Name": "WaveSpeed",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "WaveSpeed",
+    "m_DefaultReferenceName": "_WaveSpeed",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "x": 0.25,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
 }
 
 {
