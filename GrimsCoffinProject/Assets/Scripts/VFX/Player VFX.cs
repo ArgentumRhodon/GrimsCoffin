@@ -23,7 +23,10 @@ public class PlayerVFX : MonoBehaviour
     }
     public void Jump() 
     {
-        JumpVFX.Play();
+        if (Player.Grounded())
+        {
+            JumpVFX.Play();
+        }
     }
     public void Land() 
     {
