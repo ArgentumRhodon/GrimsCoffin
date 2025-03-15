@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RollingFogMat_0
-  m_Shader: {fileID: -6465566751694194690, guid: adf9703800f51214e8dd3466524490d3, type: 3}
+  m_Name: EQReflection_Mat
+  m_Shader: {fileID: -6465566751694194690, guid: bf8ecbdbda4525b49be63b626dd8b9d6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -23,8 +23,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
+    - _RenderTexture:
+        m_Texture: {fileID: 8400000, guid: c9bebd3d1b4fd3e4a8b2b853ee9b270d, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -40,13 +40,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _FogSize: 11
-    m_Colors:
-    - _FogColor: {r: 1, g: 1, b: 1, a: 0.16862746}
-    - _FogSpeed: {r: 0.1, g: 0, b: 0, a: 0}
+    m_Floats: []
+    m_Colors: []
   m_BuildTextureStacks: []
---- !u!114 &7257075082938776038
+--- !u!114 &6133079007620803773
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
