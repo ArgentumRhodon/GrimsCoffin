@@ -26,7 +26,7 @@ public class MapPrompt : MonoBehaviour
                 this.GetComponent<Image>().sprite = mapPromptIcons[1];
                 break;
 
-            case "Xbox":
+            default:
                 this.GetComponent<Image>().sprite = mapPromptIcons[2];
                 break;
         }

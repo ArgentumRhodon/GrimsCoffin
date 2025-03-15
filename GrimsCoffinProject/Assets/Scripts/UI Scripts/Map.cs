@@ -36,7 +36,7 @@ public class Map : MonoBehaviour
                 promptTrays[2].SetActive(false);
                 break;
 
-            case "Xbox":
+            default:
                 promptTrays[0].SetActive(false);
                 promptTrays[1].SetActive(false);
                 promptTrays[2].SetActive(true);
