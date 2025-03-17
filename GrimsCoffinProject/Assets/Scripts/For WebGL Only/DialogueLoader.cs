@@ -15,9 +15,20 @@ public class DialogueLoader : MonoBehaviour
     public delegate void OnDialogueLoaded(List<DialogueEntry> loadedDialogues);
     public event OnDialogueLoaded DialogueLoaded;
 
+    private bool isWebGL;
+
+    private void Awake()
+    {
+        isWebGL = Application.platform == RuntimePlatform.WebGLPlayer;
+    }
+
     private void Start()
     {
-        StartCoroutine(LoadDialogueData());
+        // This should only run if in a webgl build
+        if(isWebGL)
+        {
+            StartCoroutine(LoadDialogueData());
+        }
     }
 
     private IEnumerator LoadDialogueData()

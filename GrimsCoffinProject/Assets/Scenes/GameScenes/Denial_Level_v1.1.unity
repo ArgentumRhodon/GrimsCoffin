@@ -1566,6 +1566,7 @@ GameObject:
   - component: {fileID: 282942411}
   - component: {fileID: 282942413}
   - component: {fileID: 282942414}
+  - component: {fileID: 282942416}
   - component: {fileID: 282942415}
   m_Layer: 0
   m_Name: GameManager
@@ -1734,6 +1735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues: []
   dialogueFileName: Dialogue.json
+  webglDialogueLoader: {fileID: 282942416}
   uiManager: {fileID: 282942411}
   continuePrompt: {fileID: 1352976954}
   speakerIcon: {fileID: 2035117932}
@@ -1752,6 +1754,20 @@ MonoBehaviour:
   quickSkip: 1
   skipMultiplier: 5
   canProgressDialogue: 0
+--- !u!114 &282942416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282942410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28c3cbadbd6251b4e9940d7a0aa2a6ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueFileName: Dialogue.json
+  dialogues: []
 --- !u!1001 &295886008
 PrefabInstance:
   m_ObjectHideFlags: 0

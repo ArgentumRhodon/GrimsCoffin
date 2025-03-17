@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static DialogueLoader;
 
 /// <summary>
 /// Combined DialogueManager that also handles typewriting.
@@ -18,6 +20,9 @@ public class DialogueManager : MonoBehaviour
     public List<DialogueEntry> dialogues;          // Loaded from JSON
     [SerializeField] private string dialogueFileName = "Dialogue.json";
     private string m_Path;                         // For debugging or advanced usage
+
+    [Tooltip("Handles dialogue loading events for WebGL builds")]
+    [SerializeField] private DialogueLoader webglDialogueLoader; // Assign this in the Inspector
 
     [Header("UI References")]
     public UIManager uiManager;
@@ -50,16 +55,50 @@ public class DialogueManager : MonoBehaviour
     private PlayerControls controls;
     private PlayerInput playerInput;
 
+    private bool isWebGL;
+
     private void Awake()
     {
+        isWebGL = Application.platform == RuntimePlatform.WebGLPlayer;
+
         // Load the JSON data (or other approach) so dialogues is populated
         m_Path = Application.dataPath; // For debugging
-        LoadDialogueData();
+
+        if(isWebGL)
+        {
+            // Subscribe to the DialogueLoader event.
+            if (webglDialogueLoader != null)
+            {
+                webglDialogueLoader.DialogueLoaded += OnDialoguesLoaded;
+            }
+            else
+            {
+                Debug.LogWarning("DialogueLoader reference not set in DialogueManager!");
+            }
+        }
+        else
+        {
+            LoadDialogueData();
+        }
 
         // Set up input
         controls = new PlayerControls();
         controls.Enable();
         playerInput = GetComponent<PlayerInput>();
+    }
+
+    private void OnDestroy()
+    {
+        if (!isWebGL || webglDialogueLoader == null) return;
+
+        webglDialogueLoader.DialogueLoaded -= OnDialoguesLoaded;
+    }
+
+    // Callback when the DialogueLoader finishes loading the dialogues.
+    private void OnDialoguesLoaded(List<DialogueEntry> loadedDialogues)
+    {
+        dialogues = loadedDialogues;
+        Debug.Log($"DialogueManager received {dialogues.Count} dialogues.");
     }
 
     private void Start()
