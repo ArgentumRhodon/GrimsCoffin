@@ -1044,6 +1044,8 @@ public class PlayerControllerForces : MonoBehaviour
             if (FMODIsLandedPlayed == false && FMODJumpFinished == true)
             {
                 stopSlideSFX(slideInstance);
+
+                // Wouldn't play if player never jumped (e.g., walking off a ledge)
                 // FMODIsLandedPlayed = true;
                 // playLandSFX(landInstance);
                 //if (playervfx != null) 
