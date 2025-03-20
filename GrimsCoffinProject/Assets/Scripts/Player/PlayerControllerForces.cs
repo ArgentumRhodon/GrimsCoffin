@@ -46,6 +46,7 @@ public class PlayerControllerForces : MonoBehaviour
     private bool isJumpFalling;
     private int airJumpCounter = 0;
     private float jumpVelocity;
+    private bool isFalling = false;
 
     //Wall Jump
     private float wallJumpStartTime;
@@ -1043,21 +1044,37 @@ public class PlayerControllerForces : MonoBehaviour
             if (FMODIsLandedPlayed == false && FMODJumpFinished == true)
             {
                 stopSlideSFX(slideInstance);
-                playLandSFX(landInstance);
-                if (playervfx != null) 
+                // FMODIsLandedPlayed = true;
+                // playLandSFX(landInstance);
+                //if (playervfx != null) 
+                //{
+                //    playervfx.Land();
+                //}
+            }
+
+            if (isFalling)
+            {
+                if (playervfx != null)
                 {
                     playervfx.Land();
                 }
+                playLandSFX(landInstance);
                 FMODIsLandedPlayed = true;
-            }
-            
 
+                isFalling = false;
+            }
 
         }
-        else if (Data.resetJumpOnWall && OnWall())
+        else
         {
-            //Debug.Log("Reseting wall jump");
-            airJumpCounter = 0;
+            if (Data.resetJumpOnWall && OnWall())
+            {
+                //Debug.Log("Reseting wall jump");
+                airJumpCounter = 0;
+            }
+
+            if(rb.velocity.y < 0)
+                isFalling = true;
         }
     }
 
