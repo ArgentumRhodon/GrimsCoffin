@@ -69,8 +69,9 @@ public class EnemyDrop : MonoBehaviour
     {
         if (collected)
         {
-            Debug.Log("Pickup Moving");
             this.transform.position = Vector3.MoveTowards(transform.position, PlayerControllerForces.Instance.transform.position, speed * Time.deltaTime);
+            transform.rotation = Quaternion.LookRotation(transform.forward, transform.position - PlayerControllerForces.Instance.transform.position);
+            Debug.Log("Pickup Moving");
         }
 
         else
