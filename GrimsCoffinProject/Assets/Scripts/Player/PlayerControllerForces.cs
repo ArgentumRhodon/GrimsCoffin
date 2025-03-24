@@ -390,7 +390,12 @@ public class PlayerControllerForces : MonoBehaviour
             }
         }
 
-        if(rb.velocity.y < -.1f && !playerState.IsAttacking && !playerState.IsDashing)
+        // Falling vs wall sliding
+        if(playerState.IsSliding)
+        {
+            PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.WallSlide);
+        }
+        else if(rb.velocity.y < -.1f && !playerState.IsAttacking && !playerState.IsDashing)
         {
             PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.JumpDown);
         }
@@ -774,14 +779,20 @@ public class PlayerControllerForces : MonoBehaviour
         //Increase acceleration and maxSpeed when at the apex of the player's jump - makes it feel more bouncy/responsive
         if ((playerState.IsJumping || playerState.IsWallJumping || isJumpFalling) && Mathf.Abs(rb.velocity.y) < Data.jumpHangTimeThreshold)
         {
-            accelRate *= Data.jumpHangAccelerationMult;
-            targetSpeed *= Data.jumpHangMaxSpeedMult;
+            // accelRate *= Data.jumpHangAccelerationMult;
+            // targetSpeed *= Data.jumpHangMaxSpeedMult;
         }
 
         //Calculate difference between current velocity and desired velocity
         float speedDif = targetSpeed - rb.velocity.x;
         //Calculate force along x-axis to apply to thr player
         float movement = speedDif * accelRate;
+        
+        // Debug.Log("Speed Diff: " + speedDif);
+        if(Math.Abs(movement) > 0.01f)
+        {
+            Debug.Log("Movement: " + movement + "\nSpeed Diff: " + speedDif + "\nTarget Speed: " + targetSpeed);
+        }
 
         rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
@@ -1024,7 +1035,7 @@ public class PlayerControllerForces : MonoBehaviour
 
         }
 
-        if (playerState.IsWallJumping && Time.time - wallJumpStartTime > Data.wallJumpTime)
+        if (OnWall() || Grounded())
         {
             playerState.IsWallJumping = false;
         }
@@ -1125,7 +1136,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
         else
         {
-            if (CanSlide() && ((LastOnWallLeftTime > 0 && moveInput.x < Data.deadzone) || (LastOnWallRightTime > 0 && moveInput.x > -Data.deadzone)))
+            if (CanSlide())// && ((LastOnWallLeftTime > 0 && moveInput.x < Data.deadzone) || (LastOnWallRightTime > 0 && moveInput.x > -Data.deadzone)))
             {
                 playerState.IsSliding = true;
             }
@@ -1246,10 +1257,9 @@ public class PlayerControllerForces : MonoBehaviour
     //Check wall specific collision and return a bool
     private bool OnWall()
     {
-        return (((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)
-                    || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsFacingRight)) && !playerState.IsWallJumping)
-                    || (((Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsFacingRight)
-                || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && playerState.IsFacingRight)) && !playerState.IsWallJumping);
+        return
+            Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer)
+            || (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer) && !playerState.IsWallJumping);
     }
 
     //Check if the player is not doing anything and set the state to idle
@@ -1367,7 +1377,7 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (Data.canSlide)
         {
-            if (LastOnWallTime > 0 && !playerState.IsJumping && !playerState.IsWallJumping && !playerState.IsDashing && LastOnGroundTime <= 0)
+            if (LastOnWallTime > 0 && !playerState.IsJumping && !playerState.IsDashing && LastOnGroundTime <= 0) //!playerState.IsWallJumping
                 return true;
             else
                 return false;
