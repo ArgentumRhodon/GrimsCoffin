@@ -13,6 +13,8 @@ public class FallingSpike : MonoBehaviour
 
     private float damage = 5;
 
+    private float health = 1;
+
     [SerializeField]
     public EventReference oneShotFX;
     [SerializeField]
@@ -50,5 +52,31 @@ public class FallingSpike : MonoBehaviour
         }
         RuntimeManager.PlayOneShotAttached(oneShotFX2,this.gameObject);
             Destroy(this.gameObject);
+    }
+
+    public void TakeDamage(float damage = 1)
+    {
+        //Remove health
+        if ((health - damage) > 0)
+        {
+            RuntimeManager.PlayOneShotAttached(oneShotFX, this.gameObject);
+        }
+
+        health -= damage;
+        Debug.Log("The Damage has been dealt");
+
+        //Camera shake based off of damage
+        CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
+
+        //Instantiate(hitEffect, this.transform.position, Quaternion.identity);
+
+        //Enemy death calculation
+        //if (health <= 0)
+        //{
+        //    breakInstance.start();
+        Destroy(this.gameObject);
+        //}
+
+
     }
 }
