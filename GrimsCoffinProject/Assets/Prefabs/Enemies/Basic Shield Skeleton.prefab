@@ -695,6 +695,8 @@ MonoBehaviour:
   enemyDropList: {fileID: 0}
   enemyStateList: {fileID: 0}
   behaviorTree: {fileID: 0}
+  defaultShader: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  hitShader: {fileID: 2100000, guid: 47f92189a429cac4da2a607f7a201b6d, type: 2}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -706,6 +708,15 @@ MonoBehaviour:
   kinematicCollider: {fileID: 9017090490510364776}
   bodyCollider: {fileID: 9017090490510364776}
   attackCollider: {fileID: 4699518866355440840}
+  oneShotNotifierA:
+    m_PersistentCalls:
+      m_Calls: []
+  oneShotNotifierB:
+    m_PersistentCalls:
+      m_Calls: []
+  oneShotNotifierD:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0

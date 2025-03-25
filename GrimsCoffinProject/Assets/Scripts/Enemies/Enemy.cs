@@ -10,6 +10,7 @@ using UnityEngine.Rendering;
 using BehaviorDesigner.Runtime.Tasks.Unity.UnityCharacterController;
 using DG.Tweening;
 using UnityEngine.Events;
+using BehaviorDesigner.Runtime.Tasks.Unity.UnityTime;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -83,6 +84,9 @@ public abstract class Enemy : MonoBehaviour
     protected PlayerControllerForces player;
     [HideInInspector] public EnemyStateList enemyStateList;
     [HideInInspector] public BehaviorTree behaviorTree;
+    [SerializeField] private Material defaultShader;
+    [SerializeField] private Material hitShader;
+
 
     [Header("Collision Checkers & Associated Variables")] // ------------------------------------------------------
     [Space(5)]
@@ -111,9 +115,6 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private UnityEvent oneShotNotifierD;
     #endregion
 
-
-
-
     //Runtime Methods ---------------------------------------------------------------------------------------------
     #region Runtime
     // Start is called before the first frame update
@@ -127,6 +128,8 @@ public abstract class Enemy : MonoBehaviour
         spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         enemyStateList = gameObject.GetComponent<EnemyStateList>();
         behaviorTree = GetComponent<BehaviorTree>();
+        //defaultShader = Shader.Find("Sprite-Lit-Default");
+        //hitShader = Shader.Find("White_Mat");
 
         //Make sure kinematicCollider doesn't do weird things
         Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), kinematicCollider);
@@ -248,6 +251,8 @@ public abstract class Enemy : MonoBehaviour
         //Check for death
         if (health <= 0)
         {
+            HitStopTime(0.15f);
+
             behaviorTree.DisableBehavior(false);
             animator.enabled = false;
             animator.enabled = true;
@@ -260,6 +265,7 @@ public abstract class Enemy : MonoBehaviour
         }
         else
         {
+            HitStopTime(.075f);
             animator.SetTrigger("Hit");
         }
 
@@ -449,6 +455,22 @@ public abstract class Enemy : MonoBehaviour
             rb.gravityScale = 3;
         }
     }
+
+    public void HitStopTime(float duration)
+    {
+        StartCoroutine(PerformHitStop(duration));
+    }
+
+    private IEnumerator PerformHitStop(float duration) 
+    {
+        Time.timeScale = 0f;
+        spriteRenderer.material = hitShader;
+        yield return new WaitForSecondsRealtime(duration);
+        Time.timeScale = 1f;
+        spriteRenderer.material = defaultShader;
+    }
+
+
     #endregion
 
     //Player Checks & Methods -------------------------------------------------------------------------------------
