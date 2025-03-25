@@ -45,14 +45,14 @@ MonoBehaviour:
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
   canWallJump: 1
-  canWallJumpCancel: 0
-  wallJumpForce: {x: 13, y: 15}
+  canWallJumpCancel: 1
+  wallJumpForce: {x: 15.5, y: 16.5}
   wallJumpRunLerp: 0
   wallJumpTime: 0.2
-  mustHoldWallToJump: 1
+  mustHoldWallToJump: 0
   wallCoyoteTime: 0.01
   doTurnOnWallJump: 1
-  wallTurnBuffer: 0
+  wallTurnBuffer: 0.2
   canDoubleJump: 1
   preserveDoubleJump: 1
   resetJumpOnWall: 0
@@ -113,4 +113,4 @@ MonoBehaviour:
   aerialDownDamage: 7
   aerialImpactDamage: 5
   canScytheThrow: 0
-  canViewMap: 1
+  canViewMap: 0
