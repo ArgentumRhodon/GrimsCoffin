@@ -49,7 +49,7 @@ public class PlayerControllerForces : MonoBehaviour
     private bool isFalling = false;
 
     //Wall Jump
-    private float wallJumpStartTime;
+    private float wallJumpDuration;
     private int lastWallJumpDir;
 
     //Dash
@@ -264,6 +264,8 @@ public class PlayerControllerForces : MonoBehaviour
 
             LastWallJumpTime += Time.deltaTime;
 
+            wallJumpDuration -= Time.deltaTime;
+
             //Movement values --------------------------------------
             //Movement/Walking input
             moveInput = playerControls.Player.Move.ReadValue<Vector2>();
@@ -340,8 +342,43 @@ public class PlayerControllerForces : MonoBehaviour
             //if (!playerState.IsDashing)// && !playerState.IsAttacking && !playerCombat.IsComboing)
             if (!playerState.IsDashing && CanExecuteWhileAttacking())
             {
+                //Wall jump movement
                 if (playerState.IsWallJumping)
-                    Walk(Data.wallJumpRunLerp);
+                {
+                    //If its past the duration, check to see if the player is moving or not to cancel the behavior
+                    if(wallJumpDuration < 0)
+                    {
+                        //Player is moving so stop the wall jump state
+                        if(XInputDirection() != 0)
+                        {
+                            Walk(1);
+                            playerState.IsWallJumping = false;
+                        }
+                        //Slow down after main wall jump duration
+                        else
+                        {
+                            float wallJumpLerp = Mathf.Clamp(wallJumpDuration,-1, 0);
+
+                            //Get the current velocity direction and normalize it to 1 or -1
+                            float velocityDirection = rb.velocity.x;
+                            if (velocityDirection < 0)
+                                velocityDirection = -.2f;
+                            else
+                                velocityDirection = .2f;
+
+                            //Walk at a slower speed
+                            Walk(-wallJumpLerp, velocityDirection);
+                        }
+   
+                    }
+                    //Continue wall jump momentum 
+                    else
+                    {
+                        Walk(Data.wallJumpRunLerp);
+                    }
+                
+                }
+                //Not walk jumping so just walk normally
                 else
                     Walk(1);
             }
@@ -461,7 +498,7 @@ public class PlayerControllerForces : MonoBehaviour
                 isJumpFalling = false;
 
                 //Set timer and direction of wall jump
-                wallJumpStartTime = Time.time;
+                wallJumpDuration = Data.wallJumpTime;
                 lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
 
                 //Stops player from double jumping off wall
@@ -747,22 +784,23 @@ public class PlayerControllerForces : MonoBehaviour
     #region Movement Calculations
 
     //Walking
-    private async void Walk(float lerpAmount)
+    private async void Walk(float lerpAmount, float directionOverride = 0)
     {
         if (isSleeping && !canSleepWalk)
             return;
         //Get direction and normalize it to either 1 or -1 
-        int direction = Math.Sign(XInputDirection());
+        if(directionOverride == 0)
+            directionOverride = Math.Sign(XInputDirection());
 
 
-        if (direction == 0)
+        if (directionOverride == 0)
             playerState.IsWalking = false;
-        else
+        else if(!playerState.IsWallJumping)
             playerState.IsWalking = true;
      
 
         //Calculate the direction and our desired velocity
-        float targetSpeed = direction * Data.walkMaxSpeed * walkModifier;
+        float targetSpeed = directionOverride * Data.walkMaxSpeed * walkModifier;
         //float targetSpeed = moveInput.x * Data.walkMaxSpeed; <---------- used for walking at a slower pace
         //Smooth changes to direction and speed using a lerp function
         targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, lerpAmount);
@@ -779,8 +817,8 @@ public class PlayerControllerForces : MonoBehaviour
         //Increase acceleration and maxSpeed when at the apex of the player's jump - makes it feel more bouncy/responsive
         if ((playerState.IsJumping || playerState.IsWallJumping || isJumpFalling) && Mathf.Abs(rb.velocity.y) < Data.jumpHangTimeThreshold)
         {
-            // accelRate *= Data.jumpHangAccelerationMult;
-            // targetSpeed *= Data.jumpHangMaxSpeedMult;
+            accelRate *= Data.jumpHangAccelerationMult;
+            targetSpeed *= Data.jumpHangMaxSpeedMult;
         }
 
         //Calculate difference between current velocity and desired velocity
@@ -788,17 +826,17 @@ public class PlayerControllerForces : MonoBehaviour
         //Calculate force along x-axis to apply to thr player
         float movement = speedDif * accelRate;
         
-        // Debug.Log("Speed Diff: " + speedDif);
+/*        // Debug.Log("Speed Diff: " + speedDif);
         if(Math.Abs(movement) > 0.01f)
         {
             Debug.Log("Movement: " + movement + "\nSpeed Diff: " + speedDif + "\nTarget Speed: " + targetSpeed);
-        }
+        }*/
 
         rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
-        if (direction != 0)
+        if (directionOverride != 0)
         {
-            float cameraOffset = Data.cameraWalkOffset * direction;
+            float cameraOffset = Data.cameraWalkOffset * directionOverride;
             PlayWalkSFX();
             CameraManager.Instance.StartScreenXOffset(cameraOffset, 0.2f,2);
         }
