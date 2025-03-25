@@ -10,7 +10,7 @@ public enum AbilityName
     Map,
     Dash,
     ScytheThrow,
-    Health
+    NoAbility
 }
 
 public class AbilityUnlock : MonoBehaviour
@@ -47,9 +47,16 @@ public class AbilityUnlock : MonoBehaviour
         }
 
         if (buttonPrompt.sprite == null)
+        {
             buttonPrompt.gameObject.SetActive(false);
+            buttonPrompt.gameObject.transform.parent.gameObject.SetActive(false);
+        }
+
         else
+        {
             buttonPrompt.gameObject.SetActive(true);
+            buttonPrompt.gameObject.transform.parent.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
