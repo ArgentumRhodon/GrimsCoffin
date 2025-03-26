@@ -32,6 +32,7 @@ public class AbilityUnlock : MonoBehaviour
     {
         timer = lifetime;
         unlockText.text = unlockMessage;
+        this.GetComponent<Animator>().keepAnimatorStateOnDisable = true;
 
         switch (PlayerControllerForces.Instance.GetComponent<PlayerInput>().currentControlScheme)
         {

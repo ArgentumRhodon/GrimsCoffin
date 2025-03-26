@@ -11,6 +11,7 @@ public static class PlayerAnimationStates
     public static readonly string Dash = "Dash";
     public static readonly string GroundCharge = "GroundCharge";
     public static readonly string GroundDown = "GroundDown";
+    public static readonly string WallSlide = "WallSlide";
     public static readonly string Attack1 = "Attack1";
     public static readonly string Attack2 = "Attack2";
     public static readonly string Attack3 = "Attack3";
