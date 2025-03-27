@@ -648,7 +648,8 @@ public class PlayerControllerForces : MonoBehaviour
         currentHP -= damageTaken;
         invincibilityTimer = Data.iFrameTimer;
         hasInvincibility = true;
-        HitStopTimer(.15f);
+        if(currentHP > 0) 
+            HitStopTimer(.15f);
         //PerformHitStopShader(.5f);
 
         takeDamageSFX();

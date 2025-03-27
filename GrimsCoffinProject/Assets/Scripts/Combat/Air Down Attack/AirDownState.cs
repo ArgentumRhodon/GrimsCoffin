@@ -52,7 +52,7 @@ public class AirDownState : MeleeBaseState
     protected override void RegisterAttack(Collider2D collidersToDamage)
     {
         Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
-        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage, true, .5f, .15f);
+        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage, true, .5f, .12f);
         collidersDamaged.Add(collidersToDamage);
     }
 }

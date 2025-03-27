@@ -48,7 +48,7 @@ public class GroundDownRelease : MeleeBaseState
     protected override void RegisterAttack(Collider2D collidersToDamage)
     {
         Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
-        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage, true, .5f);
+        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage, true, .5f, 1.1f);
         collidersDamaged.Add(collidersToDamage);
     }
 }

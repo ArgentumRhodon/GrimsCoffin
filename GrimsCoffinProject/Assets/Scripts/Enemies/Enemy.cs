@@ -261,7 +261,7 @@ public abstract class Enemy : MonoBehaviour
 
     #region Damage Handling
     //Take damage and if below zero, destroy the enemy
-    public virtual void TakeDamage(Vector2 knockbackForce, float damage = 1, bool shouldStagger = false, float staggerDuration = 0.1f, float hitStopDuration = 0.1f)
+    public virtual void TakeDamage(Vector2 knockbackForce, float damage = 1, bool shouldStagger = false, float staggerDuration = 0.1f, float hitStopDuration = 0.03f)
     {
         //Check to see where player is
         UpdatePlayerLoc();
