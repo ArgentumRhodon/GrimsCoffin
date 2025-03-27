@@ -284,7 +284,7 @@ public abstract class Enemy : MonoBehaviour
         //Either kill or damage the player
         if(health <= 0)
         {
-            HitStopTimer(0.2f);
+            HitStopTimer(0.15f);
             DOVirtual.DelayedCall(.2f, KillEnemy, false);
         }
         else
@@ -507,13 +507,33 @@ public abstract class Enemy : MonoBehaviour
 
     private IEnumerator PerformHitStop(float duration) 
     {
+        //Set consistent flash time
+        float flashTime = .1f;
+
         Time.timeScale = 0f;
         animator.speed = 0;
         spriteRenderer.material = hitShader;
-        yield return new WaitForSecondsRealtime(duration);
-        Time.timeScale = 1f;
-        animator.speed = 1;
-        spriteRenderer.material = defaultShader;
+
+        if (duration < flashTime)
+            yield return new WaitForSecondsRealtime(duration);
+        else
+            yield return new WaitForSecondsRealtime(flashTime);
+
+        if (duration < flashTime)
+        {
+            Time.timeScale = 1f;
+            animator.speed = 1;
+            yield return new WaitForSecondsRealtime(flashTime - duration);
+            spriteRenderer.material = defaultShader;
+        }
+        else
+        {
+            spriteRenderer.material = defaultShader;
+            yield return new WaitForSecondsRealtime(duration - flashTime);
+            Time.timeScale = 1f;
+            animator.speed = 1;
+        }
+
     }
     #endregion
 
