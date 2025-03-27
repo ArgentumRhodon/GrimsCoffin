@@ -223,7 +223,7 @@ public class UIManager : MonoBehaviour
     }
 
     //Show a panel to inform an ability has been unlocked
-    public void ShowAbilityUnlock(string abilityName)
+    public void ShowAbilityUnlock(string abilityName, AbilityName name)
     {
         Debug.Log("ABILITY UNLOCK");
 
@@ -232,6 +232,7 @@ public class UIManager : MonoBehaviour
 
         GameObject popup = Instantiate(abilityUnlockPrefab, gameUI.transform);
         popup.GetComponent<AbilityUnlock>().unlockMessage = abilityName;
+        popup.GetComponent<AbilityUnlock>().abilityName = name;
     }
 
     //Show dialogue UI
