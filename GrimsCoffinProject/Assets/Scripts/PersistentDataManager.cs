@@ -176,6 +176,7 @@ public class PersistentDataManager : MonoBehaviour
                 {
                     PlayerPrefs.SetInt("MapBought", 1);
                     UpdateEnemyCurrency(-500);
+                    UIManager.Instance.ShowAbilityUnlock("Map Purchased", AbilityName.NoAbility);
                 }
             }
                 
