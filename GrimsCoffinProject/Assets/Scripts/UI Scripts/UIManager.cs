@@ -5,6 +5,8 @@ using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System;
+using BehaviorDesigner.Runtime.Tasks.Unity.SharedVariables;
+using UnityEngine.Tilemaps;
 
 public class UIManager : MonoBehaviour
 {
@@ -193,8 +195,36 @@ public class UIManager : MonoBehaviour
             {
                 //If a room is explored, set it active
                 if (roomsExplored[i] && mapRooms.Count > 0)
-                    mapRooms[i].SetActive(true);
+                {
+                    ShowMapRoom(mapRooms[i], 1);
+                }   
+
+                else if (!roomsExplored[i] && PersistentDataManager.Instance.MapBought == 1)
+                {
+                    ShowMapRoom(mapRooms[i], 0.4f);
+                }
             }
+        }
+    }
+
+    private void ShowMapRoom(GameObject mapRoom, float transparencyValue)
+    {
+        mapRoom.SetActive(true);
+        Tilemap tilemap = mapRoom.GetComponent<Tilemap>();
+        Debug.Log(tilemap);
+        mapRoom.GetComponent<Tilemap>().color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, transparencyValue);
+        foreach (Transform child in mapRoom.transform)
+        {
+            tilemap = child.GetComponent<Tilemap>();
+
+            if (tilemap != null)
+                child.GetComponent<Tilemap>().color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, transparencyValue);
+
+            else if (tilemap == null && transparencyValue == 255)
+                child.gameObject.SetActive(true);
+
+            else
+                child.gameObject.SetActive(false);
         }
     }
 
