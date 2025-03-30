@@ -126,29 +126,24 @@ public class PersistentDataManager : MonoBehaviour
         {
             spirit.spiritState++;
 
-            //Show save icon when spirit is collected
+            //Show save icon when spirit is collected and unlock ability
             if (spirit.spiritState == Spirit.SpiritState.Collected)
             {
                 StartCoroutine(UIManager.Instance.ShowSaveIcon(2));
-                UIManager.Instance.ShowAbilityUnlock("New Spirit in Equilibrium");
-            }
-
-            //Spirit Ability Unlocks
-            else if (spirit.spiritState == Spirit.SpiritState.Idle)
-            {
                 switch (spirit.spiritID)
                 {
                     //Unlocks Minimap and Map access
                     case Spirit.SpiritID.MapSpirit:
                         PlayerPrefs.SetInt("CanViewMap", 1);
-                        UIManager.Instance.ShowAbilityUnlock("Map Unlocked");
+                        PlayerControllerForces.Instance.Data.canViewMap = true;
+                        UIManager.Instance.ShowAbilityUnlock("Map Unlocked", AbilityName.Map);
                         break;
 
                     //Unlocks Dash
                     case Spirit.SpiritID.DashSpirit:
                         PlayerControllerForces.Instance.Data.canDash = true;
                         PlayerPrefs.SetInt("CanDash", 1);
-                        UIManager.Instance.ShowAbilityUnlock("Dash Unlocked");
+                        UIManager.Instance.ShowAbilityUnlock("Dash Unlocked", AbilityName.Dash);
                         break;
 
                     //Unlocks Scythe Throw and Spirit Power
@@ -157,18 +152,19 @@ public class PersistentDataManager : MonoBehaviour
                         PlayerControllerForces.Instance.Data.maxSP = 50;
                         PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
                         PlayerPrefs.SetInt("CanScytheThrow", 1);
-                        UIManager.Instance.ShowAbilityUnlock("Scythe Throw Unlocked");
+                        UIManager.Instance.ShowAbilityUnlock("Scythe Throw Unlocked", AbilityName.ScytheThrow);
                         PlayerPrefs.SetFloat("MaxSP", 50);
                         break;
-
-                    //Unlocks Health Upgrades and gives one for free
-                    case Spirit.SpiritID.HealthSpirit:
-                        PlayerControllerForces.Instance.Data.maxHP += 10;
-                        PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP; 
-                        PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
-                        UIManager.Instance.ShowAbilityUnlock("Max Health Increased");
-                        break;
                 }
+            }
+
+            //Unlocks Health Upgrades and gives one for free
+            else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.HealthSpirit)
+            {
+                PlayerControllerForces.Instance.Data.maxHP += 10;
+                PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
+                PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
+                UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
             }
                 
         }
@@ -186,7 +182,7 @@ public class PersistentDataManager : MonoBehaviour
             Mathf.Clamp(collectablesHeld, 0, 100);
 
             PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
-            UIManager.Instance.ShowAbilityUnlock("Max Health Increased");
+            UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
             UIManager.Instance.RemoveHealthCollectables();
         }
 
