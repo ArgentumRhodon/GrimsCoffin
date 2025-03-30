@@ -59,7 +59,9 @@ public abstract class Enemy : MonoBehaviour
     //Attack physics and stats ------------------------------------------------------------------------------------
     [SerializeField] private bool canBePulledDown;
     [SerializeField] protected bool canBeStopped = true;
+    private bool hasAttackTicket;
     public bool CanBeStopped { get { return canBeStopped; } set { canBeStopped = value; } }
+    public bool HasAttackTicket { get { return hasAttackTicket; } set { hasAttackTicket = value; } }
 
     //Enemy Statuses ----------------------------------------------------------------------------------------------
     private int direction = 1;
