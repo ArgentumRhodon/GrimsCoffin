@@ -256,7 +256,7 @@ public abstract class Enemy : MonoBehaviour
             gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
             RemoveActiveEnemy();
 
-            PersistentDataManager.Instance.UpdateEnemyCurrency(currencyValue);
+            PersistentDataManager.Instance.UpdateEnemyCurrency(currencyValue, true);
 
             DOVirtual.DelayedCall(1, DestroyEnemyGO, false);
             return;

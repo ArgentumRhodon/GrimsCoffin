@@ -99,6 +99,13 @@ public class MeleeBaseState : CState
 
                     RegisterAttackSpike(collidersToDamage[i]);
                 }
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Rope)
+                {
+                    if (collidersToDamage[i].GetComponent<PolygonCollider2D>() != null)
+                        continue;
+
+                    RegisterAttackScytheThrowPlatform(collidersToDamage[i]);
+                }
             }
         }
     }
@@ -119,6 +126,12 @@ public class MeleeBaseState : CState
     protected virtual void RegisterAttackSpike(Collider2D collidersToDamage)
     {
         collidersToDamage.gameObject.GetComponent<FallingSpike>().TakeDamage(attackDamage);
+        collidersDamaged.Add(collidersToDamage);
+    }
+
+    protected virtual void RegisterAttackScytheThrowPlatform(Collider2D collidersToDamage)
+    {
+        collidersToDamage.gameObject.GetComponent<ScytheThrowRope>().TakeDamage(attackDamage);
         collidersDamaged.Add(collidersToDamage);
     }
 
