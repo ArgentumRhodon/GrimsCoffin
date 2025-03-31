@@ -19,6 +19,7 @@ public abstract class Enemy : MonoBehaviour
     //General stats -----------------------------------------------------------------------------------------------
     [SerializeField] public float health;
     [SerializeField] public float visionRange;
+    [SerializeField] public float currencyValue = 100;
 
     //Damage ------------------------------------------------------------------------------------------------------
     [SerializeField] public float collisionDamage;
@@ -254,6 +255,8 @@ public abstract class Enemy : MonoBehaviour
             animator.Play("Dead");
             gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
             RemoveActiveEnemy();
+
+            PersistentDataManager.Instance.UpdateEnemyCurrency(currencyValue);
 
             DOVirtual.DelayedCall(1, DestroyEnemyGO, false);
             return;

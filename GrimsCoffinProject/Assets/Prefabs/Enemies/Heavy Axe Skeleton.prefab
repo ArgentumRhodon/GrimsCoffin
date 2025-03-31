@@ -617,8 +617,8 @@ MonoBehaviour:
         byteData: 
         byteDataArray: 
       Version: 1.7.11
-  gizmoViewMode: 2
-  showBehaviorDesignerGizmo: 1
+  gizmoViewMode: 0
+  showBehaviorDesignerGizmo: 0
 --- !u!114 &9129667782556860028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,6 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 45
   visionRange: 20
+  currencyValue: 125
   collisionDamage: 3
   damageOnCollision: 0
   canOverlapPlayer: 0
@@ -668,6 +669,15 @@ MonoBehaviour:
   kinematicCollider: {fileID: 7977824621013812351}
   bodyCollider: {fileID: 7977824621013812351}
   attackCollider: {fileID: 4699518866355440840}
+  oneShotNotifierA:
+    m_PersistentCalls:
+      m_Calls: []
+  oneShotNotifierB:
+    m_PersistentCalls:
+      m_Calls: []
+  oneShotNotifierD:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0
