@@ -215,6 +215,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 73583
+--- !u!114 &-7386026527485754911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/SelfHit
+  m_EditorClassIdentifier: 
+  Path: snapshot:/SelfHit
+  Guid:
+    Data1: -1293710099
+    Data2: 1075720360
+    Data3: -705127745
+    Data4: 1609295976
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &-7255177854456229261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +360,83 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: parameter:/201_Injured/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-6756000991886362862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/207_Attack/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-6697484098972377760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ENM/Skeleton/207_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/ENM/Skeleton/207_Attack
+  Guid:
+    Data1: 618936799
+    Data2: 1133163803
+    Data3: 1638394534
+    Data4: -985576104
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -6756000991886362862}
+  - {fileID: 6424887650025268159}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 875
+--- !u!114 &-6538520862533464610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/209_Move/LocalDirection
   m_EditorClassIdentifier: 
   Name: LocalDirection
   StudioPath: 
@@ -508,6 +612,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4027
+--- !u!114 &-5623937143156127211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Test/Test SFX/Test_000_Ding
+  m_EditorClassIdentifier: 
+  Path: event:/Test/Test SFX/Test_000_Ding
+  Guid:
+    Data1: 1493175159
+    Data2: 1162284179
+    Data3: -446003804
+    Data4: -1643424005
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 375
 --- !u!114 &-5590413826792228836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,6 +663,35 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-5560696686150988751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ENM/Skeleton/209_Move
+  m_EditorClassIdentifier: 
+  Path: event:/ENM/Skeleton/209_Move
+  Guid:
+    Data1: -1081491523
+    Data2: 1252949666
+    Data3: -1657062744
+    Data4: 797082311
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -6538520862533464610}
+  - {fileID: 8387528157542792318}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 875
 --- !u!114 &-5219092584138106203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +739,30 @@ MonoBehaviour:
   ID:
     data1: 1178717349
     data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-5183596417822533681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/210_Move/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
   Type: 0
   IsGlobal: 0
   Labels: []
@@ -639,6 +823,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 60229
+--- !u!114 &-4531809021991885346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/206_Idle/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-4489428839665111519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,6 +874,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 143
+--- !u!114 &-4462092911126192728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/206_Idle/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-4456870379131894079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -849,6 +1081,35 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 19338
+--- !u!114 &-2482718844128780741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ENM/Skeleton/205_Idle
+  m_EditorClassIdentifier: 
+  Path: event:/ENM/Skeleton/205_Idle
+  Guid:
+    Data1: 51857882
+    Data2: 1192629916
+    Data3: -1745465719
+    Data4: 1538630239
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 4137938752717938199}
+  - {fileID: -1008326510369692693}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 11000
 --- !u!114 &-2182413578976880424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,6 +1216,35 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-1154173395506759173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ENM/Ghost/206_Idle
+  m_EditorClassIdentifier: 
+  Path: event:/ENM/Ghost/206_Idle
+  Guid:
+    Data1: 2044562987
+    Data2: 1178819596
+    Data3: -426576974
+    Data4: 1904979554
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -4462092911126192728}
+  - {fileID: -4531809021991885346}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 14500
 --- !u!114 &-1061279991735008292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1006,6 +1296,59 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-1008326510369692693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/205_Idle/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-879462184015875118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ENM/Ghost/210_Move
+  m_EditorClassIdentifier: 
+  Path: event:/ENM/Ghost/210_Move
+  Guid:
+    Data1: 543911626
+    Data2: 1144286132
+    Data3: -1967668804
+    Data4: 426121886
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -5183596417822533681}
+  - {fileID: 5566133823632954729}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-766024914759970854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,6 +1496,14 @@ MonoBehaviour:
   - {fileID: 4581400682127058155}
   - {fileID: -7433942805015361541}
   - {fileID: -8727603471243791866}
+  - {fileID: -5623937143156127211}
+  - {fileID: -1154173395506759173}
+  - {fileID: -2482718844128780741}
+  - {fileID: 874708331617124162}
+  - {fileID: -6697484098972377760}
+  - {fileID: -5560696686150988751}
+  - {fileID: -879462184015875118}
+  - {fileID: -7386026527485754911}
   EditorParameters:
   - {fileID: -3355277177704017374}
   - {fileID: -3685714587446246573}
@@ -1162,7 +1513,7 @@ MonoBehaviour:
   - {fileID: 971634653438544226}
   StringsBanks:
   - {fileID: 861109146523642461}
-  cacheTime: 638769376479150367
+  cacheTime: 638790329347421097
   cacheVersion: 131620
 --- !u!114 &345798425835584846
 MonoBehaviour:
@@ -1230,11 +1581,40 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638769376479150367
+  lastModified: 638790329347421097
   FileSizes:
   - Name: Desktop
-    Value: 3926
+    Value: 4356
   Exists: 1
+--- !u!114 &874708331617124162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ENM/Ghost/208_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/ENM/Ghost/208_Attack
+  Guid:
+    Data1: -1248384983
+    Data2: 1198640461
+    Data3: 701777805
+    Data4: 519530992
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 4271490511556222885}
+  - {fileID: 8874535474005535857}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2113
 --- !u!114 &971634653438544226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1250,10 +1630,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638769376479060607
+  lastModified: 638790329347360843
   FileSizes:
   - Name: Desktop
-    Value: 44238240
+    Value: 45074592
   Exists: 1
 --- !u!114 &1006991173850820005
 MonoBehaviour:
@@ -1356,7 +1736,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 971634653438544226}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters:
   - {fileID: 3063007335081718024}
@@ -1494,6 +1874,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 750
+--- !u!114 &4137938752717938199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/205_Idle/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &4138700231828151143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1521,6 +1925,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 750
+--- !u!114 &4271490511556222885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/208_Attack/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &4415429954484209126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1757,6 +2185,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 750
+--- !u!114 &5566133823632954729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/210_Move/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &5749696822848437907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,6 +2266,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 875
+--- !u!114 &6424887650025268159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/207_Attack/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &6501385014424036098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1864,7 +2340,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 971634653438544226}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters:
   - {fileID: -8313408151204202893}
@@ -1952,6 +2428,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
+--- !u!114 &8387528157542792318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/209_Move/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &8672002421957255671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1999,6 +2499,30 @@ MonoBehaviour:
   ID:
     data1: 1178717349
     data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &8874535474005535857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/208_Attack/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
   Type: 0
   IsGlobal: 0
   Labels: []

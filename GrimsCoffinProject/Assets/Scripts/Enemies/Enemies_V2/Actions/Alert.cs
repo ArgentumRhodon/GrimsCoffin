@@ -23,6 +23,8 @@ namespace Core.AI
                 isReady |= true;
                 return;
             }
+
+            Debug.Log("Triggered Name is: "+ animationTriggerName);
               
             animator.Play(animationTriggerName);
 

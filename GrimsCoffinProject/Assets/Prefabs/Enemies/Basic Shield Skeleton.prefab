@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 6100845016814031525}
   - component: {fileID: 6253059432297718794}
   - component: {fileID: 4799350087178466909}
+  - component: {fileID: -7632384411915620216}
   m_Layer: 6
   m_Name: Basic Shield Skeleton
   m_TagString: Enemy
@@ -706,6 +707,81 @@ MonoBehaviour:
   kinematicCollider: {fileID: 9017090490510364776}
   bodyCollider: {fileID: 9017090490510364776}
   attackCollider: {fileID: 4699518866355440840}
+  DamagedNotifer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7632384411915620216}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  DeadNotifer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7632384411915620216}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  IdleNotifer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7632384411915620216}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventC
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  swordNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7632384411915620216}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  allStopNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7632384411915620216}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: stopAllEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,6 +907,47 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-7632384411915620216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567458006229910762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92623db9bba39764babfdc9a57b554a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneShotFXA:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  oneShotFXB:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  oneShotFXC:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  oneShotFXD:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  attenuation: 1
 --- !u!1 &4680946005586218126
 GameObject:
   m_ObjectHideFlags: 0

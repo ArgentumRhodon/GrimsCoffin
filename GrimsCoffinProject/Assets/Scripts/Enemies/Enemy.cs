@@ -106,9 +106,11 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] public Collider2D attackCollider;
 
     //Event Notifier for FMOD -------------------------------------------------------------------------------------
-    [SerializeField] private UnityEvent oneShotNotifierA;
-    [SerializeField] private UnityEvent oneShotNotifierB;
-    [SerializeField] private UnityEvent oneShotNotifierD;
+    [SerializeField] private UnityEvent DamagedNotifer;
+    [SerializeField] private UnityEvent DeadNotifer;
+    [SerializeField] private UnityEvent IdleNotifer;
+    [SerializeField] private UnityEvent swordNotifier;
+    [SerializeField] private UnityEvent allStopNotifier;
     #endregion
 
 
@@ -248,13 +250,15 @@ public abstract class Enemy : MonoBehaviour
         //Check for death
         if (health <= 0)
         {
+            DeadNotifer.Invoke();
+            Debug.Log("Enemy Destroyed");
             behaviorTree.DisableBehavior(false);
             animator.enabled = false;
             animator.enabled = true;
             animator.Play("Dead");
             gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
+            allStopNotifier.Invoke();
             RemoveActiveEnemy();
-
             DOVirtual.DelayedCall(1, DestroyEnemyGO, false);
             return;
         }
@@ -297,7 +301,7 @@ public abstract class Enemy : MonoBehaviour
         if (enemyStateList.IsBlocking && isPlayerOnRight && enemyStateList.IsFacingRight)
             return;
 
-        oneShotNotifierA.Invoke();
+        DamagedNotifer.Invoke();
 
         //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
@@ -321,8 +325,6 @@ public abstract class Enemy : MonoBehaviour
     public virtual void DestroyEnemy()
     {
         SpawnDrop();
-
-        oneShotNotifierB.Invoke();
 
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);
