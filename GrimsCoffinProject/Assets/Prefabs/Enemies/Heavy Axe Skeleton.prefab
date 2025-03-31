@@ -617,8 +617,8 @@ MonoBehaviour:
         byteData: 
         byteDataArray: 
       Version: 1.7.11
-  gizmoViewMode: 2
-  showBehaviorDesignerGizmo: 1
+  gizmoViewMode: 0
+  showBehaviorDesignerGizmo: 0
 --- !u!114 &9129667782556860028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,6 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 45
   visionRange: 20
+  currencyValue: 125
   collisionDamage: 3
   damageOnCollision: 0
   canOverlapPlayer: 0

@@ -43,6 +43,9 @@ public class PersistentDataManager : MonoBehaviour
 
     public string ControlScheme { get { return PlayerPrefs.GetString("ControlScheme"); } }
 
+    public float EnemyCurrency { get { return PlayerPrefs.GetFloat("EnemyCurrency"); } }
+    public int MapBought { get { return PlayerPrefs.GetInt("MapBought"); } }
+
     //List of pesistently tracked objects in the scene
     [SerializeField] public List<Room> rooms;
     [SerializeField] public List<HealthUpgrade> healthUpgrades;
@@ -166,7 +169,6 @@ public class PersistentDataManager : MonoBehaviour
                 PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
                 UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
             }
-                
         }
         
         //Trade in health collectables for health upgrade
@@ -184,6 +186,16 @@ public class PersistentDataManager : MonoBehaviour
             PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
             UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
             UIManager.Instance.RemoveHealthCollectables();
+        }
+
+        else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.MapSpirit)
+        {
+            if (EnemyCurrency >= 500)
+            {
+                PlayerPrefs.SetInt("MapBought", 1);
+                UpdateEnemyCurrency(-500);
+                UIManager.Instance.ShowAbilityUnlock("Map Purchased", AbilityName.NoAbility);
+            }
         }
 
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
@@ -267,6 +279,8 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
 
         PlayerPrefs.SetInt("HealthCollectablesHeld", 0);
+        PlayerPrefs.SetFloat("EnemyCurrency", 0);
+        PlayerPrefs.SetInt("MapBought", 0);
 
         //Clear Onboarding Map Data
         for (int i = 0; i < 30; i++)
@@ -365,5 +379,11 @@ public class PersistentDataManager : MonoBehaviour
     public void ClearArena(int arenaIndex)
     {
         PlayerPrefs.SetInt("Arena" + arenaIndex, 1);
+    }
+
+    public void UpdateEnemyCurrency(float value)
+    {
+        PlayerPrefs.SetFloat("EnemyCurrency", EnemyCurrency + value);
+        UIManager.Instance.AddEnemyCurrency(value);
     }
 }

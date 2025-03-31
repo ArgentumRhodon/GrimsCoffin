@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     //General stats -----------------------------------------------------------------------------------------------
     [SerializeField] public float health;
     [SerializeField] public float visionRange;
+    [SerializeField] public float currencyValue = 100;
 
     //Damage ------------------------------------------------------------------------------------------------------
     [SerializeField] public float collisionDamage;
