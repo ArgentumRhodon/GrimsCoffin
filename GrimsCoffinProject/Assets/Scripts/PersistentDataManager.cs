@@ -384,5 +384,6 @@ public class PersistentDataManager : MonoBehaviour
     public void UpdateEnemyCurrency(float value)
     {
         PlayerPrefs.SetFloat("EnemyCurrency", EnemyCurrency + value);
+        UIManager.Instance.AddEnemyCurrency(value);
     }
 }

@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public PauseScreenBehavior pauseScript;
     [SerializeField] public RestPointMenu restPointMenu;
     [SerializeField] private Map mapScript;
+    [SerializeField] private EnemyCurrencyUI enemyCurrencyUI;
 
     //Post-Processing & Effects
     [SerializeField] private GameObject deathScreen;
@@ -263,6 +264,11 @@ public class UIManager : MonoBehaviour
         GameObject popup = Instantiate(abilityUnlockPrefab, gameUI.transform);
         popup.GetComponent<AbilityUnlock>().unlockMessage = abilityName;
         popup.GetComponent<AbilityUnlock>().abilityName = name;
+    }
+
+    public void AddEnemyCurrency(float value)
+    {
+        enemyCurrencyUI.AddCurrency(value);
     }
 
     //Show dialogue UI
