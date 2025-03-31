@@ -92,6 +92,13 @@ public class MeleeBaseState : CState
 
                     RegisterAttackWall(collidersToDamage[i]);
                 }
+                if(hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Spike)
+                {
+                    if (collidersToDamage[i].GetComponent<PolygonCollider2D>() != null)
+                        continue;
+
+                    RegisterAttackSpike(collidersToDamage[i]);
+                }
             }
         }
     }
@@ -106,6 +113,12 @@ public class MeleeBaseState : CState
     protected virtual void RegisterAttackWall(Collider2D collidersToDamage)
     {
         collidersToDamage.gameObject.GetComponent<BreakableWall>().TakeDamage(attackDamage);
+        collidersDamaged.Add(collidersToDamage);
+    }
+
+    protected virtual void RegisterAttackSpike(Collider2D collidersToDamage)
+    {
+        collidersToDamage.gameObject.GetComponent<FallingSpike>().TakeDamage(attackDamage);
         collidersDamaged.Add(collidersToDamage);
     }
 
