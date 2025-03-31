@@ -365,7 +365,7 @@ public class UIManager : MonoBehaviour
         }
 
         this.GetComponent<DialogueManager>().canProgressDialogue = true;
-        //playerInput.SwitchCurrentActionMap("UI");
+        playerInput.SwitchCurrentActionMap("UI");
     }
 
     //Hides the dialogue UI
@@ -387,7 +387,7 @@ public class UIManager : MonoBehaviour
         gameUI.SetActive(true);
         UnlockUI.SetActive(false);
         PlayerControllerForces.Instance.ToggleSleep(false);
-        //playerInput.SwitchCurrentActionMap("Player");
+        playerInput.SwitchCurrentActionMap("Player");
         Debug.Log("1111");
     }
 
