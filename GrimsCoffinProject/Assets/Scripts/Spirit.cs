@@ -16,7 +16,7 @@ public class Spirit : Interactable
     [SerializeField] private GameObject mapIcon;
     [SerializeField] private GameObject exclamationMark;
     [SerializeField] private PlayableDirector Collect;
-    [SerializeField] private GameObject UnlockMenu;
+    [SerializeField] private UnlockAbility UnlockMenu;
 
     public enum SpiritID
     {
@@ -46,7 +46,7 @@ public class Spirit : Interactable
         spiritUI = UIManager.Instance.gameUI.GetComponentInChildren<SpiritCollectUI>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         mapIcon.SetActive(true);
-
+        UnlockMenu = FindObjectOfType<UnlockAbility>();
         spiritState = PersistentDataManager.Instance.GetSpiritState(this);
 
         if (spiritState == SpiritState.Collected
@@ -94,17 +94,17 @@ public class Spirit : Interactable
         {
             if (spiritID == SpiritID.MapSpirit)
             {
-
+                UnlockMenu.Startunlock(this);
             }
             else if (spiritID == SpiritID.HealthSpirit)
             {
-
+                UnlockMenu.Startunlock(this);
             }
             /*else if (spiritID == SpiritID.MapSpirit)
             {
-
+                UnlockMenu.Startunlock(this);
             }*/
-            else 
+            else
             {
                 PersistentDataManager.Instance.UpdateSpiritState(this);
                 PerformInteraction();

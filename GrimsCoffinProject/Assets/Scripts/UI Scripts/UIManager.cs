@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
   
     //Dialogue
     [SerializeField] public GameObject dialogueUI;
+    [SerializeField] public GameObject UnlockUI;
 
     //Player Input
     [SerializeField] public PlayerInput playerInput;
@@ -169,6 +170,19 @@ public class UIManager : MonoBehaviour
             StartCoroutine(HideDialogue(1.3f));
         }
     }
+
+    public void ToggleUnlockUI(bool toggle)
+    {
+        if (toggle)
+        {
+            StartCoroutine(ShowUnlock(.5f));
+        }
+        else
+        {
+            StartCoroutine(HideUnlock(1.3f));
+        }
+    }
+
 
     //Show save icon for specified time
     public IEnumerator ShowSaveIcon(float seconds)
@@ -321,6 +335,59 @@ public class UIManager : MonoBehaviour
         dialogueUI.SetActive(false);
         PlayerControllerForces.Instance.ToggleSleep(false);
         playerInput.SwitchCurrentActionMap("Player");
+        Debug.Log("1111");
+    }
+
+    //Show dialogue UI
+    public IEnumerator ShowUnlock (float seconds)
+    {
+        //Animate the UI
+        this.GetComponent<DialogueManager>().canProgressDialogue = false;
+        UnlockUI.SetActive(true);
+        UnlockUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
+
+        //Disable area text if it's active
+        if (areaText != null)
+            areaText.SetActive(false);
+
+        gameUI.SetActive(false);
+        PlayerControllerForces.Instance.ToggleSleep(true);
+
+        //Disable player control
+        PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
+        PlayerControllerForces.Instance.gameObject.GetComponent<PlayerCombat>().ResetCombo();
+
+        //Wait before allowing player to progress through dialogue
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < seconds)
+        {
+            yield return null;
+        }
+
+        this.GetComponent<DialogueManager>().canProgressDialogue = true;
+        //playerInput.SwitchCurrentActionMap("UI");
+    }
+
+    //Hides the dialogue UI
+    public IEnumerator HideUnlock(float seconds)
+    {
+        //Animate the UI in reverse
+        this.GetComponent<DialogueManager>().canProgressDialogue = false;
+        UnlockUI.GetComponent<Animator>().SetBool("ToggleDialogue", false);
+
+        //Wait before giving control to the player
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < seconds)
+        {
+            yield return null;
+        }
+
+        //Enable game UI and give control to the player
+        PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
+        gameUI.SetActive(true);
+        UnlockUI.SetActive(false);
+        PlayerControllerForces.Instance.ToggleSleep(false);
+        //playerInput.SwitchCurrentActionMap("Player");
         Debug.Log("1111");
     }
 
