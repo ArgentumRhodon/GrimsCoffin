@@ -169,17 +169,6 @@ public class PersistentDataManager : MonoBehaviour
                 PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
                 UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
             }
-
-            else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.MapSpirit)
-            {
-                if (EnemyCurrency >= 500)
-                {
-                    PlayerPrefs.SetInt("MapBought", 1);
-                    UpdateEnemyCurrency(-500);
-                    UIManager.Instance.ShowAbilityUnlock("Map Purchased", AbilityName.NoAbility);
-                }
-            }
-                
         }
         
         //Trade in health collectables for health upgrade
@@ -197,6 +186,16 @@ public class PersistentDataManager : MonoBehaviour
             PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
             UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
             UIManager.Instance.RemoveHealthCollectables();
+        }
+
+        else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.MapSpirit)
+        {
+            if (EnemyCurrency >= 500)
+            {
+                PlayerPrefs.SetInt("MapBought", 1);
+                UpdateEnemyCurrency(-500);
+                UIManager.Instance.ShowAbilityUnlock("Map Purchased", AbilityName.NoAbility);
+            }
         }
 
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
@@ -385,5 +384,6 @@ public class PersistentDataManager : MonoBehaviour
     public void UpdateEnemyCurrency(float value)
     {
         PlayerPrefs.SetFloat("EnemyCurrency", EnemyCurrency + value);
+        UIManager.Instance.AddEnemyCurrency(value);
     }
 }
