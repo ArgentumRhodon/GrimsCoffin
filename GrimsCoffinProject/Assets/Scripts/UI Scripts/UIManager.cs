@@ -271,6 +271,11 @@ public class UIManager : MonoBehaviour
         enemyCurrencyUI.UpdateCurrency(value, addingCurrency);
     }
 
+    public void ScytheThrowFailed()
+    {
+        gameUI.transform.GetChild(1).GetComponent<PlayerStatsUI>().ScytheThrowFailed();
+    }
+
     //Show dialogue UI
     public IEnumerator ShowDialogue(float seconds)
     {

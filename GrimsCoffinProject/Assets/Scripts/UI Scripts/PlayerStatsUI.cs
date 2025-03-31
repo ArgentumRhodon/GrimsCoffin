@@ -15,6 +15,7 @@ public class PlayerStatsUI : MonoBehaviour
 
     [SerializeField] private GameObject healthCollectablePrefab;
     [SerializeField] private GameObject healthCollecatbleList;
+    [SerializeField] private GameObject noSpiritPowerFeedback;
 
     private void Start()
     {
@@ -52,5 +53,19 @@ public class PlayerStatsUI : MonoBehaviour
         {
             Destroy(healthCollecatbleList.transform.GetChild(i).gameObject);
         }
+    }
+
+    public void ScytheThrowFailed()
+    {
+        StartCoroutine(NoSpiritPower());
+    }
+
+    private IEnumerator NoSpiritPower()
+    {
+        noSpiritPowerFeedback.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(1);
+
+        noSpiritPowerFeedback.SetActive(false);
     }
 }

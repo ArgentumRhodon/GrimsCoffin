@@ -635,6 +635,9 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnAbility()
     {
+        if (currentSP <= 0 && Data.canScytheThrow && Time.timeScale == 1)
+            UIManager.Instance.ScytheThrowFailed();
+
         if (isSleeping || Time.timeScale == 0 || currentSP <= 0 || scytheThrown || !Data.canScytheThrow)
             return;
 
