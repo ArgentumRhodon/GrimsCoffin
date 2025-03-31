@@ -6,20 +6,24 @@ using BehaviorDesigner.Runtime.Tasks;
 
 namespace Core.AI
 {
-    public class Seek : EnemyAction
+    public class SeekTargetFacingPlayer : EnemyAction
     {
         [Header("Physics")]
         public float nextWaypointDistance = 3f;
         public float targetRange = 1f;
 
+        public float offsetMin;
+        public float offsetMax;
+
         [Header("Animations")]
-        public string animationTriggerName;
-        public string nextAnimationTrigger;
+        public string animationWalkName;
+        public string animationWalkBackName;
+        public string idleAnimationTrigger;
 
         //Pathfinding tools
         private Path path;
         private int currentWaypoint = 0;
-        private bool reachedEndOfPath = false;     
+        private bool reachedEndOfPath = false;
 
         //Update path modifiers
         private float repeatingNum = .2f;
@@ -32,6 +36,8 @@ namespace Core.AI
 
         private float pathDistance;
         private bool foundPath;
+
+        private bool isWalkingBack;
 
         public override void OnStart()
         {
@@ -46,9 +52,9 @@ namespace Core.AI
             //Is waiting for player to return
             isWaiting = false;
             reachedEndOfPath = false;
+            isWalkingBack = false;
 
-            //Set vision 
-            visionCollider = enemyScript.visionCollider;
+            //Set state 
             enemyScript.enemyStateList.IsSeeking = true;
         }
 
@@ -62,7 +68,7 @@ namespace Core.AI
                 {
                     rb.velocity = Vector2.zero;
                     isWaiting = true;
-                    animator.Play(nextAnimationTrigger);                 
+                    animator.Play(idleAnimationTrigger);
                 }
                 else if (isWaiting)
                 {
@@ -76,21 +82,18 @@ namespace Core.AI
         }
 
         public override TaskStatus OnUpdate()
-        {       
+        {
             if (pathDistance > enemyScript.visionRange && foundPath)
                 return TaskStatus.Failure;
 
-                repeatingTimer -= Time.deltaTime;
+            repeatingTimer -= Time.deltaTime;
             if (repeatingTimer < 0)// && !CheckEdge())
             {
                 UpdatePath();
                 repeatingTimer = repeatingNum;
             }
 
-            /*if(!IsOverlapping())
-                return TaskStatus.Failure;*/
-
-            return reachedEndOfPath ? TaskStatus.Success : TaskStatus.Running;
+            return enemyScript.HasAttackTicket ? TaskStatus.Success : TaskStatus.Running;
         }
 
         public override void OnEnd()
@@ -98,15 +101,15 @@ namespace Core.AI
             if (pathDistance > enemyScript.visionRange)
                 enemyScript.enemyStateList.IsSeeking = false;
 
-/*            if(reachedEndOfPath)
-                enemyScript.enemyStateList.IsSeeking = false;*/
+            /*            if(reachedEndOfPath)
+                            enemyScript.enemyStateList.IsSeeking = false;*/
         }
 
         private void PathFollow()
         {
             if (path == null)
                 return;
-               
+
             if (currentWaypoint >= path.vectorPath.Count)
             {
                 reachedEndOfPath = true;
@@ -143,21 +146,11 @@ namespace Core.AI
 
             rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
-
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
             if (distance < nextWaypointDistance)
             {
                 currentWaypoint++;
-            }
-
-            if (movement >= 0.01f)
-            {
-                enemyScript.FaceRight(true);
-            }
-            else if (movement <= -0.01f)
-            {
-                enemyScript.FaceRight(false);
             }
 
             if (enemyScript.FindPlayerDistanceX() <= targetRange)
@@ -167,9 +160,13 @@ namespace Core.AI
             }
 
             //Start movement animation
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationTriggerName))
-                animator.Play(animationTriggerName);
-            //animator.SetTrigger(animationTriggerName);
+            UpdateDirection();
+            UpdateWalkDirection();
+
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationWalkName) && !isWalkingBack)
+                animator.Play(animationWalkName);
+            else if(!animator.GetCurrentAnimatorStateInfo(0).IsName(animationWalkBackName) && isWalkingBack)
+                animator.Play(animationWalkBackName);
         }
 
         private void OnPathComplete(Path p)
@@ -188,10 +185,12 @@ namespace Core.AI
         {
             if (seeker.IsDone())
             {
+                Vector2 targetLocation = GetTargetLocation();
+
                 float distance = Mathf.Pow((player.transform.position.x - rb.transform.position.x), 2)
                                     + Mathf.Pow((player.transform.position.y - rb.transform.position.y), 2);
-              
-                seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
+
+                seeker.StartPath(rb.position, targetLocation, OnPathComplete);
 
                 //Debug.Log("Path length: " + path.GetTotalLength());
             }
@@ -200,7 +199,8 @@ namespace Core.AI
         private bool CheckEdge()
         {
             //Check to see if it is not colliding with the ground or is colliding with a wall
-            if (!enemyScript.airChecker.IsColliding || enemyScript.wallChecker.IsColliding)
+            if (!enemyScript.airChecker.IsColliding || enemyScript.wallChecker.IsColliding 
+                || !enemyScript.backAirChecker.IsColliding || enemyScript.backWallChecker.IsColliding )
             {
                 return true;
             }
@@ -209,7 +209,7 @@ namespace Core.AI
                 if (isWaiting)
                 {
                     isWaiting = false;
-                    animator.Play(animationTriggerName);
+                    animator.Play(animationWalkName);
                     //animator.SetTrigger(animationTriggerName);
                 }
                 return false;
@@ -221,39 +221,56 @@ namespace Core.AI
             //Find direction and update it
             Vector2 direction = enemyScript.FindPlayerDirection();
 
-            if(direction.x > 0 && !enemyScript.enemyStateList.IsFacingRight)
+            if (direction.x > 0 && !enemyScript.enemyStateList.IsFacingRight)
             {
                 enemyScript.FaceRight(true);
             }
-            else if(direction.x < 0 && enemyScript.enemyStateList.IsFacingRight)
+            else if (direction.x < 0 && enemyScript.enemyStateList.IsFacingRight)
             {
                 enemyScript.FaceRight(false);
             }
         }
 
-        private bool IsOverlapping()
+        private void UpdateWalkDirection()
         {
-            //Check for colliders overlapping
-            Collider2D[] collidersToCheck = new Collider2D[10];
+            //Find direction and update it
+            Vector2 direction = enemyScript.FindPlayerDirection();
 
-            //Debug.Log("Colliders to Check Size" + collidersToCheck.Length);
-
-            ContactFilter2D filter = new ContactFilter2D();
-            filter.useTriggers = true;
-
-            int colliderCount = Physics2D.OverlapCollider(visionCollider, filter, collidersToCheck);
-            //Debug.Log("Colliders Count" + colliderCount);
-
-
-            //Go through all colliders and check to see if it is the player
-            for (int i = 0; i < colliderCount; i++)
+            if (enemyScript.enemyStateList.IsFacingRight)
             {
-                if (collidersToCheck[i].gameObject.tag == "Player")
-                    return true;
+                if (FindTargetDirection().x > 0)
+                {
+                    isWalkingBack = false;
+                }
+                else
+                {
+                    isWalkingBack = true;
+                }
             }
-            return false;
+            else if (!enemyScript.enemyStateList.IsFacingRight)
+            {
+                if (FindTargetDirection().x < 0)
+                {
+                    isWalkingBack = false;
+                }
+                else
+                {
+                    isWalkingBack = true;
+                }
+            }
         }
 
+        private Vector2 FindTargetDirection()
+        {
+            Vector2 targetPos = GetTargetLocation();
+            Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
 
+            return (targetPos - enemyPos).normalized;
+        }
+
+        private Vector2 GetTargetLocation()
+        {
+            return new Vector2(player.transform.position.x + (enemyScript.GetPlayerXDirection() * Random.Range(offsetMin, offsetMax)), rb.position.y);
+        }
     }
 }

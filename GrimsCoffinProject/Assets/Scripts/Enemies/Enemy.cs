@@ -105,8 +105,11 @@ public abstract class Enemy : MonoBehaviour
     [Header("Direction Collision Checkers")]
     [SerializeField] public GroundChecker wallChecker;
     [SerializeField] public GroundChecker airChecker;
+    [SerializeField] public GroundChecker backWallChecker;
+    [SerializeField] public GroundChecker backAirChecker;
     [SerializeField] public Collider2D visionCollider;
     [SerializeField] public Collider2D kinematicCollider;
+    [SerializeField] public Collider2D closeRangeCollider;
 
     //Attack Colliders --------------------------------------------------------------------------------------------
     [Header("Attack Collision")]
