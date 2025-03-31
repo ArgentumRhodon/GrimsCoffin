@@ -1036,6 +1036,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5067927581455940242, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+      propertyPath: JumpTrailVFX
+      value: 
+      objectReference: {fileID: 584877825}
     - target: {fileID: 5754731874771024280, guid: 3901873f192e26840810d12d84daf40c, type: 3}
       propertyPath: m_Name
       value: PlayerForces
@@ -1070,6 +1074,11 @@ MonoBehaviour:
 --- !u!4 &584877824 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4894866827985537568, guid: 3901873f192e26840810d12d84daf40c, type: 3}
+  m_PrefabInstance: {fileID: 584877821}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &584877825 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1012535118708505403, guid: 3901873f192e26840810d12d84daf40c, type: 3}
   m_PrefabInstance: {fileID: 584877821}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &667437310
