@@ -138,6 +138,8 @@ public class PlayerControllerForces : MonoBehaviour
 
     [Header("Player VFX Reference")]
     [SerializeField] private PlayerVFX playervfx;
+    [SerializeField] private Material defaultShader;
+    [SerializeField] private Material hitShader;
 
     //Singleton so the controller can be referenced across scripts
     public static PlayerControllerForces Instance;
@@ -646,7 +648,9 @@ public class PlayerControllerForces : MonoBehaviour
         currentHP -= damageTaken;
         invincibilityTimer = Data.iFrameTimer;
         hasInvincibility = true;
-        PerformHitStopShader(.5f);
+        if(currentHP > 0) 
+            HitStopTimer(.15f);
+        //PerformHitStopShader(.5f);
 
         takeDamageSFX();
 
@@ -1637,6 +1641,25 @@ public class PlayerControllerForces : MonoBehaviour
         SetGravityScale(1); 
         isSleeping = false;
     }
+
+
+    #region HitStop
+    public void HitStopTimer(float duration)
+    {
+        StartCoroutine(PerformHitStop(duration));
+    }
+
+    private IEnumerator PerformHitStop(float duration)
+    {
+        Time.timeScale = 0f;
+        animator.speed = 0;
+        playerSpriteGO.GetComponent<SpriteRenderer>().material = hitShader;
+        yield return new WaitForSecondsRealtime(duration);
+        Time.timeScale = 1f;
+        animator.speed = 1;
+        playerSpriteGO.GetComponent<SpriteRenderer>().material = defaultShader;
+    }
+    #endregion
 
     private IEnumerator PerformHitStopShader(float duration)
     {

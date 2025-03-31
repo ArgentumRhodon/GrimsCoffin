@@ -44,7 +44,8 @@ Shader "Custom/GreyscaleShader"
                 fixed4 frag(v2f i) : SV_Target
                 {
                     fixed4 col = tex2D(_MainTex, i.uv);
-                    return fixed4(255, 255, 255, col.a);
+                    // 0.003 factor reduces bloom from post-processing somehow, idk
+                    return fixed4(255, 255, 255, .003 * col.a);
                 }
                 ENDCG
         }        
