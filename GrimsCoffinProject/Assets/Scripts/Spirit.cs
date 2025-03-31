@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
+using static Spirit;
 
 public class Spirit : Interactable
 {
@@ -15,6 +16,7 @@ public class Spirit : Interactable
     [SerializeField] private GameObject mapIcon;
     [SerializeField] private GameObject exclamationMark;
     [SerializeField] private PlayableDirector Collect;
+    [SerializeField] private GameObject UnlockMenu;
 
     public enum SpiritID
     {
@@ -29,7 +31,8 @@ public class Spirit : Interactable
     {
         Uncollected = 0,
         Collected = 1,
-        Idle = 2,
+        Unlocked = 2,
+        Idle = 3,
     }
 
     private void Awake()
@@ -79,25 +82,33 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
-        if (dialogueManager != null)
+        if (spiritState != SpiritState.Unlocked)
         {
-            exclamationMark.SetActive(false);
-            dialogueManager.ShowDialogueForSpirit(this);
+            if (dialogueManager != null)
+            {
+                exclamationMark.SetActive(false);
+                dialogueManager.ShowDialogueForSpirit(this);
+            }
         }
+        else if (spiritState == SpiritState.Unlocked)
+        {
+            if (spiritID == SpiritID.MapSpirit)
+            {
 
-        //if (spiritState == SpiritState.Uncollected)
-        //{
-        //PersistentDataManager.Instance.UpdateSpiritState(this);
+            }
+            else if (spiritID == SpiritID.HealthSpirit)
+            {
 
-        //spiritUI.ShowSpiritCollectedText();
+            }
+            /*else if (spiritID == SpiritID.MapSpirit)
+            {
 
-        //Debug.Log("Spirit Collected: " + spiritID.ToString());
-
-        //Destroy(this.gameObject.transform.parent.gameObject);
-        // }
-        //else if (spiritState == SpiritState.Collected)
-        //{
-        // PersistentDataManager.Instance.UpdateSpiritState(this);
-        // }
+            }*/
+            else 
+            {
+                PersistentDataManager.Instance.UpdateSpiritState(this);
+                PerformInteraction();
+            }
+        }
     }
 }
