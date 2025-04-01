@@ -287,6 +287,7 @@ public abstract class Enemy : MonoBehaviour
         {
             HitStopTimer(0.15f);
             DOVirtual.DelayedCall(.2f, KillEnemy, false);
+            PersistentDataManager.Instance.UpdateEnemyCurrency(currencyValue, true);
         }
         else
         {

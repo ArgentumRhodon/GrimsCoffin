@@ -193,7 +193,7 @@ public class PersistentDataManager : MonoBehaviour
             if (EnemyCurrency >= 500)
             {
                 PlayerPrefs.SetInt("MapBought", 1);
-                UpdateEnemyCurrency(-500);
+                UpdateEnemyCurrency(-500, false);
                 UIManager.Instance.ShowAbilityUnlock("Map Purchased", AbilityName.NoAbility);
             }
         }
@@ -320,7 +320,7 @@ public class PersistentDataManager : MonoBehaviour
         //Reduce Player Stats and Remove Abilities
         PlayerPrefs.SetFloat("MaxHP", 50);
         PlayerPrefs.SetInt("CanDoubleJump", 0);
-        PlayerPrefs.SetInt("CanWallJump", 0);
+        //PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanDash", 0);
         PlayerPrefs.SetString("HealthSpirit", "Collected");
     }
@@ -381,9 +381,9 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("Arena" + arenaIndex, 1);
     }
 
-    public void UpdateEnemyCurrency(float value)
+    public void UpdateEnemyCurrency(float value, bool addingCurrency)
     {
         PlayerPrefs.SetFloat("EnemyCurrency", EnemyCurrency + value);
-        UIManager.Instance.AddEnemyCurrency(value);
+        UIManager.Instance.UpdateEnemyCurrency(value, addingCurrency);
     }
 }

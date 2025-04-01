@@ -20,7 +20,7 @@ public class EnemyCurrencyUI : MonoBehaviour
         }
     }
 
-    public void AddCurrency (float value)
+    public void UpdateCurrency (float value, bool addingCurrency)
     {
         if (currencyAddedText.gameObject.activeInHierarchy)
         {
@@ -29,6 +29,10 @@ public class EnemyCurrencyUI : MonoBehaviour
 
         currencyAdded += value;
         currencyAddedText.gameObject.SetActive(true);
-        currencyAddedText.text = "+" + currencyAdded;
+
+        if (addingCurrency)
+            currencyAddedText.text = "+" + currencyAdded;
+        else
+            currencyAddedText.text = "-" + currencyAdded;
     }
 }
