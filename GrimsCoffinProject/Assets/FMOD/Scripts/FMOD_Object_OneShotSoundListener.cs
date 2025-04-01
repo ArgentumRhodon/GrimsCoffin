@@ -84,7 +84,7 @@ public class FMOD_Object_OneShotSoundListener : MonoBehaviour
         {
             distance = Vector3.Distance(object1.position, object2.position);
 
-            Debug.Log("Attenuation: " + attenuationResult);
+            //Debug.Log("Attenuation: " + attenuationResult);
         }
         instanceA.setParameterByName("LocalDistance", distance);
         instanceB.setParameterByName("LocalDistance", distance);

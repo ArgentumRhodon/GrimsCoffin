@@ -15,15 +15,21 @@ public class CombatCoordinator : MonoBehaviour
     private int currentTickets;
     private float ticketTimer;
     private float givingTicketTimer;
-    private List<Enemy> enemiesReadyToAttack = new List<Enemy>(); 
+    private List<Enemy> enemiesReadyToAttack = new List<Enemy>(); //Enemies that are ready to use their attack state
 
     //Enemies in combat list and associated methods to access/add data
-    private List<Enemy> enemiesInCombat = new List<Enemy>();
+    private List<Enemy> enemiesInCombat = new List<Enemy>(); //Enemies that have the player in their vision range
     public List<Enemy> EnemiesInCombat { get { return enemiesInCombat; } }
 
     public void AddEnemyToCombatList(Enemy enemy)
     {
         enemiesInCombat.Add(enemy);
+    }
+
+    public void RemoveEnemyFromCombatList(Enemy enemy)
+    {
+        enemiesInCombat.Remove(enemy);
+        ReleaseAttack(enemy);
     }
     #endregion
 
@@ -56,7 +62,7 @@ public class CombatCoordinator : MonoBehaviour
         //Checks timer and max tickets, gives new ticket if conditions are met
         if(ticketTimer > timerBetweenNewTicket)
         {
-            if(currentTickets <= maxTicketTotal)
+            if(currentTickets < maxTicketTotal)
             {
                 currentTickets++;
             }

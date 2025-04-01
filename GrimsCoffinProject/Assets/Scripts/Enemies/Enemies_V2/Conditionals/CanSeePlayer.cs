@@ -20,6 +20,8 @@ namespace Core.AI
 
         public override TaskStatus OnUpdate()
         {
+            //Debug.Log("Checking can see player condition");
+
             if (enemyScript.enemyStateList.IsSeeking)
                 return TaskStatus.Success;
 
@@ -30,13 +32,20 @@ namespace Core.AI
 
                 if (PathUtilities.IsPathPossible(node1, node2))
                 {
+                    //Debug.Log("Path is possible, can see player");
+                    enemyScript.CombatCoordinator.AddEnemyToCombatList(enemyScript);
                     return TaskStatus.Success;
-                }                   
+                }
                 else
+                {
+                    enemyScript.CombatCoordinator.RemoveEnemyFromCombatList(enemyScript);
                     return TaskStatus.Failure;
+                }
+                
             }
             else
             {
+                enemyScript.CombatCoordinator.RemoveEnemyFromCombatList(enemyScript);
                 return TaskStatus.Failure;                
             }
         }

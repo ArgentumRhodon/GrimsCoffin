@@ -86,11 +86,14 @@ public abstract class Enemy : MonoBehaviour
     protected Canvas enemyCanvas;
     protected SpriteRenderer spriteRenderer;
     protected PlayerControllerForces player;
+    protected CombatCoordinator combatCoordinator;
+
     [HideInInspector] public EnemyStateList enemyStateList;
     [HideInInspector] public BehaviorTree behaviorTree;
     [SerializeField] private Material defaultShader;
     [SerializeField] private Material hitShader;
 
+    public CombatCoordinator CombatCoordinator { get { return combatCoordinator; } }
 
     [Header("Collision Checkers & Associated Variables")] // ------------------------------------------------------
     [Space(5)]
@@ -135,6 +138,7 @@ public abstract class Enemy : MonoBehaviour
         spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         enemyStateList = gameObject.GetComponent<EnemyStateList>();
         behaviorTree = GetComponent<BehaviorTree>();
+        combatCoordinator = GetComponentInParent<CombatCoordinator>();
         //defaultShader = Shader.Find("Sprite-Lit-Default");
         //hitShader = Shader.Find("White_Mat");
 
@@ -158,6 +162,8 @@ public abstract class Enemy : MonoBehaviour
         //Set states and variables
         enemyStateList.IsStaggered = false;
         enemyStateList.IsDead = false;
+
+        HasAttackTicket = false;
 
         enemyStateList.IsFacingRight = true;
         direction = 1;

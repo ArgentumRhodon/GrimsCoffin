@@ -15,10 +15,16 @@ namespace Core.AI
         public float offsetMin;
         public float offsetMax;
 
+        public float minDistanceRange;
+
         [Header("Animations")]
         public string animationWalkName;
         public string animationWalkBackName;
         public string idleAnimationTrigger;
+
+        private bool shouldIdleAnim;
+        private float idleAnimTimer;
+        private float maxIdleAnimTimer = .1f;
 
         //Pathfinding tools
         private Path path;
@@ -79,6 +85,24 @@ namespace Core.AI
                     }
                 }
             }
+
+            //Idle animation status
+            if(Mathf.Abs(rb.velocity.x) < 0.1f && !shouldIdleAnim)
+            {
+                shouldIdleAnim = true;
+                idleAnimTimer = maxIdleAnimTimer;
+            }
+
+            if (shouldIdleAnim)
+            {
+                if (Mathf.Abs(rb.velocity.x) > 0.1f)
+                    shouldIdleAnim = false;
+                else
+                    idleAnimTimer -= Time.deltaTime;
+            }
+
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(idleAnimationTrigger) && shouldIdleAnim && idleAnimTimer < 0)
+                animator.Play(idleAnimationTrigger);
         }
 
         public override TaskStatus OnUpdate()
@@ -89,9 +113,16 @@ namespace Core.AI
             repeatingTimer -= Time.deltaTime;
             if (repeatingTimer < 0)// && !CheckEdge())
             {
-                UpdatePath();
-                repeatingTimer = repeatingNum;
-            }
+                Vector2 targetLocation = GetTargetLocation();
+                if (Mathf.Abs((targetLocation - rb.position).x) > .75f)
+                    UpdatePath(targetLocation);
+                else if(enemyScript.FindPlayerDistanceX() < minDistanceRange)
+                    UpdatePath(targetLocation);
+
+
+                //UpdatePath();
+                repeatingTimer = repeatingNum;                
+            }          
 
             return enemyScript.HasAttackTicket ? TaskStatus.Success : TaskStatus.Running;
         }
@@ -100,9 +131,6 @@ namespace Core.AI
         {
             if (pathDistance > enemyScript.visionRange)
                 enemyScript.enemyStateList.IsSeeking = false;
-
-            /*            if(reachedEndOfPath)
-                            enemyScript.enemyStateList.IsSeeking = false;*/
         }
 
         private void PathFollow()
@@ -121,7 +149,8 @@ namespace Core.AI
             }
 
             //Make sure direction is in x only
-            Vector2 direction = enemyScript.FindPlayerDirection();
+            //Vector2 direction = enemyScript.FindPlayerDirection();
+            Vector2 direction = FindTargetDirection();
 
             if (direction.x != 0)
             {
@@ -133,9 +162,16 @@ namespace Core.AI
             direction.y = 0;
 
             float targetSpeed = direction.x * enemyScript.seekSpeed;
+            if (isWalkingBack)
+                targetSpeed = targetSpeed * .95f;
 
             //Smooth changes to direction and speed using a lerp function
-            targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, 1);
+            float targetXRange = FindTargetDistance().x;
+            float targetRatio = Mathf.Abs(targetXRange / (targetRange));
+            float lerpValue = Mathf.Clamp(targetRatio, 0.1f, 1);
+
+            //Debug.Log("Rb velocity: " + rb.velocity.x + " target speed: " + targetSpeed + " lerp value: " + lerpValue);
+            targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, lerpValue); 
 
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeaccelAmount;
 
@@ -158,6 +194,8 @@ namespace Core.AI
                 reachedEndOfPath = true;
                 return;
             }
+
+            Debug.Log(targetSpeed);
 
             //Start movement animation
             UpdateDirection();
@@ -185,6 +223,8 @@ namespace Core.AI
         {
             if (seeker.IsDone())
             {
+                //Debug.Log("Updating path normally");
+
                 Vector2 targetLocation = GetTargetLocation();
 
                 float distance = Mathf.Pow((player.transform.position.x - rb.transform.position.x), 2)
@@ -193,6 +233,18 @@ namespace Core.AI
                 seeker.StartPath(rb.position, targetLocation, OnPathComplete);
 
                 //Debug.Log("Path length: " + path.GetTotalLength());
+            }
+        }
+
+        private void UpdatePath(Vector2 targetLocation)
+        {
+            if (seeker.IsDone())
+            {
+                //Debug.Log("Updating path with inputted target location");
+                float distance = Mathf.Pow((player.transform.position.x - rb.transform.position.x), 2)
+                                    + Mathf.Pow((player.transform.position.y - rb.transform.position.y), 2);
+
+                seeker.StartPath(rb.position, targetLocation, OnPathComplete);
             }
         }
 
@@ -262,15 +314,18 @@ namespace Core.AI
 
         private Vector2 FindTargetDirection()
         {
-            Vector2 targetPos = GetTargetLocation();
-            Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
+            return FindTargetDistance().normalized;
+        }
 
-            return (targetPos - enemyPos).normalized;
+        private Vector2 FindTargetDistance()
+        {
+            return GetTargetLocation() - new Vector2(transform.position.x, transform.position.y); ;
         }
 
         private Vector2 GetTargetLocation()
         {
-            return new Vector2(player.transform.position.x + (enemyScript.GetPlayerXDirection() * Random.Range(offsetMin, offsetMax)), rb.position.y);
+            //return new Vector2(player.transform.position.x + (-enemyScript.GetPlayerXDirection() * Random.Range(offsetMin, offsetMax + 1)), rb.position.y);
+            return new Vector2(player.transform.position.x + (-enemyScript.GetPlayerXDirection() * offsetMin), rb.position.y);
         }
     }
 }
