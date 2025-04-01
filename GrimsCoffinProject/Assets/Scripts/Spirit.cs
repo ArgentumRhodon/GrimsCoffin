@@ -115,7 +115,7 @@ public class Spirit : Interactable
             {
                 UnlockMenu.StartUnlock(this);
             }
-            /*else if (spiritID == SpiritID.MapSpirit)
+            /*else if (spiritID == SpiritID.CombatSpirit)
             {
                 UnlockMenu.Startunlock(this);
             }*/

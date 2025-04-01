@@ -72,9 +72,21 @@ public class UnlockAbility : MonoBehaviour
                 yes.interactable = true;
             }
         }
-        /*else if (spirit.spiritID == Spirit.SpiritID.CombatSpirit)
+        /*else if (id==5)
         {
+        Cost.text = "(-500<sprite index=0>)";
+            currentunlockcost = UnlockCost.Currency;
+            currentcost = spirit.upgradeCost;
+            currentspirit = spirit;
 
+            if (PersistentDataManager.Instance.EnemyCurrency < currentcost)
+            {
+                yes.interactable = false;
+            }
+            else 
+            {
+                yes.interactable = true;
+            }
         }*/
     }
 
