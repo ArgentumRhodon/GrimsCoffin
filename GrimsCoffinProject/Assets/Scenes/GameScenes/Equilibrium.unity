@@ -239,6 +239,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7448504312494111961, guid: 9759c527e11da0e4b906593b50788069, type: 3}
   m_PrefabInstance: {fileID: 71615576}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &72406451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1995640983347593918, guid: 714f02c839f01d046bcceac980a66e7f, type: 3}
+  m_PrefabInstance: {fileID: 5948235216894630657}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &113711800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49783,17 +49794,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 383599115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1410311585 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1027654294802789597, guid: 714f02c839f01d046bcceac980a66e7f, type: 3}
-  m_PrefabInstance: {fileID: 5948235216894630657}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1499144447
 GameObject:
   m_ObjectHideFlags: 0
@@ -51085,13 +51085,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee6897db71685b4cb3fb549c58cb370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speakerIcon: {fileID: 1410311585}
+  speakerIcon: {fileID: 72406451}
   speakers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1685548561430930329, guid: 6fa5c1277d401974eba303a7213bc93d, type: 3}
+  - {fileID: 4112221032881069125, guid: 60c0e5f01475a5642ac92d6d757b177a, type: 3}
+  - {fileID: -3335496609688097251, guid: 224a74065fa54f746b136e14e165c031, type: 3}
+  - {fileID: -5956632765844785297, guid: 7d8e55f32fd26184cb44c872aeb191ba, type: 3}
   yes: {fileID: 916950261}
   no: {fileID: 483389131}
   Cost: {fileID: 1678142765}

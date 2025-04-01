@@ -40,6 +40,7 @@ public class UnlockAbility : MonoBehaviour
     {
         UIManager.Instance.ToggleUnlockUI(true);
         int id = (int)spirit.spiritID;
+        speakerIcon.sprite = speakers[id-1];
         if (id==1) 
         {
             Cost.text = "(-500<sprite index=0>)";
