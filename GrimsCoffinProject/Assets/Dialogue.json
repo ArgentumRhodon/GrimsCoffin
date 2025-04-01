@@ -3,7 +3,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 1,
-    "DialogueContent": "Oh! I didn't see you there—hello!",
+    "DialogueContent": "Oh! I didn't notice you there—Greetings! ",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -11,7 +11,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 2,
-    "DialogueContent": "I'm Shikkor—used to be an explorer, and I guess I still am, even in this weird world. Definitely not what I was expecting.",
+    "DialogueContent": "I'm Shikkor, an explorer, or at least I was once... Though this place is stranger than any realm I've encountered.",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -19,7 +19,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 3,
-    "DialogueContent": "But this place has monsters wandering around, which is... less than ideal. ",
+    "DialogueContent": "The presence of hostile creatures here is... troubling.",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -27,7 +27,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 4,
-    "DialogueContent": "You seem tougher than me. Think you could help me keep exploring without getting mauled?",
+    "DialogueContent": "You appear quite capable. Might you lend your strength to ensure I can safely continue my exploration?",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -35,7 +35,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 5,
-    "DialogueContent": "I did, once... Now... I'll try.",
+    "DialogueContent": "I'll do my best.",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -43,7 +43,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 6,
-    "DialogueContent": "Great! So, what do I need to do?",
+    "DialogueContent": "Excellent! Perhaps I can offer assistance as well—I have an exceptional sense for navigation. Allow me to map this realm for you in return.",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -51,6 +51,14 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 7,
+    "DialogueContent": "What should my first task be?",
+    "SpeakerID": 1,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 1,
+    "SpiritState": 0,
+    "LineID": 8,
     "DialogueContent": "Relax.",
     "SpeakerID": 0,
     "Column5": ""
@@ -59,7 +67,7 @@
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 1,
-    "DialogueContent": "Hmm, this place feels safe. So it's... inside you?",
+    "DialogueContent": "Remarkable... this place feels secure. Is it within you?",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -67,7 +75,7 @@
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 2,
-    "DialogueContent": "I suppose so.",
+    "DialogueContent": "...Yes...",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -75,7 +83,7 @@
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 3,
-    "DialogueContent": "Oh! That coffin—look, I can see the outside world through it! Fascinating. I can keep an eye on everything from here.",
+    "DialogueContent": "Fascinating! Ah! That coffin of yours—quite extraordinary! It allows me to clearly see your surroundings.",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -83,7 +91,7 @@
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 4,
-    "DialogueContent": "In return, how about I help you map it all? Bet I've got a sharper sense of direction than you do.",
+    "DialogueContent": "Pardon my memory, but... your name was?",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -91,22 +99,6 @@
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 5,
-    "DialogueContent": "Alright.",
-    "SpeakerID": 0,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 1,
-    "SpiritState": 1,
-    "LineID": 6,
-    "DialogueContent": "Perfect! Glad I can pitch in. Say... what was your name again?",
-    "SpeakerID": 1,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 1,
-    "SpiritState": 1,
-    "LineID": 7,
     "DialogueContent": "...Grim.",
     "SpeakerID": 0,
     "Column5": ""
@@ -114,14 +106,22 @@
   {
     "SpiritID": 1,
     "SpiritState": 1,
-    "LineID": 8,
-    "DialogueContent": "Got it, Grim. I won't hold you up any longer. Happy exploring!",
+    "LineID": 6,
+    "DialogueContent": "Grim, since entering here, I've felt my strength slowly returning.",
     "SpeakerID": 1,
     "Column5": ""
   },
   {
     "SpiritID": 1,
-    "SpiritState": 2,
+    "SpiritState": 1,
+    "LineID": 7,
+    "DialogueContent": "If you could help me gather 500 <sprite index=0>, my abilities should significantly improve, allowing me to better assist you.",
+    "SpeakerID": 1,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 1,
+    "SpiritState": 3,
     "LineID": 1,
     "DialogueContent": "Remember to take a break every now and then.",
     "SpeakerID": 1,
@@ -131,7 +131,7 @@
     "SpiritID": 2,
     "SpiritState": 0,
     "LineID": 1,
-    "DialogueContent": "You! You're the one who stuffed me into that coffin by keeping silent!",
+    "DialogueContent": "It's you! You're the one who silenced me and trapped me in that coffin!",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -139,7 +139,7 @@
     "SpiritID": 2,
     "SpiritState": 0,
     "LineID": 2,
-    "DialogueContent": "Hurry up—take me back already! I'm not wasting another minute out here.",
+    "DialogueContent": "Hurry up and send me back—I refuse to waste another second out here.",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -147,7 +147,7 @@
     "SpiritID": 2,
     "SpiritState": 0,
     "LineID": 3,
-    "DialogueContent": "Since I got out of that coffin, I haven't had a single day of peace—it's been run, run, run!",
+    "DialogueContent": "Not a single moment outside the coffin has passed without endless running... endless, exhausting running!",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -163,7 +163,7 @@
     "SpiritID": 2,
     "SpiritState": 0,
     "LineID": 5,
-    "DialogueContent": "No excuses! Stand aside and collect me now!",
+    "DialogueContent": "Enough hesitation! If you won't act, I'll do it myself. Let me help you move faster",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -179,7 +179,7 @@
     "SpiritID": 2,
     "SpiritState": 1,
     "LineID": 1,
-    "DialogueContent": "Huh, not bad. Looks like you've upgraded your coffin—it wasn't this wide or flat before.",
+    "DialogueContent": "Huh, not bad. Looks like you've upgraded your coffin—it wasn't this spacious before.",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -195,7 +195,7 @@
     "SpiritID": 2,
     "SpiritState": 1,
     "LineID": 3,
-    "DialogueContent": "Really? Then what happened? Why're we out of it in the first place? Isn't that your job?",
+    "DialogueContent": "Tell me—why weren't we inside the coffin in the first place? Isn't this your responsibility?",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -211,31 +211,15 @@
     "SpiritID": 2,
     "SpiritState": 1,
     "LineID": 5,
-    "DialogueContent": "Great. Well, if you can't handle it, I can help whip you into shape. I'm an athlete, after all—I'll at least get you moving faster.",
+    "DialogueContent": "Very well. Since you're clearly overwhelmed, I'll assist you. But now, I'm going to rest. I'll need plenty of energy for our training later. ",
     "SpeakerID": 2,
     "Column5": ""
   },
   {
     "SpiritID": 2,
-    "SpiritState": 1,
-    "LineID": 6,
-    "DialogueContent": "...Alright.",
-    "SpeakerID": 0,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 2,
-    "SpiritState": 1,
-    "LineID": 7,
-    "DialogueContent": "Good. Now I'm gonna rest up—I'll need my energy for training later.",
-    "SpeakerID": 2,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 2,
-    "SpiritState": 2,
+    "SpiritState": 3,
     "LineID": 1,
-    "DialogueContent": "What are you staring at? Haven't you seen exercise before?",
+    "DialogueContent": "What are you staring at? Never seen a champion prepare before?",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -267,7 +251,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 4,
-    "DialogueContent": "Care to watch my juggling? I guarantee you'll be laughing in no time!",
+    "DialogueContent": "Care to witness my juggling skills? I'll guarantee laughter in no time!",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -283,7 +267,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 6,
-    "DialogueContent": "Perfect! Feast your eyes on my best routine yet!",
+    "DialogueContent": "Wonderful! Watch closely—this is my greatest routine yet!",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -299,7 +283,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 8,
-    "DialogueContent": "You know, it's okay to laugh...",
+    "DialogueContent": "...You know, it's alright to laugh...",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -307,7 +291,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 9,
-    "DialogueContent": "Did I mess up? You're the only audience I've found...",
+    "DialogueContent": "Did I mess up? Wait—I can even teach you to juggle your scythe! Please stay for just one more act...",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -323,7 +307,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 11,
-    "DialogueContent": "Relax. I'll take you someplace with more people.",
+    "DialogueContent": "...Relax. I'll take you someplace with more spectators.",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -339,7 +323,7 @@
     "SpiritID": 3,
     "SpiritState": 1,
     "LineID": 2,
-    "DialogueContent": "Indeed! A clown is nothing without an audience. ",
+    "DialogueContent": "Indeed! A clown is nothing without spectators.",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -347,7 +331,7 @@
     "SpiritID": 3,
     "SpiritState": 1,
     "LineID": 3,
-    "DialogueContent": "You've given me this stage, so I'll give you the best show a clown can offer.",
+    "DialogueContent": "You've granted me this stage—now, I'll deliver the finest performance a clown can offer!",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -355,7 +339,7 @@
     "SpiritID": 3,
     "SpiritState": 1,
     "LineID": 4,
-    "DialogueContent": "... I have work to do...",
+    "DialogueContent": "...I have tasks to complete...",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -363,29 +347,13 @@
     "SpiritID": 3,
     "SpiritState": 1,
     "LineID": 5,
-    "DialogueContent": "Oh, it's easy—let me teach you to juggle your scythe! Then you can bring back even more fans!",
-    "SpeakerID": 3,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 3,
-    "SpiritState": 1,
-    "LineID": 6,
-    "DialogueContent": "I really need to go...",
-    "SpeakerID": 0,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 3,
-    "SpiritState": 1,
-    "LineID": 7,
     "DialogueContent": "Don't forget to bring back more audience!",
     "SpeakerID": 3,
     "Column5": ""
   },
   {
     "SpiritID": 3,
-    "SpiritState": 2,
+    "SpiritState": 3,
     "LineID": 1,
     "DialogueContent": "Miss my show?",
     "SpeakerID": 3,
@@ -419,7 +387,7 @@
     "SpiritID": 4,
     "SpiritState": 1,
     "LineID": 4,
-    "DialogueContent": "Expected as much. I sorted the herbs(<sprite index=4>)I've found while you were away. There's one that can strengthen you, though it won't restore you to full power.",
+    "DialogueContent": "Expected as much. I sorted the herbs(<sprite index=1>)I've found while you were away. There's one that can strengthen you, though it won't restore you to full power.",
     "SpeakerID": 4,
     "Column5": ""
   },
@@ -435,16 +403,104 @@
     "SpiritID": 4,
     "SpiritState": 1,
     "LineID": 6,
-    "DialogueContent": "Bring me three of those herbs(<sprite index=4>), and I'll make you another batch.",
+    "DialogueContent": "Bring me three of those herbs(<sprite index=1>), and I'll make you another batch.",
     "SpeakerID": 4,
     "Column5": ""
   },
   {
     "SpiritID": 4,
-    "SpiritState": 2,
+    "SpiritState": 3,
     "LineID": 1,
-    "DialogueContent": "Did you find three more (<sprite index=4>)?",
+    "DialogueContent": "Feeling better?",
     "SpeakerID": 4,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 0,
+    "LineID": 1,
+    "DialogueContent": "Glory! Death! Slaughter!",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 0,
+    "LineID": 2,
+    "DialogueContent": "Well done, boy. You're about two percent of what I was.",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 0,
+    "LineID": 3,
+    "DialogueContent": "But your moves are still too rigid, and you don't know how to improvise.",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 0,
+    "LineID": 4,
+    "DialogueContent": "Can you teach me?",
+    "SpeakerID": 0,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 0,
+    "LineID": 5,
+    "DialogueContent": "Oh! Of course! There's nothing I like more than training eager apprentices!",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 0,
+    "LineID": 6,
+    "DialogueContent": "Find a place! I'll teach you some skills..",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 1,
+    "LineID": 1,
+    "DialogueContent": "A splendid spot! I can already feel my muscles and joints loosening up.",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 1,
+    "LineID": 2,
+    "DialogueContent": "Alright, first lesson: as a warrior, agility is key. You must learn to strike your enemies swiftly and unpredictably.",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 1,
+    "LineID": 3,
+    "DialogueContent": "Sometimes, redirecting your attack can accomplish more than merely killing your opponent.",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 1,
+    "LineID": 4,
+    "DialogueContent": "Your current style of fighting is far too repetitive. Bring me 500<sprite index=0>, and I'll show you some advanced techniques.",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 3,
+    "LineID": 1,
+    "DialogueContent": "Don't let up!",
+    "SpeakerID": 5,
     "Column5": ""
   }
 ]
