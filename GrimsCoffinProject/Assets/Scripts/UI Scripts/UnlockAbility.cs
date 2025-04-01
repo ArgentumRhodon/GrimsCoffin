@@ -47,9 +47,13 @@ public class UnlockAbility : MonoBehaviour
             currentcost = 500;
             currentspirit = spirit;
 
-            if (persistentDataManager.EnemyCurrency < currentcost) 
+            if (persistentDataManager.EnemyCurrency < currentcost)
             {
                 yes.interactable = false;
+            }
+            else 
+            {
+                yes.interactable = true;
             }
 
         }
@@ -63,6 +67,10 @@ public class UnlockAbility : MonoBehaviour
             if (collectablesHeld < currentcost)
             {
                 yes.interactable = false;
+            }
+            else
+            {
+                yes.interactable = true;
             }
         }
         /*else if (spirit.spiritID == Spirit.SpiritID.CombatSpirit)
