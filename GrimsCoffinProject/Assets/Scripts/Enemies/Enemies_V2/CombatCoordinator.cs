@@ -12,24 +12,59 @@ public class CombatCoordinator : MonoBehaviour
     [SerializeField] private float timerBetweenGivingTicket = .5f;
 
     //Backend variables to track current statuses
-    private int currentTickets;
+    private int currentTicketPool;
     private float ticketTimer;
     private float givingTicketTimer;
     private List<Enemy> enemiesReadyToAttack = new List<Enemy>(); //Enemies that are ready to use their attack state
 
     //Enemies in combat list and associated methods to access/add data
-    private List<Enemy> enemiesInCombat = new List<Enemy>(); //Enemies that have the player in their vision range
-    public List<Enemy> EnemiesInCombat { get { return enemiesInCombat; } }
+    private Dictionary<Enemy, bool> enemiesInCombat = new Dictionary<Enemy, bool>(); //Enemies that have the player in their vision range
+    public Dictionary<Enemy, bool> EnemiesInCombat { get { return enemiesInCombat; } }
+
+    private int CurrentTicketTotal
+    { 
+        get 
+            {
+                int count = 0;
+                foreach(KeyValuePair<Enemy, bool> keyValuePair in enemiesInCombat)
+                {
+                    if(keyValuePair.Key)
+                        count++;
+                }
+                return currentTicketPool + count; 
+            } 
+    }
 
     public void AddEnemyToCombatList(Enemy enemy)
     {
-        enemiesInCombat.Add(enemy);
+        if(!enemiesInCombat.ContainsKey(enemy))
+            enemiesInCombat.Add(enemy, false);
     }
 
     public void RemoveEnemyFromCombatList(Enemy enemy)
     {
+        if (!enemiesInCombat.ContainsKey(enemy))
+            return;
+
+        if (enemiesInCombat[enemy])
+        {
+            currentTicketPool--;
+        }
         enemiesInCombat.Remove(enemy);
         ReleaseAttack(enemy);
+    }
+
+    public bool IsWaitingForAttack(Enemy enemy)
+    {
+        return enemiesInCombat.ContainsKey(enemy);
+    }
+
+    public void UseAttack(Enemy enemy)
+    {
+        if (!enemiesInCombat.ContainsKey(enemy))
+            return;
+
+        enemiesInCombat[enemy] = false;
     }
     #endregion
 
@@ -38,7 +73,7 @@ public class CombatCoordinator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentTickets = 0;
+        currentTicketPool = 0;
         ticketTimer = 0;
         givingTicketTimer = 0;
     }
@@ -62,9 +97,9 @@ public class CombatCoordinator : MonoBehaviour
         //Checks timer and max tickets, gives new ticket if conditions are met
         if(ticketTimer > timerBetweenNewTicket)
         {
-            if(currentTickets < maxTicketTotal)
+            if(CurrentTicketTotal < maxTicketTotal)
             {
-                currentTickets++;
+                currentTicketPool++;
             }
         }
     }
@@ -81,19 +116,17 @@ public class CombatCoordinator : MonoBehaviour
         enemiesReadyToAttack.Remove(enemy);
     }
 
-    //Gives attacks to enemies if conditions are met and handles associateds variables
+    //Gives attacks to enemies if conditions are met and handles associated variables
     public void GiveAttack()
     {
         givingTicketTimer += Time.deltaTime;
 
-        if (currentTickets > 0 && givingTicketTimer > timerBetweenGivingTicket)
+        if (currentTicketPool > 0 && givingTicketTimer > timerBetweenGivingTicket && enemiesReadyToAttack.Count > 0)
         {
             enemiesReadyToAttack[0].HasAttackTicket = true;
             enemiesReadyToAttack.RemoveAt(0);
             givingTicketTimer = 0;
-            currentTickets--;
-        }
-    
+        }   
     }
     #endregion
 

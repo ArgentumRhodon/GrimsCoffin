@@ -6,7 +6,7 @@ using DG.Tweening;
 
 namespace Core.AI
 {
-    public class BasicAttack : EnemyAction
+    public class ForceBasicAttack : EnemyAction
     {
         public string animationTriggerName;
         public string animationIdleName;
@@ -20,8 +20,8 @@ namespace Core.AI
         public override void OnStart()
         {
             attackCompleted = false;
-            
-            if(!enemyScript.enemyStateList.IsStaggered)
+
+            if (!enemyScript.enemyStateList.IsStaggered)
                 DOVirtual.DelayedCall(attackDelay, Attack, false);
         }
 
@@ -30,19 +30,14 @@ namespace Core.AI
             if (attackCompleted)
             {
                 enemyScript.enemyStateList.IsAttacking = false;
-                if (enemyScript.HasAttackTicket)
-                {
-                    enemyScript.CombatCoordinator.UseAttack(enemyScript);
-                    enemyScript.HasAttackTicket = false;
-                    animator.Play(animationIdleName);
-                }
+                //animator.Play(animationIdleName);
                 return TaskStatus.Success;
             }
-            else if(enemyScript.enemyStateList.IsStaggered)
+            else if (enemyScript.enemyStateList.IsStaggered)
                 return TaskStatus.Failure;
             else
                 return TaskStatus.Running;
-            
+
         }
 
         private void Attack()

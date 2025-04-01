@@ -315,7 +315,10 @@ public abstract class Enemy : MonoBehaviour
         behaviorTree.ResetValuesOnRestart = true;
         ToggleBehaviorTree(false);
 
-        animator.Play("Dead");
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+        {
+            animator.Play("Dead");
+        }
         animator.speed = 1;
        
 
@@ -447,6 +450,23 @@ public abstract class Enemy : MonoBehaviour
     public void ToggleBehaviorTree(bool toggleOn)
     {
         behaviorTree.enabled = toggleOn;
+    }
+
+    public bool IsOverlapping(Collider2D collider)
+    {
+        //Check for colliders overlapping
+        Collider2D[] collidersToCheck = new Collider2D[10];
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
+        int colliderCount = Physics2D.OverlapCollider(collider, filter, collidersToCheck);
+
+        //Go through all colliders and check to see if it is the player
+        for (int i = 0; i < colliderCount; i++)
+        {
+            if (collidersToCheck[i].gameObject.tag == "Player")
+                return true;
+        }
+        return false;
     }
     #endregion
 

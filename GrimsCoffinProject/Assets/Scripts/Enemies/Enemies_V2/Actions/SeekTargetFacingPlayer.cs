@@ -14,6 +14,9 @@ namespace Core.AI
 
         public float offsetMin;
         public float offsetMax;
+        private float currentOffset;
+        private float offsetTimer;
+        private float maxOffsetTimer = 2;
 
         public float minDistanceRange;
 
@@ -45,6 +48,9 @@ namespace Core.AI
 
         private bool isWalkingBack;
 
+        private bool hasReachedEndOfPathOnce;
+        private bool hasRequestedAttack;
+
         public override void OnStart()
         {
             //Get required components
@@ -62,6 +68,12 @@ namespace Core.AI
 
             //Set state 
             enemyScript.enemyStateList.IsSeeking = true;
+
+            hasReachedEndOfPathOnce = false;
+            hasRequestedAttack = false;
+
+            currentOffset = Random.Range(offsetMin, offsetMax);
+            offsetTimer = maxOffsetTimer;
         }
 
         public override void OnFixedUpdate()
@@ -110,6 +122,16 @@ namespace Core.AI
             if (pathDistance > enemyScript.visionRange && foundPath)
                 return TaskStatus.Failure;
 
+            //Request the attack from the combat coordinator
+            if (hasReachedEndOfPathOnce && !hasRequestedAttack)
+            {
+                enemyScript.CombatCoordinator.RequestAttack(enemyScript);
+                hasRequestedAttack = true;
+            }
+            //Makes sure it doesn't get stuck thinking it has requested attack when it hasn't
+            else if (hasRequestedAttack && !enemyScript.CombatCoordinator.IsWaitingForAttack(enemyScript))
+                hasRequestedAttack = false;
+
             repeatingTimer -= Time.deltaTime;
             if (repeatingTimer < 0)// && !CheckEdge())
             {
@@ -122,7 +144,14 @@ namespace Core.AI
 
                 //UpdatePath();
                 repeatingTimer = repeatingNum;                
-            }          
+            }
+
+            offsetTimer -= Time.deltaTime;
+            if(offsetTimer < 0)
+            {
+                currentOffset = Random.Range(offsetMin, offsetMax);
+                offsetTimer = maxOffsetTimer;
+            }
 
             return enemyScript.HasAttackTicket ? TaskStatus.Success : TaskStatus.Running;
         }
@@ -141,6 +170,8 @@ namespace Core.AI
             if (currentWaypoint >= path.vectorPath.Count)
             {
                 reachedEndOfPath = true;
+                if(!hasReachedEndOfPathOnce)
+                    hasReachedEndOfPathOnce = true;
                 return;
             }
             else
@@ -171,7 +202,10 @@ namespace Core.AI
             float lerpValue = Mathf.Clamp(targetRatio, 0.1f, 1);
 
             //Debug.Log("Rb velocity: " + rb.velocity.x + " target speed: " + targetSpeed + " lerp value: " + lerpValue);
-            targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, lerpValue); 
+            targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, lerpValue);
+
+            if (isWalkingBack && CheckBackEdge())
+                targetSpeed = 0;
 
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? enemyScript.movementAccelAmount : enemyScript.movementDeaccelAmount;
 
@@ -201,9 +235,9 @@ namespace Core.AI
             UpdateDirection();
             UpdateWalkDirection();
 
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationWalkName) && !isWalkingBack)
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationWalkName) && !isWalkingBack && !CheckBackEdge())
                 animator.Play(animationWalkName);
-            else if(!animator.GetCurrentAnimatorStateInfo(0).IsName(animationWalkBackName) && isWalkingBack)
+            else if(!animator.GetCurrentAnimatorStateInfo(0).IsName(animationWalkBackName) && isWalkingBack && !CheckBackEdge())
                 animator.Play(animationWalkBackName);
         }
 
@@ -251,8 +285,7 @@ namespace Core.AI
         private bool CheckEdge()
         {
             //Check to see if it is not colliding with the ground or is colliding with a wall
-            if (!enemyScript.airChecker.IsColliding || enemyScript.wallChecker.IsColliding 
-                || !enemyScript.backAirChecker.IsColliding || enemyScript.backWallChecker.IsColliding )
+            if (!enemyScript.airChecker.IsColliding || enemyScript.wallChecker.IsColliding)
             {
                 return true;
             }
@@ -266,6 +299,11 @@ namespace Core.AI
                 }
                 return false;
             }
+        }
+
+        private bool CheckBackEdge()
+        {
+            return (!enemyScript.backAirChecker.IsColliding || enemyScript.backWallChecker.IsColliding);
         }
 
         private void UpdateDirection()
@@ -325,7 +363,7 @@ namespace Core.AI
         private Vector2 GetTargetLocation()
         {
             //return new Vector2(player.transform.position.x + (-enemyScript.GetPlayerXDirection() * Random.Range(offsetMin, offsetMax + 1)), rb.position.y);
-            return new Vector2(player.transform.position.x + (-enemyScript.GetPlayerXDirection() * offsetMin), rb.position.y);
+            return new Vector2(player.transform.position.x + (-enemyScript.GetPlayerXDirection() * currentOffset), rb.position.y);
         }
     }
 }

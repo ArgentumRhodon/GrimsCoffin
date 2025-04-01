@@ -25,7 +25,7 @@ namespace Core.AI
             if (enemyScript.enemyStateList.IsSeeking)
                 return TaskStatus.Success;
 
-            if (IsOverlapping())
+            if (enemyScript.IsOverlapping(visionRange))
             {
                 GraphNode node1 = AstarPath.active.GetNearest(rb.position).node;
                 GraphNode node2 = AstarPath.active.GetNearest(player.transform.position).node;
@@ -48,25 +48,7 @@ namespace Core.AI
                 enemyScript.CombatCoordinator.RemoveEnemyFromCombatList(enemyScript);
                 return TaskStatus.Failure;                
             }
-        }
-
-        public bool IsOverlapping()
-        {            
-            //Check for colliders overlapping
-            Collider2D[] collidersToCheck = new Collider2D[10];
-            ContactFilter2D filter = new ContactFilter2D();
-            filter.useTriggers = true;
-            int colliderCount = Physics2D.OverlapCollider(visionRange, filter, collidersToCheck);
-
-            //Go through all colliders and check to see if it is the player
-            for(int i = 0; i < colliderCount; i++)
-            {
-                if (collidersToCheck[i].gameObject.tag == "Player")
-                    return true;
-            }
-            return false;
-        }
-           
+        }      
     }
 }
 
