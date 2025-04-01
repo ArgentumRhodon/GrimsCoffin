@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 //Referenced the following video on how to go about writing this script: https://www.youtube.com/watch?v=9dzBrLUIF8g
 
@@ -70,6 +72,7 @@ public enum PanDirection
     Right
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(CameraControlTrigger))]
 public class MyScriptEditor : Editor
 {
@@ -113,3 +116,4 @@ public class MyScriptEditor : Editor
         }
     }
 }
+#endif
