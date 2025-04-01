@@ -162,42 +162,39 @@ public class PersistentDataManager : MonoBehaviour
             }
 
             //Unlocks Health Upgrades and gives one for free
-            else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.HealthSpirit)
+            else if (spirit.spiritState == Spirit.SpiritState.Unlocked && spirit.spiritID == Spirit.SpiritID.HealthSpirit)
             {
                 PlayerControllerForces.Instance.Data.maxHP += 10;
                 PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
                 PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
                 UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
             }
-        }
-        
-        //Trade in health collectables for health upgrade
-        else if (spirit.spiritID == Spirit.SpiritID.HealthSpirit && spirit.spiritState == Spirit.SpiritState.Idle && PersistentDataManager.Instance.HealthCollectablesHeld >= 3)
-        {
-            PlayerControllerForces.Instance.Data.maxHP += 10;
-            PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
-            PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
 
-            int collectablesHeld = HealthCollectablesHeld;
-
-            collectablesHeld -= 3;
-            Mathf.Clamp(collectablesHeld, 0, 100);
-
-            PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
-            UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
-            UIManager.Instance.RemoveHealthCollectables();
-        }
-
-        else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.MapSpirit)
-        {
-            if (EnemyCurrency >= 500)
+            else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.MapSpirit)
             {
                 PlayerPrefs.SetInt("MapBought", 1);
-                UpdateEnemyCurrency(-500);
+                UpdateEnemyCurrency(-spirit.upgradeCost);
                 UIManager.Instance.ShowAbilityUnlock("Map Purchased", AbilityName.NoAbility);
             }
-        }
 
+            //Trade in health collectables for health upgrade
+            else if (spirit.spiritID == Spirit.SpiritID.HealthSpirit && spirit.spiritState == Spirit.SpiritState.Idle)
+            {
+                PlayerControllerForces.Instance.Data.maxHP += 10;
+                PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
+                PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
+
+                int collectablesHeld = HealthCollectablesHeld;
+
+                collectablesHeld -= (int)spirit.upgradeCost;
+                Mathf.Clamp(collectablesHeld, 0, 100);
+
+                PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
+                UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
+                UIManager.Instance.RemoveHealthCollectables();
+            }
+        }
+        
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
     }
 

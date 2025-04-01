@@ -384,6 +384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7304492092834740834}
   - component: {fileID: 3395032565577572422}
+  - component: {fileID: 3737958253203427857}
   m_Layer: 5
   m_Name: Ability Unlock UI
   m_TagString: Untagged
@@ -434,6 +435,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3737958253203427857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644229406473351453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ee6897db71685b4cb3fb549c58cb370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speakerIcon: {fileID: 1995640983347593918}
+  speakers:
+  - {fileID: 1685548561430930329, guid: 6fa5c1277d401974eba303a7213bc93d, type: 3}
+  - {fileID: 4112221032881069125, guid: 60c0e5f01475a5642ac92d6d757b177a, type: 3}
+  - {fileID: -3335496609688097251, guid: 224a74065fa54f746b136e14e165c031, type: 3}
+  - {fileID: -5956632765844785297, guid: 7d8e55f32fd26184cb44c872aeb191ba, type: 3}
+  yes: {fileID: 4795687964473662584}
+  no: {fileID: 4776273007781430829}
+  Cost: {fileID: 5214375151385294292}
+  currentunlockcost: 0
+  currentcost: 0
+  currentspirit: {fileID: 0}
 --- !u!1 &5161827798832949559
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +928,18 @@ PrefabInstance:
       value: No
       objectReference: {fileID: 0}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_Navigation.m_SelectOnLeft
+      value: 
+      objectReference: {fileID: 4795687964473662584}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3737958253203427857}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Quit
       objectReference: {fileID: 0}
@@ -920,6 +957,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3169152083954013098, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
   m_PrefabInstance: {fileID: 3265817948141588602}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4776273007781430829 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+  m_PrefabInstance: {fileID: 3265817948141588602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3285246373952997935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1025,12 +1073,32 @@ PrefabInstance:
       value: Yes
       objectReference: {fileID: 0}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
+      value: 
+      objectReference: {fileID: 4776273007781430829}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3737958253203427857}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PurchaseAbility
+      value: Startunlock
       objectReference: {fileID: 0}
     - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnlockAbility, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Spirit, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1045,3 +1113,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3169152083954013098, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
   m_PrefabInstance: {fileID: 3285246373952997935}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4795687964473662584 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8005780420589934167, guid: 62d28414c413c2a46a8b3d4e69157c75, type: 3}
+  m_PrefabInstance: {fileID: 3285246373952997935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

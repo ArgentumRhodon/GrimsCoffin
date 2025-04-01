@@ -14,10 +14,9 @@ public class UnlockAbility : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private Image speakerIcon;
     [SerializeField] private List<Sprite> speakers;
-    [SerializeField] private Button yes;
+    [SerializeField] public Button yes;
     [SerializeField] private Button no;
     [SerializeField] private TextMeshProUGUI Cost;
-    private PersistentDataManager persistentDataManager;
     private int collectablesHeld;
 
     public enum UnlockCost
@@ -27,16 +26,15 @@ public class UnlockAbility : MonoBehaviour
     }
 
     public UnlockCost currentunlockcost;
-    public int currentcost;
+    public float currentcost;
     public Spirit currentspirit;
 
     private void Start()
     {
-        persistentDataManager = PersistentDataManager.Instance;
-        collectablesHeld = persistentDataManager.HealthCollectablesHeld;
+        collectablesHeld = PersistentDataManager.Instance.HealthCollectablesHeld;
     }
     // Update is called once per frame
-    public void Startunlock(Spirit spirit)
+    public void StartUnlock(Spirit spirit)
     {
         UIManager.Instance.ToggleUnlockUI(true);
         int id = (int)spirit.spiritID;
@@ -45,10 +43,10 @@ public class UnlockAbility : MonoBehaviour
         {
             Cost.text = "(-500<sprite index=0>)";
             currentunlockcost = UnlockCost.Currency;
-            currentcost = 500;
+            currentcost = spirit.upgradeCost;
             currentspirit = spirit;
 
-            if (persistentDataManager.EnemyCurrency < currentcost)
+            if (PersistentDataManager.Instance.EnemyCurrency < currentcost)
             {
                 yes.interactable = false;
             }
@@ -62,7 +60,7 @@ public class UnlockAbility : MonoBehaviour
         {
             Cost.text = "(-3<sprite index=1>)";
             currentunlockcost = UnlockCost.Herb;
-            currentcost = 3;
+            currentcost = spirit.upgradeCost;
             currentspirit = spirit;
 
             if (collectablesHeld < currentcost)
@@ -84,9 +82,9 @@ public class UnlockAbility : MonoBehaviour
     {
         if (currentunlockcost == UnlockCost.Currency)
         {
-            if (persistentDataManager.EnemyCurrency >= currentcost)
+            if (PersistentDataManager.Instance.EnemyCurrency >= currentcost)
             {
-                persistentDataManager.UpdateSpiritState(currentspirit);
+                PersistentDataManager.Instance.UpdateSpiritState(currentspirit);
                 UIManager.Instance.ToggleUnlockUI(false);
             }
         }
@@ -94,7 +92,7 @@ public class UnlockAbility : MonoBehaviour
         {
             if (collectablesHeld >= currentcost)
             {
-                persistentDataManager.UpdateSpiritState(currentspirit);
+                PersistentDataManager.Instance.UpdateSpiritState(currentspirit);
                 UIManager.Instance.ToggleUnlockUI(false);
             }
         }

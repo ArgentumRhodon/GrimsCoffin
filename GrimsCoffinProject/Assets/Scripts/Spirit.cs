@@ -18,6 +18,8 @@ public class Spirit : Interactable
     [SerializeField] private PlayableDirector Collect;
     [SerializeField] private UnlockAbility UnlockMenu;
 
+    public float upgradeCost;
+
     public enum SpiritID
     {
         MapSpirit = 1,
@@ -46,7 +48,10 @@ public class Spirit : Interactable
         spiritUI = UIManager.Instance.gameUI.GetComponentInChildren<SpiritCollectUI>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         mapIcon.SetActive(true);
-        UnlockMenu = FindObjectOfType<UnlockAbility>();
+        
+        if (UIManager.Instance.UnlockUI != null) 
+            UnlockMenu = UIManager.Instance.UnlockUI.GetComponent<UnlockAbility>();
+
         spiritState = PersistentDataManager.Instance.GetSpiritState(this);
 
         if (spiritState == SpiritState.Collected
@@ -57,6 +62,16 @@ public class Spirit : Interactable
 
         else
             exclamationMark.SetActive(false);
+
+        switch (spiritID)
+        {
+            case SpiritID.MapSpirit:
+                upgradeCost = 500;
+                break;
+            case SpiritID.HealthSpirit:
+                upgradeCost = 3; 
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -94,11 +109,11 @@ public class Spirit : Interactable
         {
             if (spiritID == SpiritID.MapSpirit)
             {
-                UnlockMenu.Startunlock(this);
+                UnlockMenu.StartUnlock(this);
             }
             else if (spiritID == SpiritID.HealthSpirit)
             {
-                UnlockMenu.Startunlock(this);
+                UnlockMenu.StartUnlock(this);
             }
             /*else if (spiritID == SpiritID.MapSpirit)
             {

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System;
 using BehaviorDesigner.Runtime.Tasks.Unity.SharedVariables;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -345,6 +346,8 @@ public class UIManager : MonoBehaviour
         this.GetComponent<DialogueManager>().canProgressDialogue = false;
         UnlockUI.SetActive(true);
         UnlockUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
+
+        EventSystem.current.SetSelectedGameObject(UnlockUI.GetComponent<UnlockAbility>().yes.gameObject);
 
         //Disable area text if it's active
         if (areaText != null)
