@@ -104,7 +104,7 @@ public class MeleeBaseState : CState
                     if (collidersToDamage[i].GetComponent<PolygonCollider2D>() != null)
                         continue;
 
-                    RegisterAttackScytheThrowPlatform(collidersToDamage[i]);
+                    RegisterAttackRope(collidersToDamage[i]);
                 }
             }
         }
@@ -128,8 +128,7 @@ public class MeleeBaseState : CState
         collidersToDamage.gameObject.GetComponent<FallingSpike>().TakeDamage(attackDamage);
         collidersDamaged.Add(collidersToDamage);
     }
-
-    protected virtual void RegisterAttackScytheThrowPlatform(Collider2D collidersToDamage)
+    protected virtual void RegisterAttackRope(Collider2D collidersToDamage)
     {
         collidersToDamage.gameObject.GetComponent<ScytheThrowRope>().TakeDamage(attackDamage);
         collidersDamaged.Add(collidersToDamage);
