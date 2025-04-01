@@ -516,7 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWhenEnabled: 1
   asynchronousLoad: 0
-  pauseWhenDisabled: 0
+  pauseWhenDisabled: 1
   restartWhenComplete: 0
   logTaskChanges: 0
   group: 0
@@ -545,8 +545,8 @@ MonoBehaviour:
         byteData: 
         byteDataArray: 
       Version: 1.7.11
-  gizmoViewMode: 0
-  showBehaviorDesignerGizmo: 0
+  gizmoViewMode: 2
+  showBehaviorDesignerGizmo: 1
 --- !u!114 &4899740188633124079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,6 +586,8 @@ MonoBehaviour:
   enemyDropList: {fileID: 0}
   enemyStateList: {fileID: 0}
   behaviorTree: {fileID: 0}
+  defaultShader: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  hitShader: {fileID: 2100000, guid: 47f92189a429cac4da2a607f7a201b6d, type: 2}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
