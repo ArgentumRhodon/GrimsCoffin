@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ public class Map : MonoBehaviour
     [SerializeField] public GameObject fullMapUI;
     [SerializeField] private Camera fullMapCamera;
     [SerializeField] private GameObject mapKey;
+    [SerializeField] private TextMeshProUGUI exploredPercentage;
 
     private bool mapKeyActive;
 
@@ -41,6 +43,13 @@ public class Map : MonoBehaviour
                 promptTrays[1].SetActive(false);
                 promptTrays[2].SetActive(true);
                 break;
+        }
+
+        exploredPercentage.text = ReturnExploredPercentage() + "% Explored";
+
+        if (ReturnExploredPercentage() == "100")
+        {
+            exploredPercentage.color = Color.green;
         }
     }
 
@@ -103,5 +112,19 @@ public class Map : MonoBehaviour
 
         mapKeyActive = !mapKeyActive;
         mapKey.SetActive(mapKeyActive);
+    }
+
+    public string ReturnExploredPercentage()
+    {
+        float roomsExplored = 0;
+        float totalRooms = PersistentDataManager.Instance.rooms.Count;
+
+        foreach (bool explored in PersistentDataManager.Instance.AreaRoomsLoaded())
+        {
+            if (explored)
+                roomsExplored++;
+        }
+
+        return ((roomsExplored / totalRooms) * 100).ToString("F0");
     }
 }

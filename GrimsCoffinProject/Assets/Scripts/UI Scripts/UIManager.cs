@@ -281,9 +281,14 @@ public class UIManager : MonoBehaviour
         popup.GetComponent<AbilityUnlock>().abilityName = name;
     }
 
-    public void AddEnemyCurrency(float value)
+    public void UpdateEnemyCurrency(float value, bool addingCurrency)
     {
-        enemyCurrencyUI.AddCurrency(value);
+        enemyCurrencyUI.UpdateCurrency(value, addingCurrency);
+    }
+
+    public void ScytheThrowFailed()
+    {
+        gameUI.transform.GetChild(1).GetComponent<PlayerStatsUI>().ScytheThrowFailed();
     }
 
     //Show dialogue UI

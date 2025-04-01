@@ -14,6 +14,7 @@ public class RestPointMenu: MonoBehaviour
     [SerializeField] private GameObject insideEQPanel;
 
     [SerializeField] public SavePoint restPoint;
+    [SerializeField] private GameObject fadeToWhite;
 
 
     // Start is called before the first frame update
@@ -34,7 +35,7 @@ public class RestPointMenu: MonoBehaviour
 
         else
         {
-            SceneManager.LoadScene("Equilibrium");
+            StartCoroutine(TransitionToEquilibrium());
         }
     }
 
@@ -96,5 +97,20 @@ public class RestPointMenu: MonoBehaviour
     {
         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
         PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
+    }
+
+    private IEnumerator TransitionToEquilibrium()
+    {
+        Time.timeScale = 0;
+        fadeToWhite.SetActive(true);
+
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < .8f)
+        {
+            yield return null;
+        }
+
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Equilibrium");
     }
 }
