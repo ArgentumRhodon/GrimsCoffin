@@ -26,6 +26,7 @@ public class Spirit : Interactable
         DashSpirit = 2,
         ScytheThrowSpirit = 3,
         HealthSpirit = 4,
+        CombatSpirit = 5
     }
 
     [SerializeField] public SpiritState spiritState;
@@ -71,6 +72,12 @@ public class Spirit : Interactable
             case SpiritID.HealthSpirit:
                 upgradeCost = 3; 
                 break;
+            case SpiritID.CombatSpirit:
+                if (!PersistentDataManager.Instance.CanUpAttack)
+                    upgradeCost = 750;
+                else
+                    upgradeCost = 1250;
+                break;
         }
     }
 
@@ -115,10 +122,10 @@ public class Spirit : Interactable
             {
                 UnlockMenu.StartUnlock(this);
             }
-            /*else if (spiritID == SpiritID.CombatSpirit)
+            else if (spiritID == SpiritID.CombatSpirit)
             {
-                UnlockMenu.Startunlock(this);
-            }*/
+                UnlockMenu.StartUnlock(this);
+            }
             else
             {
                 PersistentDataManager.Instance.UpdateSpiritState(this);

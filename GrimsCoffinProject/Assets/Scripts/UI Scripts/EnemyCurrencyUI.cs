@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class EnemyCurrencyUI : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class EnemyCurrencyUI : MonoBehaviour
 
     private float currencyAdded = 0;
 
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "OnboardingLevel")
+            this.gameObject.SetActive(false);
+        
+    }
     public void Update()
     {
         currencyText.text = PersistentDataManager.Instance.EnemyCurrency.ToString();

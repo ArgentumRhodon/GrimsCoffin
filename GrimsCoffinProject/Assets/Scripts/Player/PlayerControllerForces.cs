@@ -220,6 +220,10 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canDash = PersistentDataManager.Instance.CanDash;
         Data.canScytheThrow = PersistentDataManager.Instance.CanScytheThrow;
         Data.canViewMap = PersistentDataManager.Instance.CanViewMap;
+        Data.canGUpAttack = PersistentDataManager.Instance.CanUpAttack;
+        Data.canAUpAttack = PersistentDataManager.Instance.CanUpAttack;
+        Data.canGDownAttack = PersistentDataManager.Instance.CanDownAttack;
+        Data.canADownAttack = PersistentDataManager.Instance.CanDownAttack;
 
         if (!PersistentDataManager.Instance.CanScytheThrow)
             currentSP = 0;
