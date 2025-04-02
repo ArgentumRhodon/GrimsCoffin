@@ -18,6 +18,7 @@ public class MeleeBaseState : CState
     //Index of sequence in attack
     protected int attackIndex;
     protected float attackDamage;
+    protected float comboFinisherKnockbackMultiplier = 7.5f;
 
     protected PlayerCombat playerCombat;
 
@@ -113,6 +114,12 @@ public class MeleeBaseState : CState
     protected virtual void RegisterAttack(Collider2D collidersToDamage)
     {
         Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
+        if (attackIndex == 3)
+        {
+            knockbackForce *= comboFinisherKnockbackMultiplier;
+            Debug.Log(knockbackForce);
+        }
+
         collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
         collidersDamaged.Add(collidersToDamage);
     }
@@ -137,13 +144,8 @@ public class MeleeBaseState : CState
     protected virtual Vector2 KnockbackForce(Vector2 enemyPos)
     {
         //Check direction for knockback
-        int direction;
-        if (IsPlayerOnRight(enemyPos))
-            direction = -1;
-        else
-            direction = 1;
-
-        return new Vector2(0, 0);
+        int direction = IsPlayerOnRight(enemyPos) ? -1 : 1;
+        return new Vector2(direction, 0);
     }
 
     protected bool IsPlayerOnRight(Vector2 enemyPos)
