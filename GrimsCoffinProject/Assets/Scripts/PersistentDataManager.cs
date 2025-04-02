@@ -162,42 +162,39 @@ public class PersistentDataManager : MonoBehaviour
             }
 
             //Unlocks Health Upgrades and gives one for free
-            else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.HealthSpirit)
+            else if (spirit.spiritState == Spirit.SpiritState.Unlocked && spirit.spiritID == Spirit.SpiritID.HealthSpirit)
             {
                 PlayerControllerForces.Instance.Data.maxHP += 10;
                 PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
                 PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
                 UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
             }
-        }
-        
-        //Trade in health collectables for health upgrade
-        else if (spirit.spiritID == Spirit.SpiritID.HealthSpirit && spirit.spiritState == Spirit.SpiritState.Idle && PersistentDataManager.Instance.HealthCollectablesHeld >= 3)
-        {
-            PlayerControllerForces.Instance.Data.maxHP += 10;
-            PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
-            PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
 
-            int collectablesHeld = HealthCollectablesHeld;
-
-            collectablesHeld -= 3;
-            Mathf.Clamp(collectablesHeld, 0, 100);
-
-            PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
-            UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
-            UIManager.Instance.RemoveHealthCollectables();
-        }
-
-        else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.MapSpirit)
-        {
-            if (EnemyCurrency >= 500)
+            else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.MapSpirit)
             {
                 PlayerPrefs.SetInt("MapBought", 1);
-                UpdateEnemyCurrency(-500);
+                UpdateEnemyCurrency(-spirit.upgradeCost,false);
                 UIManager.Instance.ShowAbilityUnlock("Map Purchased", AbilityName.NoAbility);
             }
-        }
 
+            //Trade in health collectables for health upgrade
+            else if (spirit.spiritID == Spirit.SpiritID.HealthSpirit && spirit.spiritState == Spirit.SpiritState.Idle)
+            {
+                PlayerControllerForces.Instance.Data.maxHP += 10;
+                PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
+                PlayerPrefs.SetFloat("MaxHP", PlayerControllerForces.Instance.Data.maxHP);
+
+                int collectablesHeld = HealthCollectablesHeld;
+
+                collectablesHeld -= (int)spirit.upgradeCost;
+                Mathf.Clamp(collectablesHeld, 0, 100);
+
+                PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
+                UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
+                UIManager.Instance.RemoveHealthCollectables();
+            }
+        }
+        
         PlayerPrefs.SetString(spirit.spiritID.ToString(), spirit.spiritState.ToString());
     }
 
@@ -320,7 +317,7 @@ public class PersistentDataManager : MonoBehaviour
         //Reduce Player Stats and Remove Abilities
         PlayerPrefs.SetFloat("MaxHP", 50);
         PlayerPrefs.SetInt("CanDoubleJump", 0);
-        PlayerPrefs.SetInt("CanWallJump", 0);
+        //PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanDash", 0);
         PlayerPrefs.SetString("HealthSpirit", "Collected");
     }
@@ -381,9 +378,9 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("Arena" + arenaIndex, 1);
     }
 
-    public void UpdateEnemyCurrency(float value)
+    public void UpdateEnemyCurrency(float value, bool addingCurrency)
     {
         PlayerPrefs.SetFloat("EnemyCurrency", EnemyCurrency + value);
-        UIManager.Instance.AddEnemyCurrency(value);
+        UIManager.Instance.UpdateEnemyCurrency(value, addingCurrency);
     }
 }
