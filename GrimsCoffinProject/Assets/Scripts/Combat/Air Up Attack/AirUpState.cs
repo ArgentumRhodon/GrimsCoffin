@@ -10,8 +10,8 @@ public class AirUpState : MeleeBaseState
 
         //Set attack variables and animation
         attackIndex = 2; //Not a combo so may not need this
-        attackDamage = playerCombat.Data.aerialUpDamage;
-        playerCombat.AttackDurationTime = playerCombat.Data.aUpAttackDuration;
+        attackDamage = PlayerControllerForces.Instance.Data.aerialUpDamage;
+        playerCombat.AttackDurationTime = PlayerControllerForces.Instance.Data.aUpAttackDuration;
 
 /*        animator.SetTrigger("Attack");
         animator.SetFloat("comboRatio", attackIndex / 3f);

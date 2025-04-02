@@ -49417,6 +49417,17 @@ MonoBehaviour:
   roomIndex: 1
   Border: {fileID: 1971515070}
   VCamera: {fileID: 0}
+--- !u!114 &1155766232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2775760932944318129, guid: 867cc17a31e98844198a7d71d71c2d6e, type: 3}
+  m_PrefabInstance: {fileID: 1189164887}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da352a8cb4b00c4da4f10299520d331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1189164887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49626,7 +49637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 856169698987487715, guid: f4a004e00ab730d439117e2833d9d6ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.89
+      value: -17.8
       objectReference: {fileID: 0}
     - target: {fileID: 856169698987487715, guid: f4a004e00ab730d439117e2833d9d6ea, type: 3}
       propertyPath: m_LocalPosition.y
@@ -50856,7 +50867,7 @@ MonoBehaviour:
   pauseScript: {fileID: 113711802}
   restPointMenu: {fileID: 1116646275}
   mapScript: {fileID: 0}
-  enemyCurrencyUI: {fileID: 0}
+  enemyCurrencyUI: {fileID: 1155766232}
   deathScreen: {fileID: 71615578}
   lowHealthVignette: {fileID: 1669771902}
   damageVignette: {fileID: 1772996436}
@@ -51182,6 +51193,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3737958253203427857, guid: 714f02c839f01d046bcceac980a66e7f, type: 3}
+      propertyPath: speakers.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3737958253203427857, guid: 714f02c839f01d046bcceac980a66e7f, type: 3}
+      propertyPath: speakers.Array.data[4]
+      value: 
+      objectReference: {fileID: -586053747, guid: 30837907218dd6f438b976371ac1c1ca, type: 3}
     - target: {fileID: 4776273007781430829, guid: 714f02c839f01d046bcceac980a66e7f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

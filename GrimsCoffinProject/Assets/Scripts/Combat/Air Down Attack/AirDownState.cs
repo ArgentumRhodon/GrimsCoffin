@@ -17,8 +17,8 @@ public class AirDownState : MeleeBaseState
     {
         base.OnEnter(_stateMachine);
 
-        attackDamage = playerCombat.Data.aerialDownDamage;
-        playerCombat.AttackDurationTime = playerCombat.Data.aDownAttackDuration;
+        attackDamage = PlayerControllerForces.Instance.Data.aerialDownDamage;
+        playerCombat.AttackDurationTime = PlayerControllerForces.Instance.Data.aDownAttackDuration;
 
         PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.GroundDown);
     }
@@ -46,7 +46,7 @@ public class AirDownState : MeleeBaseState
         else
             direction = 1;
 
-        return new Vector2(direction * playerCombat.Data.aerialDownwardEForce.x, playerCombat.Data.aerialDownwardEForce.y);
+        return new Vector2(direction * PlayerControllerForces.Instance.Data.aerialDownwardEForce.x, PlayerControllerForces.Instance.Data.aerialDownwardEForce.y);
     }
 
     protected override void RegisterAttack(Collider2D collidersToDamage)

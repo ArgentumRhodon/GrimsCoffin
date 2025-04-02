@@ -13,8 +13,8 @@ public class GroundUpState : MeleeBaseState
         base.OnEnter(_stateMachine);
 
         //Set attack variables and animation
-        attackDamage = playerCombat.Data.groundUpDamage;
-        playerCombat.AttackDurationTime = playerCombat.Data.gUpAttackDuration;
+        attackDamage = PlayerControllerForces.Instance.Data.groundUpDamage;
+        playerCombat.AttackDurationTime = PlayerControllerForces.Instance.Data.gUpAttackDuration;
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
@@ -36,7 +36,7 @@ public class GroundUpState : MeleeBaseState
         else
             direction = 1;
 
-        return new Vector2(direction * playerCombat.Data.groundUpwardEForce.x, playerCombat.Data.groundUpwardEForce.y);
+        return new Vector2(direction * PlayerControllerForces.Instance.Data.groundUpwardEForce.x, PlayerControllerForces.Instance.Data.groundUpwardEForce.y);
     }
 
     protected override void RegisterAttack(Collider2D collidersToDamage)

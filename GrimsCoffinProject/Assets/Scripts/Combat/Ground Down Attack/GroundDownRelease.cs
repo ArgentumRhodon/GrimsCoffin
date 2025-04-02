@@ -14,8 +14,8 @@ public class GroundDownRelease : MeleeBaseState
         base.OnEnter(_stateMachine);
 
         //Set attack variables and animation
-        attackDamage = playerCombat.Data.groundDownDamage;
-        playerCombat.AttackDurationTime = playerCombat.Data.gDownAttackDuration;
+        attackDamage = PlayerControllerForces.Instance.Data.groundDownDamage;
+        playerCombat.AttackDurationTime = PlayerControllerForces.Instance.Data.gDownAttackDuration;
 
         PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.GroundDown);
     }
@@ -42,7 +42,7 @@ public class GroundDownRelease : MeleeBaseState
         else
             direction = 1;
 
-        return new Vector2(direction * playerCombat.Data.groundDownwardEForce.x, playerCombat.Data.groundDownwardEForce.y);
+        return new Vector2(direction * PlayerControllerForces.Instance.Data.groundDownwardEForce.x, PlayerControllerForces.Instance.Data.groundDownwardEForce.y);
     }
 
     protected override void RegisterAttack(Collider2D collidersToDamage)
