@@ -25,7 +25,6 @@ public class PlayerCombat : MonoBehaviour
     private CStateMachine meleeStateMachine;
     private PlayerStateList playerState;
     private PlayerControllerForces playerController;
-    public PlayerData Data;
 
     //Scythe objects
     public Collider2D hitbox;
@@ -111,7 +110,6 @@ public class PlayerCombat : MonoBehaviour
         meleeStateMachine = GetComponent<CStateMachine>();
         playerState = GetComponent<PlayerStateList>();
         playerController = GetComponent<PlayerControllerForces>();
-        Data = playerController.Data;
 
         if (scytheAnimator == null)
         {
@@ -133,7 +131,7 @@ public class PlayerCombat : MonoBehaviour
         UpdateAttackVariables();
 
         //Check to see if it should move on to the next combo
-        if ((currentAttackAmount < Data.comboTotal || isInterruptingCombo) && comboQueueLeft > 0 && AttackDurationTime < 0)
+        if ((currentAttackAmount < playerController.Data.comboTotal || isInterruptingCombo) && comboQueueLeft > 0 && AttackDurationTime < 0)
         {
             //If the next attack que is a side attack, progress with the combo
             if (attackQueue[0] == AttackDirection.Side)
@@ -146,7 +144,7 @@ public class PlayerCombat : MonoBehaviour
 
                 //If there is more left in the combo, reset the queue timer to continue combo/queue
                 if (comboQueueLeft > 0)
-                    QueueTimer = Data.attackBufferTime;
+                    QueueTimer = playerController.Data.attackBufferTime;
             }
             //If the next attack is a directional attack, break out of the combo
             else if(isInterruptingCombo)
@@ -228,7 +226,7 @@ public class PlayerCombat : MonoBehaviour
     private void OnDash()
     {
         //If the player is currently comboing, interrupt it
-        if (isComboing && playerState.IsAttacking && Data.canDash)
+        if (isComboing && playerState.IsAttacking && playerController.Data.canDash)
         {
             InterruptCombo(AttackDirection.Dash);
         }        
@@ -237,9 +235,9 @@ public class PlayerCombat : MonoBehaviour
     private void OnAbility()
     {
         Debug.Log("Trying to throw");
-        if (isComboing && Data.canScytheThrow)
+        if (isComboing && playerController.Data.canScytheThrow)
         {
-            if (playerController.currentSP <= 0 || playerController.scytheThrown || !Data.canScytheThrow)
+            if (playerController.currentSP <= 0 || playerController.scytheThrown || !playerController.Data.canScytheThrow)
                 return;
 
             InterruptCombo(AttackDirection.Throw);
@@ -254,7 +252,7 @@ public class PlayerCombat : MonoBehaviour
         Debug.Log(meleeStateMachine.CurrentState.GetType());
 
         //Check for combo timer, if the click amount is less then combo total 
-        if (LastComboTime < 0 && attackClickCounter < Data.comboTotal &&
+        if (LastComboTime < 0 && attackClickCounter < playerController.Data.comboTotal &&
             //Check if the attack counter is above, make sure the queue timer still allows for adding an attack
             ((attackClickCounter > 0 && QueueTimer > 0) || (attackClickCounter == 0 && attackDurationTime < 0)))
         {
@@ -267,7 +265,7 @@ public class PlayerCombat : MonoBehaviour
 
                 //Add to the click counter
                 attackClickCounter++;
-                QueueTimer = Data.attackBufferTime;
+                QueueTimer = playerController.Data.attackBufferTime;
             }
             //Run the first attack and add to the combo queue
             else if (meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
@@ -280,7 +278,7 @@ public class PlayerCombat : MonoBehaviour
 
                 //Add to the click counter
                 attackClickCounter++;
-                QueueTimer = Data.attackBufferTime;
+                QueueTimer = playerController.Data.attackBufferTime;
             }
         }
     }
@@ -320,7 +318,7 @@ public class PlayerCombat : MonoBehaviour
         //Debug.Log("Base Attack");
         //If idle, enter the entry state
         meleeStateMachine.SetNextState(new MeleeEntryState());
-        AttackDurationTime = Data.attackBufferTime;
+        AttackDurationTime = playerController.Data.attackBufferTime;
 
         playerState.IsAttacking = true;
         isComboing = true;
@@ -338,7 +336,7 @@ public class PlayerCombat : MonoBehaviour
         meleeStateMachine.RegisteredAttack = true;
         isComboing = true;
 
-        AttackDurationTime = Data.attackBufferTime;
+        AttackDurationTime = playerController.Data.attackBufferTime;
 
         PlayerControllerForces.Instance.ExecuteBasicAttack();
         currentAttackAmount++;
@@ -348,21 +346,23 @@ public class PlayerCombat : MonoBehaviour
     {
         playerState.IsAttacking = true;
         //Up air attack
-        if (!playerController.Grounded() && Data.canAUpAttack)
+        if (!playerController.Grounded() && !playerController.Data.canAUpAttack)
         {
             //Debug.Log("Up Aerial Attack");
-            //meleeStateMachine.SetNextState(new AirUpState());
-            AttackDurationTime = Data.aUpAttackDuration;
+            meleeStateMachine.SetNextState(new AirUpState());
+            AttackDurationTime = playerController.Data.aUpAttackDuration;
             isAerialAttacking = true;
             //PlayerControllerForces.Instance.StartAttack();
+
+            PlayerControllerForces.Instance.ExecuteUpAttack(true);
         }
         //Up ground attack
-        else if (Data.canGUpAttack)
+        else if (playerController.Data.canGUpAttack)
         {
             //Debug.Log("Up Ground Attack");
             meleeStateMachine.SetNextState(new GroundUpState());
-            AttackDurationTime = Data.gUpAttackDuration;
-            upAttackComboTime = Data.upAttackDelay;
+            AttackDurationTime = playerController.Data.gUpAttackDuration;
+            upAttackComboTime = playerController.Data.upAttackDelay;
 
             PlayerControllerForces.Instance.ExecuteUpAttack(true);
         }
@@ -371,20 +371,20 @@ public class PlayerCombat : MonoBehaviour
     private void DownAttack()
     {
         playerState.IsAttacking = true;
-        if (!playerController.Grounded() && Data.canADownAttack)
+        if (!playerController.Grounded() && playerController.Data.canADownAttack)
         {
             //Debug.Log("Down Aerial Attack");
             isAerialAttacking = true;
             meleeStateMachine.SetNextState(new AirDownState());
-            AttackDurationTime = Data.aDownAttackDuration;
+            AttackDurationTime = playerController.Data.aDownAttackDuration;
 
             PlayerControllerForces.Instance.ExecuteDownAttack(false);
         }
-        else if (Data.canGDownAttack)
+        else if (playerController.Data.canGDownAttack)
         {
             //Debug.Log("Down Ground Attack");
             meleeStateMachine.SetNextState(new GroundDownCharge());
-            AttackDurationTime = Data.gdHoldDuration;
+            AttackDurationTime = playerController.Data.gdHoldDuration;
 
             PlayerControllerForces.Instance.ExecuteDownAttack(true);
         }
@@ -392,7 +392,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Dash()
     {
-        playerController.LastPressedDashTime = Data.dashInputBufferTime;
+        playerController.LastPressedDashTime = playerController.Data.dashInputBufferTime;
     }
 
     private void Throw()
@@ -418,7 +418,7 @@ public class PlayerCombat : MonoBehaviour
     //Reset combo stats
     public void ResetCombo()
     {
-        LastComboTime = Data.comboCooldownTime;
+        LastComboTime = playerController.Data.comboCooldownTime;
         attackClickCounter = 0;
         currentAttackAmount = 0;
         comboQueueLeft = 0;
@@ -440,9 +440,9 @@ public class PlayerCombat : MonoBehaviour
     protected AttackDirection CheckAttackDirection()
     {
         //Debug.Log("Checking attack direction: " + playerController.MoveInput.y);
-        if (playerController.MoveInput.y > Data.attackDirectionDeadzone)// && BelowXDeadzone())
+        if (playerController.MoveInput.y > playerController.Data.attackDirectionDeadzone)// && BelowXDeadzone())
             return AttackDirection.Up;
-        else if (playerController.MoveInput.y < -Data.attackDirectionDeadzone)// && BelowXDeadzone())
+        else if (playerController.MoveInput.y < -playerController.Data.attackDirectionDeadzone)// && BelowXDeadzone())
             return AttackDirection.Down;
         else
             return AttackDirection.Side;
@@ -450,7 +450,7 @@ public class PlayerCombat : MonoBehaviour
 
     private bool BelowXDeadzone()
     {
-        return playerController.MoveInput.x < Data.deadzone && playerController.MoveInput.x > -Data.deadzone;
+        return playerController.MoveInput.x < playerController.Data.deadzone && playerController.MoveInput.x > -playerController.Data.deadzone;
     }
     #endregion
 

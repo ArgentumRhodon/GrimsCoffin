@@ -35,6 +35,8 @@ public class PersistentDataManager : MonoBehaviour
     public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 0) == 1; } }
     public bool CanScytheThrow { get { return PlayerPrefs.GetInt("CanScytheThrow", 0) == 1; } }
     public bool CanViewMap { get { return PlayerPrefs.GetInt("CanViewMap", 0) == 1; } }
+    public bool CanUpAttack {  get { return PlayerPrefs.GetInt("CanUpAttack", 0) == 1; } }
+    public bool CanDownAttack { get { return PlayerPrefs.GetInt("CanDownAttack", 0) == 1; } }
 
     public int HealthCollectablesHeld { get { return PlayerPrefs.GetInt("HealthCollectablesHeld", 0); } }
 
@@ -158,6 +160,12 @@ public class PersistentDataManager : MonoBehaviour
                         UIManager.Instance.ShowAbilityUnlock("Scythe Throw Unlocked", AbilityName.ScytheThrow);
                         PlayerPrefs.SetFloat("MaxSP", 50);
                         break;
+                    case Spirit.SpiritID.CombatSpirit:
+                        PlayerControllerForces.Instance.Data.canAUpAttack = true;
+                        PlayerControllerForces.Instance.Data.canGUpAttack = true;
+                        PlayerPrefs.SetInt("CanUpAttack", 1);
+                        UIManager.Instance.ShowAbilityUnlock("Up Attack Unlocked", AbilityName.NoAbility);
+                        break;
                 }
             }
 
@@ -175,6 +183,15 @@ public class PersistentDataManager : MonoBehaviour
                 PlayerPrefs.SetInt("MapBought", 1);
                 UpdateEnemyCurrency(-spirit.upgradeCost, false);
                 UIManager.Instance.ShowAbilityUnlock("Map Purchased", AbilityName.NoAbility);
+            }
+
+            else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.CombatSpirit)
+            {
+                PlayerControllerForces.Instance.Data.canADownAttack = true;
+                PlayerControllerForces.Instance.Data.canGDownAttack = true;
+                PlayerPrefs.SetInt("CanDownAttack", 1);
+                UpdateEnemyCurrency(-spirit.upgradeCost, false);
+                UIManager.Instance.ShowAbilityUnlock("Down Attack Purchased", AbilityName.NoAbility);
             }
 
             //Trade in health collectables for health upgrade
@@ -268,12 +285,15 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("CanDash", 1);
         PlayerPrefs.SetInt("CanViewMap", 0);
         PlayerPrefs.SetInt("CanScytheThrow", 0);
+        PlayerPrefs.SetInt("CanUpAttack", 1);
+        PlayerPrefs.SetInt("CanDownAttack", 1);
 
         //Reset Spirit Data
         PlayerPrefs.SetString("MapSpirit", "Uncollected");
         PlayerPrefs.SetString("DashSpirit", "Uncollected");
         PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
+        PlayerPrefs.SetString("CombatSpirit", "Uncollected");
 
         PlayerPrefs.SetInt("HealthCollectablesHeld", 0);
         PlayerPrefs.SetFloat("EnemyCurrency", 0);
@@ -318,6 +338,8 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetFloat("MaxHP", 50);
         PlayerPrefs.SetInt("CanDoubleJump", 0);
         //PlayerPrefs.SetInt("CanWallJump", 0);
+        PlayerPrefs.SetInt("CanUpAttack", 0);
+        PlayerPrefs.SetInt("CanDownAttack", 0);
         PlayerPrefs.SetInt("CanDash", 0);
         PlayerPrefs.SetString("HealthSpirit", "Collected");
     }

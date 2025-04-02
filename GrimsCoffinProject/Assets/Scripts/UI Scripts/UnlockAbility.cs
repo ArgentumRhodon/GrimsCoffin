@@ -41,7 +41,7 @@ public class UnlockAbility : MonoBehaviour
         speakerIcon.sprite = speakers[id-1];
         if (id==1) 
         {
-            Cost.text = "(-500<sprite index=0>)";
+            Cost.text = "(" + spirit.upgradeCost + "<sprite index=0>)";
             currentunlockcost = UnlockCost.Currency;
             currentcost = spirit.upgradeCost;
             currentspirit = spirit;
@@ -72,9 +72,9 @@ public class UnlockAbility : MonoBehaviour
                 yes.interactable = true;
             }
         }
-        /*else if (id==5)
+        else if (id==5)
         {
-        Cost.text = "(-500<sprite index=0>)";
+        Cost.text = "(" + spirit.upgradeCost + "<sprite index=0>)";
             currentunlockcost = UnlockCost.Currency;
             currentcost = spirit.upgradeCost;
             currentspirit = spirit;
@@ -87,7 +87,7 @@ public class UnlockAbility : MonoBehaviour
             {
                 yes.interactable = true;
             }
-        }*/
+        }
     }
 
     public void PurchaseAbility() 
