@@ -160,6 +160,9 @@ public class PersistentDataManager : MonoBehaviour
                         UIManager.Instance.ShowAbilityUnlock("Scythe Throw Unlocked", AbilityName.ScytheThrow);
                         PlayerPrefs.SetFloat("MaxSP", 50);
                         break;
+                    case Spirit.SpiritID.CombatSpirit:
+                        UIManager.Instance.ShowAbilityUnlock("New Spirit in Equilibrium", AbilityName.NoAbility);
+                        break;
                 }
             }
 
