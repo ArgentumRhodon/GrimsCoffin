@@ -5,7 +5,7 @@ using UnityEngine;
 public class GroundUpState : MeleeBaseState
 {
     public GroundUpState() : base() {
-        attackIndex = 3;
+        attackIndex = 4;
     }
 
     public override void OnEnter(CStateMachine _stateMachine)

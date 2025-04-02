@@ -49,7 +49,7 @@ public class FMOD_Object_Animator : MonoBehaviour
     void fmodDashStart()
     {
         dashInstance.start();
-    }
+    } 
     void fmodLandStart()
     {
         landInstance.start();
