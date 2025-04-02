@@ -227,7 +227,7 @@ public class UIManager : MonoBehaviour
     {
         mapRoom.SetActive(true);
         Tilemap tilemap = mapRoom.GetComponent<Tilemap>();
-        Debug.Log(tilemap);
+        // Debug.Log(tilemap);
         mapRoom.GetComponent<Tilemap>().color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, transparencyValue);
         foreach (Transform child in mapRoom.transform)
         {
