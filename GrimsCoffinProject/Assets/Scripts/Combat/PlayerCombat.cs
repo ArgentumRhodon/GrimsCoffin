@@ -349,12 +349,12 @@ public class PlayerCombat : MonoBehaviour
         if (!playerController.Grounded() && playerController.Data.canAUpAttack)
         {
             //Debug.Log("Up Aerial Attack");
-            //meleeStateMachine.SetNextState(new AirUpState());
+            meleeStateMachine.SetNextState(new AirUpState());
             AttackDurationTime = playerController.Data.aUpAttackDuration;
             isAerialAttacking = true;
             //PlayerControllerForces.Instance.StartAttack();
 
-            //PlayerControllerForces.Instance.ExecuteUpAttack(false);
+            PlayerControllerForces.Instance.ExecuteUpAttack(true);
         }
         //Up ground attack
         else if (playerController.Data.canGUpAttack)

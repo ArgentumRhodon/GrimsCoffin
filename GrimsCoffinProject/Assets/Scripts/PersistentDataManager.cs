@@ -183,7 +183,7 @@ public class PersistentDataManager : MonoBehaviour
             {
                 if (!CanUpAttack)
                 {
-                    PlayerControllerForces.Instance.Data.canAUpAttack = false;
+                    PlayerControllerForces.Instance.Data.canAUpAttack = true;
                     PlayerControllerForces.Instance.Data.canGUpAttack = true;
                     PlayerPrefs.SetInt("CanUpAttack", 1);
                     UpdateEnemyCurrency(-spirit.upgradeCost, false);
