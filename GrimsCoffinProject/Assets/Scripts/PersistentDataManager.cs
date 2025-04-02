@@ -35,8 +35,8 @@ public class PersistentDataManager : MonoBehaviour
     public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 0) == 1; } }
     public bool CanScytheThrow { get { return PlayerPrefs.GetInt("CanScytheThrow", 0) == 1; } }
     public bool CanViewMap { get { return PlayerPrefs.GetInt("CanViewMap", 0) == 1; } }
-    public bool CanUpAttack {  get { return PlayerPrefs.GetInt("CanUpAttack", 0) == 1; } }
-    public bool CanDownAttack { get { return PlayerPrefs.GetInt("CanDownAttack", 0) == 1; } }
+    public bool CanUpAttack {  get { return PlayerPrefs.GetInt("CanUpAttack", 1) == 1; } }
+    public bool CanDownAttack { get { return PlayerPrefs.GetInt("CanDownAttack", 1) == 1; } }
 
     public int HealthCollectablesHeld { get { return PlayerPrefs.GetInt("HealthCollectablesHeld", 0); } }
 

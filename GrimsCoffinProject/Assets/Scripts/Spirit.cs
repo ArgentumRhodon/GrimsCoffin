@@ -57,9 +57,10 @@ public class Spirit : Interactable
 
         if (spiritState == SpiritState.Collected
             || spiritID == SpiritID.HealthSpirit && PersistentDataManager.Instance.HealthCollectablesHeld >= 3)
-        {
             exclamationMark.SetActive(true);
-        }
+        
+        else if (spiritState == SpiritState.Unlocked && PersistentDataManager.Instance.EnemyCurrency >= upgradeCost)
+            exclamationMark.SetActive(true);
 
         else
             exclamationMark.SetActive(false);
