@@ -353,6 +353,8 @@ public class PlayerCombat : MonoBehaviour
             AttackDurationTime = playerController.Data.aUpAttackDuration;
             isAerialAttacking = true;
             //PlayerControllerForces.Instance.StartAttack();
+
+            //PlayerControllerForces.Instance.ExecuteUpAttack(false);
         }
         //Up ground attack
         else if (playerController.Data.canGUpAttack)

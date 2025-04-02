@@ -20,7 +20,7 @@ MonoBehaviour:
   maxHP: 50
   maxSP: 0
   iFrameTimer: 1
-  respawnPoint: {x: 225.16, y: 1.71}
+  respawnPoint: {x: -17.900002, y: 0}
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -94,18 +94,18 @@ MonoBehaviour:
   gUpAttackDuration: 0.4
   upAttackDelay: 0.75
   groundUpDamage: 5
-  canGDownAttack: 1
+  canGDownAttack: 0
   groundDownwardPForce: 0
   groundDownwardEForce: {x: 5, y: 4}
   gDownWalkModifier: 0.2
   gdHoldDuration: 1
   gDownAttackDuration: 0.25
   groundDownDamage: 15
-  canAUpAttack: 1
+  canAUpAttack: 0
   hookPlayerForce: 0
   aUpAttackDuration: 0.5
   aerialUpDamage: 3
-  canADownAttack: 1
+  canADownAttack: 0
   aerialDownwardPForce: 50
   aerialDownwardEForce: {x: 4, y: -5}
   aDownAttackDuration: 5
@@ -113,4 +113,4 @@ MonoBehaviour:
   aerialDownDamage: 7
   aerialImpactDamage: 5
   canScytheThrow: 0
-  canViewMap: 1
+  canViewMap: 0
