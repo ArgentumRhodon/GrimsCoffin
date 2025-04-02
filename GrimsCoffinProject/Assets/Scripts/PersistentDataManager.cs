@@ -161,7 +161,10 @@ public class PersistentDataManager : MonoBehaviour
                         PlayerPrefs.SetFloat("MaxSP", 50);
                         break;
                     case Spirit.SpiritID.CombatSpirit:
-                        UIManager.Instance.ShowAbilityUnlock("New Spirit in Equilibrium", AbilityName.NoAbility);
+                        PlayerControllerForces.Instance.Data.canAUpAttack = true;
+                        PlayerControllerForces.Instance.Data.canGUpAttack = true;
+                        PlayerPrefs.SetInt("CanUpAttack", 1);
+                        UIManager.Instance.ShowAbilityUnlock("Up Attack Unlocked", AbilityName.NoAbility);
                         break;
                 }
             }
@@ -184,27 +187,11 @@ public class PersistentDataManager : MonoBehaviour
 
             else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.CombatSpirit)
             {
-                if (!CanUpAttack)
-                {
-                    PlayerControllerForces.Instance.Data.canAUpAttack = true;
-                    PlayerControllerForces.Instance.Data.canGUpAttack = true;
-                    PlayerPrefs.SetInt("CanUpAttack", 1);
-                    UpdateEnemyCurrency(-spirit.upgradeCost, false);
-                    UIManager.Instance.ShowAbilityUnlock("Up Attack Purchased", AbilityName.NoAbility);
-
-                    spirit.spiritState = Spirit.SpiritState.Unlocked;
-                    spirit.upgradeCost = 1250;
-                }
-
-                else
-                {
-                    PlayerControllerForces.Instance.Data.canADownAttack = true;
-                    PlayerControllerForces.Instance.Data.canGDownAttack = true;
-                    PlayerPrefs.SetInt("CanDownAttack", 1);
-                    UpdateEnemyCurrency(-spirit.upgradeCost, false);
-                    UIManager.Instance.ShowAbilityUnlock("Down Attack Purchased", AbilityName.NoAbility);
-                }
-
+                PlayerControllerForces.Instance.Data.canADownAttack = true;
+                PlayerControllerForces.Instance.Data.canGDownAttack = true;
+                PlayerPrefs.SetInt("CanDownAttack", 1);
+                UpdateEnemyCurrency(-spirit.upgradeCost, false);
+                UIManager.Instance.ShowAbilityUnlock("Down Attack Purchased", AbilityName.NoAbility);
             }
 
             //Trade in health collectables for health upgrade

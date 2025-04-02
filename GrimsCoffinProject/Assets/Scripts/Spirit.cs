@@ -74,10 +74,7 @@ public class Spirit : Interactable
                 upgradeCost = 3; 
                 break;
             case SpiritID.CombatSpirit:
-                if (!PersistentDataManager.Instance.CanUpAttack)
-                    upgradeCost = 750;
-                else
-                    upgradeCost = 1250;
+                upgradeCost = 1000;
                 break;
         }
     }
