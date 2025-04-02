@@ -559,12 +559,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e5c0213b768d14fbc5be9ef5224ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStaggered: 0
   health: 20
   visionRange: 1
   collisionDamage: 0
   damageOnCollision: 0
   canOverlapPlayer: 1
-  knockbackMult: 0.5
+  knockbackMult: 0.1
   hurtDodgeMin: 0
   hurtMaxTimer: 0
   attackDamages:
@@ -577,7 +578,7 @@ MonoBehaviour:
   movementDeacceleration: 0
   movementDeaccelAmount: 0
   canBePulledDown: 0
-  canBeStopped: 0
+  canBeStopped: 1
   enemyGFX: {fileID: 7666600489444073033}
   enemy: {fileID: 4567458006229910762}
   playerTarget: {fileID: 0}
@@ -594,8 +595,11 @@ MonoBehaviour:
   groundCheckSize: {x: 0.49, y: 0.03}
   wallChecker: {fileID: 935854789338856834}
   airChecker: {fileID: 6984276949057077447}
+  backWallChecker: {fileID: 0}
+  backAirChecker: {fileID: 0}
   visionCollider: {fileID: 7152574433639618853}
   kinematicCollider: {fileID: 2426847185208555203}
+  closeRangeCollider: {fileID: 0}
   bodyCollider: {fileID: 2426847185208555203}
   attackCollider: {fileID: 2798288149803154148}
   oneShotNotifierA:
