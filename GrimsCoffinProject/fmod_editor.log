@@ -16,9 +16,608 @@
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
-[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
-[WRN] OutputWASAPI::mixerThread                : Starvation detected in WASAPI output buffer!
-[WRN] OutputWASAPI::mixerThread                : Starvation detected in WASAPI output buffer!
-[WRN] OutputWASAPI::mixerThread                : Starvation detected in WASAPI output buffer!
-[WRN] OutputWASAPI::mixerThread                : Starvation detected in WASAPI output buffer!
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003ED8BFF1D8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F126C14628
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_101_PL_Grim_Scyche_Swing_02', format=5, channels=2, frequency=48000, lengthbytes=61664, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003ED8BFF1D8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F126C14628
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_101_PL_Grim_Scyche_Swing_01', format=5, channels=2, frequency=48000, lengthbytes=76640, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003ED8BFF1D8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F126C14628
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_101_PL_Grim_Scyche_Swing_03', format=5, channels=2, frequency=48000, lengthbytes=65888, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070796.
+[LOG] SoundI::release                          :  (000001EFC6A262E8)
+[LOG] SoundI::release                          :     FX_101_PL_Grim_Scyche_Swing_01 (000001F0926DFFE8)
+[LOG] SoundI::release                          :  (000001F0F369B7B8)
+[LOG] SoundI::release                          :     FX_101_PL_Grim_Scyche_Swing_02 (000001F0926E0188)
+[LOG] SoundI::release                          :  (000001EFC6A26458)
+[LOG] SoundI::release                          :     FX_101_PL_Grim_Scyche_Swing_03 (000001F0926E04C8)
+[LOG] SoundI::release                          :  (000001EFEB9016A8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_01 (000001F0926D9648)
+[LOG] SoundI::release                          :  (000001F0F369BA98)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_02 (000001F0926DDA88)
+[LOG] SoundI::release                          :  (000001F0E402A818)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_03 (000001F0926A15C8)
+[LOG] SoundI::release                          :  (000001F0F369B088)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_04 (000001F0926DF628)
+[LOG] SoundI::release                          :  (000001EDE7828AA8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_05 (000001F0926A27A8)
+[LOG] SoundI::release                          :  (000001EDE7827F28)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_06 (000001EFEE858568)
+[LOG] SoundI::release                          :  (000001F0F3462BB8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_01 (000001F09269D808)
+[LOG] SoundI::release                          :  (000001EDE7828378)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_02 (000001F0926A34A8)
+[LOG] SoundI::release                          :  (000001F0F369B928)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_03 (000001F0926DF968)
+[LOG] SoundI::release                          :  (000001EFEB901F48)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_04 (000001F0926DCD88)
+[LOG] SoundI::release                          :  (000001EFEB901538)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_05 (000001F0926DD0C8)
+[LOG] SoundI::release                          :  (000001F0F39CE138)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_06 (000001EFEE85A448)
+[LOG] SoundI::release                          :  (000001F0F39CE2A8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_01 (000001EFEE85A788)
+[LOG] SoundI::release                          :  (000001F0E402AAF8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_02 (000001F09269C7C8)
+[LOG] SoundI::release                          :  (000001EFEB901AF8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_03 (000001EFEE85C668)
+[LOG] SoundI::release                          :  (000001EDE78284E8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_04 (000001F0926A2C88)
+[LOG] SoundI::release                          :  (000001F0F39CDB78)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_05 (000001EFEE8583C8)
+[LOG] SoundI::release                          :  (000001F0E402AC68)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_06 (000001F09269CB08)
+[LOG] SoundI::release                          :  (000001EFF7A52208)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_01 (000001EFEE858BE8)
+[LOG] SoundI::release                          :  (000001F0F39CD898)
+[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Soil_01 (000001EFEE85A2A8)
+[LOG] SoundI::release                          :  (000001EDE7828938)
+[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Snow_01 (000001F0926A3308)
+[LOG] SoundI::release                          :  (000001EFF7A52C18)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_02 (000001EFEE85B628)
+[LOG] SoundI::release                          :  (000001F0F369BC08)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_03 (000001F0926DDDC8)
+[LOG] SoundI::release                          :  (000001EFEB901988)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_01 (000001F0926D97E8)
+[LOG] SoundI::release                          :  (000001EDE7828208)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_02 (000001F0926A1C48)
+[LOG] SoundI::release                          :  (000001EFF7A52938)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_03 (000001EFEE8598E8)
+[LOG] SoundI::release                          :  (000001EFEB901C68)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_01 (000001EFEE85C4C8)
+[LOG] SoundI::release                          :  (000001EDE78287C8)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_02 (000001F0926A2948)
+[LOG] SoundI::release                          :  (000001EDE7828C18)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_03 (000001F0926A3168)
+[LOG] SoundI::release                          :  (000001EFF7A52378)
+[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Stone_01 (000001EFEE85B488)
+[LOG] SoundI::release                          :  (000001EFEB901818)
+[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_01 (000001EFEE85C9A8)
+[LOG] SoundI::release                          :  (000001F0F39CDCE8)
+[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_02 (000001EFEE859DC8)
+[LOG] SoundI::release                          :  (000001EDE7828098)
+[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_03 (000001F0926A2128)
+[LOG] SoundI::release                          :  (000001F0E402A6A8)
+[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_01 (000001F0926A1288)
+[LOG] SoundI::release                          :  (000001F0F369BD78)
+[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_02 (000001F0926DE2A8)
+[LOG] SoundI::release                          :  (000001F0F3462D28)
+[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_03 (000001F09269F208)
+[LOG] SoundI::release                          :  (000001F0E402AF48)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_01 (000001F0926A00A8)
+[LOG] SoundI::release                          :  (000001EFEB9013C8)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_02 (000001F0926DB528)
+[LOG] SoundI::release                          :  (000001EFF7A524E8)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_03 (000001EFEE859408)
+[LOG] SoundI::release                          :  (000001EFEB836CE8)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_04 (000001F09269FD68)
+[LOG] SoundI::release                          :  (000001F0F39CDFC8)
+[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_01 (000001EFEE859268)
+[LOG] SoundI::release                          :  (000001EFF7A52AA8)
+[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_02 (000001EFEE858228)
+[LOG] SoundI::release                          :  (000001F0F369B1F8)
+[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_03 (000001F0926DEAC8)
+[LOG] SoundI::release                          :  (000001EDE7828658)
+[LOG] SoundI::release                          :     FX_105_PL_Grim_Scyche_DownAttack_Release_01 (000001F0926A1908)
+[LOG] SoundI::release                          :  (000001F0F3462768)
+[LOG] SoundI::release                          :     FX_103_PL_Grim_Scyche_Slam_01 (000001F0926A03E8)
+[LOG] SoundI::release                          :  (000001F0F369B648)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Sand_01 (000001F0926E1028)
+[LOG] SoundI::release                          :  (000001F0E402ADD8)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Sand_02 (000001F0926A0C08)
+[LOG] SoundI::release                          :  (000001F0F369B4D8)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Sand_03 (000001F0926DE5E8)
+[LOG] SoundI::release                          :  (000001F0E402B0B8)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Snow_01 (000001F0926A0DA8)
+[LOG] SoundI::release                          :  (000001F0F39CDA08)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Snow_02 (000001EFEE85A108)
+[LOG] SoundI::release                          :  (000001EFF7A52658)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Snow_03 (000001EFEE859748)
+[LOG] SoundI::release                          :  (000001EFF7A52098)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Stone_01 (000001EFEE85D368)
+[LOG] SoundI::release                          :  (000001EFF7A52D88)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Stone_02 (000001EFEE85BCA8)
+[LOG] SoundI::release                          :  (000001EFF7A527C8)
+[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Stone_03 (000001EFEE85BFE8)
+[LOG] SoundI::release                          :  (000001F0E402A988)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Ice_01 (000001F0926A0248)
+[LOG] SoundI::release                          :  (000001F0F39CE418)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Ice_02 (000001EFEE859C28)
+[LOG] SoundI::release                          :  (000001F0F39CE588)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Ice_03 (000001EFEE859F68)
+[LOG] SoundI::release                          :  (000001F0E402A3C8)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Stone_01 (000001F09269DCE8)
+[LOG] SoundI::release                          :  (000001F0E402A538)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Stone_02 (000001F09269CFE8)
+[LOG] SoundI::release                          :  (000001F0F369B368)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Stone_03 (000001F0926DF2E8)
+[LOG] SoundI::release                          : FX_005_LM_MapDenial_Ambience_01 (000001EFEB1C3228)
+[LOG] SoundI::release                          :     FX_005_LM_MapDenial_Ambience_01 (000001F09269BAC8)
+[LOG] SoundI::release                          :     FX_005_LM_MapDenial_Ambience_01 (000001EFC6850FB8)
+[LOG] SoundI::release                          :  (000001EFEB901DD8)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Soil_01 (000001EFEE85D9E8)
+[LOG] SoundI::release                          :  (000001EFEB901258)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Soil_02 (000001EFEE85CCE8)
+[LOG] SoundI::release                          :  (000001F0F39CDE58)
+[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Soil_03 (000001EFEE85A5E8)
+[LOG] Thread::callback                         : FMOD Convolution thread finished.
+[LOG] Thread::callback                         : FMOD Convolution thread finished.
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] SystemI::close                           : Closed.
+[LOG] Thread::initThread                       : Init FMOD Convolution thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 16384, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
+[LOG] Thread::initThread                       : Init FMOD Convolution thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 16384, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Soil_01', format=5, channels=2, frequency=48000, lengthbytes=20992, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070795.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Brick_02', format=5, channels=2, frequency=48000, lengthbytes=8352, lengthpcm=9000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070795.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Brick_06', format=5, channels=2, frequency=48000, lengthbytes=7872, lengthpcm=9000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070795.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_03', format=5, channels=2, frequency=48000, lengthbytes=26368, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Soil_02', format=5, channels=2, frequency=48000, lengthbytes=17536, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070796.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Brick_04', format=5, channels=2, frequency=48000, lengthbytes=6656, lengthpcm=9000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070796.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_05', format=5, channels=2, frequency=48000, lengthbytes=24064, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_06', format=5, channels=2, frequency=48000, lengthbytes=22880, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070795.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Brick_05', format=5, channels=2, frequency=48000, lengthbytes=7776, lengthpcm=9000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Brick_01', format=5, channels=2, frequency=48000, lengthbytes=7200, lengthpcm=9000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070795.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Soil_06', format=5, channels=2, frequency=48000, lengthbytes=16832, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070796.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Brick_03', format=5, channels=2, frequency=48000, lengthbytes=6912, lengthpcm=9000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070795.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Soil_04', format=5, channels=2, frequency=48000, lengthbytes=16928, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070795.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Soil_05', format=5, channels=2, frequency=48000, lengthbytes=16032, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070795.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_01', format=5, channels=2, frequency=48000, lengthbytes=21984, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_02', format=5, channels=2, frequency=48000, lengthbytes=25024, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070796.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Soil_03', format=5, channels=2, frequency=48000, lengthbytes=18656, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070796.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F127D60CD8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_04', format=5, channels=2, frequency=48000, lengthbytes=26496, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070795.
+[LOG] SoundI::release                          :  (000001F0DB007ED8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_01 (000001F09269DCE8)
+[LOG] SoundI::release                          :  (000001F0DB008048)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_02 (000001F09269C488)
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F0DB101D28
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_01', format=5, channels=2, frequency=48000, lengthbytes=21984, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F0DB101D28
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_02', format=5, channels=2, frequency=48000, lengthbytes=25024, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070796.
+[LOG] SoundI::release                          :  (000001EFFAD10838)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_01 (000001F09269DB48)
+[LOG] SoundI::release                          :  (000001EFFAD109A8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_02 (000001F09269FA28)
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F125EA44C8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_01', format=5, channels=2, frequency=48000, lengthbytes=21984, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 42861504
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 1376736
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000003EDC1FF1B8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB77AA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB77AA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB77AA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB77AA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001F125EA44C8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_107_PL_Grim_Self_Run_Snow_02', format=5, channels=2, frequency=48000, lengthbytes=25024, lengthpcm=48000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070796.
+[LOG] SoundI::release                          :  (000001F0D472A1E8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_01 (000001F09269FD68)
+[LOG] SoundI::release                          :  (000001F0D472A358)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_02 (000001F09269FA28)
+[LOG] SoundI::release                          :  (000001F126BF24F8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_03 (000001EFE8D043C8)
+[LOG] SoundI::release                          :  (000001F0DB008608)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_04 (000001F09269F208)
+[LOG] SoundI::release                          :  (000001F126BF27D8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_05 (000001EFE8D048A8)
+[LOG] SoundI::release                          :  (000001F126BF2948)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_06 (000001EFE8D04BE8)
+[LOG] SoundI::release                          :  (000001F126BF2218)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_01 (000001EFE8D06928)
+[LOG] SoundI::release                          :  (000001F126BF20A8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_02 (000001EFE8D058E8)
+[LOG] SoundI::release                          :  (000001F0DB007BF8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_03 (000001F09269C7C8)
+[LOG] SoundI::release                          :  (000001F0DB0081B8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_04 (000001EFE8D06108)
+[LOG] SoundI::release                          :  (000001F0DB008328)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_05 (000001F09269E6A8)
+[LOG] SoundI::release                          :  (000001F0DB008498)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_06 (000001EFE8D04568)
+[LOG] SoundI::release                          :  (000001F071AAB918)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_01 (000001EFE8D077C8)
+[LOG] SoundI::release                          :  (000001F126BF2388)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_02 (000001EFE8D04228)
+[LOG] SoundI::release                          :  (000001F0DB0088E8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_03 (000001EFE8D04D88)
+[LOG] SoundI::release                          :  (000001F126BF2668)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_04 (000001EFE8D05F68)
+[LOG] SoundI::release                          :  (000001F126BF2D98)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_05 (000001EFE8D03BA8)
+[LOG] SoundI::release                          :  (000001F126BF2AB8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_06 (000001EFE8D05408)
+[LOG] Thread::callback                         : FMOD Convolution thread finished.
+[LOG] Thread::callback                         : FMOD Convolution thread finished.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] SystemI::close                           : Closed.
+[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         : FMOD file thread finished.

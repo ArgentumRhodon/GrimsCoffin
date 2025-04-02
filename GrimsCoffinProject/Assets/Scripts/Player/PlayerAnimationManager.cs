@@ -15,6 +15,7 @@ public static class PlayerAnimationStates
     public static readonly string Attack1 = "Attack1";
     public static readonly string Attack2 = "Attack2";
     public static readonly string Attack3 = "Attack3";
+    public static readonly string AttackUp = "AttackUp";
     public static readonly string Attack4 = "Attack4";
     public static readonly string Death = "Death";
 
@@ -29,7 +30,7 @@ public static class PlayerAnimationStates
             case 3:
                 return Attack3;
             case 4:
-                return Attack4;
+                return AttackUp;
             default:
                 return Attack1;
         }

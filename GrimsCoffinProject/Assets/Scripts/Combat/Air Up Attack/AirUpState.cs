@@ -9,7 +9,7 @@ public class AirUpState : MeleeBaseState
         base.OnEnter(_stateMachine);
 
         //Set attack variables and animation
-        attackIndex = 2; //Not a combo so may not need this
+        attackIndex = 4; //Not a combo so may not need this
         attackDamage = playerCombat.Data.aerialUpDamage;
         playerCombat.AttackDurationTime = playerCombat.Data.aUpAttackDuration;
 
