@@ -173,7 +173,7 @@ public class PersistentDataManager : MonoBehaviour
             else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.MapSpirit)
             {
                 PlayerPrefs.SetInt("MapBought", 1);
-                UpdateEnemyCurrency(-spirit.upgradeCost);
+                UpdateEnemyCurrency(-spirit.upgradeCost,false);
                 UIManager.Instance.ShowAbilityUnlock("Map Purchased", AbilityName.NoAbility);
             }
 
