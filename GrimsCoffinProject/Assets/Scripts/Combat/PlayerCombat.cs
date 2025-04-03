@@ -346,7 +346,7 @@ public class PlayerCombat : MonoBehaviour
     {
         playerState.IsAttacking = true;
         //Up air attack
-        if (!playerController.Grounded() && !playerController.Data.canAUpAttack)
+        /*if (!playerController.Grounded() && !playerController.Data.canAUpAttack)
         {
             //Debug.Log("Up Aerial Attack");
             meleeStateMachine.SetNextState(new AirUpState());
@@ -357,7 +357,7 @@ public class PlayerCombat : MonoBehaviour
             PlayerControllerForces.Instance.ExecuteUpAttack(true);
         }
         //Up ground attack
-        else if (playerController.Data.canGUpAttack)
+        else */if (playerController.Data.canGUpAttack)
         {
             //Debug.Log("Up Ground Attack");
             meleeStateMachine.SetNextState(new GroundUpState());
