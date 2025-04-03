@@ -14,7 +14,7 @@ public class Spirit : Interactable
     [SerializeField] public DialogueManager dialogueManager;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject mapIcon;
-    [SerializeField] private GameObject exclamationMark;
+    [SerializeField] public GameObject exclamationMark;
     [SerializeField] private PlayableDirector Collect;
     [SerializeField] private UnlockAbility UnlockMenu;
 
@@ -49,21 +49,6 @@ public class Spirit : Interactable
         spiritUI = UIManager.Instance.gameUI.GetComponentInChildren<SpiritCollectUI>();
         dialogueManager = FindObjectOfType<DialogueManager>();
         mapIcon.SetActive(true);
-        
-        if (UIManager.Instance.UnlockUI != null) 
-            UnlockMenu = UIManager.Instance.UnlockUI.GetComponent<UnlockAbility>();
-
-        spiritState = PersistentDataManager.Instance.GetSpiritState(this);
-
-        if (spiritState == SpiritState.Collected
-            || spiritID == SpiritID.HealthSpirit && PersistentDataManager.Instance.HealthCollectablesHeld >= 3)
-            exclamationMark.SetActive(true);
-        
-        else if (spiritState == SpiritState.Unlocked && PersistentDataManager.Instance.EnemyCurrency >= upgradeCost)
-            exclamationMark.SetActive(true);
-
-        else
-            exclamationMark.SetActive(false);
 
         switch (spiritID)
         {
@@ -71,12 +56,27 @@ public class Spirit : Interactable
                 upgradeCost = 500;
                 break;
             case SpiritID.HealthSpirit:
-                upgradeCost = 3; 
+                upgradeCost = 3;
                 break;
             case SpiritID.CombatSpirit:
                 upgradeCost = 1000;
                 break;
         }
+
+        if (UIManager.Instance.unlockUI != null) 
+            UnlockMenu = UIManager.Instance.unlockUI.GetComponent<UnlockAbility>();
+
+        spiritState = PersistentDataManager.Instance.GetSpiritState(this);
+
+        if (spiritState == SpiritState.Collected
+            || spiritID == SpiritID.HealthSpirit && PersistentDataManager.Instance.HealthCollectablesHeld >= upgradeCost)
+            exclamationMark.SetActive(true);
+        
+        else if (spiritState == SpiritState.Unlocked && PersistentDataManager.Instance.EnemyCurrency >= upgradeCost)
+            exclamationMark.SetActive(true);
+
+        else
+            exclamationMark.SetActive(false);
     }
 
     // Update is called once per frame

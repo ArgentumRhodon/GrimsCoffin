@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
   
     //Dialogue
     [SerializeField] public GameObject dialogueUI;
-    [SerializeField] public GameObject UnlockUI;
+    [SerializeField] public GameObject unlockUI;
 
     //Player Input
     [SerializeField] public PlayerInput playerInput;
@@ -88,6 +88,10 @@ public class UIManager : MonoBehaviour
 
         if (fullMapUI != null)
             if (fullMapUI.activeInHierarchy)
+                return;
+
+        if (unlockUI != null)
+            if (unlockUI.activeInHierarchy)
                 return;
 
         pauseScript.Pause();
@@ -236,7 +240,7 @@ public class UIManager : MonoBehaviour
             if (tilemap != null)
                 child.GetComponent<Tilemap>().color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, transparencyValue);
 
-            else if (tilemap == null && transparencyValue == 255)
+            else if (tilemap == null && transparencyValue == 1)
                 child.gameObject.SetActive(true);
 
             else
@@ -349,10 +353,10 @@ public class UIManager : MonoBehaviour
     {
         //Animate the UI
         this.GetComponent<DialogueManager>().canProgressDialogue = false;
-        UnlockUI.SetActive(true);
-        UnlockUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
+        unlockUI.SetActive(true);
+        unlockUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
 
-        EventSystem.current.SetSelectedGameObject(UnlockUI.GetComponent<UnlockAbility>().yes.gameObject);
+        EventSystem.current.SetSelectedGameObject(unlockUI.GetComponent<UnlockAbility>().no.gameObject);
 
         //Disable area text if it's active
         if (areaText != null)
@@ -381,7 +385,7 @@ public class UIManager : MonoBehaviour
     {
         //Animate the UI in reverse
         this.GetComponent<DialogueManager>().canProgressDialogue = false;
-        UnlockUI.GetComponent<Animator>().SetBool("ToggleDialogue", false);
+        unlockUI.GetComponent<Animator>().SetBool("ToggleDialogue", false);
 
         //Wait before giving control to the player
         float startTime = Time.realtimeSinceStartup;
@@ -393,7 +397,7 @@ public class UIManager : MonoBehaviour
         //Enable game UI and give control to the player
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
         gameUI.SetActive(true);
-        UnlockUI.SetActive(false);
+        unlockUI.SetActive(false);
         PlayerControllerForces.Instance.ToggleSleep(false);
         playerInput.SwitchCurrentActionMap("Player");
         Debug.Log("1111");

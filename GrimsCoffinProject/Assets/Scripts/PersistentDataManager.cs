@@ -209,6 +209,9 @@ public class PersistentDataManager : MonoBehaviour
                 PlayerPrefs.SetInt("HealthCollectablesHeld", collectablesHeld);
                 UIManager.Instance.ShowAbilityUnlock("Max Health Increased", AbilityName.NoAbility);
                 UIManager.Instance.RemoveHealthCollectables();
+
+                if (PlayerControllerForces.Instance.Data.maxHP < 80)
+                    spirit.spiritState = Spirit.SpiritState.Unlocked;
             }
         }
         

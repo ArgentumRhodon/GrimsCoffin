@@ -15,9 +15,8 @@ public class UnlockAbility : MonoBehaviour
     [SerializeField] private Image speakerIcon;
     [SerializeField] private List<Sprite> speakers;
     [SerializeField] public Button yes;
-    [SerializeField] private Button no;
+    [SerializeField] public Button no;
     [SerializeField] private TextMeshProUGUI Cost;
-    private int collectablesHeld;
 
     public enum UnlockCost
     {
@@ -29,10 +28,6 @@ public class UnlockAbility : MonoBehaviour
     public float currentcost;
     public Spirit currentspirit;
 
-    private void Start()
-    {
-        collectablesHeld = PersistentDataManager.Instance.HealthCollectablesHeld;
-    }
     // Update is called once per frame
     public void StartUnlock(Spirit spirit)
     {
@@ -62,8 +57,7 @@ public class UnlockAbility : MonoBehaviour
             currentunlockcost = UnlockCost.Herb;
             currentcost = spirit.upgradeCost;
             currentspirit = spirit;
-
-            if (collectablesHeld < currentcost)
+            if (PersistentDataManager.Instance.HealthCollectablesHeld < currentcost)
             {
                 yes.interactable = false;
             }
@@ -92,22 +86,9 @@ public class UnlockAbility : MonoBehaviour
 
     public void PurchaseAbility() 
     {
-        if (currentunlockcost == UnlockCost.Currency)
-        {
-            if (PersistentDataManager.Instance.EnemyCurrency >= currentcost)
-            {
-                PersistentDataManager.Instance.UpdateSpiritState(currentspirit);
-                UIManager.Instance.ToggleUnlockUI(false);
-            }
-        }
-        else if(currentunlockcost == UnlockCost.Herb)
-        {
-            if (collectablesHeld >= currentcost)
-            {
-                PersistentDataManager.Instance.UpdateSpiritState(currentspirit);
-                UIManager.Instance.ToggleUnlockUI(false);
-            }
-        }
+        PersistentDataManager.Instance.UpdateSpiritState(currentspirit);
+        UIManager.Instance.ToggleUnlockUI(false);
+        currentspirit.exclamationMark.SetActive(false);
     }
 
     public void Quit()

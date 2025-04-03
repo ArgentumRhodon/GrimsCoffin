@@ -40,6 +40,6 @@ public class EnemyCurrencyUI : MonoBehaviour
         if (addingCurrency)
             currencyAddedText.text = "+" + currencyAdded;
         else
-            currencyAddedText.text = "-" + currencyAdded;
+            currencyAddedText.text = currencyAdded.ToString();
     }
 }
