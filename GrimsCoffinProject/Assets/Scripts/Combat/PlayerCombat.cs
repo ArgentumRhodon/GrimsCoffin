@@ -190,7 +190,7 @@ public class PlayerCombat : MonoBehaviour
             if (value.isPressed && LastComboTime < 0)
             {
                 //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
-                if (playerState.IsDashing || Time.timeScale == 0)
+                if (playerState.IsDashing || Time.timeScale == 0 || playerState.IsSliding)
                     return;
 
                 //Check attack direction
