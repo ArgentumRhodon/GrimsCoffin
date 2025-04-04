@@ -12,41 +12,33 @@ public class PersistentDataManager : MonoBehaviour
 {
     public static PersistentDataManager Instance { get; private set; }
 
-    //Last Saved Location to spawn the player at when loading the game
+    //Game Progress Flags
     public Vector2 SpawnPoint { get { return new Vector2(PlayerPrefs.GetFloat("XSpawnPos", defaultXPos), PlayerPrefs.GetFloat("YSpawnPos", defaultYPos)); } }
-
-    //Last Saved Scene the player was in when they saved the game
     public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave", defaultSceneName); } }
-
-    //Last Saved Room the player was in when they saved the game
     public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 1); } }
-
-    //Whether or not this is the player's first time spawning into the game
     public bool FirstSpawn { get { return PlayerPrefs.GetInt("FirstSpawn", 0) == 1; } }
+    public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
 
     //Player Stat Values
     public float MaxHP { get { return PlayerPrefs.GetFloat("MaxHP", defaultHP); } }
     public float MaxSP { get { return PlayerPrefs.GetFloat("MaxSP", 0); } }
     public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier"); } }
 
-    //Player Ability Unlocks
+    //Player Ability Flags
     public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 0) == 1; } }
     public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 0) == 1; } }
     public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 0) == 1; } }
     public bool CanScytheThrow { get { return PlayerPrefs.GetInt("CanScytheThrow", 0) == 1; } }
     public bool CanViewMap { get { return PlayerPrefs.GetInt("CanViewMap", 0) == 1; } }
+    public int MapBought { get { return PlayerPrefs.GetInt("MapBought"); } }
     public bool CanUpAttack {  get { return PlayerPrefs.GetInt("CanUpAttack", 0) == 1; } }
     public bool CanDownAttack { get { return PlayerPrefs.GetInt("CanDownAttack", 0) == 1; } }
 
+    //Resources
     public int HealthCollectablesHeld { get { return PlayerPrefs.GetInt("HealthCollectablesHeld", 0); } }
-
-    //Whether or not the Player is entering the Denial Area Scene for the first time
-    public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
+    public float EnemyCurrency { get { return PlayerPrefs.GetFloat("EnemyCurrency"); } }
 
     public string ControlScheme { get { return PlayerPrefs.GetString("ControlScheme"); } }
-
-    public float EnemyCurrency { get { return PlayerPrefs.GetFloat("EnemyCurrency"); } }
-    public int MapBought { get { return PlayerPrefs.GetInt("MapBought"); } }
 
     //List of pesistently tracked objects in the scene
     [SerializeField] public List<Room> rooms;
@@ -347,6 +339,10 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("HealthSpirit", "Collected");
     }
 
+    /// <summary>
+    /// Sets a room to be explored so it is properly displayed on the Map UI
+    /// </summary>
+    /// <param name="roomIndex">The index of the room that has been explored</param>
     public void SetRoomExplored(int roomIndex)
     {
         PlayerPrefs.SetInt("LevelRoom" + roomIndex, 1);
@@ -354,6 +350,10 @@ public class PersistentDataManager : MonoBehaviour
         UIManager.Instance.UpdateMapUI();
     }
 
+    /// <summary>
+    /// Get all of the rooms that have been explored by the player
+    /// </summary>
+    /// <returns>Returns a list of bools, with true entries referring to explored rooms and false entries referring to unexplored rooms</returns>
     public List<bool> AreaRoomsLoaded()
     {
         List<bool> result = new List<bool>();
@@ -372,6 +372,10 @@ public class PersistentDataManager : MonoBehaviour
         return result;
     }
 
+    /// <summary>
+    /// Get which health collectables the player has obtained
+    /// </summary>
+    /// <returns>Returns a list of bools showing which health collectables have been obtained and which have not</returns>
     public List<bool> HealthUpgradesCollected()
     {
         List<bool> result = new List<bool>();
@@ -387,22 +391,40 @@ public class PersistentDataManager : MonoBehaviour
         return result;
     }
 
+    /// <summary>
+    /// Update how many health collectables the player has held when they pick one up
+    /// </summary>
+    /// <param name="collectableID">ID value for the health collectable</param>
     public void CollectHealthUpgrade(int collectableID)
     {
         UIManager.Instance.AddHealthCollectable();
         PlayerPrefs.SetInt("HealthCollectablesHeld", HealthCollectablesHeld + 1);
         PlayerPrefs.SetInt("HealthCollectable" + collectableID, 1);
     }
+
+    /// <summary>
+    /// Set the flag for the ScythePlatform to be cut down
+    /// </summary>
+    /// <param name="ropeIndex">Index for the platform ID</param>
     public void CutPlatform(int ropeIndex)
     {
         PlayerPrefs.SetInt("ScythePlatform" + ropeIndex, 1);
     }
 
+    /// <summary>
+    /// Set the flag for an arena being cleared
+    /// </summary>
+    /// <param name="arenaIndex">Index for the arena ID</param>
     public void ClearArena(int arenaIndex)
     {
         PlayerPrefs.SetInt("Arena" + arenaIndex, 1);
     }
 
+    /// <summary>
+    /// Update how much currency the player currently has
+    /// </summary>
+    /// <param name="value">The amount of currency to add/remove</param>
+    /// <param name="addingCurrency">Whether or not the currency is being added or subtracted from the player</param>
     public void UpdateEnemyCurrency(float value, bool addingCurrency)
     {
         PlayerPrefs.SetFloat("EnemyCurrency", EnemyCurrency + value);

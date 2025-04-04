@@ -81,6 +81,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Pause the game, with checks so the game isn't paused when other UI is active
+    /// </summary>
     public void Pause()
     {
         if (dialogueUI.activeInHierarchy || restPointMenu.gameObject.activeInHierarchy)
@@ -123,12 +126,14 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0.0f;
     }
 
+    //Add a health collectable icon to the player HUD when one is collected
     public void AddHealthCollectable()
     {
         PlayerStatsUI playerStats = gameUI.GetComponentInChildren<PlayerStatsUI>();
         playerStats.AddHealthCollectable();
     }
 
+    //Remove health collectable icons when the player uses them for an upgrade
     public void RemoveHealthCollectables()
     {
         PlayerStatsUI playerStats = gameUI.GetComponentInChildren<PlayerStatsUI>();
@@ -176,6 +181,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Toggle the ability purcase UI on/off
     public void ToggleUnlockUI(bool toggle)
     {
         if (toggle)
@@ -227,6 +233,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Show a map room on the UI, with the transparency changing based on if the room has been explored or not
+    /// </summary>
+    /// <param name="mapRoom">The room being shown</param>
+    /// <param name="transparencyValue">What opacity to draw the room on the map UI</param>
     private void ShowMapRoom(GameObject mapRoom, float transparencyValue)
     {
         mapRoom.SetActive(true);
@@ -260,6 +271,7 @@ public class UIManager : MonoBehaviour
             mapScript.PanMap(input, drag);
     }
 
+    //Reset map to the player's position
     public void ResetMap()
     {
         if (fullMapUI != null && mapScript != null)
@@ -290,6 +302,7 @@ public class UIManager : MonoBehaviour
         enemyCurrencyUI.UpdateCurrency(value, addingCurrency);
     }
 
+    //Play an animation when the player throws the scythe with no SP
     public void ScytheThrowFailed()
     {
         gameUI.transform.GetChild(1).GetComponent<PlayerStatsUI>().ScytheThrowFailed();
@@ -348,7 +361,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("1111");
     }
 
-    //Show dialogue UI
+    //Show Ability Purchase UI
     public IEnumerator ShowUnlock (float seconds)
     {
         //Animate the UI
@@ -369,7 +382,7 @@ public class UIManager : MonoBehaviour
         PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
         PlayerControllerForces.Instance.gameObject.GetComponent<PlayerCombat>().ResetCombo();
 
-        //Wait before allowing player to progress through dialogue
+        //Wait before allowing player to purchase ability
         float startTime = Time.realtimeSinceStartup;
         while (Time.realtimeSinceStartup - startTime < seconds)
         {
@@ -380,7 +393,7 @@ public class UIManager : MonoBehaviour
         playerInput.SwitchCurrentActionMap("UI");
     }
 
-    //Hides the dialogue UI
+    //Hides the Ability Purchase UI
     public IEnumerator HideUnlock(float seconds)
     {
         //Animate the UI in reverse

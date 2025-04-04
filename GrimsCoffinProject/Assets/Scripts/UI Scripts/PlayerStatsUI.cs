@@ -60,6 +60,7 @@ public class PlayerStatsUI : MonoBehaviour
         StartCoroutine(NoSpiritPower());
     }
 
+    //Animate SP meter to show the player has none
     private IEnumerator NoSpiritPower()
     {
         noSpiritPowerFeedback.SetActive(true);
