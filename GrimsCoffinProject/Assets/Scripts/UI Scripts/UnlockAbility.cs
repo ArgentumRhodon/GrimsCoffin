@@ -16,7 +16,8 @@ public class UnlockAbility : MonoBehaviour
     [SerializeField] private List<Sprite> speakers;
     [SerializeField] public Button yes;
     [SerializeField] public Button no;
-    [SerializeField] private TextMeshProUGUI Cost;
+    [SerializeField] private TextMeshProUGUI cost;
+    [SerializeField] private TextMeshProUGUI purchasePrompt;
 
     public enum UnlockCost
     {
@@ -36,7 +37,8 @@ public class UnlockAbility : MonoBehaviour
         speakerIcon.sprite = speakers[id-1];
         if (id==1) 
         {
-            Cost.text = "(" + spirit.upgradeCost + "<sprite index=0>)";
+            purchasePrompt.text = "Purchase map for the Enkar Frostlands?";
+            cost.text = "(" + spirit.upgradeCost + "<sprite index=0>)";
             currentunlockcost = UnlockCost.Currency;
             currentcost = spirit.upgradeCost;
             currentspirit = spirit;
@@ -53,7 +55,8 @@ public class UnlockAbility : MonoBehaviour
         }
         else if(id == 4)
         {
-            Cost.text = "(-3<sprite index=1>)";
+            purchasePrompt.text = "Increase your maximumn health?";
+            cost.text = "(-3<sprite index=1>)";
             currentunlockcost = UnlockCost.Herb;
             currentcost = spirit.upgradeCost;
             currentspirit = spirit;
@@ -68,7 +71,9 @@ public class UnlockAbility : MonoBehaviour
         }
         else if (id==5)
         {
-        Cost.text = "(" + spirit.upgradeCost + "<sprite index=0>)";
+
+            purchasePrompt.text = "Learn the downward attack?";
+            cost.text = "(" + spirit.upgradeCost + "<sprite index=0>)";
             currentunlockcost = UnlockCost.Currency;
             currentcost = spirit.upgradeCost;
             currentspirit = spirit;
