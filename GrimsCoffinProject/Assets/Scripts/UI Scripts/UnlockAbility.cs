@@ -55,7 +55,7 @@ public class UnlockAbility : MonoBehaviour
         }
         else if(id == 4)
         {
-            purchasePrompt.text = "Increase your maximumn health?";
+            purchasePrompt.text = "Increase your maximum health?";
             cost.text = "(-3<sprite index=1>)";
             currentunlockcost = UnlockCost.Herb;
             currentcost = spirit.upgradeCost;

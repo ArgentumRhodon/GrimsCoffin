@@ -446,6 +446,13 @@ public class UIManager : MonoBehaviour
             ToggleMap();
         }
 
+        else if (unlockUI.activeInHierarchy)
+        {
+            PlayerControllerForces.Instance.scytheThrown = true;
+            scytheThrowInMenu = true;
+            ToggleUnlockUI(false);
+        }    
+
         float startTime = Time.realtimeSinceStartup;
         while (Time.realtimeSinceStartup - startTime < seconds)
         {
