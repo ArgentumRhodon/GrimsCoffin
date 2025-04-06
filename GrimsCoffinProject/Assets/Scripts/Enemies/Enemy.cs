@@ -281,7 +281,7 @@ public abstract class Enemy : MonoBehaviour
         health -= damage;
 
         //Check for death
-        if (health <= 0)
+        /*if (health <= 0)
         {
             DeadNotifer.Invoke();
             Debug.Log("Enemy Destroyed");
@@ -333,7 +333,7 @@ public abstract class Enemy : MonoBehaviour
         //If the enemy is blocking, don't take damage
         if (enemyStateList.IsBlocking && isPlayerOnRight && enemyStateList.IsFacingRight)
             return;
-
+        ////////////////////////////*/
         DamagedNotifer.Invoke();
 
         //Camera shake based off of damage
