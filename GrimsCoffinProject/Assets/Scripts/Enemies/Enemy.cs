@@ -113,9 +113,13 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] public Collider2D attackCollider;
 
     //Event Notifier for FMOD -------------------------------------------------------------------------------------
-    [SerializeField] private UnityEvent oneShotNotifierA;
-    [SerializeField] private UnityEvent oneShotNotifierB;
-    [SerializeField] private UnityEvent oneShotNotifierD;
+    [Header("Common Enemy Action Notifier")] // ------------------------------------------------------
+    [Space(5)]
+    [SerializeField] private UnityEvent DamagedNotifer;
+    [SerializeField] private UnityEvent DeadNotifer;
+    [SerializeField] private UnityEvent IdleNotifer;
+    [SerializeField] private UnityEvent swordNotifier;
+    [SerializeField] private UnityEvent allStopNotifier;
     #endregion
 
     //Runtime Methods ---------------------------------------------------------------------------------------------
@@ -276,8 +280,61 @@ public abstract class Enemy : MonoBehaviour
         //Remove health
         health -= damage;
 
-        //Damage sound
-        oneShotNotifierA.Invoke();
+        //Check for death
+        if (health <= 0)
+        {
+            DeadNotifer.Invoke();
+            Debug.Log("Enemy Destroyed");
+            behaviorTree.DisableBehavior(false);
+            animator.enabled = false;
+            animator.enabled = true;
+            animator.Play("Dead");
+            gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
+            allStopNotifier.Invoke();
+            RemoveActiveEnemy();
+            DOVirtual.DelayedCall(1, DestroyEnemyGO, false);
+            return;
+        }
+        else
+        {
+            animator.SetTrigger("Hit");
+        }
+
+        //If the enemy can be stopped, sleep and take a knockback force
+        if (canBeStopped)
+        {
+            EndSleep();
+            enemyStateList.IsStaggered = true;
+            
+            if (!Grounded() && enemyStateList.IsStaggered)
+            {
+                Sleep(.4f, knockbackForce, 0);
+                staggerTimer = .4f;
+            }             
+            else
+                Sleep(staggerDuration, knockbackForce);
+        }
+        else
+        {
+            EndSleep();
+            Sleep(.05f, Vector2.zero);
+        }
+
+        if (shouldStagger)
+        {
+            enemyStateList.IsStaggered = true;
+            staggerTimer = staggerDuration;         
+        }
+            
+
+        //Update the player location
+        UpdatePlayerLoc();
+
+        //If the enemy is blocking, don't take damage
+        if (enemyStateList.IsBlocking && isPlayerOnRight && enemyStateList.IsFacingRight)
+            return;
+
+        DamagedNotifer.Invoke();
 
         //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
@@ -362,8 +419,6 @@ public abstract class Enemy : MonoBehaviour
     public virtual void DestroyEnemy()
     {
         SpawnDrop();
-
-        oneShotNotifierB.Invoke();
 
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);

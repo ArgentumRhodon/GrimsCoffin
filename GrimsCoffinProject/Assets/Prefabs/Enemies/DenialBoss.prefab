@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 718903789459102133}
   - component: {fileID: 5221432208766681811}
   - component: {fileID: 3389047393684360451}
+  - component: {fileID: 3827506929596359176}
   m_Layer: 11
   m_Name: BossSprite
   m_TagString: Untagged
@@ -105,7 +106,7 @@ Transform:
   m_GameObject: {fileID: 667738750706656892}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.61, y: 4.08, z: 0}
+  m_LocalPosition: {x: 2.61, y: 3.73, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -232,6 +233,153 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1108398, y: 2.0305176}
   m_EdgeRadius: 0
+--- !u!114 &3827506929596359176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667738750706656892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4532420d2831af64cbb9df6b454eef63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToIdleEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  TeleNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespontToTeleEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  AppearNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToAppearEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  AOEChargeNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToAOEChargeEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  AOESlamNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToAOESlamEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  AOEBeamNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToAOEBeamEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  LaserNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToLaserShootEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  BlastNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToBlastEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  DeadNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToDeadEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1238073733931305158
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,6 +682,7 @@ GameObject:
   - component: {fileID: 5961439708236319400}
   - component: {fileID: 8553554155213755390}
   - component: {fileID: 8423983451008128174}
+  - component: {fileID: 197537129458916791}
   m_Layer: 6
   m_Name: DenialBoss
   m_TagString: Enemy
@@ -665,15 +814,57 @@ MonoBehaviour:
   kinematicCollider: {fileID: 3625943854238356700}
   bodyCollider: {fileID: 8553554155213755390}
   attackCollider: {fileID: 3389047393684360451}
-  oneShotNotifierA:
+  DamagedNotifer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToDamagedEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  DeadNotifer:
     m_PersistentCalls:
       m_Calls: []
-  oneShotNotifierB:
+  IdleNotifer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: RespondToIdleEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  swordNotifier:
     m_PersistentCalls:
       m_Calls: []
-  oneShotNotifierD:
+  allStopNotifier:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 197537129458916791}
+        m_TargetAssemblyTypeName: FMOD_Object_BossListener, Assembly-CSharp
+        m_MethodName: stopAllEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   AOEColliders:
   - {fileID: 5739213568351705311}
   - {fileID: 7995083804779702369}
@@ -809,6 +1000,96 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &197537129458916791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5102692280267028376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8991cb6963ab54e8985fb73ca683df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamagedSFX:
+    Guid:
+      Data1: 164797280
+      Data2: 1240760516
+      Data3: 1384384667
+      Data4: -827887107
+    Path: event:/BOSS/general/310_Damaged
+  DeadSFX:
+    Guid:
+      Data1: 127123067
+      Data2: 1329013744
+      Data3: 1405600425
+      Data4: 358266057
+    Path: event:/BOSS/general/309_Death
+  IdleSFX:
+    Guid:
+      Data1: 156162525
+      Data2: 1092474648
+      Data3: 287590331
+      Data4: -1389069557
+    Path: event:/BOSS/general/308_Idle
+  AttackSFX:
+    Guid:
+      Data1: 1493175159
+      Data2: 1162284179
+      Data3: -446003804
+      Data4: -1643424005
+    Path: event:/Test/Test SFX/Test_000_Ding
+  TeleSFX:
+    Guid:
+      Data1: 1152751530
+      Data2: 1191923256
+      Data3: -1549145207
+      Data4: -1496555894
+    Path: event:/BOSS/general/306_Teleport
+  InstMoveSFX:
+    Guid:
+      Data1: -1601819059
+      Data2: 1080524322
+      Data3: 614666939
+      Data4: 2009509718
+    Path: event:/BOSS/general/307_Appear
+  AOEChargeSFX:
+    Guid:
+      Data1: 557425564
+      Data2: 1204794671
+      Data3: 2113611172
+      Data4: 1947665687
+    Path: event:/BOSS/AOE/301_Charge
+  AOESlamSFX:
+    Guid:
+      Data1: 1401568077
+      Data2: 1291153670
+      Data3: 784791704
+      Data4: -369155489
+    Path: event:/BOSS/AOE/302_Ground_Slam
+  AOEBeamSFX:
+    Guid:
+      Data1: -66164892
+      Data2: 1138197190
+      Data3: -881493314
+      Data4: -709691602
+    Path: event:/BOSS/AOE/303_Laser_Beam
+  LaserShootSFX:
+    Guid:
+      Data1: -415199683
+      Data2: 1214694444
+      Data3: -1272440925
+      Data4: 202370312
+    Path: event:/BOSS/general/305_Laser_Attack
+  BlastSFX:
+    Guid:
+      Data1: 1207757034
+      Data2: 1076599573
+      Data3: 520528525
+      Data4: 1306196226
+    Path: event:/BOSS/general/304_Blast_Attack
+  attenuation: 2
 --- !u!1 &6042402769451884072
 GameObject:
   m_ObjectHideFlags: 0
