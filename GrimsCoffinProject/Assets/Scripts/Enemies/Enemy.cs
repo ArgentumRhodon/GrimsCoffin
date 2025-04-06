@@ -106,6 +106,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] public Collider2D attackCollider;
 
     //Event Notifier for FMOD -------------------------------------------------------------------------------------
+    [Header("Common Enemy Action Notifier")] // ------------------------------------------------------
+    [Space(5)]
     [SerializeField] private UnityEvent DamagedNotifer;
     [SerializeField] private UnityEvent DeadNotifer;
     [SerializeField] private UnityEvent IdleNotifer;

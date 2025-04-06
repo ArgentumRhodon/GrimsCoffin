@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="MixerGroup" id="{4eb4eb74-14c4-490f-9e65-8838af4f1261}">
 		<property name="name">
-			<value>SFX_BOSS</value>
+			<value>SFX_BOSS_Normal</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{67f3578c-f72d-41d2-a5e1-cb074c8a8e8d}</destination>
@@ -16,9 +16,17 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{67f3578c-f72d-41d2-a5e1-cb074c8a8e8d}">
 		<relationship name="effects">
+			<destination>{447d250b-7d92-45c2-8d72-9ebd20ff36b9}</destination>
 			<destination>{6b8933de-fe3b-41c0-a017-3f9ccd6a6087}</destination>
+			<destination>{a0373442-0003-46d0-94b7-0cb4a5617391}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{1cc0a682-1bce-44a3-bdd0-3675954cc14f}" />
+	<object class="GainEffect" id="{447d250b-7d92-45c2-8d72-9ebd20ff36b9}">
+		<property name="gain">
+			<value>-6</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{6b8933de-fe3b-41c0-a017-3f9ccd6a6087}" />
+	<object class="Sidechain" id="{a0373442-0003-46d0-94b7-0cb4a5617391}" />
 </objects>

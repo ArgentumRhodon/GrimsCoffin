@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DenialBoss : Enemy
 {
@@ -65,6 +66,8 @@ public class DenialBoss : Enemy
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);
     }
+
+
 
 /*    public void BackToMainCamera()
     {
