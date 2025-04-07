@@ -47,6 +47,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public SavePoint activeSavePoint;
 
     public GameObject bossHealthBar;
+    public GameObject bossMapIcon;
     public GameObject endStateText;
 
     public bool scytheThrowInMenu;

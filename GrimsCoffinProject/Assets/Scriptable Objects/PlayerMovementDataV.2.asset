@@ -44,7 +44,7 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
-  canWallJump: 0
+  canWallJump: 1
   canWallJumpCancel: 1
   wallJumpForce: {x: 15.5, y: 16.5}
   wallJumpRunLerp: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   slideAccel: 1
   coyoteTime: 0.2
   jumpInputBufferTime: 0.2
-  canDash: 0
+  canDash: 1
   dashAmount: 1
   dashSpeed: 27
   dashSleepTime: 0.025
@@ -88,7 +88,7 @@ MonoBehaviour:
   combo2Damage: 4
   combo3Damage: 7
   combo4Damage: 10
-  canGUpAttack: 1
+  canGUpAttack: 0
   groundUpwardPForce: 0
   groundUpwardEForce: {x: 1.2, y: 10}
   gUpAttackDuration: 0.4
@@ -113,4 +113,4 @@ MonoBehaviour:
   aerialDownDamage: 7
   aerialImpactDamage: 5
   canScytheThrow: 0
-  canViewMap: 0
+  canViewMap: 1
