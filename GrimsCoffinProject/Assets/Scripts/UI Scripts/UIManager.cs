@@ -8,6 +8,7 @@ using System;
 using BehaviorDesigner.Runtime.Tasks.Unity.SharedVariables;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -122,9 +123,25 @@ public class UIManager : MonoBehaviour
     public void HandlePlayerDeath()
     {
         gameUI.SetActive(false);
-        PersistentDataManager.Instance.ToggleFirstSpawn(true);
         deathScreen.SetActive(true);
+        CutCam();
+        //this.GetComponent<CameraManager>().CameraReset();
         Time.timeScale = 0.0f;
+        this.GetComponent<CameraManager>().CameraReset();
+        PersistentDataManager.Instance.ToggleFirstSpawn(true);
+        //DOVirtual.DelayedCall(1, CutCam, true);
+        DOVirtual.DelayedCall(5, ResetCamera, true);
+    }
+
+    private void ResetCamera()
+    {
+        this.GetComponent<CameraManager>().ResetUICamera();
+        this.GetComponent<CameraManager>().CameraControl.m_DefaultBlend = new Cinemachine.CinemachineBlendDefinition(Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 1.5f);
+    }
+
+    private void CutCam() 
+    {
+        this.GetComponent<CameraManager>().CameraControl.m_DefaultBlend = new Cinemachine.CinemachineBlendDefinition(Cinemachine.CinemachineBlendDefinition.Style.EaseInOut, 0.1f);
     }
 
     //Add a health collectable icon to the player HUD when one is collected

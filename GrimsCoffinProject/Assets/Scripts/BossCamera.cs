@@ -13,6 +13,8 @@ public class BossCamera : MonoBehaviour
 
     [SerializeField]
     private CinemachineVirtualCamera followCam;
+    [SerializeField]
+    private Camera UICamera;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,7 @@ public class BossCamera : MonoBehaviour
         {
             camMgr.ChangeCamera(bossVirtualCam);
             camMgr.Vcam = bossVirtualCam;
+            UICamera.orthographicSize = 10f;
         }
     }
 
