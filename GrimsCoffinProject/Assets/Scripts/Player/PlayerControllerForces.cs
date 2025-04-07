@@ -224,6 +224,7 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canAUpAttack = PersistentDataManager.Instance.CanUpAttack;
         Data.canGDownAttack = PersistentDataManager.Instance.CanDownAttack;
         Data.canADownAttack = PersistentDataManager.Instance.CanDownAttack;
+        Data.damageMultiplier = PersistentDataManager.Instance.DamageMultiplier;
 
         if (!PersistentDataManager.Instance.CanScytheThrow)
             currentSP = 0;
