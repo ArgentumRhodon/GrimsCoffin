@@ -11,7 +11,7 @@ namespace Core.AI
         {
             if(enemyScript.CombatCoordinator != null)
             {
-                if(enemyScript.CombatCoordinator.EnemiesInCombat.Count == 1 && enemyScript.CombatCoordinator.EnemiesInCombat.ContainsKey(enemyScript))
+                if(enemyScript.CombatCoordinator.EnemiesInCombat.Count == 1 && enemyScript.CombatCoordinator.EnemiesInCombat.ContainsKey(enemyScript) && enemyScript.CombatCoordinator.MaxTicketTotal == 0)
                 {
                     return TaskStatus.Success;
                 }

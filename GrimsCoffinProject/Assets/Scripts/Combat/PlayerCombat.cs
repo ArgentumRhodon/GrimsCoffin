@@ -111,7 +111,6 @@ public class PlayerCombat : MonoBehaviour
         playerState = GetComponent<PlayerStateList>();
         playerController = GetComponent<PlayerControllerForces>();
         attackQueue = new List<AttackDirection>();
-        Data = playerController.Data;
 
         if (scytheAnimator == null)
         {

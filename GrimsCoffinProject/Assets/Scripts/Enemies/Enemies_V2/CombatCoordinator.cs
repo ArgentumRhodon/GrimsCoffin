@@ -20,7 +20,7 @@ public class CombatCoordinator : MonoBehaviour
     //Enemies in combat list and associated methods to access/add data
     private Dictionary<Enemy, bool> enemiesInCombat = new Dictionary<Enemy, bool>(); //Enemies that have the player in their vision range
     public Dictionary<Enemy, bool> EnemiesInCombat { get { return enemiesInCombat; } }
-
+    public int MaxTicketTotal { get { return maxTicketTotal; } }
     private int CurrentTicketTotal
     { 
         get 
