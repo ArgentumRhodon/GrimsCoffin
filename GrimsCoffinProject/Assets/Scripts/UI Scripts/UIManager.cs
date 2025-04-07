@@ -5,6 +5,9 @@ using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System;
+using BehaviorDesigner.Runtime.Tasks.Unity.SharedVariables;
+using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public PauseScreenBehavior pauseScript;
     [SerializeField] public RestPointMenu restPointMenu;
     [SerializeField] private Map mapScript;
+    [SerializeField] private EnemyCurrencyUI enemyCurrencyUI;
 
     //Post-Processing & Effects
     [SerializeField] private GameObject deathScreen;
@@ -35,6 +39,7 @@ public class UIManager : MonoBehaviour
   
     //Dialogue
     [SerializeField] public GameObject dialogueUI;
+    [SerializeField] public GameObject unlockUI;
 
     //Player Input
     [SerializeField] public PlayerInput playerInput;
@@ -42,6 +47,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public SavePoint activeSavePoint;
 
     public GameObject bossHealthBar;
+    public GameObject bossMapIcon;
     public GameObject endStateText;
 
     public bool scytheThrowInMenu;
@@ -76,6 +82,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Pause the game, with checks so the game isn't paused when other UI is active
+    /// </summary>
     public void Pause()
     {
         if (dialogueUI.activeInHierarchy || restPointMenu.gameObject.activeInHierarchy)
@@ -83,6 +92,10 @@ public class UIManager : MonoBehaviour
 
         if (fullMapUI != null)
             if (fullMapUI.activeInHierarchy)
+                return;
+
+        if (unlockUI != null)
+            if (unlockUI.activeInHierarchy)
                 return;
 
         pauseScript.Pause();
@@ -114,12 +127,14 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0.0f;
     }
 
+    //Add a health collectable icon to the player HUD when one is collected
     public void AddHealthCollectable()
     {
         PlayerStatsUI playerStats = gameUI.GetComponentInChildren<PlayerStatsUI>();
         playerStats.AddHealthCollectable();
     }
 
+    //Remove health collectable icons when the player uses them for an upgrade
     public void RemoveHealthCollectables()
     {
         PlayerStatsUI playerStats = gameUI.GetComponentInChildren<PlayerStatsUI>();
@@ -167,6 +182,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Toggle the ability purcase UI on/off
+    public void ToggleUnlockUI(bool toggle)
+    {
+        if (toggle)
+        {
+            StartCoroutine(ShowUnlock(.5f));
+        }
+        else
+        {
+            StartCoroutine(HideUnlock(1.3f));
+        }
+    }
+
+
     //Show save icon for specified time
     public IEnumerator ShowSaveIcon(float seconds)
     {
@@ -193,8 +222,41 @@ public class UIManager : MonoBehaviour
             {
                 //If a room is explored, set it active
                 if (roomsExplored[i] && mapRooms.Count > 0)
-                    mapRooms[i].SetActive(true);
+                {
+                    ShowMapRoom(mapRooms[i], 1);
+                }   
+
+                else if (!roomsExplored[i] && PersistentDataManager.Instance.MapBought == 1)
+                {
+                    ShowMapRoom(mapRooms[i], 0.4f);
+                }
             }
+        }
+    }
+
+    /// <summary>
+    /// Show a map room on the UI, with the transparency changing based on if the room has been explored or not
+    /// </summary>
+    /// <param name="mapRoom">The room being shown</param>
+    /// <param name="transparencyValue">What opacity to draw the room on the map UI</param>
+    private void ShowMapRoom(GameObject mapRoom, float transparencyValue)
+    {
+        mapRoom.SetActive(true);
+        Tilemap tilemap = mapRoom.GetComponent<Tilemap>();
+        // Debug.Log(tilemap);
+        mapRoom.GetComponent<Tilemap>().color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, transparencyValue);
+        foreach (Transform child in mapRoom.transform)
+        {
+            tilemap = child.GetComponent<Tilemap>();
+
+            if (tilemap != null)
+                child.GetComponent<Tilemap>().color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, transparencyValue);
+
+            else if (tilemap == null && transparencyValue == 1)
+                child.gameObject.SetActive(true);
+
+            else
+                child.gameObject.SetActive(false);
         }
     }
 
@@ -210,6 +272,7 @@ public class UIManager : MonoBehaviour
             mapScript.PanMap(input, drag);
     }
 
+    //Reset map to the player's position
     public void ResetMap()
     {
         if (fullMapUI != null && mapScript != null)
@@ -233,6 +296,17 @@ public class UIManager : MonoBehaviour
         GameObject popup = Instantiate(abilityUnlockPrefab, gameUI.transform);
         popup.GetComponent<AbilityUnlock>().unlockMessage = abilityName;
         popup.GetComponent<AbilityUnlock>().abilityName = name;
+    }
+
+    public void UpdateEnemyCurrency(float value, bool addingCurrency)
+    {
+        enemyCurrencyUI.UpdateCurrency(value, addingCurrency);
+    }
+
+    //Play an animation when the player throws the scythe with no SP
+    public void ScytheThrowFailed()
+    {
+        gameUI.transform.GetChild(1).GetComponent<PlayerStatsUI>().ScytheThrowFailed();
     }
 
     //Show dialogue UI
@@ -288,6 +362,61 @@ public class UIManager : MonoBehaviour
         Debug.Log("1111");
     }
 
+    //Show Ability Purchase UI
+    public IEnumerator ShowUnlock (float seconds)
+    {
+        //Animate the UI
+        this.GetComponent<DialogueManager>().canProgressDialogue = false;
+        unlockUI.SetActive(true);
+        unlockUI.GetComponent<Animator>().SetBool("ToggleDialogue", true);
+
+        EventSystem.current.SetSelectedGameObject(unlockUI.GetComponent<UnlockAbility>().no.gameObject);
+
+        //Disable area text if it's active
+        if (areaText != null)
+            areaText.SetActive(false);
+
+        gameUI.SetActive(false);
+        PlayerControllerForces.Instance.ToggleSleep(true);
+
+        //Disable player control
+        PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(false);
+        PlayerControllerForces.Instance.gameObject.GetComponent<PlayerCombat>().ResetCombo();
+
+        //Wait before allowing player to purchase ability
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < seconds)
+        {
+            yield return null;
+        }
+
+        this.GetComponent<DialogueManager>().canProgressDialogue = true;
+        playerInput.SwitchCurrentActionMap("UI");
+    }
+
+    //Hides the Ability Purchase UI
+    public IEnumerator HideUnlock(float seconds)
+    {
+        //Animate the UI in reverse
+        this.GetComponent<DialogueManager>().canProgressDialogue = false;
+        unlockUI.GetComponent<Animator>().SetBool("ToggleDialogue", false);
+
+        //Wait before giving control to the player
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < seconds)
+        {
+            yield return null;
+        }
+
+        //Enable game UI and give control to the player
+        PlayerControllerForces.Instance.interactionPrompt.gameObject.SetActive(true);
+        gameUI.SetActive(true);
+        unlockUI.SetActive(false);
+        PlayerControllerForces.Instance.ToggleSleep(false);
+        playerInput.SwitchCurrentActionMap("Player");
+        Debug.Log("1111");
+    }
+
     //Cancel out of menus that are active
     public IEnumerator Cancel(float seconds)
     {
@@ -317,6 +446,13 @@ public class UIManager : MonoBehaviour
             scytheThrowInMenu = true;
             ToggleMap();
         }
+
+        else if (unlockUI.activeInHierarchy)
+        {
+            PlayerControllerForces.Instance.scytheThrown = true;
+            scytheThrowInMenu = true;
+            ToggleUnlockUI(false);
+        }    
 
         float startTime = Time.realtimeSinceStartup;
         while (Time.realtimeSinceStartup - startTime < seconds)

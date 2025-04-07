@@ -14,8 +14,8 @@ public class MeleeComboState : MeleeBaseState
         base.OnEnter(_stateMachine);
 
         //Set attack variables
-        attackDamage = playerCombat.Data.combo2Damage;
-        playerCombat.AttackDurationTime = playerCombat.Data.comboAttackDuration;
+        attackDamage = PlayerControllerForces.Instance.Data.combo2Damage;
+        playerCombat.AttackDurationTime = PlayerControllerForces.Instance.Data.comboAttackDuration;
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)

@@ -201,10 +201,10 @@ AnimatorStateMachine:
     m_Position: {x: 300, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7809564793863972138}
-    m_Position: {x: 300, y: 300, z: 0}
+    m_Position: {x: 300, y: 340, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3403038722357775727}
-    m_Position: {x: 300, y: 340, z: 0}
+    m_Position: {x: 300, y: 410, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8989512348261179640}
     m_Position: {x: 300, y: 70, z: 0}
@@ -223,6 +223,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -8715459747057721169}
     m_Position: {x: 530, y: 150, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 5807734834884324207}
+    m_Position: {x: 300, y: 300, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -492,6 +495,25 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+--- !u!114 &2723633472031698172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274db0bfa2f598547b3965c44b76f7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackFX:
+    Guid:
+      Data1: -1527413983
+      Data2: 1280341793
+      Data3: -1821909356
+      Data4: -741030316
+    Path: event:/PL/Grim/101_Scyche_Swing
 --- !u!114 &4336719807600440481
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -530,6 +552,33 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+--- !u!1102 &5807734834884324207
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Attack3
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: 2723633472031698172}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 8ec462bcb9600d04c962b7706ab763ce, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &6127093612019667945
 AnimatorState:
   serializedVersion: 6
@@ -590,7 +639,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Attack3
+  m_Name: AttackUp
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

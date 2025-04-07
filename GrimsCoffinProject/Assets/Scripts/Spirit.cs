@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
+using static Spirit;
 
 public class Spirit : Interactable
 {
@@ -13,8 +14,11 @@ public class Spirit : Interactable
     [SerializeField] public DialogueManager dialogueManager;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject mapIcon;
-    [SerializeField] private GameObject exclamationMark;
+    [SerializeField] public GameObject exclamationMark;
     [SerializeField] private PlayableDirector Collect;
+    [SerializeField] private UnlockAbility UnlockMenu;
+
+    public float upgradeCost;
 
     public enum SpiritID
     {
@@ -22,6 +26,7 @@ public class Spirit : Interactable
         DashSpirit = 2,
         ScytheThrowSpirit = 3,
         HealthSpirit = 4,
+        CombatSpirit = 5
     }
 
     [SerializeField] public SpiritState spiritState;
@@ -29,7 +34,8 @@ public class Spirit : Interactable
     {
         Uncollected = 0,
         Collected = 1,
-        Idle = 2,
+        Unlocked = 2,
+        Idle = 3,
     }
 
     private void Awake()
@@ -44,13 +50,30 @@ public class Spirit : Interactable
         dialogueManager = FindObjectOfType<DialogueManager>();
         mapIcon.SetActive(true);
 
+        switch (spiritID)
+        {
+            case SpiritID.MapSpirit:
+                upgradeCost = 500;
+                break;
+            case SpiritID.HealthSpirit:
+                upgradeCost = 3;
+                break;
+            case SpiritID.CombatSpirit:
+                upgradeCost = 1000;
+                break;
+        }
+
+        if (UIManager.Instance.unlockUI != null) 
+            UnlockMenu = UIManager.Instance.unlockUI.GetComponent<UnlockAbility>();
+
         spiritState = PersistentDataManager.Instance.GetSpiritState(this);
 
         if (spiritState == SpiritState.Collected
-            || spiritID == SpiritID.HealthSpirit && PersistentDataManager.Instance.HealthCollectablesHeld >= 3)
-        {
+            || spiritID == SpiritID.HealthSpirit && PersistentDataManager.Instance.HealthCollectablesHeld >= upgradeCost)
             exclamationMark.SetActive(true);
-        }
+        
+        else if (spiritState == SpiritState.Unlocked && PersistentDataManager.Instance.EnemyCurrency >= upgradeCost)
+            exclamationMark.SetActive(true);
 
         else
             exclamationMark.SetActive(false);
@@ -79,25 +102,33 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
-        if (dialogueManager != null)
+        if (spiritState != SpiritState.Unlocked)
         {
-            exclamationMark.SetActive(false);
-            dialogueManager.ShowDialogueForSpirit(this);
+            if (dialogueManager != null)
+            {
+                exclamationMark.SetActive(false);
+                dialogueManager.ShowDialogueForSpirit(this);
+            }
         }
-
-        //if (spiritState == SpiritState.Uncollected)
-        //{
-        //PersistentDataManager.Instance.UpdateSpiritState(this);
-
-        //spiritUI.ShowSpiritCollectedText();
-
-        //Debug.Log("Spirit Collected: " + spiritID.ToString());
-
-        //Destroy(this.gameObject.transform.parent.gameObject);
-        // }
-        //else if (spiritState == SpiritState.Collected)
-        //{
-        // PersistentDataManager.Instance.UpdateSpiritState(this);
-        // }
+        else if (spiritState == SpiritState.Unlocked)
+        {
+            if (spiritID == SpiritID.MapSpirit)
+            {
+                UnlockMenu.StartUnlock(this);
+            }
+            else if (spiritID == SpiritID.HealthSpirit)
+            {
+                UnlockMenu.StartUnlock(this);
+            }
+            else if (spiritID == SpiritID.CombatSpirit)
+            {
+                UnlockMenu.StartUnlock(this);
+            }
+            else
+            {
+                PersistentDataManager.Instance.UpdateSpiritState(this);
+                PerformInteraction();
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DenialBoss : Enemy
 {
@@ -60,11 +61,16 @@ public class DenialBoss : Enemy
     public override void DestroyEnemyGO()
     {
         if (PlayerControllerForces.Instance.currentHP > 0)
+        {
             UIManager.Instance.endStateText.SetActive(true);
+            UIManager.Instance.bossMapIcon.SetActive(false);
+        }
 
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);
     }
+
+
 
 /*    public void BackToMainCamera()
     {

@@ -244,7 +244,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oneShotNotifierA:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1234529735571359861}
+        m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
+        m_MethodName: RespondToFrameMoveEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   oneShotNotifierB:
     m_PersistentCalls:
       m_Calls: []
@@ -254,9 +266,9 @@ MonoBehaviour:
   oneShotNotifierD:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -7325185424103787221}
-        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
-        m_MethodName: RespondToEventD
+      - m_Target: {fileID: 1234529735571359861}
+        m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
+        m_MethodName: RespondToAttackEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -472,7 +484,7 @@ GameObject:
   - component: {fileID: 94677831419472786}
   - component: {fileID: 6253059432297718794}
   - component: {fileID: 4799350087178466909}
-  - component: {fileID: -7325185424103787221}
+  - component: {fileID: 1234529735571359861}
   m_Layer: 6
   m_Name: Basic Ghost
   m_TagString: Enemy
@@ -562,6 +574,7 @@ MonoBehaviour:
   isStaggered: 0
   health: 20
   visionRange: 1
+  currencyValue: 50
   collisionDamage: 0
   damageOnCollision: 0
   canOverlapPlayer: 1
@@ -602,12 +615,12 @@ MonoBehaviour:
   closeRangeCollider: {fileID: 0}
   bodyCollider: {fileID: 2426847185208555203}
   attackCollider: {fileID: 2798288149803154148}
-  oneShotNotifierA:
+  DamagedNotifer:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -7325185424103787221}
-        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
-        m_MethodName: RespondToEventA
+      - m_Target: {fileID: 1234529735571359861}
+        m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
+        m_MethodName: RespondToDamagedEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -617,12 +630,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  oneShotNotifierB:
+  DeadNotifer:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -7325185424103787221}
-        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
-        m_MethodName: RespondToEventB
+      - m_Target: {fileID: 1234529735571359861}
+        m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
+        m_MethodName: RespondToDeadEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -632,9 +645,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  oneShotNotifierD:
+  IdleNotifer:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1234529735571359861}
+        m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
+        m_MethodName: RespondToIdleEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  swordNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1234529735571359861}
+        m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
+        m_MethodName: RespondToAttackEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  allStopNotifier:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1234529735571359861}
+        m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
+        m_MethodName: stopAllEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3798072882021425381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,7 +815,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-7325185424103787221
+--- !u!114 &1234529735571359861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -769,38 +824,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 4567458006229910762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92623db9bba39764babfdc9a57b554a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 485fcefe0e059754a97af5959389933e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneShotFXA:
+  DamagedSFX:
     Guid:
       Data1: -1752065024
       Data2: 1331801174
       Data3: 610437012
       Data4: 1948479402
     Path: event:/ENM/Ghost/202_Injured
-  oneShotFXB:
+  DeadSFX:
     Guid:
       Data1: 2123178684
       Data2: 1152742731
       Data3: -526411102
       Data4: -89292590
     Path: event:/ENM/Ghost/204_Die
-  oneShotFXC:
+  IdleSFX:
     Guid:
-      Data1: -1567834144
-      Data2: 1245494522
-      Data3: 1599080376
-      Data4: 2019967672
-    Path: event:/Test/Test SFX/Test_007_IdleSound
-  oneShotFXD:
+      Data1: 2044562987
+      Data2: 1178819596
+      Data3: -426576974
+      Data4: 1904979554
+    Path: event:/ENM/Ghost/206_Idle
+  AttackSFX:
     Guid:
-      Data1: -198292960
-      Data2: 1142966131
-      Data3: 1217122709
-      Data4: -1048581206
-    Path: event:/Test/Test SFX/Test_006_Sword
-  attenuation: 1
+      Data1: -1248384983
+      Data2: 1198640461
+      Data3: 701777805
+      Data4: 519530992
+    Path: event:/ENM/Ghost/208_Attack
+  FrameMoveSFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  InstMoveSFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  attenuation: 0.75
 --- !u!1 &6739004351742520192
 GameObject:
   m_ObjectHideFlags: 0

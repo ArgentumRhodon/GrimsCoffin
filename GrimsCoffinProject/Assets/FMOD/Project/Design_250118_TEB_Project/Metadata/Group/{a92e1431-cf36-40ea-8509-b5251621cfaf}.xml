@@ -27,6 +27,8 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{fb0dcffd-a9cd-4720-8ed9-ab8f4237e8eb}">
 		<relationship name="effects">
+			<destination>{2376a974-c796-4bb9-8e28-07208e460acc}</destination>
+			<destination>{a786c240-00cd-46c8-9e73-34804e3d872a}</destination>
 			<destination>{6f1f79c0-bdce-484c-a336-57942a07c119}</destination>
 			<destination>{e7999ef0-62e9-4720-afc9-93200a51e631}</destination>
 			<destination>{337cefea-ff6e-49af-a2a6-c54592850e9a}</destination>
@@ -40,6 +42,38 @@
 		<relationship name="automationPoints">
 			<destination>{36e07f2d-94a0-4f84-b29c-0b9d564e651b}</destination>
 			<destination>{d8904996-0ef9-48ad-ae07-30ecae3b249a}</destination>
+		</relationship>
+	</object>
+	<object class="MultibandEqEffect" id="{2376a974-c796-4bb9-8e28-07208e460acc}">
+		<property name="filterTypeA">
+			<value>3</value>
+		</property>
+		<property name="filterTypeB">
+			<value>6</value>
+		</property>
+		<property name="frequencyA">
+			<value>22000</value>
+		</property>
+		<property name="frequencyB">
+			<value>20</value>
+		</property>
+		<property name="qualityA">
+			<value>0.359999985</value>
+		</property>
+		<property name="qualityB">
+			<value>0.419999987</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{5d2bb7b9-d5b0-4491-9370-4a7bc5509296}</destination>
+			<destination>{a5e3fb23-7a33-4f46-9893-ea25383d2ce5}</destination>
+		</relationship>
+	</object>
+	<object class="CompressorEffect" id="{a786c240-00cd-46c8-9e73-34804e3d872a}">
+		<property name="threshold">
+			<value>-18</value>
+		</property>
+		<relationship name="sidechains">
+			<destination>{b16c9e02-2b78-4fc8-9b3e-6fe8a2ffc4a0}</destination>
 		</relationship>
 	</object>
 	<object class="GainEffect" id="{6f1f79c0-bdce-484c-a336-57942a07c119}">
@@ -92,5 +126,39 @@
 		<property name="value">
 			<value>-80</value>
 		</property>
+	</object>
+	<object class="SidechainModulator" id="{5d2bb7b9-d5b0-4491-9370-4a7bc5509296}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>frequencyA</value>
+		</property>
+		<property name="amount">
+			<value>-30</value>
+		</property>
+		<property name="attackTime">
+			<value>120</value>
+		</property>
+		<property name="releaseTime">
+			<value>60</value>
+		</property>
+		<relationship name="sidechains">
+			<destination>{b16c9e02-2b78-4fc8-9b3e-6fe8a2ffc4a0}</destination>
+		</relationship>
+	</object>
+	<object class="SidechainModulator" id="{a5e3fb23-7a33-4f46-9893-ea25383d2ce5}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>frequencyB</value>
+		</property>
+		<property name="amount">
+			<value>-30</value>
+		</property>
+		<property name="attackTime">
+			<value>120</value>
+		</property>
+		<property name="releaseTime">
+			<value>60</value>
+		</property>
+		<relationship name="sidechains">
+			<destination>{b16c9e02-2b78-4fc8-9b3e-6fe8a2ffc4a0}</destination>
+		</relationship>
 	</object>
 </objects>

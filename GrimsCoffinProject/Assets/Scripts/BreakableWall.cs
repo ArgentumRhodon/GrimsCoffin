@@ -11,7 +11,12 @@ public class BreakableWall : MonoBehaviour
     [SerializeField]
     private bool isOneWay;
 
+    [SerializeField]
+    private bool isLeft;
+
     private float health = 5;
+
+    private Vector2 playerPos;
 
     [SerializeField] private GameObject hitEffect;
 
@@ -38,6 +43,7 @@ public class BreakableWall : MonoBehaviour
     void Start()
     {
         textureSetter();
+        playerPos = PlayerControllerForces.Instance.transform.position;
     }
 
     // Update is called once per frame
@@ -48,25 +54,32 @@ public class BreakableWall : MonoBehaviour
 
     public void TakeDamage(float damage = 1)
     {
-        //Remove health
-        if((health - damage) > 0)
+        if (isOneWay && !CheckPlayerPos())
         {
-            hitInstance.start();
+            return;
         }
+        else 
+        { 
+            //Remove health
+            if ((health - damage) > 0)
+            {
+                hitInstance.start();
+            }
 
-        health -= damage;
-        Debug.Log("The Damage has been dealt");
+            health -= damage;
+            Debug.Log("The Damage has been dealt");
 
-        //Camera shake based off of damage
-        CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
+            //Camera shake based off of damage
+            CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
 
-        Instantiate(hitEffect, this.transform.position, Quaternion.identity);
+            Instantiate(hitEffect, this.transform.position, Quaternion.identity);
 
-        //Enemy death calculation
-        if (health <= 0)
-        {
-            breakInstance.start();
-            Destroy(this.gameObject);
+            //Enemy death calculation
+            if (health <= 0)
+            {
+                breakInstance.start();
+                Destroy(this.gameObject);
+            }
         }
 
     }
@@ -83,5 +96,16 @@ public class BreakableWall : MonoBehaviour
 
         breakInstance.setParameterByName(breakParameter.name, (float)wallTexture);
         hitInstance.setParameterByName(hitParameter.name, (float)wallTexture);
+    }
+
+    private bool CheckPlayerPos()
+    {
+        playerPos = PlayerControllerForces.Instance.transform.position;
+        if (playerPos.x < this.transform.position.x && isLeft)
+            return true;
+        else if (playerPos.x > this.transform.position.x && !isLeft)
+            return true;
+        else
+            return false;
     }
 }

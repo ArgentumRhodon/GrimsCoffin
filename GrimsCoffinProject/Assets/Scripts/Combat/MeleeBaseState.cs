@@ -18,6 +18,7 @@ public class MeleeBaseState : CState
     //Index of sequence in attack
     protected int attackIndex;
     protected float attackDamage;
+    protected float comboFinisherKnockbackMultiplier = 7.5f;
 
     protected PlayerCombat playerCombat;
 
@@ -92,6 +93,20 @@ public class MeleeBaseState : CState
 
                     RegisterAttackWall(collidersToDamage[i]);
                 }
+                if(hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Spike)
+                {
+                    if (collidersToDamage[i].GetComponent<PolygonCollider2D>() != null)
+                        continue;
+
+                    RegisterAttackSpike(collidersToDamage[i]);
+                }
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Rope)
+                {
+                    if (collidersToDamage[i].GetComponent<PolygonCollider2D>() != null)
+                        continue;
+
+                    RegisterAttackRope(collidersToDamage[i]);
+                }
             }
         }
     }
@@ -99,6 +114,12 @@ public class MeleeBaseState : CState
     protected virtual void RegisterAttack(Collider2D collidersToDamage)
     {
         Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
+        if (attackIndex == 3)
+        {
+            knockbackForce *= comboFinisherKnockbackMultiplier;
+            Debug.Log(knockbackForce);
+        }
+
         collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
         collidersDamaged.Add(collidersToDamage);
     }
@@ -109,16 +130,22 @@ public class MeleeBaseState : CState
         collidersDamaged.Add(collidersToDamage);
     }
 
+    protected virtual void RegisterAttackSpike(Collider2D collidersToDamage)
+    {
+        collidersToDamage.gameObject.GetComponent<FallingSpike>().TakeDamage(attackDamage);
+        collidersDamaged.Add(collidersToDamage);
+    }
+    protected virtual void RegisterAttackRope(Collider2D collidersToDamage)
+    {
+        collidersToDamage.gameObject.GetComponent<ScytheThrowRope>().TakeDamage(attackDamage);
+        collidersDamaged.Add(collidersToDamage);
+    }
+
     protected virtual Vector2 KnockbackForce(Vector2 enemyPos)
     {
         //Check direction for knockback
-        int direction;
-        if (IsPlayerOnRight(enemyPos))
-            direction = -1;
-        else
-            direction = 1;
-
-        return new Vector2(0, 0);
+        int direction = IsPlayerOnRight(enemyPos) ? -1 : 1;
+        return new Vector2(direction, 0);
     }
 
     protected bool IsPlayerOnRight(Vector2 enemyPos)
