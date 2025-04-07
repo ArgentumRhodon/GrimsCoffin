@@ -78,6 +78,14 @@ public class FMOD_Object_OneShotSoundListener : MonoBehaviour
         instanceD.start();
     }
 
+    public void stopAllEvent()
+    {
+        instanceA.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instanceB.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instanceC.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instanceD.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
     private void distanceUpdater()
     {
         if (object1 != null && object2 != null)
@@ -109,11 +117,9 @@ public class FMOD_Object_OneShotSoundListener : MonoBehaviour
         }
     }
 
+
     private void OnDestroy()
     {
-        instanceA.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        instanceB.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         instanceC.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        instanceD.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 }

@@ -16,9 +16,38 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{82f457fa-9670-49de-8ec9-b6565f70796b}">
 		<relationship name="effects">
+			<destination>{0c9589c3-67c4-4cda-b316-fc40a7839fd4}</destination>
 			<destination>{1eb65217-29a2-4781-85e1-76964e359311}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{67c2db41-b7e5-4985-abbd-834f21fbea30}" />
+	<object class="MultibandEqEffect" id="{0c9589c3-67c4-4cda-b316-fc40a7839fd4}">
+		<property name="filterTypeA">
+			<value>9</value>
+		</property>
+		<property name="frequencyA">
+			<value>735.727966</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{71a9c428-fe18-4d11-b8c9-62ae6da4d5ab}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{1eb65217-29a2-4781-85e1-76964e359311}" />
+	<object class="SidechainModulator" id="{71a9c428-fe18-4d11-b8c9-62ae6da4d5ab}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>gainA</value>
+		</property>
+		<property name="amount">
+			<value>-36</value>
+		</property>
+		<property name="attackTime">
+			<value>60</value>
+		</property>
+		<property name="releaseTime">
+			<value>60</value>
+		</property>
+		<relationship name="sidechains">
+			<destination>{364dd45b-e34c-41f7-9073-78f542a36d47}</destination>
+		</relationship>
+	</object>
 </objects>

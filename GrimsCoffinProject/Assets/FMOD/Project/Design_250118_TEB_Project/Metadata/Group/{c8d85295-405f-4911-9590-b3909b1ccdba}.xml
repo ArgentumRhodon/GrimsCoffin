@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{c8d85295-405f-4911-9590-b3909b1ccdba}">
+		<property name="name">
+			<value>SFX_BOSS_Duck</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{f7da6bf0-a541-4aea-90ac-83fed9f1c602}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{83cce934-6c8a-4207-bc77-ec2ab1f6d43e}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{0194a567-92c3-4149-98db-245fdc14fa39}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{f7da6bf0-a541-4aea-90ac-83fed9f1c602}">
+		<relationship name="effects">
+			<destination>{be94c9c6-6dee-4965-9efe-81b44c8eb92b}</destination>
+			<destination>{2bf669e4-5989-4d3a-a691-bf5235036fea}</destination>
+			<destination>{59e13f3d-f9f0-482d-9f79-a0b37eced220}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{83cce934-6c8a-4207-bc77-ec2ab1f6d43e}" />
+	<object class="GainEffect" id="{be94c9c6-6dee-4965-9efe-81b44c8eb92b}">
+		<property name="gain">
+			<value>-6</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{2bf669e4-5989-4d3a-a691-bf5235036fea}" />
+	<object class="CompressorEffect" id="{59e13f3d-f9f0-482d-9f79-a0b37eced220}">
+		<property name="threshold">
+			<value>-15</value>
+		</property>
+		<property name="attackTime">
+			<value>120</value>
+		</property>
+		<property name="releaseTime">
+			<value>120</value>
+		</property>
+		<relationship name="sidechains">
+			<destination>{364dd45b-e34c-41f7-9073-78f542a36d47}</destination>
+			<destination>{a0373442-0003-46d0-94b7-0cb4a5617391}</destination>
+		</relationship>
+	</object>
+</objects>
