@@ -8,7 +8,7 @@ public class Credits : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        startingPosition = transform.position;
     }
 
     // Update is called once per frame
