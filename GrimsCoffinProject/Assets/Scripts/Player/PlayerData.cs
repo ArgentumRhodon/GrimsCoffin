@@ -15,6 +15,7 @@ public class PlayerData : ScriptableObject
     [Header("Player Stats")]
     public float maxHP;
     public float maxSP;
+    public float damageMultiplier;
     public float iFrameTimer;
     public Vector2 respawnPoint;
 

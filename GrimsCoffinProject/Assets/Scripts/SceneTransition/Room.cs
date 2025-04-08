@@ -28,6 +28,14 @@ public class Room : MonoBehaviour
             //Changeborder(Border);
         }
 
+        else
+        {
+            if (this.gameObject.GetComponentInChildren<Credits>() != null)
+            {
+                this.gameObject.GetComponentInChildren<Credits>().ResetCredits();
+            }
+        }
+
     }
 
     private void Changeborder(GameObject border)

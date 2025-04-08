@@ -22,7 +22,7 @@ public class PersistentDataManager : MonoBehaviour
     //Player Stat Values
     public float MaxHP { get { return PlayerPrefs.GetFloat("MaxHP", defaultHP); } }
     public float MaxSP { get { return PlayerPrefs.GetFloat("MaxSP", 0); } }
-    public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier"); } }
+    public float DamageMultiplier { get { return PlayerPrefs.GetFloat("DamageMultiplier", 1); } }
 
     //Player Ability Flags
     public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 0) == 1; } }
@@ -146,17 +146,16 @@ public class PersistentDataManager : MonoBehaviour
                     //Unlocks Scythe Throw and Spirit Power
                     case Spirit.SpiritID.ScytheThrowSpirit:
                         PlayerControllerForces.Instance.Data.canScytheThrow = true;
-                        PlayerControllerForces.Instance.Data.maxSP = 50;
-                        PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
+                        //PlayerControllerForces.Instance.Data.maxSP = 50;
+                        //PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
                         PlayerPrefs.SetInt("CanScytheThrow", 1);
                         UIManager.Instance.ShowAbilityUnlock("Scythe Throw Unlocked", AbilityName.ScytheThrow);
-                        PlayerPrefs.SetFloat("MaxSP", 50);
+                        //PlayerPrefs.SetFloat("MaxSP", 50);
                         break;
                     case Spirit.SpiritID.CombatSpirit:
-                        PlayerControllerForces.Instance.Data.canAUpAttack = true;
-                        PlayerControllerForces.Instance.Data.canGUpAttack = true;
-                        PlayerPrefs.SetInt("CanUpAttack", 1);
-                        UIManager.Instance.ShowAbilityUnlock("Up Attack Unlocked", AbilityName.NoAbility);
+                        PlayerControllerForces.Instance.Data.damageMultiplier = 1.5f;
+                        PlayerPrefs.SetFloat("DamageMultiplier", 1.5f);
+                        UIManager.Instance.ShowAbilityUnlock("Damage Increased", AbilityName.NoAbility);
                         break;
                 }
             }
@@ -179,11 +178,26 @@ public class PersistentDataManager : MonoBehaviour
 
             else if (spirit.spiritState == Spirit.SpiritState.Idle && spirit.spiritID == Spirit.SpiritID.CombatSpirit)
             {
-                PlayerControllerForces.Instance.Data.canADownAttack = true;
-                PlayerControllerForces.Instance.Data.canGDownAttack = true;
-                PlayerPrefs.SetInt("CanDownAttack", 1);
-                UpdateEnemyCurrency(-spirit.upgradeCost, false);
-                UIManager.Instance.ShowAbilityUnlock("Down Attack Purchased", AbilityName.NoAbility);
+                if (!CanUpAttack)
+                {
+                    PlayerControllerForces.Instance.Data.canAUpAttack = true;
+                    PlayerControllerForces.Instance.Data.canGUpAttack = true;
+                    PlayerPrefs.SetInt("CanUpAttack", 1);
+                    UpdateEnemyCurrency(-spirit.upgradeCost, false);
+                    UIManager.Instance.ShowAbilityUnlock("Up Attack Purchased", AbilityName.NoAbility);
+
+                    spirit.spiritState = Spirit.SpiritState.Unlocked;
+                    spirit.upgradeCost = 1250;
+                }
+
+                else
+                {
+                    PlayerControllerForces.Instance.Data.canADownAttack = true;
+                    PlayerControllerForces.Instance.Data.canGDownAttack = true;
+                    PlayerPrefs.SetInt("CanDownAttack", 1);
+                    UpdateEnemyCurrency(-spirit.upgradeCost, false);
+                    UIManager.Instance.ShowAbilityUnlock("Down Attack Purchased", AbilityName.NoAbility);
+                }
             }
 
             //Trade in health collectables for health upgrade

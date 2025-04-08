@@ -214,7 +214,7 @@ public class PlayerControllerForces : MonoBehaviour
         Data.respawnPoint = this.transform.position;
 
         Data.maxHP = PersistentDataManager.Instance.MaxHP;
-        Data.maxSP = PersistentDataManager.Instance.MaxSP;
+        //Data.maxSP = PersistentDataManager.Instance.MaxSP;
         Data.canDoubleJump = PersistentDataManager.Instance.CanDoubleJump;
         Data.canWallJump = PersistentDataManager.Instance.CanWallJump;
         Data.canDash = PersistentDataManager.Instance.CanDash;
@@ -224,9 +224,9 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canAUpAttack = PersistentDataManager.Instance.CanUpAttack;
         Data.canGDownAttack = PersistentDataManager.Instance.CanDownAttack;
         Data.canADownAttack = PersistentDataManager.Instance.CanDownAttack;
+        Data.damageMultiplier = PersistentDataManager.Instance.DamageMultiplier;
 
-        if (!PersistentDataManager.Instance.CanScytheThrow)
-            currentSP = 0;
+        currentSP = 0;
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
@@ -641,10 +641,10 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnAbility()
     {
-        if (currentSP <= 0 && Data.canScytheThrow && Time.timeScale == 1)
+        if (Data.canScytheThrow && Time.timeScale == 1)
             UIManager.Instance.ScytheThrowFailed();
 
-        if (isSleeping || Time.timeScale == 0 || currentSP <= 0 || scytheThrown || !Data.canScytheThrow)
+        if (isSleeping || Time.timeScale == 0 || scytheThrown || !Data.canScytheThrow)
             return;
 
         ExecuteScytheThrow();
@@ -786,7 +786,6 @@ public class PlayerControllerForces : MonoBehaviour
     public void ExecuteScytheThrow()
     {
         GameObject scythe = Instantiate(scytheProjectilePrefab, this.transform.position, Quaternion.identity);
-        currentSP -= 5;
         scytheThrown = true;
     }
     #endregion
