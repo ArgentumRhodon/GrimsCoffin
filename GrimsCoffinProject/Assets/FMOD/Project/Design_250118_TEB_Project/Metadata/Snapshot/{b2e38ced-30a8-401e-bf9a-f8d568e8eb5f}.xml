@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="Snapshot" id="{b2e38ced-30a8-401e-bf9a-f8d568e8eb5f}">
+		<property name="name">
+			<value>SelfHit</value>
+		</property>
+		<relationship name="mixer">
+			<destination>{1b0f3a65-29e8-4dba-bf43-a7d54dee7bc0}</destination>
+		</relationship>
+		<relationship name="automatableProperties">
+			<destination>{f19be13f-c35e-4831-a5ea-db30c7ae6d7a}</destination>
+		</relationship>
+		<relationship name="markerTracks">
+			<destination>{8f919a60-20e7-466c-a901-150fcb5e05af}</destination>
+		</relationship>
+		<relationship name="timeline">
+			<destination>{c3317d05-73cd-4d33-9598-ce3962f1fa3a}</destination>
+		</relationship>
+		<relationship name="snapshotMasterTrack">
+			<destination>{d481df43-1375-4144-98f8-e17d3f446206}</destination>
+		</relationship>
+	</object>
+	<object class="EventAutomatableProperties" id="{f19be13f-c35e-4831-a5ea-db30c7ae6d7a}" />
+	<object class="MarkerTrack" id="{8f919a60-20e7-466c-a901-150fcb5e05af}" />
+	<object class="Timeline" id="{c3317d05-73cd-4d33-9598-ce3962f1fa3a}" />
+	<object class="SnapshotMasterTrack" id="{d481df43-1375-4144-98f8-e17d3f446206}" />
+</objects>
