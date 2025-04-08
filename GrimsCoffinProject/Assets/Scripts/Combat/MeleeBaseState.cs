@@ -18,7 +18,6 @@ public class MeleeBaseState : CState
     //Index of sequence in attack
     protected int attackIndex;
     protected float attackDamage;
-    protected float comboFinisherKnockbackMultiplier = 7.5f;
 
     protected PlayerCombat playerCombat;
 
@@ -114,11 +113,11 @@ public class MeleeBaseState : CState
     protected virtual void RegisterAttack(Collider2D collidersToDamage)
     {
         Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
-        if (attackIndex == 3)
+/*        if (attackIndex == 3)
         {
             knockbackForce *= comboFinisherKnockbackMultiplier;
             Debug.Log(knockbackForce);
-        }
+        }*/
 
         collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
         collidersDamaged.Add(collidersToDamage);

@@ -16,7 +16,7 @@ namespace Core.AI
 
         public override TaskStatus OnUpdate()
         {
-            if (enemyScript.IsOverlapping(collider))
+            if (enemyScript.IsOverlapping(collider) && !enemyScript.enemyStateList.IsAttacking)
             {
                 return TaskStatus.Success;
             }

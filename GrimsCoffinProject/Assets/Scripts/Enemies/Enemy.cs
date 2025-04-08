@@ -59,9 +59,11 @@ public abstract class Enemy : MonoBehaviour
 
     //Attack physics and stats ------------------------------------------------------------------------------------
     [SerializeField] private bool canBePulledDown;
-    [SerializeField] protected bool canBeStopped = true;
+    [SerializeField] protected bool canBeStaggered = true;
+    [SerializeField] protected bool canTakeKnockback = true;
+    [SerializeField] protected bool getsHitCanceled = true;
     private bool hasAttackTicket;
-    public bool CanBeStopped { get { return canBeStopped; } set { canBeStopped = value; } }
+    public bool CanBeStaggered { get { return canBeStaggered; } set { canBeStaggered = value; } }
     public bool HasAttackTicket { get { return hasAttackTicket; } set { hasAttackTicket = value; } }
 
     //Enemy Statuses ----------------------------------------------------------------------------------------------
@@ -360,8 +362,13 @@ public abstract class Enemy : MonoBehaviour
         else
         {
             HitStopTimer(hitStopDuration);
-            animator.SetTrigger("Hit");
-            DOVirtual.DelayedCall(hitStopDuration, ()=> DamageEnemy(knockbackForce,shouldStagger,staggerDuration), false);
+
+            if (shouldStagger && canBeStaggered)
+                animator.SetTrigger("Hit"); //TODO: Stagger Animation
+            else if (getsHitCanceled)
+                animator.SetTrigger("Hit");
+
+            DOVirtual.DelayedCall(hitStopDuration, ()=> DamagePhysics(knockbackForce,shouldStagger,staggerDuration), false);
         }
     }
 
@@ -389,10 +396,10 @@ public abstract class Enemy : MonoBehaviour
         DOVirtual.DelayedCall(1, DestroyEnemyGO, false);
     }
 
-    protected virtual void DamageEnemy(Vector2 knockbackForce, bool shouldStagger = false, float staggerDuration = 0.1f)
+    protected virtual void DamagePhysics(Vector2 knockbackForce, bool shouldStagger = false, float staggerDuration = 0.1f)
     {
         //If the enemy can be stopped, sleep and take a knockback force
-        if (canBeStopped && shouldStagger && !enemyStateList.IsStaggered)
+        if (canBeStaggered && shouldStagger && !enemyStateList.IsStaggered)
         {
             //Stagger enemy
             enemyStateList.IsStaggered = true;
@@ -404,8 +411,8 @@ public abstract class Enemy : MonoBehaviour
             Stagger(.4f, Vector2.zero, 0);
             DOVirtual.DelayedCall(.4f, () => SetGravity(3), false);
         }
-        //Sleep and knockback if they can be stopped
-        else if (canBeStopped) 
+        //Sleep and take knockback
+        else if (canTakeKnockback) 
         {
             //Sleep and knockback enemy
             Sleep(0.1f);

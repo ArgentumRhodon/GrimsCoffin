@@ -591,7 +591,9 @@ MonoBehaviour:
   movementDeacceleration: 0
   movementDeaccelAmount: 0
   canBePulledDown: 0
-  canBeStopped: 1
+  canBeStaggered: 0
+  canTakeKnockback: 1
+  getsHitCanceled: 1
   enemyGFX: {fileID: 7666600489444073033}
   enemy: {fileID: 4567458006229910762}
   playerTarget: {fileID: 0}

@@ -240,7 +240,7 @@ public class PlayerControllerForces : MonoBehaviour
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
         }
 
-        //TempResetData();
+        TempResetData();
     }
 
     private void Update()
@@ -541,9 +541,10 @@ public class PlayerControllerForces : MonoBehaviour
     //Dash Input
     private void OnDash()
     {
-        if (isSleeping)
+        if (isSleeping || playerState.IsAttacking)
             return;
 
+        Debug.Log("Dashing in the player controller");
         LastPressedDashTime = Data.dashInputBufferTime;
     }
 
@@ -948,6 +949,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Dash Coroutine
     private IEnumerator StartDash(Vector2 dir)
     {
+        Debug.Log("Start dash is running");
         //Dash timers
         LastOnGroundTime = 0;
         LastPressedDashTime = 0;
@@ -1038,7 +1040,7 @@ public class PlayerControllerForces : MonoBehaviour
         else
             direction = -1;
 
-        Debug.Log("Basic Attack");
+        //Debug.Log("Basic Attack");
 
         rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
 
@@ -1143,17 +1145,20 @@ public class PlayerControllerForces : MonoBehaviour
     //Dash variables
     private void UpdateDashVariables()
     {
+        Debug.Log("Can dash: " + CanDash());
         if (CanDash() && LastPressedDashTime > 0)
         {
+            Debug.Log("Should be executing the dash");
+
             //If not direction pressed, dash forward
             if (moveInput != Vector2.zero)
                 lastDashDir = moveInput;
             else
                 lastDashDir = playerState.IsFacingRight ? Vector2.right : Vector2.left;
 
-            //If mid attack, stop the combo
+/*            //If mid attack, stop the combo
             if (playerCombat.IsComboing)
-                EndCombo();      
+                EndCombo();     */ 
 
             //Set states
             playerState.IsDashing = true;
@@ -1766,8 +1771,9 @@ public class PlayerControllerForces : MonoBehaviour
     private void TempResetData()
         {
             //Data.canDash = true;
-            //Data.canDoubleJump = true;
-            //Data.canWallJump = true;
+            Data.canDoubleJump = true;
             currentHP = 50;
+            Data.canADownAttack = true;
+            Data.canGUpAttack = true;
         }
     }

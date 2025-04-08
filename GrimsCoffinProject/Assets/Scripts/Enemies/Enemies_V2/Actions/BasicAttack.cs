@@ -32,8 +32,9 @@ namespace Core.AI
                 enemyScript.enemyStateList.IsAttacking = false;
                 if (enemyScript.HasAttackTicket)
                 {
-                    enemyScript.CombatCoordinator.UseAttack(enemyScript);
-                    enemyScript.HasAttackTicket = false;
+                    //Should release ticket no matter what after ending their attack
+                    //enemyScript.CombatCoordinator.UseAttack(enemyScript);
+                    //enemyScript.HasAttackTicket = false;
                     animator.Play(animationIdleName);
                 }
                 return TaskStatus.Success;
@@ -41,8 +42,13 @@ namespace Core.AI
             else if(enemyScript.enemyStateList.IsStaggered)
                 return TaskStatus.Failure;
             else
-                return TaskStatus.Running;
-            
+                return TaskStatus.Running;           
+        }
+
+        public override void OnEnd()
+        {
+            enemyScript.HasAttackTicket = false;
+            enemyScript.CombatCoordinator.UseAttack(enemyScript);
         }
 
         private void Attack()

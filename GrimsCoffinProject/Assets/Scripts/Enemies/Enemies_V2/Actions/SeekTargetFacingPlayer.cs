@@ -153,6 +153,11 @@ namespace Core.AI
                 offsetTimer = maxOffsetTimer;
             }
 
+            if (enemyScript.HasAttackTicket)
+            {
+                enemyScript.enemyStateList.IsAttacking = true;
+            }
+
             return enemyScript.HasAttackTicket ? TaskStatus.Success : TaskStatus.Running;
         }
 

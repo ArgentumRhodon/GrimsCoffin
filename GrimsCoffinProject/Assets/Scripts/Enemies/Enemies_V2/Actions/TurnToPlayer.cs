@@ -6,14 +6,11 @@ using UnityEngine.Playables;
 
 namespace Core.AI
 {
-    public class Turn : EnemyAction
+    public class TurnToPlayer : EnemyAction
     {
         public override void OnStart()
         {
-            if (enemyScript.enemyStateList.IsFacingRight)
-                enemyScript.FaceRight(false);
-            else
-                enemyScript.FaceRight(true);
+            enemyScript.TurnToPlayer();
         }
 
         public override TaskStatus OnUpdate()

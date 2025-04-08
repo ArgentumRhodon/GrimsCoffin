@@ -15,8 +15,15 @@ namespace Core.AI
                 {
                     return TaskStatus.Success;
                 }
+                else
+                {
+                    return TaskStatus.Failure;
+                }
             }
-            return TaskStatus.Failure;
+            else
+            {
+                return TaskStatus.Success;
+            }
         }
     }
 }

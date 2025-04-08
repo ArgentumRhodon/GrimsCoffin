@@ -89,8 +89,8 @@ namespace Core.AI
             }
 
             //Make sure direction is in x only
-            //Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-            Vector2 direction = enemyScript.FindPlayerDirection();
+            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+            //Vector2 direction = enemyScript.FindPlayerDirection();
             Vector2 targetSpeed = direction * enemyScript.seekSpeed;
 
             //Smooth changes to direction and speed using a lerp function

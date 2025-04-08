@@ -12,7 +12,7 @@ public class CombatCoordinator : MonoBehaviour
     [SerializeField] private float timerBetweenGivingTicket = .5f;
 
     //Backend variables to track current statuses
-    private int currentTicketPool;
+    private int currentTicketPool; //How many tickets are currently given out
     private float ticketTimer;
     private float givingTicketTimer;
     private List<Enemy> enemiesReadyToAttack = new List<Enemy>(); //Enemies that are ready to use their attack state
@@ -24,15 +24,15 @@ public class CombatCoordinator : MonoBehaviour
     private int CurrentTicketTotal
     { 
         get 
+        {
+            int count = 0;
+            foreach(KeyValuePair<Enemy, bool> keyValuePair in enemiesInCombat)
             {
-                int count = 0;
-                foreach(KeyValuePair<Enemy, bool> keyValuePair in enemiesInCombat)
-                {
-                    if(keyValuePair.Key)
-                        count++;
-                }
-                return currentTicketPool + count; 
-            } 
+                if(keyValuePair.Key)
+                    count++;
+            }
+            return currentTicketPool + count; 
+        } 
     }
 
     public void AddEnemyToCombatList(Enemy enemy)
@@ -40,16 +40,21 @@ public class CombatCoordinator : MonoBehaviour
         if(!enemiesInCombat.ContainsKey(enemy))
             enemiesInCombat.Add(enemy, false);
     }
-
+    
+    //Remove enemy from the combat list
     public void RemoveEnemyFromCombatList(Enemy enemy)
     {
+        //Return if the enemy is not in the list
         if (!enemiesInCombat.ContainsKey(enemy))
             return;
 
-        if (enemiesInCombat[enemy])
+        //When removing from the dictionary, it should account for losing the 
+/*        if (enemiesInCombat[enemy])
         {
             currentTicketPool--;
-        }
+        }*/
+
+        //Removes them from the combat list
         enemiesInCombat.Remove(enemy);
         ReleaseAttack(enemy);
     }
