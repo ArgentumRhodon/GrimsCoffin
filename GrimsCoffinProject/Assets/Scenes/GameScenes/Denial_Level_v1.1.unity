@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: FollowCameraConfiner
       value: 
       objectReference: {fileID: 2074311004}
+    - target: {fileID: 45477913092386468, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 46556110275466668, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
@@ -62718,6 +62722,10 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[113].Y
       value: -20000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4571119018685167565, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_Name
+      value: Credits
+      objectReference: {fileID: 0}
     - target: {fileID: 4630815540353322008, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
@@ -73530,6 +73538,22 @@ PrefabInstance:
       propertyPath: FollowCameraConfiner
       value: 
       objectReference: {fileID: 2074311004}
+    - target: {fileID: 6865034127339271892, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 714.5316
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865034127339271892, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 64.0674
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865034127339271892, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 215.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865034127339271892, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -114.29
+      objectReference: {fileID: 0}
     - target: {fileID: 6918644115366709389, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
@@ -73538,6 +73562,80 @@ PrefabInstance:
       propertyPath: FollowCameraConfiner
       value: 
       objectReference: {fileID: 2074311004}
+    - target: {fileID: 6943539466076699026, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_text
+      value: 'Thank You For Playing Grim''s Coffin!
+
+
+
+
+        Credits:
+
+
+        UI/UX,
+        Producer, Programming
+
+        Kevin Insinna
+
+
+        AI & Gameplay Programming
+
+        Sam
+        Burgoyne
+
+
+        Character & Environmental Art
+
+        Lucas Corey
+
+
+        Level
+        Design & Gameplay Dev
+
+        Noah Flanders
+
+
+        Narrative & Gameplay
+        Design
+
+        Boxi Feng
+
+
+        Environmental Art
+
+        Kendyl Greer
+
+
+        Sound
+        Design
+
+        Shangshu (Mint) Shi
+
+
+        Composer
+
+        Bowen Shi
+
+
+        Composer
+
+        Ray
+        Qu
+
+
+
+        Special Thanks:
+
+
+        Sten Mckinzie
+
+        David Sanchez
+
+        Ben
+        Snyder
+
+        Austin Willoughby'
+      objectReference: {fileID: 0}
     - target: {fileID: 7068415217092639435, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -85741,7 +85839,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 45477913092386468, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1339287248}
   m_SourcePrefab: {fileID: 100100000, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
 --- !u!60 &8596884 stripped
 PolygonCollider2D:
@@ -89513,6 +89614,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 45477913092386468, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
   m_PrefabInstance: {fileID: 8596883}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1339287248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339287243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e424cb74cf0dab84c8701e7604e19206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1352976954 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8857564450784670180, guid: 1a151c047f48a02478ad33cf0d50b415, type: 3}
