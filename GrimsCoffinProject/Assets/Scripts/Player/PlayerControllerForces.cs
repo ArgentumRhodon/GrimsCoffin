@@ -66,6 +66,10 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 moveInput;
     public Vector2 MoveInput { get {return moveInput; } }
 
+    //Interaction Input Variables
+    public bool isHoldingInteract;
+    public float holdInteractTimer;
+
     // Animation Stuff
     [SerializeField] private Animator animator;
     [SerializeField] private Animator scytheAnimator; // Top
@@ -572,14 +576,20 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
-    private void OnInteract()
+    private void OnInteract(InputValue value)
     {
         if (UIManager.Instance.pauseScript.isPaused)
             return;
 
-        if (interactionPrompt.interactable != null)
+        if (interactionPrompt.interactable != null && !isHoldingInteract)
         {
             interactionPrompt.interactable.PerformInteraction();
+        }
+
+        else if (!value.isPressed)
+        {
+            isHoldingInteract = false;
+            holdInteractTimer = 0;
         }
     }
 
