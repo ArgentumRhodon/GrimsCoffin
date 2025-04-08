@@ -16,6 +16,9 @@ public class InteractionPrompt : MonoBehaviour
     [SerializeField] private List<Sprite> playstationSprites;
     [SerializeField] private List<Sprite> xboxSprites;
 
+    public Image controllerHoldFill;
+    public Image keyboardHoldFill;
+
     public bool interact = false;
 
     //String to keep track of player's input method
@@ -26,11 +29,13 @@ public class InteractionPrompt : MonoBehaviour
 
     public Interactable interactable;
 
+    private InteractionName currentInteraction;
+
     // Start is called before the first frame update
     void Start()
     {
         //Hide prompt and get control scheme
-        controlScheme = PlayerControllerForces.Instance.gameObject.GetComponent<PlayerInput>().currentControlScheme;
+        controlScheme = UIManager.Instance.playerInput.currentControlScheme;
         HidePrompt();
     }
 
@@ -48,6 +53,20 @@ public class InteractionPrompt : MonoBehaviour
         {
             HidePrompt();
         }
+
+        //Change prompt to the according control scheme being used
+        switch (controlScheme)
+        {
+            case "Keyboard&Mouse":
+                promptIcon.sprite = keyboardSprites[(int)currentInteraction];
+                break;
+            case "Playstation":
+                promptIcon.sprite = playstationSprites[(int)currentInteraction];
+                break;
+            default:
+                promptIcon.sprite = xboxSprites[(int)currentInteraction];
+                break;
+        }
     }
 
     /// <summary>
@@ -63,8 +82,10 @@ public class InteractionPrompt : MonoBehaviour
         else
             interact = false;
 
-        //Change prompt to the according control scheme being used
-        switch(PersistentDataManager.Instance.ControlScheme)
+        currentInteraction = interaction;
+
+        /*//Change prompt to the according control scheme being used
+        switch(controlScheme)
         {
             case "Keyboard&Mouse":
                 promptIcon.sprite = keyboardSprites[(int) interaction];
@@ -75,7 +96,7 @@ public class InteractionPrompt : MonoBehaviour
             default:
                 promptIcon.sprite = xboxSprites[(int) interaction];
                 break;
-        }
+        }*/
 
         interactionText.text = text;
 

@@ -16930,6 +16930,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2071359026594114587, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: fadeToWhite
+      value: 
+      objectReference: {fileID: 904632685}
     - target: {fileID: 2088192736472380239, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_Name
       value: ScytheThrowPlatform (3)
@@ -56226,6 +56230,10 @@ PrefabInstance:
       propertyPath: mapIcon
       value: 
       objectReference: {fileID: 1686211504}
+    - target: {fileID: 3293565951096194401, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: fadeToWhite
+      value: 
+      objectReference: {fileID: 904632685}
     - target: {fileID: 3319234676225427070, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
@@ -73694,6 +73702,10 @@ PrefabInstance:
       propertyPath: followCam
       value: 
       objectReference: {fileID: 2074311002}
+    - target: {fileID: 5430628495188498595, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: fadeToWhite
+      value: 
+      objectReference: {fileID: 904632685}
     - target: {fileID: 5510914369063428358, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_Size.x
       value: 1.8808396
@@ -73782,6 +73794,10 @@ PrefabInstance:
       propertyPath: mapIcon
       value: 
       objectReference: {fileID: 1531560630}
+    - target: {fileID: 6394105297570983474, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: fadeToWhite
+      value: 
+      objectReference: {fileID: 904632685}
     - target: {fileID: 6522509896656132729, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
@@ -73882,6 +73898,10 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 7.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7464026668351905153, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: fadeToWhite
+      value: 
+      objectReference: {fileID: 904632685}
     - target: {fileID: 7497774403349564915, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -82750,6 +82770,10 @@ PrefabInstance:
       propertyPath: FollowCameraConfiner
       value: 
       objectReference: {fileID: 2074311004}
+    - target: {fileID: 8242022799181124623, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: fadeToWhite
+      value: 
+      objectReference: {fileID: 904632685}
     - target: {fileID: 8281599049856708348, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
       value: 7
@@ -89022,6 +89046,103 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6390151642651715791, guid: d65ea86484dee8944bf7b82442194a88, type: 3}
   m_PrefabInstance: {fileID: 870177090}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &904632685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 904632689}
+  - component: {fileID: 904632688}
+  - component: {fileID: 904632687}
+  - component: {fileID: 904632686}
+  m_Layer: 5
+  m_Name: FadeToWhite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!95 &904632686
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904632685}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb0239d5235ddad4fa8245b2b579337c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &904632687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904632685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.003921569}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &904632688
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904632685}
+  m_CullTransparentMesh: 1
+--- !u!224 &904632689
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904632685}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1141389180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &936170978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89912,6 +90033,7 @@ RectTransform:
   - {fileID: 1732504575}
   - {fileID: 2035117931}
   - {fileID: 2081727856}
+  - {fileID: 904632689}
   - {fileID: 260810643}
   - {fileID: 1821679417}
   m_Father: {fileID: 0}
