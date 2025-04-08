@@ -6,8 +6,10 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] public CinemachineVirtualCamera Vcam;
-    [SerializeField] private CinemachineBrain CameraControl;
+    [SerializeField] public CinemachineVirtualCamera Playercam;
+    [SerializeField] public CinemachineBrain CameraControl;
     [SerializeField] private float deadzone;
+    [SerializeField] private Camera UICamera;
     private CinemachineFramingTransposer VCamFramingTransposer;
     private Coroutine transitionCoroutineX;
     private Coroutine transitionCoroutineY;
@@ -78,12 +80,22 @@ public class CameraManager : MonoBehaviour
         CameraControl.ActiveVirtualCamera.Priority = 9;
         Cam.Priority = 10;
     }
+
     public void CameraReset()
     {
+        Vcam = Playercam;
         CameraControl.ActiveVirtualCamera.Priority = 9;
-        Vcam.Priority = 10;
+        Playercam.Priority = 10;
+/*        UICamera.orthographicSize = 7.5f;
+        UICamera.nearClipPlane = 0.1f;
+        UICamera.farClipPlane = 1000f;*/
+
     }
 
+    public void ResetUICamera()
+    {
+        UICamera.orthographicSize = 7.5f;
+    }
 
 
     private void StartScreenYTransition(float targetScreenY, float duration,int priority)
