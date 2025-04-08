@@ -8,7 +8,7 @@ public class Credits : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startingPosition = transform.position;
+
     }
 
     // Update is called once per frame
@@ -18,10 +18,11 @@ public class Credits : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + .05f, transform.position.z);
         }
+    }
 
-        else
-        {
-            this.transform.position = startingPosition;
-        }
+    public void ResetCredits()
+    {
+        transform.position = startingPosition;
+        this.gameObject.SetActive(false);
     }
 }
