@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,6 +19,9 @@ public class Spirit : Interactable
     [SerializeField] public GameObject exclamationMark;
     [SerializeField] private PlayableDirector Collect;
     [SerializeField] private UnlockAbility UnlockMenu;
+
+    [SerializeField] public EventReference dialogueSFX;
+    [SerializeField] public EventInstance dialogueInstance;
 
     public float upgradeCost;
 
@@ -41,6 +46,7 @@ public class Spirit : Interactable
     private void Awake()
     { 
         animator.SetInteger("SpiritID", (int)spiritID);
+        dialogueInstance = RuntimeManager.CreateInstance(dialogueSFX);
     }
 
     // Start is called before the first frame update
