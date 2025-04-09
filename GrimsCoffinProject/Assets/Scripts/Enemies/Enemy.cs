@@ -185,8 +185,6 @@ public abstract class Enemy : MonoBehaviour
     //Enemy should implement their own update functionality
     protected virtual void FixedUpdate()
     {
-        isStaggered = enemyStateList.IsStaggered;
-
         if (enemyStateList.IsDead) return;
 
         if (damageOnCollision)
@@ -364,8 +362,8 @@ public abstract class Enemy : MonoBehaviour
             HitStopTimer(hitStopDuration);
 
             if (shouldStagger && canBeStaggered)
-                animator.SetTrigger("Hit"); //TODO: Stagger Animation
-            else if (getsHitCanceled)
+                animator.SetTrigger("Stagger"); //TODO: Stagger Animation
+            else if (getsHitCanceled && !enemyStateList.IsStaggered)
                 animator.SetTrigger("Hit");
 
             DOVirtual.DelayedCall(hitStopDuration, ()=> DamagePhysics(knockbackForce,shouldStagger,staggerDuration), false);
@@ -403,6 +401,8 @@ public abstract class Enemy : MonoBehaviour
         {
             //Stagger enemy
             enemyStateList.IsStaggered = true;
+            //Set idle animation to make sure it goes to proper state
+            animator.SetTrigger("Idle");
             Stagger(staggerDuration, knockbackForce);           
         }
         //If the enemy is in the air and is staggered, reset their timer and make them float
@@ -562,8 +562,7 @@ public abstract class Enemy : MonoBehaviour
         ToggleSleep(true);
 
         //TODO: Update to be whatever the staggered animation is
-        animator.Play("BasicSkeleton_Hit");
-        animator.speed = 0;
+        animator.SetTrigger("Stagger");
 
         //Updated gravity if there is vertical knockback 
         if (Mathf.Abs(knockbackForce.y) > 1)
@@ -587,10 +586,17 @@ public abstract class Enemy : MonoBehaviour
         //If enemy is grounded and stagger timer is done, un-stagger them
         if(Grounded() && staggerTimer < 0)
         {
-            animator.speed = 1f; //TODO: Not necessary when the staggered animation is implemented
-            enemyStateList.IsStaggered = false;
-            ToggleSleep(false);
+            //animator.speed = 1f; //TODO: Not necessary when the staggered animation is implemented
+            animator.SetTrigger("StaggerRecover");
+            DOVirtual.DelayedCall(.8f, UnStagger, false);
         }
+    }
+
+    //Updates stagger states
+    private void UnStagger()
+    {
+        enemyStateList.IsStaggered = false;
+        ToggleSleep(false);
     }
     #endregion
 
@@ -653,8 +659,6 @@ public abstract class Enemy : MonoBehaviour
     {
         ToggleSleep(true);
         yield return new WaitForSecondsRealtime(duration);
-
-        Debug.Log(enemyStateList.IsStaggered);
 
         if(!enemyStateList.IsStaggered)
             ToggleSleep(false);

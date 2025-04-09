@@ -12,7 +12,8 @@ namespace Core.AI
         {
             if (enemyScript.enemyStateList.IsStaggered)
             {
-                animator.Play(animationTriggerName);
+                //animator.Play(animationTriggerName);
+                //animator.SetTrigger("Stagger");
                 return TaskStatus.Success;
             }
 
