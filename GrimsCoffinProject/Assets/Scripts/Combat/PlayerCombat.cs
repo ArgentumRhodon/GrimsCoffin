@@ -163,7 +163,6 @@ public class PlayerCombat : MonoBehaviour
                         DownAttack();
                         break;
                     case AttackDirection.Dash:
-                        Debug.Log("Interrupting dash");
                         Dash();
                         break;
                     case AttackDirection.Throw:
@@ -422,7 +421,6 @@ public class PlayerCombat : MonoBehaviour
             attackQueue.Add(nextAttackDir);
             comboQueueLeft = 1;
             isInterruptingCombo = true;
-            Debug.Log("Trying to interrupt combo: " + nextAttackDir.ToString());
         }
     }
     

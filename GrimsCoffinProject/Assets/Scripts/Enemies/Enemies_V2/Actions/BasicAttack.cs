@@ -63,7 +63,6 @@ namespace Core.AI
 
         private void FinishAttack()
         {
-            Debug.Log("Attack is completed");
             attackCompleted = true;
         }
     }

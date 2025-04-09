@@ -234,8 +234,6 @@ namespace Core.AI
                 return;
             }
 
-            Debug.Log(targetSpeed);
-
             //Start movement animation
             UpdateDirection();
             UpdateWalkDirection();

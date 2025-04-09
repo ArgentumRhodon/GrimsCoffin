@@ -24,8 +24,6 @@ namespace Core.AI
                 return;
             }
 
-            Debug.Log("Triggered Name is: "+ animationTriggerName);
-              
             animator.Play(animationTriggerName);
 
             StartCoroutine(nameof(AlertTimer),alertTimer);

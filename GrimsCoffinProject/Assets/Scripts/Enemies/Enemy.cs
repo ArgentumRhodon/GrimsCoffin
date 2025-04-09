@@ -15,9 +15,7 @@ using BehaviorDesigner.Runtime.Tasks.Unity.UnityTime;
 public abstract class Enemy : MonoBehaviour
 {
     //Data & Variables --------------------------------------------------------------------------------------------
-    #region Data & Variables
-    [SerializeField] private bool isStaggered;
-    
+    #region Data & Variables   
     [Header("Stats")]
     //General stats -----------------------------------------------------------------------------------------------
     [SerializeField] public float health;
@@ -64,6 +62,9 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected bool getsHitCanceled = true;
     private bool hasAttackTicket;
     public bool CanBeStaggered { get { return canBeStaggered; } set { canBeStaggered = value; } }
+    public bool CanTakeKnockback { get { return canTakeKnockback; } set { canTakeKnockback = value; } }
+    public bool GetsHitCanceled { get { return getsHitCanceled; } set { getsHitCanceled = value; } }
+
     public bool HasAttackTicket { get { return hasAttackTicket; } set { hasAttackTicket = value; } }
 
     //Enemy Statuses ----------------------------------------------------------------------------------------------
@@ -96,6 +97,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private Material defaultShader;
     [SerializeField] private Material hitShader;
 
+    public SpriteRenderer SpriteRenderer { get { return spriteRenderer; } }
     public CombatCoordinator CombatCoordinator { get { return combatCoordinator; } }
 
     [Header("Collision Checkers & Associated Variables")] // ------------------------------------------------------
@@ -291,60 +293,6 @@ public abstract class Enemy : MonoBehaviour
         //Remove health
         health -= damage;
 
-        //Check for death
-        /*if (health <= 0)
-        {
-            DeadNotifer.Invoke();
-            Debug.Log("Enemy Destroyed");
-            behaviorTree.DisableBehavior(false);
-            animator.enabled = false;
-            animator.enabled = true;
-            animator.Play("Dead");
-            gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
-            allStopNotifier.Invoke();
-            RemoveActiveEnemy();
-            DOVirtual.DelayedCall(1, DestroyEnemyGO, false);
-            return;
-        }
-        else
-        {
-            animator.SetTrigger("Hit");
-        }
-
-        //If the enemy can be stopped, sleep and take a knockback force
-        if (canBeStopped)
-        {
-            EndSleep();
-            enemyStateList.IsStaggered = true;
-            
-            if (!Grounded() && enemyStateList.IsStaggered)
-            {
-                Sleep(.4f, knockbackForce, 0);
-                staggerTimer = .4f;
-            }             
-            else
-                Sleep(staggerDuration, knockbackForce);
-        }
-        else
-        {
-            EndSleep();
-            Sleep(.05f, Vector2.zero);
-        }
-
-        if (shouldStagger)
-        {
-            enemyStateList.IsStaggered = true;
-            staggerTimer = staggerDuration;         
-        }
-            
-
-        //Update the player location
-        UpdatePlayerLoc();
-
-        //If the enemy is blocking, don't take damage
-        if (enemyStateList.IsBlocking && isPlayerOnRight && enemyStateList.IsFacingRight)
-            return;
-        ////////////////////////////*/
         DamagedNotifer.Invoke();
 
         //Camera shake based off of damage
@@ -362,7 +310,7 @@ public abstract class Enemy : MonoBehaviour
             HitStopTimer(hitStopDuration);
 
             if (shouldStagger && canBeStaggered)
-                animator.SetTrigger("Stagger"); //TODO: Stagger Animation
+                animator.SetTrigger("Stagger");
             else if (getsHitCanceled && !enemyStateList.IsStaggered)
                 animator.SetTrigger("Hit");
 
