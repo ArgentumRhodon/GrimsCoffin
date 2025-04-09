@@ -57,7 +57,7 @@ public class PlayerStatsUI : MonoBehaviour
 
     public void ScytheThrowFailed()
     {
-        StartCoroutine(NoSpiritPower());
+        //StartCoroutine(NoSpiritPower());
     }
 
     //Animate SP meter to show the player has none
