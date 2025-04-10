@@ -10222,6 +10222,10 @@ PrefabInstance:
       propertyPath: screenFade
       value: 
       objectReference: {fileID: 936170979}
+    - target: {fileID: 726048369478623157, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: spawnRightPos.x
+      value: 344
+      objectReference: {fileID: 0}
     - target: {fileID: 743595141922446119, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_LocalPosition.y
       value: -44.5
@@ -21792,7 +21796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2105460572816799430, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.75
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 2127500667138192328, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_Name
@@ -93612,15 +93616,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5250134906647684845, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_Size.y
-      value: 2
+      value: 2.9527206
       objectReference: {fileID: 0}
     - target: {fileID: 5250134906647684845, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_Offset.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5250134906647684845, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.009719849
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250134906647684845, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5295179085747551291, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: uniqueID
@@ -95158,6 +95166,10 @@ PrefabInstance:
       propertyPath: screenFade
       value: 
       objectReference: {fileID: 936170979}
+    - target: {fileID: 5822104897695457766, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: spawnRightPos.x
+      value: 355
+      objectReference: {fileID: 0}
     - target: {fileID: 5888150075871197099, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: mapIcon
       value: 
@@ -97354,6 +97366,10 @@ PrefabInstance:
       propertyPath: mapIcon
       value: 
       objectReference: {fileID: 1531560630}
+    - target: {fileID: 6394105297570983474, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: fadeToWhite
+      value: 
+      objectReference: {fileID: 904632685}
     - target: {fileID: 6477087059967345817, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_Tiles.Array.size
       value: 2626
@@ -109076,7 +109092,7 @@ PrefabInstance:
       objectReference: {fileID: 2074311004}
     - target: {fileID: 6750482506559727404, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_Size.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6758091459606845009, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
@@ -118026,7 +118042,7 @@ PrefabInstance:
       objectReference: {fileID: 2074311004}
     - target: {fileID: 7892426181307319728, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2074999
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7892426181307319728, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_LocalPosition.x
@@ -118034,7 +118050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7892426181307319728, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.93
+      value: 1.59
       objectReference: {fileID: 0}
     - target: {fileID: 7915217500523955893, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: m_LocalBounds.m_Center.x
@@ -118140,6 +118156,10 @@ PrefabInstance:
       propertyPath: FollowCameraConfiner
       value: 
       objectReference: {fileID: 2074311004}
+    - target: {fileID: 8227936310911002375, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8242022799181124623, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: fadeToWhite
       value: 
@@ -138298,7 +138318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.1738205
+      value: -12.173077
       objectReference: {fileID: 0}
     - target: {fileID: 5158343782362898515, guid: b5d3d2bccc8e7f14ab67b6542cb539cb, type: 3}
       propertyPath: m_LocalPosition.y
