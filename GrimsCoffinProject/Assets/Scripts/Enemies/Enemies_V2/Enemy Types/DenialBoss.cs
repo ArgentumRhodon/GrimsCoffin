@@ -19,6 +19,8 @@ public class DenialBoss : Enemy
     [SerializeField] public Collider2D roomBounds;
     [SerializeField] private GameObject healthBar;
 
+    [SerializeField] private GameObject creditsPrefab;
+
     private CinemachineConfiner followCameraConfiner;
     private Collider2D bossCameraConfiner;
     private Collider2D mainCameraConfiner;
@@ -65,6 +67,8 @@ public class DenialBoss : Enemy
             UIManager.Instance.endStateText.SetActive(true);
             UIManager.Instance.bossMapIcon.SetActive(false);
         }
+
+        //Instantiate(creditsPrefab);
 
         this.gameObject.GetComponentInParent<EnemyManager>().RemoveActiveEnemy(this.gameObject);
         Destroy(this.gameObject);

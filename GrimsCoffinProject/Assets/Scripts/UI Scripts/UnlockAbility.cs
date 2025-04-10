@@ -71,8 +71,11 @@ public class UnlockAbility : MonoBehaviour
         }
         else if (id==5)
         {
+            if (!PlayerControllerForces.Instance.Data.canGUpAttack)
+                purchasePrompt.text = "Learn the up attack?";
+            else
+                purchasePrompt.text = "Learn the down attack?";
 
-            purchasePrompt.text = "Learn the downward attack?";
             cost.text = "(" + spirit.upgradeCost + "<sprite index=0>)";
             currentunlockcost = UnlockCost.Currency;
             currentcost = spirit.upgradeCost;
