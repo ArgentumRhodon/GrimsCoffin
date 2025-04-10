@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 224a74065fa54f746b136e14e165c031
+guid: 357cab77cd458984dab33717a07330c4
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -9,7 +9,7 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
   textureImporterSettings:
-    alphaSource: 2
+    alphaSource: 1
     mipMapMode: 0
     enableMipMap: 0
     fadeOut: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638798782297789628
+  platformSettingsDirtyTick: 638798796055932649
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: scythe_throw_spirit_Frame_0
+  - name: DiCarlo_ScytheThrowScared_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5555556, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 24
-      height: 47
-    spriteID: d9a70218373bfcc439357c373207c549
+      width: 18
+      height: 17
+    spriteID: 7a4fd68f3179de54e969c8d5243f619b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,67 +141,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: scythe_throw_spirit_Frame_1
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 36
-      y: 4
-      width: 24
-      height: 47
-    spriteID: 9e4a7cff2b32775469df1e1883b0c91e
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 36, y: 4}
-  - name: scythe_throw_spirit_Frame_2
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 68
-      y: 4
-      width: 24
-      height: 47
-    spriteID: 2400d930132128a4bad513e8d4230a58
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 68, y: 4}
-  - name: scythe_throw_spirit_Frame_3
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 100
-      y: 4
-      width: 24
-      height: 47
-    spriteID: b6c39f8a4cf6bf04da8924990f88f95d
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 100, y: 4}
-  - name: scythe_throw_spirit_Frame_4
+  - name: DiCarlo_ScytheThrowScared_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -209,10 +149,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 59
-      width: 24
-      height: 47
-    spriteID: 16b3ab3d63c494b408068a07c15da825
+      y: 29
+      width: 18
+      height: 17
+    spriteID: b433c238d3f98354a83aea85b5bceb4d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -220,19 +160,39 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 59}
-  - name: scythe_throw_spirit_Frame_5
+    uvTransform: {x: 4, y: 29}
+  - name: DiCarlo_ScytheThrowScared_Frame_2
+    originalName: 
+    pivot: {x: 0.5555556, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 54
+      width: 18
+      height: 17
+    spriteID: ec1afdd20254023419d1c16712f5b072
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 54}
+  - name: DiCarlo_ScytheThrowScared_Frame_3
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 36
-      y: 59
-      width: 24
-      height: 47
-    spriteID: 404e4cb73adb69e4e8f4463b40bacd65
+      x: 4
+      y: 79
+      width: 18
+      height: 17
+    spriteID: 0e376a8655a788c4fb3fc05e430fa460
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -240,20 +200,100 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 36, y: 59}
+    uvTransform: {x: 4, y: 79}
+  - name: DiCarlo_ScytheThrowScared_Frame_4
+    originalName: 
+    pivot: {x: 0.5555556, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 104
+      width: 18
+      height: 17
+    spriteID: 03a2f9027de43bb42a85adf893d2878f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 104}
+  - name: DiCarlo_ScytheThrowScared_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 30
+      y: 4
+      width: 18
+      height: 17
+    spriteID: aaee8e08f2fa41645b4953b30023ee5f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 30, y: 4}
+  - name: DiCarlo_ScytheThrowScared_Frame_6
+    originalName: 
+    pivot: {x: 0.5555556, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 30
+      y: 29
+      width: 18
+      height: 17
+    spriteID: ea80222a508b26448ad6fc48c462cbce
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 30, y: 29}
+  - name: DiCarlo_ScytheThrowScared_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 30
+      y: 54
+      width: 18
+      height: 17
+    spriteID: 2fd93f2696aae4847892128518696162
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 30, y: 54}
   spriteSheetImportData:
-  - name: scythe_throw_spirit_0
+  - name: DiCarlo_ScytheThrowScared_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 6
-      y: 59
-      width: 19
-      height: 25
-    spriteID: 212d367b22fb66344b7a798ad701bca3
+      x: 4
+      y: 104
+      width: 18
+      height: 17
+    spriteID: 099bbf001f0055444830a3323087e18a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -262,18 +302,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: scythe_throw_spirit_2
+  - name: DiCarlo_ScytheThrowScared_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 39
-      y: 59
-      width: 19
-      height: 25
-    spriteID: 35c74c830f52e9f4886ee9a6e8d87a4e
+      x: 4
+      y: 79
+      width: 18
+      height: 17
+    spriteID: ad4c8813dcbf41546a01c7aff2dd7b3b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -282,18 +322,98 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: scythe_throw_spirit_3
+  - name: DiCarlo_ScytheThrowScared_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 7
+      x: 4
+      y: 54
+      width: 18
+      height: 17
+    spriteID: 9e1180828d4dedf43a7af6f74008299e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: DiCarlo_ScytheThrowScared_5
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 30
+      y: 54
+      width: 18
+      height: 17
+    spriteID: 805cc88a01dca8c49a0e5cb6e05a4a75
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: DiCarlo_ScytheThrowScared_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 29
+      width: 18
+      height: 17
+    spriteID: e668e776dde134f4eaad00b53a211ff3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: DiCarlo_ScytheThrowScared_6
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 30
+      y: 29
+      width: 18
+      height: 17
+    spriteID: 94edb666420ceaa418ff1f73d096cd68
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: DiCarlo_ScytheThrowScared_4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
       y: 4
-      width: 19
-      height: 25
-    spriteID: 2c64a3ed3ce7522408395090758a80c2
+      width: 18
+      height: 17
+    spriteID: ae09b4e8ae7d1bc44a501f15603d8a57
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -302,58 +422,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: scythe_throw_spirit_6
+  - name: DiCarlo_ScytheThrowScared_7
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 71
+      x: 30
       y: 4
-      width: 19
-      height: 25
-    spriteID: 6d75efbd03988b441a275066e803f90b
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: scythe_throw_spirit_7
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 102
-      y: 4
-      width: 19
-      height: 25
-    spriteID: b5c1c7b38178d344797da8b0d86a9b01
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: scythe_throw_spirit_8
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 40
-      y: 4
-      width: 19
-      height: 25
-    spriteID: 9a9b2b8089cf3af49aa61d868914000d
+      width: 18
+      height: 17
+    spriteID: 7c0b3c462a284334b9b09301a3706c1f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -364,66 +444,84 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
-    guid: -1038530093
-    name: scythe_throw_spirit
+    guid: -1811585182
+    name: scythe_throw_scared_1
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: scythe_throw_spirit_Frame_0
+    - name: scythe_throw_scared_1_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 2
         y: 0
-        width: 24
-        height: 47
-      spriteId: d9a70218373bfcc439357c373207c549
-    - name: scythe_throw_spirit_Frame_1
+        width: 18
+        height: 17
+      spriteId: 9ba02f6b90c1d384bb04389edbbd401a
+    - name: scythe_throw_scared_1_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 3
         y: 0
-        width: 24
-        height: 47
-      spriteId: 9e4a7cff2b32775469df1e1883b0c91e
-    - name: scythe_throw_spirit_Frame_2
+        width: 18
+        height: 17
+      spriteId: b0b46e1945cfc0f4eb45ab922577d2d3
+    - name: scythe_throw_scared_1_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 2
         y: 0
-        width: 24
-        height: 47
-      spriteId: 2400d930132128a4bad513e8d4230a58
-    - name: scythe_throw_spirit_Frame_3
+        width: 18
+        height: 17
+      spriteId: d6a6a4844c7f12b4e820ba29384809d8
+    - name: scythe_throw_scared_1_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 3
         y: 0
-        width: 24
-        height: 47
-      spriteId: b6c39f8a4cf6bf04da8924990f88f95d
-    - name: scythe_throw_spirit_Frame_4
+        width: 18
+        height: 17
+      spriteId: 8db6f67a06689ea4e99761091798de3d
+    - name: scythe_throw_scared_1_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 2
         y: 0
-        width: 24
-        height: 47
-      spriteId: 16b3ab3d63c494b408068a07c15da825
-    - name: scythe_throw_spirit_Frame_5
+        width: 18
+        height: 17
+      spriteId: 1d0d6279455e2b740a0cacf059ef5ee9
+    - name: scythe_throw_scared_1_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 3
         y: 0
-        width: 24
-        height: 47
-      spriteId: 404e4cb73adb69e4e8f4463b40bacd65
+        width: 18
+        height: 17
+      spriteId: d32ad746dd2da9240b9c61bc409ae1bb
+    - name: scythe_throw_scared_1_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 0
+        width: 18
+        height: 17
+      spriteId: 4fa85b9f1cf2ea3409ae49a87e40a673
+    - name: scythe_throw_scared_1_Frame_7
+      frameIndex: 7
+      additiveSortOrder: 0
+      cellRect:
+        x: 3
+        y: 0
+        width: 18
+        height: 17
+      spriteId: a6946826506922b4fb97fc4b4334fec0
     linkedCells: []
     parentIndex: -1
   platformSettings:
