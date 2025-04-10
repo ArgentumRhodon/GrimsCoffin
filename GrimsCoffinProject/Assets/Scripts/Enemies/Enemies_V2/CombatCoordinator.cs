@@ -97,12 +97,13 @@ public class CombatCoordinator : MonoBehaviour
     private void UpdateTickets()
     {
         //Timer
-        ticketTimer += Time.deltaTime;
+        if(CurrentTicketTotal < MaxTicketTotal)
+            ticketTimer += Time.deltaTime;
 
         //Checks timer and max tickets, gives new ticket if conditions are met
         if(ticketTimer > timerBetweenNewTicket)
         {
-            if(CurrentTicketTotal < maxTicketTotal)
+            if(CurrentTicketTotal < MaxTicketTotal)
             {
                 currentTicketPool++;
             }
@@ -131,6 +132,7 @@ public class CombatCoordinator : MonoBehaviour
             enemiesReadyToAttack[0].HasAttackTicket = true;
             enemiesReadyToAttack.RemoveAt(0);
             givingTicketTimer = 0;
+            ticketTimer = 0;
         }   
     }
     #endregion
