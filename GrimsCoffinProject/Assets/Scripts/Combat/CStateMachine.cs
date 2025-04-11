@@ -74,6 +74,7 @@ public class CStateMachine : MonoBehaviour
         {
             if (customName == "Combat")
             {
+                Debug.Log("Custom name is working");
                 mainStateType = new IdleCombatState();
             }
         }

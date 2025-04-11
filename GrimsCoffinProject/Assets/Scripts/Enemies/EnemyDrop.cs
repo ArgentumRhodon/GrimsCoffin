@@ -71,7 +71,7 @@ public class EnemyDrop : MonoBehaviour
         {
             this.transform.position = Vector3.MoveTowards(transform.position, PlayerControllerForces.Instance.transform.position, speed * Time.deltaTime);
             transform.rotation = Quaternion.LookRotation(transform.forward, transform.position - PlayerControllerForces.Instance.transform.position);
-            Debug.Log("Pickup Moving");
+            //Debug.Log("Pickup Moving");
         }
 
         else
@@ -86,7 +86,7 @@ public class EnemyDrop : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerControllerForces>() != null)
         {
-            Debug.Log("Pickup Collected");
+            //Debug.Log("Pickup Collected");
             collected = true;
         }
     }
