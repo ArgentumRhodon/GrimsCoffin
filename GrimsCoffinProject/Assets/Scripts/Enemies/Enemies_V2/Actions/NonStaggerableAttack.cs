@@ -37,7 +37,7 @@ namespace Core.AI
             enemyScript.GetsHitCanceled = false;
 
             //Color? - Might be implemented later, but suited better with an animation of some sort
-            enemyScript.SpriteRenderer.color = new Color(.95f,.75f,.75f);
+            //enemyScript.SpriteRenderer.color = new Color(.95f,.75f,.75f);
 
             //Make sure enemy is not already staggered
             if (!enemyScript.enemyStateList.IsStaggered)
@@ -67,7 +67,7 @@ namespace Core.AI
             enemyScript.CanBeStaggered = originalStaggerState;
             enemyScript.CanTakeKnockback = originalKnockbackState;
             enemyScript.GetsHitCanceled = originalGetHitCanceled;
-            enemyScript.SpriteRenderer.color = Color.white;
+            //enemyScript.SpriteRenderer.color = Color.white;
         }
 
         private void Attack()
