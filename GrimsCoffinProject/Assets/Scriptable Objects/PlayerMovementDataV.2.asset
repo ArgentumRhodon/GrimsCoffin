@@ -17,11 +17,11 @@ MonoBehaviour:
   cameraOffset: 0.6
   cameraWalkOffset: -0.1
   cameraDashOffset: -0.15
-  maxHP: 125
+  maxHP: 50
   maxSP: 0
-  damageMultiplier: 1.5
+  damageMultiplier: 1
   iFrameTimer: 1
-  respawnPoint: {x: -16.601776, y: -1.6799994}
+  respawnPoint: {x: -17.900002, y: 0}
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -64,7 +64,7 @@ MonoBehaviour:
   slideAccel: 1
   coyoteTime: 0.2
   jumpInputBufferTime: 0.2
-  canDash: 0
+  canDash: 1
   dashAmount: 1
   dashSpeed: 27
   dashSleepTime: 0.025

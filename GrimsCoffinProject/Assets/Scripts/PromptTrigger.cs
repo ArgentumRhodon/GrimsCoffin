@@ -10,7 +10,7 @@ public enum InteractionName
     Interact,
     Ability,
     Dash,
-    Look
+    Look,
 }
 public class PromptTrigger : MonoBehaviour
 {
@@ -42,6 +42,9 @@ public class PromptTrigger : MonoBehaviour
         //Show prompt if player enters the trigger
         if (collision.gameObject.GetComponent<PlayerControllerForces>() != null)
         {
+            if (interaction == InteractionName.Ability && !PlayerControllerForces.Instance.Data.canScytheThrow)
+                return;
+
             PlayerControllerForces.Instance.interactionPrompt.DisplayPrompt(interaction, interactionText, time);
             if (interaction == InteractionName.Interact)
             {

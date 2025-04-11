@@ -1782,9 +1782,11 @@ MonoBehaviour:
   mapPromptIcons: []
   mapPrompt: {fileID: 0}
   dialogueUI: {fileID: 1351196999}
+  unlockUI: {fileID: 0}
   playerInput: {fileID: 491838783}
   activeSavePoint: {fileID: 0}
   bossHealthBar: {fileID: 0}
+  bossMapIcon: {fileID: 0}
   endStateText: {fileID: 0}
   scytheThrowInMenu: 0
 --- !u!4 &282942412
@@ -1815,8 +1817,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vcam: {fileID: 57311863}
+  Playercam: {fileID: 0}
   CameraControl: {fileID: 936170982}
   deadzone: 0.5
+  UICamera: {fileID: 0}
 --- !u!114 &282942414
 MonoBehaviour:
   m_ObjectHideFlags: 0

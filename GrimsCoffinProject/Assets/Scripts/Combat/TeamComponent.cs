@@ -10,7 +10,8 @@ public enum TeamIndex
     Count,
     BreakWall,
     Rope,
-    Spike
+    Spike,
+    BreakableObject
 }
 
 public class TeamComponent : MonoBehaviour
