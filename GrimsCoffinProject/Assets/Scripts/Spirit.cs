@@ -71,6 +71,11 @@ public class Spirit : Interactable
 
         spiritState = PersistentDataManager.Instance.GetSpiritState(this);
 
+        if (spiritState == SpiritState.Uncollected)
+            animator.SetInteger("SpiritPose", 2);
+        else
+            animator.SetInteger("SpiritPose", 0);
+
         if (spiritState == SpiritState.Collected
             || spiritID == SpiritID.HealthSpirit && PersistentDataManager.Instance.HealthCollectablesHeld >= upgradeCost)
             exclamationMark.SetActive(true);
@@ -133,5 +138,13 @@ public class Spirit : Interactable
                 PerformInteraction();
             }
         }
+    }
+
+    public void ToggleSpeakingAnimation(bool isSpeaking)
+    {
+        if (isSpeaking)
+            animator.SetInteger("SpiritPose", 1);
+        else
+            animator.SetInteger("SpiritPose", 0);
     }
 }
