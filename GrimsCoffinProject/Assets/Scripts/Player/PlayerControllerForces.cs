@@ -545,7 +545,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Dash Input
     private void OnDash()
     {
-        if (isSleeping)
+        if (isSleeping || playerState.IsAttacking)
             return;
 
         LastPressedDashTime = Data.dashInputBufferTime;
@@ -1048,7 +1048,7 @@ public class PlayerControllerForces : MonoBehaviour
         else
             direction = -1;
 
-        Debug.Log("Basic Attack");
+        //Debug.Log("Basic Attack");
 
         rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
 
@@ -1160,10 +1160,6 @@ public class PlayerControllerForces : MonoBehaviour
                 lastDashDir = moveInput;
             else
                 lastDashDir = playerState.IsFacingRight ? Vector2.right : Vector2.left;
-
-            //If mid attack, stop the combo
-            if (playerCombat.IsComboing)
-                EndCombo();      
 
             //Set states
             playerState.IsDashing = true;
@@ -1776,8 +1772,9 @@ public class PlayerControllerForces : MonoBehaviour
     private void TempResetData()
         {
             //Data.canDash = true;
-            //Data.canDoubleJump = true;
-            //Data.canWallJump = true;
+            Data.canDoubleJump = true;
             currentHP = 50;
+            Data.canADownAttack = true;
+            Data.canGUpAttack = true;
         }
     }

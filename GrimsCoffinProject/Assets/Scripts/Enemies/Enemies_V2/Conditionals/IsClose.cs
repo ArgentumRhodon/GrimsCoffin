@@ -7,13 +7,16 @@ namespace Core.AI
 {
     public class IsClose : EnemyConditional
     {
-        public bool isSuccessIfClose = true;
-        public float range;
+        private Collider2D collider;
+
+        public override void OnStart()
+        {
+            collider = enemyScript.closeRangeCollider;
+        }
 
         public override TaskStatus OnUpdate()
         {
-            if ((isSuccessIfClose && enemyScript.FindPlayerDistanceX() < range)
-                || (!isSuccessIfClose && enemyScript.FindPlayerDistanceX() > range))
+            if (enemyScript.IsOverlapping(collider) && !enemyScript.enemyStateList.IsAttacking)
             {
                 return TaskStatus.Success;
             }

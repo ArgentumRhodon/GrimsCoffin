@@ -31,7 +31,7 @@ public class ScytheThrowRope : MonoBehaviour
         }
 
         health -= damage;
-        Debug.Log("The Damage has been dealt");
+        //Debug.Log("The Damage has been dealt");
 
         ////Camera shake based off of damage
         //CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);

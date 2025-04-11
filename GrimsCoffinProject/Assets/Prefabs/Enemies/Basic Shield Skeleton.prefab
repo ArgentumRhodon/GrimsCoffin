@@ -707,8 +707,11 @@ MonoBehaviour:
   groundCheckSize: {x: 0.49, y: 0.03}
   wallChecker: {fileID: 935854789338856834}
   airChecker: {fileID: 6984276949057077447}
+  backWallChecker: {fileID: 0}
+  backAirChecker: {fileID: 0}
   visionCollider: {fileID: 7152574433639618853}
   kinematicCollider: {fileID: 9017090490510364776}
+  closeRangeCollider: {fileID: 0}
   bodyCollider: {fileID: 9017090490510364776}
   attackCollider: {fileID: 4699518866355440840}
   DamagedNotifer:

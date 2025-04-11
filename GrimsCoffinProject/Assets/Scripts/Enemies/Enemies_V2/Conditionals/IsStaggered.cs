@@ -7,12 +7,10 @@ namespace Core.AI
 {
     public class IsStaggered : EnemyConditional
     {
-        public string animationTriggerName;
         public override TaskStatus OnUpdate()
         {
             if (enemyScript.enemyStateList.IsStaggered)
             {
-                animator.Play(animationTriggerName);
                 return TaskStatus.Success;
             }
 
