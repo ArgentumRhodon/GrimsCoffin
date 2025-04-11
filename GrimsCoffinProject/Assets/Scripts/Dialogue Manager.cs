@@ -211,23 +211,24 @@ public class DialogueManager : MonoBehaviour
             // Update speaker icon
             speakerIcon.sprite = speakers[dialogue.SpeakerID];
 
-
-            if (dialogue.SpeakerID > 0)
-            {
-                RuntimeManager.StudioSystem.setParameterByName("DialogueIndex", dialogue.SpeakerID - 1);
-                RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 0);
-                dxInst.start();
-            }
             if (currentLine == 1)
             {
                 DOVirtual.DelayedCall(0.25f, ()=>StartTypewriter(dialogue.DialogueContent), false);
+                RuntimeManager.StudioSystem.setParameterByName("DialogueIndex", dialogue.SpeakerID);
+                Debug.Log("Current Spirit Id is: " + (int)spirit.spiritID);
+                dxInst.start();
             }
             else 
             {
                 StartTypewriter(dialogue.DialogueContent);
+                RuntimeManager.StudioSystem.setParameterByName("DialogueIndex", dialogue.SpeakerID);
+                Debug.Log("Current Spirit Id is: " + (int)spirit.spiritID);
+                dxInst.start();
             }
 
             // Start the typed text
+            
+
             StartTypewriter(dialogue.DialogueContent);
         }
         else
@@ -291,10 +292,8 @@ private IEnumerator TypeTextRoutine(string fullText)
     int i = 0;
     while (i < fullText.Length)
     {
-            if (i == 5)
-            {
                 RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 1);
-            }
+
             // 1) Check if the current character starts a tag
             if (fullText[i] == '<')
         {
@@ -340,6 +339,7 @@ private IEnumerator TypeTextRoutine(string fullText)
             i++;
         }
     }
+    dxInst.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
     // Finished typing fully
     isTyping = false;
