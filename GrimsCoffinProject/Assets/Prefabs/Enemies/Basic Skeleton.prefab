@@ -463,13 +463,13 @@ MonoBehaviour:
   oneShotNotifierA:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 4965321942252582458}
+        m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
+        m_MethodName: RespondToInstMoveEvent
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -508,9 +508,9 @@ MonoBehaviour:
   oneShotNotifierD:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
-        m_MethodName: RespondToEventD
+      - m_Target: {fileID: 4965321942252582458}
+        m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
+        m_MethodName: RespondToInstMoveEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
