@@ -1,3 +1,4 @@
+using DG.Tweening;
 using FMOD.Studio;
 using FMODUnity;
 using System;
@@ -217,6 +218,14 @@ public class DialogueManager : MonoBehaviour
                 RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 0);
                 dxInst.start();
             }
+            if (currentLine == 1)
+            {
+                DOVirtual.DelayedCall(0.25f, ()=>StartTypewriter(dialogue.DialogueContent), false);
+            }
+            else 
+            {
+                StartTypewriter(dialogue.DialogueContent);
+            }
 
             // Start the typed text
             StartTypewriter(dialogue.DialogueContent);
@@ -267,6 +276,8 @@ public class DialogueManager : MonoBehaviour
 
         typingCoroutine = StartCoroutine(TypeTextRoutine(newText));
     }
+
+
 
     /// <summary>
     /// Coroutine that reveals the text character-by-character, 
