@@ -1,3 +1,6 @@
+using DG.Tweening;
+using FMOD.Studio;
+using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +11,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static DialogueLoader;
+using static UnityEngine.Rendering.DebugUI;
 
 /// <summary>
 /// Combined DialogueManager that also handles typewriting.
@@ -50,6 +54,9 @@ public class DialogueManager : MonoBehaviour
     private int currentLine = 1;     // Tracks which line in the sequence we're on
     private Spirit currentSpirit;    // Which spirit we’re currently talking to
     public bool canProgressDialogue = false; // True once the current line is fully revealed
+
+    //Dialogue FMOD
+    private EventInstance dxInst;
 
     // Input
     private PlayerControls controls;
@@ -111,6 +118,8 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("No TextMeshProUGUI found under dialogueUI in UIManager!");
         }
+
+        RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 0);
     }
 
     private void Update()
@@ -185,6 +194,8 @@ public class DialogueManager : MonoBehaviour
         int id = (int)spirit.spiritID;
         int state = (int)spirit.spiritState;
 
+        dxInst = currentSpirit.dialogueInstance;
+
         // Find a dialogue line with matching SpiritID, SpiritState, and currentLine
         DialogueEntry dialogue = dialogues.FirstOrDefault(d =>
             d.SpiritID == id &&
@@ -200,7 +211,24 @@ public class DialogueManager : MonoBehaviour
             // Update speaker icon
             speakerIcon.sprite = speakers[dialogue.SpeakerID];
 
+            if (currentLine == 1)
+            {
+                DOVirtual.DelayedCall(0.25f, ()=>StartTypewriter(dialogue.DialogueContent), false);
+                RuntimeManager.StudioSystem.setParameterByName("DialogueIndex", dialogue.SpeakerID);
+                Debug.Log("Current Spirit Id is: " + (int)spirit.spiritID);
+                dxInst.start();
+            }
+            else 
+            {
+                StartTypewriter(dialogue.DialogueContent);
+                RuntimeManager.StudioSystem.setParameterByName("DialogueIndex", dialogue.SpeakerID);
+                Debug.Log("Current Spirit Id is: " + (int)spirit.spiritID);
+                dxInst.start();
+            }
+
             // Start the typed text
+            
+
             StartTypewriter(dialogue.DialogueContent);
         }
         else
@@ -246,8 +274,11 @@ public class DialogueManager : MonoBehaviour
         canProgressDialogue = false;
 
         // Start the coroutine
+
         typingCoroutine = StartCoroutine(TypeTextRoutine(newText));
     }
+
+
 
     /// <summary>
     /// Coroutine that reveals the text character-by-character, 
@@ -261,9 +292,12 @@ private IEnumerator TypeTextRoutine(string fullText)
     int i = 0;
     while (i < fullText.Length)
     {
-        // 1) Check if the current character starts a tag
-        if (fullText[i] == '<')
+                RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 1);
+
+            // 1) Check if the current character starts a tag
+            if (fullText[i] == '<')
         {
+  
             // 2) Find where this tag ends
             int closeTagIndex = fullText.IndexOf('>', i);
             if (closeTagIndex == -1)
@@ -293,8 +327,8 @@ private IEnumerator TypeTextRoutine(string fullText)
             // Normal character ¡ú type it out
             dialogueText.text += fullText[i];
 
-            // If it's punctuation, delay a bit
-            if (IsPunctuation(fullText[i]))
+                // If it's punctuation, delay a bit
+                if (IsPunctuation(fullText[i]))
             {
                 yield return punctWait;
             }
@@ -305,6 +339,7 @@ private IEnumerator TypeTextRoutine(string fullText)
             i++;
         }
     }
+    dxInst.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
     // Finished typing fully
     isTyping = false;
@@ -347,7 +382,8 @@ private IEnumerator TypeTextRoutine(string fullText)
         {
             StopCoroutine(typingCoroutine);
         }
-
+        dxInst.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 0);
         dialogueText.text = currentTypingText;
         isTyping = false;
         //isSkipping = false;
