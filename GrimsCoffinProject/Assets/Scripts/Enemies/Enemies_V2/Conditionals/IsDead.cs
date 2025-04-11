@@ -7,7 +7,6 @@ namespace Core.AI
 {
     public class IsDead : EnemyConditional
     {
-        public string animationTriggerName;
         public override TaskStatus OnUpdate()
         {
             return enemyScript.health <= 0 ? TaskStatus.Success : TaskStatus.Failure;
@@ -17,10 +16,10 @@ namespace Core.AI
         {
             if(enemyScript.health <= 0)
             {
-                animator.Play(animationTriggerName);
-                gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
-                //rb.gravityScale = 1;
-                enemyScript.RemoveActiveEnemy();
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+                {
+                    animator.Play("Dead");
+                }
             }
         }
     }

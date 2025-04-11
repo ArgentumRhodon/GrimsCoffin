@@ -62,7 +62,7 @@ namespace Core.AI
                 {
                     rb.velocity = Vector2.zero;
                     isWaiting = true;
-                    animator.Play(animationTriggerName);                 
+                    animator.Play(nextAnimationTrigger);                 
                 }
                 else if (isWaiting)
                 {
@@ -209,7 +209,7 @@ namespace Core.AI
                 if (isWaiting)
                 {
                     isWaiting = false;
-                    animator.Play(nextAnimationTrigger);
+                    animator.Play(animationTriggerName);
                     //animator.SetTrigger(animationTriggerName);
                 }
                 return false;
@@ -230,30 +230,5 @@ namespace Core.AI
                 enemyScript.FaceRight(false);
             }
         }
-
-        private bool IsOverlapping()
-        {
-            //Check for colliders overlapping
-            Collider2D[] collidersToCheck = new Collider2D[10];
-
-            //Debug.Log("Colliders to Check Size" + collidersToCheck.Length);
-
-            ContactFilter2D filter = new ContactFilter2D();
-            filter.useTriggers = true;
-
-            int colliderCount = Physics2D.OverlapCollider(visionCollider, filter, collidersToCheck);
-            //Debug.Log("Colliders Count" + colliderCount);
-
-
-            //Go through all colliders and check to see if it is the player
-            for (int i = 0; i < colliderCount; i++)
-            {
-                if (collidersToCheck[i].gameObject.tag == "Player")
-                    return true;
-            }
-            return false;
-        }
-
-
     }
 }
