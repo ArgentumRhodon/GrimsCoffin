@@ -9,7 +9,7 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
   textureImporterSettings:
-    alphaSource: 0
+    alphaSource: 1
     mipMapMode: 0
     enableMipMap: 0
     fadeOut: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638799742086098760
+  platformSettingsDirtyTick: 638799757858591303
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -294,37 +294,37 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 0
-        width: 24
-        height: 24
+        x: 1
+        y: 2
+        width: 19
+        height: 18
       spriteId: 8fc0ec6ad9484094e82b0bee019a95ee
-    - name: map_spirit_scared_Frame_3
-      frameIndex: 3
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 24
-        height: 24
-      spriteId: 6e758b129aab6f74985745b9cee99fd0
     - name: map_spirit_scared_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 0
-        width: 24
-        height: 24
-      spriteId: d6f7de589bd6a8245a606143b76af1d6
+        x: 1
+        y: 3
+        width: 19
+        height: 18
+      spriteId: 6e758b129aab6f74985745b9cee99fd0
     - name: map_spirit_scared_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 0
-        width: 24
-        height: 24
+        x: 1
+        y: 4
+        width: 19
+        height: 18
+      spriteId: d6f7de589bd6a8245a606143b76af1d6
+    - name: map_spirit_scared_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 3
+        width: 19
+        height: 18
       spriteId: 3db3f13801561264a9f68c3c3a2602ad
     linkedCells: []
     parentIndex: -1
@@ -378,6 +378,18 @@ ScriptedImporter:
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
   - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Windows Store Apps
     overridden: 0
     ignorePlatformSupport: 0
     maxTextureSize: 2048

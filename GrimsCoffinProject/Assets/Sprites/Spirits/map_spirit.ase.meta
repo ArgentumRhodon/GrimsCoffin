@@ -9,7 +9,7 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
   textureImporterSettings:
-    alphaSource: 0
+    alphaSource: 1
     mipMapMode: 0
     enableMipMap: 0
     fadeOut: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638799742052500190
+  platformSettingsDirtyTick: 638799757827095448
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -295,36 +295,36 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 0
-        width: 24
-        height: 24
+        y: 2
+        width: 21
+        height: 18
       spriteId: ebb9a2c987008d445b2f4e67bf4042f0
-    - name: map_spirit_Frame_3
-      frameIndex: 3
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 24
-        height: 24
-      spriteId: adecb5f7b3af9d04e8d54d79e3c08a83
     - name: map_spirit_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 0
-        width: 24
-        height: 24
-      spriteId: b8b8bcf89279dfc4fad262ecbde66df6
+        y: 3
+        width: 21
+        height: 18
+      spriteId: adecb5f7b3af9d04e8d54d79e3c08a83
     - name: map_spirit_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 0
-        width: 24
-        height: 24
+        y: 4
+        width: 21
+        height: 18
+      spriteId: b8b8bcf89279dfc4fad262ecbde66df6
+    - name: map_spirit_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 3
+        width: 21
+        height: 18
       spriteId: d89a71b22a4f4f34183b80c89ceebda1
     linkedCells: []
     parentIndex: -1
@@ -378,6 +378,18 @@ ScriptedImporter:
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
   - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Windows Store Apps
     overridden: 0
     ignorePlatformSupport: 0
     maxTextureSize: 2048

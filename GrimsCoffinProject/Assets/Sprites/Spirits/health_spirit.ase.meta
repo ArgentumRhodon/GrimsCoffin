@@ -9,7 +9,7 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
   textureImporterSettings:
-    alphaSource: 0
+    alphaSource: 1
     mipMapMode: 0
     enableMipMap: 0
     fadeOut: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638799741922107469
+  platformSettingsDirtyTick: 638799757772116410
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -294,37 +294,37 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 4
         y: 0
-        width: 96
-        height: 24
+        width: 13
+        height: 16
       spriteId: 007401e9c730f3a47a788a826c1eee2a
     - name: health_spirit_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
-        x: -24
+        x: 4
         y: 0
-        width: 96
-        height: 24
+        width: 13
+        height: 17
       spriteId: d7c2ab7a51498c249967194557895c15
     - name: health_spirit_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 4
         y: 0
-        width: 96
-        height: 24
+        width: 13
+        height: 18
       spriteId: 50a8597b300494345807c733f74d07a9
     - name: health_spirit_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
-        x: -72
+        x: 4
         y: 0
-        width: 96
-        height: 24
+        width: 13
+        height: 17
       spriteId: 55559cb530b2c1546abb29b80d75e3bb
     linkedCells: []
     parentIndex: -1
@@ -378,6 +378,18 @@ ScriptedImporter:
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
   - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Windows Store Apps
     overridden: 0
     ignorePlatformSupport: 0
     maxTextureSize: 2048
