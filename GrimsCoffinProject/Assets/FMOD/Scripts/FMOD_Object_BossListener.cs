@@ -33,6 +33,9 @@ public class FMOD_Object_BossListener : MonoBehaviour
     [SerializeField] public EventReference BlastSFX;
     [SerializeField] protected EventInstance BlastInstance;
 
+    private DenialBoss sampleBoss;
+    private int bossHalfHealth;
+
     private Transform object1;
     private Transform object2;
     private float distance;
@@ -59,6 +62,13 @@ public class FMOD_Object_BossListener : MonoBehaviour
         AOEBeamInstance = RuntimeManager.CreateInstance(AOEBeamSFX);
         LaserShootInstance = RuntimeManager.CreateInstance(LaserShootSFX);
         BlastInstance = RuntimeManager.CreateInstance(BlastSFX);
+
+        sampleBoss = FindObjectOfType<DenialBoss>();
+        bossHalfHealth = (int)sampleBoss.health / 2;
+
+        RuntimeManager.StudioSystem.setParameterByName("DenialLevel", 1);
+        RuntimeManager.StudioSystem.setParameterByName("BossLevel", 0);
+
         object1 = this.transform;
         GameObject target2 = GameObject.Find("PlayerForces");
         if (target2 != null)
@@ -79,6 +89,10 @@ public class FMOD_Object_BossListener : MonoBehaviour
     {
         attenuationResult = 2 * attenuation;
         distanceUpdater();
+        if (sampleBoss.health < bossHalfHealth) {
+            //Debug.Log("Boss Health Triggered");
+            RuntimeManager.StudioSystem.setParameterByName("BossLevel", 1);
+         }
     }
 
     public void RespondToDamagedEvent()
@@ -90,6 +104,8 @@ public class FMOD_Object_BossListener : MonoBehaviour
     public void RespondToDeadEvent()
     {
         DeadInstance.start();
+        RuntimeManager.StudioSystem.setParameterByName("DenialLevel", 0);
+        RuntimeManager.StudioSystem.setParameterByName("BossLevel", 0);
     }
 
     public void RespondToIdleEvent()
