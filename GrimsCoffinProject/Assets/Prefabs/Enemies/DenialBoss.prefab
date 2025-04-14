@@ -772,7 +772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad7d7b9e0db52f41b8bc4005b569bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStaggered: 0
   health: 250
   visionRange: 50
   currencyValue: 1000
@@ -793,7 +792,9 @@ MonoBehaviour:
   movementDeacceleration: 100
   movementDeaccelAmount: 0
   canBePulledDown: 0
-  canBeStopped: 0
+  canBeStaggered: 0
+  canTakeKnockback: 0
+  getsHitCanceled: 0
   enemyGFX: {fileID: 8986455119475476785}
   enemy: {fileID: 5102692280267028376}
   playerTarget: {fileID: 0}
@@ -810,8 +811,11 @@ MonoBehaviour:
   groundCheckSize: {x: 0.49, y: 0.03}
   wallChecker: {fileID: 3848621942234283}
   airChecker: {fileID: 7728501209127698438}
+  backWallChecker: {fileID: 0}
+  backAirChecker: {fileID: 0}
   visionCollider: {fileID: 906509670689769345}
   kinematicCollider: {fileID: 3625943854238356700}
+  closeRangeCollider: {fileID: 0}
   bodyCollider: {fileID: 8553554155213755390}
   attackCollider: {fileID: 3389047393684360451}
   DamagedNotifer:
@@ -875,6 +879,7 @@ MonoBehaviour:
   laserCollider: {fileID: 25758127392665403}
   roomBounds: {fileID: 0}
   healthBar: {fileID: 604780877322291776, guid: 909c80730807ce540b677b26d8ec1fad, type: 3}
+  creditsPrefab: {fileID: 0}
 --- !u!114 &3388584875256914433
 MonoBehaviour:
   m_ObjectHideFlags: 0
