@@ -207,6 +207,7 @@ public class DialogueManager : MonoBehaviour
             // Show the UI
             uiManager.ToggleDialogueUI(true);
             controls.Dialogue.Continue.performed += OnContinue;
+            spirit.ToggleSpeakingAnimation(true);
 
             // Update speaker icon
             speakerIcon.sprite = speakers[dialogue.SpeakerID];
@@ -248,7 +249,7 @@ public class DialogueManager : MonoBehaviour
             currentLine = 1;
             uiManager.ToggleDialogueUI(false);
             controls.Dialogue.Continue.performed -= OnContinue;
-
+            spirit.ToggleSpeakingAnimation(false);
         }
     }
 
