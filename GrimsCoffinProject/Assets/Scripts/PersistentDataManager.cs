@@ -134,7 +134,8 @@ public class PersistentDataManager : MonoBehaviour
                     case Spirit.SpiritID.MapSpirit:
                         PlayerPrefs.SetInt("CanViewMap", 1);
                         PlayerControllerForces.Instance.Data.canViewMap = true;
-                        UIManager.Instance.ShowAbilityUnlock("Map Unlocked", AbilityName.Map);
+                        UIManager.Instance.ShowAbilityUnlock("Map Unlocked", AbilityName.Map, true);
+                        UIManager.Instance.ToggleMap();
                         break;
 
                     //Unlocks Dash
