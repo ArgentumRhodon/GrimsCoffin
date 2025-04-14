@@ -8,17 +8,8 @@ namespace Core.AI
 {
     public class Turn : EnemyAction
     {
-        private bool hasTurned = false;
-        private Canvas enemyCanvas;
-
-        public string animationTriggerName;
-
         public override void OnStart()
         {
-            enemyCanvas = gameObject.GetComponentInChildren<Canvas>();
-            //animator.SetTrigger(animationTriggerName);
-            //animator.Play("BasicSkeleton_Idle");
-
             if (enemyScript.enemyStateList.IsFacingRight)
                 enemyScript.FaceRight(false);
             else

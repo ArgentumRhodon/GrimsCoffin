@@ -10,6 +10,11 @@ public class SavePoint : Interactable
 
     [SerializeField] private Animator coffinAnimator;
     [SerializeField] public bool coffinOpen;
+    [SerializeField] private bool insideEquilibrium;
+    [SerializeField] private float holdTimer = 0.5f;
+    [SerializeField] private GameObject fadeToWhite;
+
+    private bool sceneTransition = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,19 +26,81 @@ public class SavePoint : Interactable
     void Update()
     {
         coffinAnimator.SetBool("CoffinOpen", coffinOpen);
+        if (PlayerControllerForces.Instance.isHoldingInteract)
+        {
+            switch (UIManager.Instance.playerInput.currentControlScheme)
+            {
+                case "Keyboard&Mouse":
+                    PlayerControllerForces.Instance.interactionPrompt.keyboardHoldFill.fillAmount = PlayerControllerForces.Instance.holdInteractTimer / holdTimer;
+                    break;
+                default:
+                    PlayerControllerForces.Instance.interactionPrompt.controllerHoldFill.fillAmount = PlayerControllerForces.Instance.holdInteractTimer / holdTimer;
+                    break;
+            } 
+
+            PlayerControllerForces.Instance.holdInteractTimer += Time.deltaTime;
+            
+            if (PlayerControllerForces.Instance.holdInteractTimer >= holdTimer)
+                EnterEquilibrium();
+        }
+
+        else if (!PlayerControllerForces.Instance.isHoldingInteract && !sceneTransition)
+        {
+            fadeToWhite.SetActive(false);
+            PlayerControllerForces.Instance.interactionPrompt.keyboardHoldFill.fillAmount = 0;
+            PlayerControllerForces.Instance.interactionPrompt.controllerHoldFill.fillAmount = 0;
+        }
+            
     }
 
     public override void PerformInteraction()
     {
+        PlayerControllerForces.Instance.isHoldingInteract = true;
+
         if (Time.timeScale == 0)
             return;
+
+        Heal();
 
         if (SceneManager.GetActiveScene().name != "Equilibrium")
         {
             PersistentDataManager.Instance.SaveGame(this);
         }
 
-        UIManager.Instance.restPointMenu.restPoint = this;
-        UIManager.Instance.restPointMenu.ToggleEnterPrompt();
+        //UIManager.Instance.restPointMenu.restPoint = this;
+        //UIManager.Instance.restPointMenu.ToggleEnterPrompt();
+    }
+
+    public void Heal()
+    {
+        PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
+        PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
+    }
+
+    public void EnterEquilibrium()
+    {
+        sceneTransition = true;
+
+        if (insideEquilibrium)
+        {
+            PersistentDataManager.Instance.ToggleFirstSpawn(true);
+            StartCoroutine(TransitionScene(PersistentDataManager.Instance.LastSavedScene));
+        }
+
+        else
+        {
+            StartCoroutine(TransitionScene("Equilibrium"));
+        }
+    }
+
+    private IEnumerator TransitionScene(string sceneName)
+    {
+        Time.timeScale = 0;
+        fadeToWhite.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(.5f);
+
+        Time.timeScale = 1;
+        SceneManager.LoadScene(sceneName);
     }
 }

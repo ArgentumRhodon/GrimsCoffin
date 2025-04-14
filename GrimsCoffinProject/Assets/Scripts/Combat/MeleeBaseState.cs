@@ -18,7 +18,6 @@ public class MeleeBaseState : CState
     //Index of sequence in attack
     protected int attackIndex;
     protected float attackDamage;
-    protected float comboFinisherKnockbackMultiplier = 7.5f;
 
     protected PlayerCombat playerCombat;
 
@@ -107,6 +106,13 @@ public class MeleeBaseState : CState
 
                     RegisterAttackRope(collidersToDamage[i]);
                 }
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.BreakableObject)
+                {
+                    if (collidersToDamage[i].GetComponent<PolygonCollider2D>() != null)
+                        continue;
+
+                    RegisterAttackBreakableObject(collidersToDamage[i]);
+                }
             }
         }
     }
@@ -114,30 +120,36 @@ public class MeleeBaseState : CState
     protected virtual void RegisterAttack(Collider2D collidersToDamage)
     {
         Vector2 knockbackForce = KnockbackForce(collidersToDamage.gameObject.GetComponent<Enemy>().transform.position);
-        if (attackIndex == 3)
+/*        if (attackIndex == 3)
         {
             knockbackForce *= comboFinisherKnockbackMultiplier;
             Debug.Log(knockbackForce);
-        }
+        }*/
 
-        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage);
+        collidersToDamage.gameObject.GetComponent<Enemy>().TakeDamage(knockbackForce, attackDamage * PlayerControllerForces.Instance.Data.damageMultiplier);
         collidersDamaged.Add(collidersToDamage);
     }
 
     protected virtual void RegisterAttackWall(Collider2D collidersToDamage)
     {
-        collidersToDamage.gameObject.GetComponent<BreakableWall>().TakeDamage(attackDamage);
+        collidersToDamage.gameObject.GetComponent<BreakableWall>().TakeDamage(attackDamage * PlayerControllerForces.Instance.Data.damageMultiplier);
         collidersDamaged.Add(collidersToDamage);
     }
 
     protected virtual void RegisterAttackSpike(Collider2D collidersToDamage)
     {
-        collidersToDamage.gameObject.GetComponent<FallingSpike>().TakeDamage(attackDamage);
+        collidersToDamage.gameObject.GetComponent<FallingSpike>().TakeDamage(attackDamage * PlayerControllerForces.Instance.Data.damageMultiplier);
         collidersDamaged.Add(collidersToDamage);
     }
     protected virtual void RegisterAttackRope(Collider2D collidersToDamage)
     {
-        collidersToDamage.gameObject.GetComponent<ScytheThrowRope>().TakeDamage(attackDamage);
+        collidersToDamage.gameObject.GetComponent<ScytheThrowRope>().TakeDamage(attackDamage * PlayerControllerForces.Instance.Data.damageMultiplier);
+        collidersDamaged.Add(collidersToDamage);
+    }
+
+    protected virtual void RegisterAttackBreakableObject(Collider2D collidersToDamage)
+    {
+        collidersToDamage.gameObject.GetComponent<BreakableObject>().TakeDamage();
         collidersDamaged.Add(collidersToDamage);
     }
 

@@ -36,6 +36,7 @@ public class ScytheProjectile : MonoBehaviour
             direction = Vector3.right;
 
         distance = 0;
+        damage *= PlayerControllerForces.Instance.Data.damageMultiplier;
         returning = false;
         enabled = true;
     }

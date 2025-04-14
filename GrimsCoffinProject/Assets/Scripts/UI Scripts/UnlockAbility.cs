@@ -27,12 +27,13 @@ public class UnlockAbility : MonoBehaviour
 
     public UnlockCost currentunlockcost;
     public float currentcost;
-    public Spirit currentspirit;
+    public Spirit currentSpirit;
 
     // Update is called once per frame
     public void StartUnlock(Spirit spirit)
     {
         UIManager.Instance.ToggleUnlockUI(true);
+        spirit.ToggleSpeakingAnimation(true);
         int id = (int)spirit.spiritID;
         speakerIcon.sprite = speakers[id-1];
         if (id==1) 
@@ -41,7 +42,7 @@ public class UnlockAbility : MonoBehaviour
             cost.text = "(" + spirit.upgradeCost + "<sprite index=0>)";
             currentunlockcost = UnlockCost.Currency;
             currentcost = spirit.upgradeCost;
-            currentspirit = spirit;
+            currentSpirit = spirit;
 
             if (PersistentDataManager.Instance.EnemyCurrency < currentcost)
             {
@@ -59,7 +60,7 @@ public class UnlockAbility : MonoBehaviour
             cost.text = "(-3<sprite index=1>)";
             currentunlockcost = UnlockCost.Herb;
             currentcost = spirit.upgradeCost;
-            currentspirit = spirit;
+            currentSpirit = spirit;
             if (PersistentDataManager.Instance.HealthCollectablesHeld < currentcost)
             {
                 yes.interactable = false;
@@ -71,12 +72,15 @@ public class UnlockAbility : MonoBehaviour
         }
         else if (id==5)
         {
+            if (!PlayerControllerForces.Instance.Data.canGUpAttack)
+                purchasePrompt.text = "Learn the up attack?";
+            else
+                purchasePrompt.text = "Learn the down attack?";
 
-            purchasePrompt.text = "Learn the downward attack?";
             cost.text = "(" + spirit.upgradeCost + "<sprite index=0>)";
             currentunlockcost = UnlockCost.Currency;
             currentcost = spirit.upgradeCost;
-            currentspirit = spirit;
+            currentSpirit = spirit;
 
             if (PersistentDataManager.Instance.EnemyCurrency < currentcost)
             {
@@ -91,14 +95,16 @@ public class UnlockAbility : MonoBehaviour
 
     public void PurchaseAbility() 
     {
-        PersistentDataManager.Instance.UpdateSpiritState(currentspirit);
+        PersistentDataManager.Instance.UpdateSpiritState(currentSpirit);
         UIManager.Instance.ToggleUnlockUI(false);
-        currentspirit.exclamationMark.SetActive(false);
+        currentSpirit.exclamationMark.SetActive(false);
+        currentSpirit.ToggleSpeakingAnimation(false);
     }
 
     public void Quit()
     {
         UIManager.Instance.ToggleUnlockUI(false);
+        currentSpirit.ToggleSpeakingAnimation(false);
     }
 
 

@@ -66,6 +66,10 @@ public class PlayerControllerForces : MonoBehaviour
     private Vector2 moveInput;
     public Vector2 MoveInput { get {return moveInput; } }
 
+    //Interaction Input Variables
+    public bool isHoldingInteract;
+    public float holdInteractTimer;
+
     // Animation Stuff
     [SerializeField] private Animator animator;
     [SerializeField] private Animator scytheAnimator; // Top
@@ -214,7 +218,7 @@ public class PlayerControllerForces : MonoBehaviour
         Data.respawnPoint = this.transform.position;
 
         Data.maxHP = PersistentDataManager.Instance.MaxHP;
-        Data.maxSP = PersistentDataManager.Instance.MaxSP;
+        //Data.maxSP = PersistentDataManager.Instance.MaxSP;
         Data.canDoubleJump = PersistentDataManager.Instance.CanDoubleJump;
         Data.canWallJump = PersistentDataManager.Instance.CanWallJump;
         Data.canDash = PersistentDataManager.Instance.CanDash;
@@ -224,9 +228,9 @@ public class PlayerControllerForces : MonoBehaviour
         Data.canAUpAttack = PersistentDataManager.Instance.CanUpAttack;
         Data.canGDownAttack = PersistentDataManager.Instance.CanDownAttack;
         Data.canADownAttack = PersistentDataManager.Instance.CanDownAttack;
+        Data.damageMultiplier = PersistentDataManager.Instance.DamageMultiplier;
 
-        if (!PersistentDataManager.Instance.CanScytheThrow)
-            currentSP = 0;
+        currentSP = 0;
 
         LastJumpTime = 0;
         LastWallJumpTime = 0;
@@ -541,7 +545,7 @@ public class PlayerControllerForces : MonoBehaviour
     //Dash Input
     private void OnDash()
     {
-        if (isSleeping)
+        if (isSleeping || playerState.IsAttacking)
             return;
 
         LastPressedDashTime = Data.dashInputBufferTime;
@@ -572,14 +576,20 @@ public class PlayerControllerForces : MonoBehaviour
         }
     }
 
-    private void OnInteract()
+    private void OnInteract(InputValue value)
     {
         if (UIManager.Instance.pauseScript.isPaused)
             return;
 
-        if (interactionPrompt.interactable != null)
+        if (interactionPrompt.interactable != null && !isHoldingInteract)
         {
             interactionPrompt.interactable.PerformInteraction();
+        }
+
+        else if (!value.isPressed)
+        {
+            isHoldingInteract = false;
+            holdInteractTimer = 0;
         }
     }
 
@@ -641,10 +651,10 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void OnAbility()
     {
-        if (currentSP <= 0 && Data.canScytheThrow && Time.timeScale == 1)
+        if (Data.canScytheThrow && Time.timeScale == 1)
             UIManager.Instance.ScytheThrowFailed();
 
-        if (isSleeping || Time.timeScale == 0 || currentSP <= 0 || scytheThrown || !Data.canScytheThrow)
+        if (isSleeping || Time.timeScale == 0 || scytheThrown || !Data.canScytheThrow)
             return;
 
         ExecuteScytheThrow();
@@ -786,7 +796,6 @@ public class PlayerControllerForces : MonoBehaviour
     public void ExecuteScytheThrow()
     {
         GameObject scythe = Instantiate(scytheProjectilePrefab, this.transform.position, Quaternion.identity);
-        currentSP -= 5;
         scytheThrown = true;
     }
     #endregion
@@ -1038,7 +1047,7 @@ public class PlayerControllerForces : MonoBehaviour
         else
             direction = -1;
 
-        Debug.Log("Basic Attack");
+        //Debug.Log("Basic Attack");
 
         rb.velocity = new Vector2(rb.velocity.x * .1f, 0);
 
@@ -1150,10 +1159,6 @@ public class PlayerControllerForces : MonoBehaviour
                 lastDashDir = moveInput;
             else
                 lastDashDir = playerState.IsFacingRight ? Vector2.right : Vector2.left;
-
-            //If mid attack, stop the combo
-            if (playerCombat.IsComboing)
-                EndCombo();      
 
             //Set states
             playerState.IsDashing = true;
@@ -1766,8 +1771,9 @@ public class PlayerControllerForces : MonoBehaviour
     private void TempResetData()
         {
             //Data.canDash = true;
-            //Data.canDoubleJump = true;
-            //Data.canWallJump = true;
+            Data.canDoubleJump = true;
             currentHP = 50;
+            Data.canADownAttack = true;
+            Data.canGUpAttack = true;
         }
     }

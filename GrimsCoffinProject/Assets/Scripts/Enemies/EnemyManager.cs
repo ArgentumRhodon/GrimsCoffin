@@ -13,11 +13,12 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private bool isArena;
 
-   
+    private CombatCoordinator combatCoordinator; 
+
 
     private void Start()
     {
-
+        combatCoordinator = GetComponent<CombatCoordinator>();
     }
 
     //Spawns enemies inside of the room with this script

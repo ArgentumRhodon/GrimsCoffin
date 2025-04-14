@@ -15,6 +15,7 @@ public class PlayerData : ScriptableObject
     [Header("Player Stats")]
     public float maxHP;
     public float maxSP;
+    public float damageMultiplier;
     public float iFrameTimer;
     public Vector2 respawnPoint;
 
@@ -134,8 +135,9 @@ public class PlayerData : ScriptableObject
     public float comboTotal; //Length of the total phases of the combo that the play has
     public float comboAerialPForce; //Player force when attacking 
     public float comboGroundPForce; //Player force when attacking on ground 
+    public float comboFinisherForce;
     public float comboAttackDuration; //How long the duration of the attack should take
-
+    public float comboAttackEndDuration;
 
     [Space(15)]
 

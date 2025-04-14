@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,6 +19,9 @@ public class Spirit : Interactable
     [SerializeField] public GameObject exclamationMark;
     [SerializeField] private PlayableDirector Collect;
     [SerializeField] private UnlockAbility UnlockMenu;
+
+    [SerializeField] public EventReference dialogueSFX;
+    [SerializeField] public EventInstance dialogueInstance;
 
     public float upgradeCost;
 
@@ -41,6 +46,7 @@ public class Spirit : Interactable
     private void Awake()
     { 
         animator.SetInteger("SpiritID", (int)spiritID);
+        dialogueInstance = RuntimeManager.CreateInstance(dialogueSFX);
     }
 
     // Start is called before the first frame update
@@ -59,7 +65,10 @@ public class Spirit : Interactable
                 upgradeCost = 3;
                 break;
             case SpiritID.CombatSpirit:
-                upgradeCost = 1000;
+                if (!PersistentDataManager.Instance.CanUpAttack)
+                    upgradeCost = 750;
+                else
+                    upgradeCost = 1250;
                 break;
         }
 
@@ -67,6 +76,11 @@ public class Spirit : Interactable
             UnlockMenu = UIManager.Instance.unlockUI.GetComponent<UnlockAbility>();
 
         spiritState = PersistentDataManager.Instance.GetSpiritState(this);
+
+        if (spiritState == SpiritState.Uncollected)
+            animator.SetInteger("SpiritPose", 2);
+        else
+            animator.SetInteger("SpiritPose", 0);
 
         if (spiritState == SpiritState.Collected
             || spiritID == SpiritID.HealthSpirit && PersistentDataManager.Instance.HealthCollectablesHeld >= upgradeCost)
@@ -130,5 +144,13 @@ public class Spirit : Interactable
                 PerformInteraction();
             }
         }
+    }
+
+    public void ToggleSpeakingAnimation(bool isSpeaking)
+    {
+        if (isSpeaking)
+            animator.SetInteger("SpiritPose", 1);
+        else
+            animator.SetInteger("SpiritPose", 0);
     }
 }

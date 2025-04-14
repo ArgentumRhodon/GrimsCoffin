@@ -110,6 +110,7 @@ public class PlayerCombat : MonoBehaviour
         meleeStateMachine = GetComponent<CStateMachine>();
         playerState = GetComponent<PlayerStateList>();
         playerController = GetComponent<PlayerControllerForces>();
+        attackQueue = new List<AttackDirection>();
 
         if (scytheAnimator == null)
         {
@@ -120,7 +121,7 @@ public class PlayerCombat : MonoBehaviour
         canAerialCombo = true;
         isAerialCombo = false;
         isInterruptingCombo = false;
-
+        
         meleeStateMachine.SetNextStateToMain();
     }
 
@@ -131,7 +132,7 @@ public class PlayerCombat : MonoBehaviour
         UpdateAttackVariables();
 
         //Check to see if it should move on to the next combo
-        if ((currentAttackAmount < playerController.Data.comboTotal || isInterruptingCombo) && comboQueueLeft > 0 && AttackDurationTime < 0)
+        if ((currentAttackAmount < playerController.Data.comboTotal && comboQueueLeft > 0 && AttackDurationTime < 0) || isInterruptingCombo)
         {
             //If the next attack que is a side attack, progress with the combo
             if (attackQueue[0] == AttackDirection.Side)
@@ -149,6 +150,9 @@ public class PlayerCombat : MonoBehaviour
             //If the next attack is a directional attack, break out of the combo
             else if(isInterruptingCombo)
             {
+                //Debug.Log("Is interrupting");
+                playerController.EndSleep();
+
                 //Switch for up or down attack
                 switch (attackQueue[0])
                 {
@@ -225,22 +229,22 @@ public class PlayerCombat : MonoBehaviour
     //Dash Input
     private void OnDash()
     {
-        //If the player is currently comboing, interrupt it
-        if (isComboing && playerState.IsAttacking && playerController.Data.canDash)
+        //If the player is currently comboing, interrupt it //isComboing && 
+        if (playerState.IsAttacking && playerController.Data.canDash)
         {
-            InterruptCombo(AttackDirection.Dash);
-        }        
+            InterruptCombo(AttackDirection.Dash, true);
+        }  
     }
 
     private void OnAbility()
     {
-        Debug.Log("Trying to throw");
+        //Debug.Log("Trying to throw");
         if (isComboing && playerController.Data.canScytheThrow)
         {
             if (playerController.currentSP <= 0 || playerController.scytheThrown || !playerController.Data.canScytheThrow)
                 return;
 
-            InterruptCombo(AttackDirection.Throw);
+            InterruptCombo(AttackDirection.Throw,true);
         }
     }
     #endregion
@@ -249,7 +253,10 @@ public class PlayerCombat : MonoBehaviour
     #region Attack Checks
     private void BaseAttackCheck()
     {
-        Debug.Log(meleeStateMachine.CurrentState.GetType());
+/*        if (meleeStateMachine.CurrentState.GetType() == null)
+            return;*/
+
+        //Debug.Log(meleeStateMachine.CurrentState.GetType());
 
         //Check for combo timer, if the click amount is less then combo total 
         if (LastComboTime < 0 && attackClickCounter < playerController.Data.comboTotal &&
@@ -288,7 +295,7 @@ public class PlayerCombat : MonoBehaviour
         //If the player is currently comboing, interrupt it
         if (isComboing)
         {
-            InterruptCombo(AttackDirection.Up);
+            InterruptCombo(AttackDirection.Up, true);
         }
         else if (attackDurationTime < 0 && upAttackComboTime < 0)
         {
@@ -301,7 +308,7 @@ public class PlayerCombat : MonoBehaviour
         //If the player is currently comboing, interrupt it
         if (isComboing)
         {
-            InterruptCombo(AttackDirection.Down);
+            InterruptCombo(AttackDirection.Down, true);
         }
         else if (attackDurationTime < 0)
         {
@@ -357,7 +364,8 @@ public class PlayerCombat : MonoBehaviour
             PlayerControllerForces.Instance.ExecuteUpAttack(true);
         }
         //Up ground attack
-        else */if (playerController.Data.canGUpAttack)
+        else */
+        if (playerController.Data.canGUpAttack)
         {
             //Debug.Log("Up Ground Attack");
             meleeStateMachine.SetNextState(new GroundUpState());
@@ -392,6 +400,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Dash()
     {
+        //Debug.Log("Executing dash: " + playerController.Data.dashInputBufferTime);
         playerController.LastPressedDashTime = playerController.Data.dashInputBufferTime;
     }
 
@@ -404,13 +413,13 @@ public class PlayerCombat : MonoBehaviour
     //Helper Methods --------------------------------------------------------------------
     #region Helper Methods
     //Interrupt combo with another attack
-    protected void InterruptCombo(AttackDirection nextAttackDir)
+    protected void InterruptCombo(AttackDirection nextAttackDir, bool canResetTimer = false)
     {
         if (!isInterruptingCombo)
         {
             attackQueue.Clear();
-            comboQueueLeft = 1;
             attackQueue.Add(nextAttackDir);
+            comboQueueLeft = 1;
             isInterruptingCombo = true;
         }
     }
