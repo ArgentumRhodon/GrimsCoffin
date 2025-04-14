@@ -8,24 +8,28 @@ public class SavePoint : Interactable
     public Vector3 position;
     public int roomIndex;
 
-    [SerializeField] private Animator coffinAnimator;
     [SerializeField] public bool coffinOpen;
     [SerializeField] private bool insideEquilibrium;
     [SerializeField] private float holdTimer = 0.5f;
     [SerializeField] private GameObject fadeToWhite;
 
+    private Animator animator;
+
     private bool sceneTransition = false;
+    public bool isActive = false;
 
     // Start is called before the first frame update
     void Start()
     {
         position = gameObject.transform.parent.transform.parent.transform.position;
+        animator = this.gameObject.transform.parent.GetComponent<Animator>();
+
+        animator.SetBool("Active", isActive);
     }
 
     // Update is called once per frame
     void Update()
     {
-        coffinAnimator.SetBool("CoffinOpen", coffinOpen);
         if (PlayerControllerForces.Instance.isHoldingInteract)
         {
             switch (UIManager.Instance.playerInput.currentControlScheme)
@@ -50,7 +54,8 @@ public class SavePoint : Interactable
             PlayerControllerForces.Instance.interactionPrompt.keyboardHoldFill.fillAmount = 0;
             PlayerControllerForces.Instance.interactionPrompt.controllerHoldFill.fillAmount = 0;
         }
-            
+
+        animator.SetBool("Active", isActive);
     }
 
     public override void PerformInteraction()
@@ -61,6 +66,18 @@ public class SavePoint : Interactable
             return;
 
         Heal();
+        isActive = true;
+        animator.SetBool("Active", isActive);
+
+        foreach (SavePoint restPoint in PersistentDataManager.Instance.restPoints)
+        {
+            if (restPoint == this)
+                return;
+            else
+                restPoint.isActive = false;
+        }
+
+
 
         if (SceneManager.GetActiveScene().name != "Equilibrium")
         {

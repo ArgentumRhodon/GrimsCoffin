@@ -45,6 +45,7 @@ public class PersistentDataManager : MonoBehaviour
     [SerializeField] public List<HealthUpgrade> healthUpgrades;
     [SerializeField] public List<ScytheThrowRope> scytheThrowPlatforms;
     [SerializeField] public List<ArenaManager> arenas;
+    [SerializeField] public List<SavePoint> restPoints;
 
     //Default values to spawn the player at when a New Game is started
     [SerializeField] private float defaultXPos = 0;
@@ -254,6 +255,15 @@ public class PersistentDataManager : MonoBehaviour
                     room.GetComponent<EnemyManager>().SpawnEnemies();
 
                 this.GetComponent<CameraManager>().Vcam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = room.GetComponent<PolygonCollider2D>();
+
+                foreach (SavePoint restPoint in restPoints)
+                {
+                    if (restPoint.roomIndex == room.roomIndex)
+                        restPoint.isActive = true;
+
+                    else
+                        restPoint.isActive = false;
+                }
             }
 
             else

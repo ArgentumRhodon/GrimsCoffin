@@ -45,8 +45,6 @@ public class UIManager : MonoBehaviour
     //Player Input
     [SerializeField] public PlayerInput playerInput;
 
-    [SerializeField] public SavePoint activeSavePoint;
-
     public GameObject bossHealthBar;
     public GameObject bossMapIcon;
     public GameObject endStateText;
