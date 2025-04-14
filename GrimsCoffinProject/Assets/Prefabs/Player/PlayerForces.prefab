@@ -423,6 +423,8 @@ MonoBehaviour:
   canSleepWalk: 0
   scytheProjectilePrefab: {fileID: 7168144048661873661, guid: 1f0ce5aeff96e61449d387eb41d94534, type: 3}
   heldScytheSprite: {fileID: 5297061223688076639}
+  isHoldingInteract: 0
+  holdInteractTimer: 0
   animator: {fileID: 8317159216238193831}
   scytheAnimator: {fileID: 4929932698530573072}
   groundLayer:
@@ -490,6 +492,13 @@ MonoBehaviour:
       Data3: -72144487
       Data4: -1956971547
     Path: event:/PL/Grim/106_Self_Hit
+  throwSFX:
+    Guid:
+      Data1: -1505818909
+      Data2: 1254007616
+      Data3: -199030108
+      Data4: -32168370
+    Path: event:/PL/Grim/113_Scythe_Throw
   playervfx: {fileID: 0}
   defaultShader: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   hitShader: {fileID: 2100000, guid: 47f92189a429cac4da2a607f7a201b6d, type: 2}
@@ -568,7 +577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b33bab15da98234996f94a9ac3aff78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 0}
   hitbox: {fileID: 7568753305882926414}
   scytheAnimator: {fileID: 4929932698530573072}
   scytheSprite: {fileID: 5297061223688076639}
