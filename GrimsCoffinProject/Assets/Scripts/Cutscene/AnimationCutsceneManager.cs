@@ -35,6 +35,12 @@ public class AnimationCutsceneManager : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     private int currentSentenceIndex = 0;
     private bool cutsceneActive = false;
+    private bool Skipable = true;
+    [SerializeField] private float skipTimer = 0.5f;
+    [SerializeField] private Image KeyboardSkipRefill;
+    [SerializeField] private Image XboxSkipRefill;
+    [SerializeField] private Image PlaystationSkipRefill;
+    [SerializeField] private GameObject SkipIndicator;
 
     // State for typewriter effect
     [SerializeField]private bool isTyping = false;
@@ -43,16 +49,23 @@ public class AnimationCutsceneManager : MonoBehaviour
 
     [Header("Hold Interaction")]
     [SerializeField] private float holdTimer = 0.5f;
-    private float HoldedTimer;
-    private bool NeedToHold;
+    private float HoldedTimer; 
+    private float HoldedSkipTimer;
+    private bool NeedToHold = false;
     private bool isHolding;
     private bool PlayerControl = false;
+    [SerializeField] private Image KeyboardRefill;
+    [SerializeField] private Image ControllerRefill;
+    [SerializeField] private GameObject InteractionPrompt;
+    [SerializeField] private Animator SavePoint;
 
     [Header("Prompt Icons and Audio")]
     [SerializeField] private List<Sprite> continuePromptIcons;
     [SerializeField] private List<Sprite> skipPromptIcons;
+    [SerializeField] private List<Sprite> HoldPromptIcons;
     [SerializeField] private Image continuePrompt;
     [SerializeField] private Image skipPrompt;
+    [SerializeField] private Image HoldPrompt;
     [SerializeField] private EventReference dxTyping;
     [SerializeField] private EventReference dxContinue;
     private EventInstance dxInstance;
@@ -71,10 +84,9 @@ public class AnimationCutsceneManager : MonoBehaviour
     void OnEnable()
     {
         controls.UI.Enable();
-
-        controls.Dialogue.Interact.started += OnInteractStarted;
-        controls.Dialogue.Interact.canceled += OnInteractCanceled;
-
+        controls.Dialogue.Skip.started += OnSkipStarted;
+        controls.Dialogue.Skip.canceled += OnSkipCanceled;
+       
         if (playerInput != null)
         {
             playerInput.onControlsChanged += OnControlsChanged;
@@ -87,30 +99,52 @@ public class AnimationCutsceneManager : MonoBehaviour
         {
             playerInput.onControlsChanged -= OnControlsChanged;
         }
-
         controls.Dialogue.Interact.started -= OnInteractStarted;
         controls.Dialogue.Interact.canceled -= OnInteractCanceled;
+
 
         controls.UI.Disable();
     }
 
     void Update()
     {
+        Debug.Log(Skipable);
         // Check for player input:
-        #if UNITY_EDITOR
-        if (cutsceneActive)
+        if (cutsceneActive&&Skipable && isHolding && !NeedToHold)
         {
-            if (controls.Dialogue.Skip.triggered)
+            HoldedSkipTimer += Time.deltaTime;
+            switch (PersistentDataManager.Instance.ControlScheme)
+            {
+                case "Keyboard&Mouse":
+                    KeyboardSkipRefill.fillAmount = HoldedSkipTimer / skipTimer;
+                    break;
+                case "Playstation":
+                    PlaystationSkipRefill.fillAmount = HoldedSkipTimer / skipTimer;
+                    break;
+                default:
+                    XboxSkipRefill.fillAmount = HoldedSkipTimer / skipTimer;
+                    break;
+            }
+                    Debug.Log(HoldedSkipTimer);
+            if (HoldedSkipTimer >= skipTimer)
             {
                 SkipCutsceneImmediately();
             }
         }
-#endif
         // Update prompt icons based on the current control scheme:
 
-        if (PlayerControl && NeedToHold && isHolding)
+        if (PlayerControl && NeedToHold && isHolding&&!Skipable)
         {
             HoldedTimer += Time.deltaTime;
+            switch (PersistentDataManager.Instance.ControlScheme)
+            {
+                case "Keyboard&Mouse":
+                    KeyboardRefill.fillAmount = HoldedTimer / holdTimer;
+                    break;
+                default:
+                    ControllerRefill.fillAmount = HoldedTimer / holdTimer;
+                    break;
+            }
             Debug.Log(HoldedTimer);
             if (HoldedTimer >= holdTimer)
             {
@@ -127,14 +161,26 @@ public class AnimationCutsceneManager : MonoBehaviour
                 case "Keyboard&Mouse":
                     continuePrompt.sprite = continuePromptIcons[0];
                     skipPrompt.sprite = skipPromptIcons[0];
+                    if (HoldPrompt != null)
+                    {
+                        HoldPrompt.sprite = HoldPromptIcons[0];
+                    }
                     break;
                 case "Playstation":
                     continuePrompt.sprite = continuePromptIcons[1];
                     skipPrompt.sprite = skipPromptIcons[1];
+                    if (HoldPrompt != null)
+                    {
+                        HoldPrompt.sprite = HoldPromptIcons[1];
+                    }
                     break;
                 default:
                     continuePrompt.sprite = continuePromptIcons[2];
                     skipPrompt.sprite = skipPromptIcons[2];
+                    if (HoldPrompt != null)
+                    {
+                        HoldPrompt.sprite = HoldPromptIcons[2];
+                    }
                     break;
             }
         }
@@ -184,8 +230,14 @@ public class AnimationCutsceneManager : MonoBehaviour
     {
         isHolding = true;
         Debug.Log("Holded");
-        // Optionally reset the timer for a fresh hold
         HoldedTimer = 0f;
+    }
+    private void OnSkipStarted(InputAction.CallbackContext context)
+    {
+        isHolding = true;
+        Debug.Log("Holded");
+        // Optionally reset the timer for a fresh hold
+        HoldedSkipTimer = 0f;
     }
 
     private void OnInteractCanceled(InputAction.CallbackContext context)
@@ -193,8 +245,18 @@ public class AnimationCutsceneManager : MonoBehaviour
         isHolding = false;
         Debug.Log("Canceled");
         HoldedTimer = 0f;
+        KeyboardRefill.fillAmount = 0;
+        ControllerRefill.fillAmount = 0;
     }
-
+    private void OnSkipCanceled(InputAction.CallbackContext context)
+    {
+        isHolding = false;
+        Debug.Log("Canceled");
+        HoldedSkipTimer = 0f;
+        KeyboardSkipRefill.fillAmount = 0;
+        PlaystationSkipRefill.fillAmount = 0;
+        XboxSkipRefill.fillAmount = 0;
+        }
 
 
     /// <summary>
@@ -307,8 +369,16 @@ public class AnimationCutsceneManager : MonoBehaviour
 
     public void GiveBackControl() 
     {
+        controls.Dialogue.Skip.started -= OnSkipStarted;
+        controls.Dialogue.Skip.canceled -= OnSkipCanceled;
+        controls.Dialogue.Interact.started += OnInteractStarted;
+        controls.Dialogue.Interact.canceled += OnInteractCanceled;
+        Skipable = false;
+        SkipIndicator.SetActive(false);
         PlayerControl = true;
         NeedToHold = true;
+        InteractionPrompt.SetActive(true);
+        SavePoint.Play("ActiveIdle");
         //playerInput.SwitchCurrentActionMap("Player");
     }
 }
