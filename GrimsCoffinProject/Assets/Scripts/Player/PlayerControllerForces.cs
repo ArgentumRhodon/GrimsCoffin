@@ -244,7 +244,7 @@ public class PlayerControllerForces : MonoBehaviour
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
         }
 
-        //TempResetData();
+        TempResetData();
     }
 
     private void Update()
@@ -1770,11 +1770,15 @@ public class PlayerControllerForces : MonoBehaviour
     #endregion
 
     private void TempResetData()
-        {
-            //Data.canDash = true;
-            Data.canDoubleJump = true;
-            currentHP = 50;
-            Data.canADownAttack = true;
-            Data.canGUpAttack = true;
-        }
+    {
+        //Data.canDash = true;
+        Data.canDoubleJump = true;
+        Data.canDash = true;
+        Data.maxHP = 125;
+        currentHP = 125;
+        Data.damageMultiplier = 3;
+        Data.canADownAttack = true;
+        Data.canGUpAttack = true;
+        Data.canScytheThrow = true;
     }
+}

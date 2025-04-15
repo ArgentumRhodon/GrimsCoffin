@@ -91,6 +91,7 @@ public abstract class Enemy : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected PlayerControllerForces player;
     protected CombatCoordinator combatCoordinator;
+    private float previousGravityScale;
 
     [HideInInspector] public EnemyStateList enemyStateList;
     [HideInInspector] public BehaviorTree behaviorTree;
@@ -148,6 +149,7 @@ public abstract class Enemy : MonoBehaviour
         enemyStateList = gameObject.GetComponent<EnemyStateList>();
         behaviorTree = GetComponent<BehaviorTree>();
         combatCoordinator = GetComponentInParent<CombatCoordinator>();
+        previousGravityScale = rb.gravityScale;
         //defaultShader = Shader.Find("Sprite-Lit-Default");
         //hitShader = Shader.Find("White_Mat");
 
@@ -211,11 +213,11 @@ public abstract class Enemy : MonoBehaviour
         }
 
         //Update gravity back to 1 when they are not staggered
-        if (rb.gravityScale > 1 && !enemyStateList.IsStaggered)
+        if (rb.gravityScale > previousGravityScale && !enemyStateList.IsStaggered)
         {
             if (Grounded())
             {
-                rb.gravityScale = 1;
+                rb.gravityScale = previousGravityScale;
                 kinematicCollider.enabled = true;
             }
             else

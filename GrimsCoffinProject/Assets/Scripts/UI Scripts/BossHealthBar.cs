@@ -43,7 +43,7 @@ public class BossHealthBar : MonoBehaviour
 
     public void SetupHealthBar()
     {
-        bossScript = GameObject.Find(bossName + "(Clone)").GetComponent<DenialBoss>();
+        bossScript = GameObject.Find(bossName + "(Clone)").GetComponent<Enemy>();
         maxHP = bossScript.health;
         nameText.text = bossDisplayName;
     }
