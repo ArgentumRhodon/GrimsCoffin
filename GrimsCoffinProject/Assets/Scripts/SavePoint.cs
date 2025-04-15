@@ -72,12 +72,10 @@ public class SavePoint : Interactable
         foreach (SavePoint restPoint in PersistentDataManager.Instance.restPoints)
         {
             if (restPoint == this)
-                return;
+                continue;
             else
                 restPoint.isActive = false;
         }
-
-
 
         if (SceneManager.GetActiveScene().name != "Equilibrium")
         {
