@@ -128,6 +128,9 @@ public class AnimationCutsceneManager : MonoBehaviour
                     Debug.Log(HoldedSkipTimer);
             if (HoldedSkipTimer >= skipTimer)
             {
+                KeyboardSkipRefill.fillAmount = 0;
+                PlaystationSkipRefill.fillAmount = 0;
+                XboxSkipRefill.fillAmount = 0;
                 SkipCutsceneImmediately();
             }
         }
