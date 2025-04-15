@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using FMODUnity;
 using FMOD.Studio;
 using UnityEngine.Playables;
+using JetBrains.Annotations;
 
 public class AnimationCutsceneManager : MonoBehaviour
 {
@@ -24,13 +25,14 @@ public class AnimationCutsceneManager : MonoBehaviour
     public Sprite[] Speaker;
     public PlayableDirector PrevAnimation;
     public PlayableDirector NextAnimation;
+    public PlayableDirector HoldAnimation;
 
     [Header("Typewriter Settings")]
     [SerializeField] private float charactersPerSecond = 40f;
     [SerializeField] private float punctuationDelay =0.2f;
 
     private PlayerControls controls;
-    private PlayerInput playerInput;
+    [SerializeField] private PlayerInput playerInput;
     private int currentSentenceIndex = 0;
     private bool cutsceneActive = false;
 
@@ -38,6 +40,13 @@ public class AnimationCutsceneManager : MonoBehaviour
     [SerializeField]private bool isTyping = false;
     private Coroutine typingCoroutine;
     private string currentSentence;
+
+    [Header("Hold Interaction")]
+    [SerializeField] private float holdTimer = 0.5f;
+    private float HoldedTimer;
+    private bool NeedToHold;
+    private bool isHolding;
+    private bool PlayerControl = false;
 
     [Header("Prompt Icons and Audio")]
     [SerializeField] private List<Sprite> continuePromptIcons;
@@ -54,7 +63,7 @@ public class AnimationCutsceneManager : MonoBehaviour
         dxInstance = RuntimeManager.CreateInstance(dxTyping);
         controls = new PlayerControls();
         controls.Enable();
-        playerInput = GetComponent<PlayerInput>();
+        //playerInput = GetComponent<PlayerInput>();
         //StartCutscene();
         //AdvanceSentence();
     }
@@ -62,6 +71,10 @@ public class AnimationCutsceneManager : MonoBehaviour
     void OnEnable()
     {
         controls.UI.Enable();
+
+        controls.Dialogue.Interact.started += OnInteractStarted;
+        controls.Dialogue.Interact.canceled += OnInteractCanceled;
+
         if (playerInput != null)
         {
             playerInput.onControlsChanged += OnControlsChanged;
@@ -74,6 +87,10 @@ public class AnimationCutsceneManager : MonoBehaviour
         {
             playerInput.onControlsChanged -= OnControlsChanged;
         }
+
+        controls.Dialogue.Interact.started -= OnInteractStarted;
+        controls.Dialogue.Interact.canceled -= OnInteractCanceled;
+
         controls.UI.Disable();
     }
 
@@ -88,8 +105,21 @@ public class AnimationCutsceneManager : MonoBehaviour
                 SkipCutsceneImmediately();
             }
         }
-        #endif
+#endif
         // Update prompt icons based on the current control scheme:
+
+        if (PlayerControl && NeedToHold && isHolding)
+        {
+            HoldedTimer += Time.deltaTime;
+            Debug.Log(HoldedTimer);
+            if (HoldedTimer >= holdTimer)
+            {
+                Interacted();
+                // Prevent repeated triggering during the same hold
+                NeedToHold = false;
+            }
+        }
+
         if (continuePromptIcons != null)
         {
             switch (PersistentDataManager.Instance.ControlScheme)
@@ -142,6 +172,30 @@ public class AnimationCutsceneManager : MonoBehaviour
             AdvanceSentence();
         }
     }
+
+    void Interacted() 
+    {
+        Debug.Log("Hold Animation Play");
+        NextAnimation.Stop();
+        HoldAnimation.Play();
+    }
+
+    private void OnInteractStarted(InputAction.CallbackContext context)
+    {
+        isHolding = true;
+        Debug.Log("Holded");
+        // Optionally reset the timer for a fresh hold
+        HoldedTimer = 0f;
+    }
+
+    private void OnInteractCanceled(InputAction.CallbackContext context)
+    {
+        isHolding = false;
+        Debug.Log("Canceled");
+        HoldedTimer = 0f;
+    }
+
+
 
     /// <summary>
     /// Advances to the next sentence or loads the next scene if there are no more sentences.
@@ -249,5 +303,12 @@ public class AnimationCutsceneManager : MonoBehaviour
     {
         return (c == '.' || c == ',' || c == '!' ||
                 c == '?' || c == ';' || c == ':' || c == '-');
+    }
+
+    public void GiveBackControl() 
+    {
+        PlayerControl = true;
+        NeedToHold = true;
+        //playerInput.SwitchCurrentActionMap("Player");
     }
 }
