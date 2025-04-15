@@ -583,7 +583,6 @@ public class PlayerControllerForces : MonoBehaviour
 
         if (interactionPrompt.interactable != null && !isHoldingInteract)
         {
-            isHoldingInteract = true;
             interactionPrompt.interactable.PerformInteraction();
         }
 
