@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InteractionPrompt : MonoBehaviour
 {
@@ -36,6 +37,11 @@ public class InteractionPrompt : MonoBehaviour
     {
         //Hide prompt and get control scheme
         controlScheme = UIManager.Instance.playerInput.currentControlScheme;
+        if (SceneManager.GetActiveScene().name == "OnboardingLevel")
+        {
+            controllerHoldFill.gameObject.SetActive(false);
+            keyboardHoldFill.gameObject.SetActive(false);
+        }
         HidePrompt();
     }
 
