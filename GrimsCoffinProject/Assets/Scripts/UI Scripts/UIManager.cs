@@ -228,6 +228,8 @@ public class UIManager : MonoBehaviour
     //Update Map UI when new room is explored
     public void UpdateMapUI()
     {
+        if (mapRooms == null)
+            return;
         if (mapRooms != null)
         {
             //Get list of bools for if each room is explored or not
@@ -321,6 +323,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateEnemyCurrency(float value, bool addingCurrency)
     {
+        if (enemyCurrencyUI == null)
+            return;
         enemyCurrencyUI.UpdateCurrency(value, addingCurrency);
     }
 

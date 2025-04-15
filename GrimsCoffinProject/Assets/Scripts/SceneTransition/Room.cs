@@ -17,6 +17,10 @@ public class Room : MonoBehaviour
     {
         if (!hasPlayer)
             this.gameObject.SetActive(false);
+        if(roomIndex == -1)
+        {
+            this.GetComponent<EnemyManager>().SpawnEnemies();
+        }
     }
 
     // Update is called once per frame
