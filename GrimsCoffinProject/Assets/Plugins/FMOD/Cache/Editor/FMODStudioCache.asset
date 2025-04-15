@@ -54,6 +54,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 187
+--- !u!114 &-8917532093196243225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/408_Type/IsSpeaking
+  m_EditorClassIdentifier: 
+  Name: IsSpeaking
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 683168106
+    data2: 1093875431
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-8832565794607117275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +184,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-8673132308648499375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/417_8_Spirit
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/417_8_Spirit
+  Guid:
+    Data1: -622240765
+    Data2: 1303305138
+    Data3: -1719847746
+    Data4: -2044568501
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1625
 --- !u!114 &-8591666139870033680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +287,7 @@ MonoBehaviour:
   - {fileID: -8832565794607117275}
   MinDistance: 1
   MaxDistance: 20
-  Length: 14271
+  Length: 14990
 --- !u!114 &-8313408151204202893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +390,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-7859318061700338449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/413_4_Spirit
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/413_4_Spirit
+  Guid:
+    Data1: 44374349
+    Data2: 1227906865
+    Data3: 1785712294
+    Data4: -1770221021
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1625
 --- !u!114 &-7624467293778476252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,11 +439,13 @@ MonoBehaviour:
   - {fileID: 971634653438544226}
   IsStream: 0
   Is3D: 0
-  IsOneShot: 1
-  Parameters: []
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -8917532093196243225}
+  - {fileID: 265733854506785538}
   MinDistance: 1
   MaxDistance: 20
-  Length: 875
+  Length: 40000
 --- !u!114 &-7433942805015361541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,7 +529,7 @@ MonoBehaviour:
   - {fileID: 1821065141059894896}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2187
+  Length: 2245
 --- !u!114 &-6983205428762654160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1134,7 +1214,7 @@ MonoBehaviour:
   - {fileID: 6109425460243800041}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2587
+  Length: 2127
 --- !u!114 &-5074848473204307558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1375,7 +1455,7 @@ MonoBehaviour:
   - {fileID: -43656311397301652}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2028
+  Length: 1152
 --- !u!114 &-3727740268469363956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,6 +1813,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 8125
+--- !u!114 &-2105658586788563184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/411_2_Spirit
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/411_2_Spirit
+  Guid:
+    Data1: 558884046
+    Data2: 1097783239
+    Data3: -843868238
+    Data4: -709730843
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1625
 --- !u!114 &-2080110419928212910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2234,6 +2341,15 @@ MonoBehaviour:
   - {fileID: 8465109868363500911}
   - {fileID: 6102644251964456593}
   - {fileID: 3457392268583610646}
+  - {fileID: -8673132308648499375}
+  - {fileID: 2681656975526430068}
+  - {fileID: 2547858099534606505}
+  - {fileID: -7859318061700338449}
+  - {fileID: 7507686913154432604}
+  - {fileID: 3246375228636292898}
+  - {fileID: -2105658586788563184}
+  - {fileID: 5769877424465012860}
+  - {fileID: 540558573598451762}
   EditorParameters:
   - {fileID: -3355277177704017374}
   - {fileID: -3685714587446246573}
@@ -2241,12 +2357,38 @@ MonoBehaviour:
   - {fileID: -1884849912335569018}
   - {fileID: 8516445962402575945}
   - {fileID: -4663260393552410672}
+  - {fileID: 3319350555932275727}
+  - {fileID: 8374399422194531521}
   MasterBanks:
   - {fileID: 971634653438544226}
   StringsBanks:
   - {fileID: 861109146523642461}
-  cacheTime: 638797399665099961
+  cacheTime: 638800773578370747
   cacheVersion: 131620
+--- !u!114 &265733854506785538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/408_Type/DialogueIndex
+  m_EditorClassIdentifier: 
+  Name: DialogueIndex
+  StudioPath: 
+  Min: 0
+  Max: 8
+  Default: 0
+  ID:
+    data1: 1148031278
+    data2: 110462400
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &270535702371028781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2322,6 +2464,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &540558573598451762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/412_3_Spirit
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/412_3_Spirit
+  Guid:
+    Data1: 2042959606
+    Data2: 1229690097
+    Data3: 1699402919
+    Data4: -611122435
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1625
 --- !u!114 &650020853867474457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2350,7 +2519,7 @@ MonoBehaviour:
   - {fileID: -1842628433875303321}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2059
+  Length: 1612
 --- !u!114 &861109146523642461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2366,10 +2535,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638797399665099961
+  lastModified: 638800773578370747
   FileSizes:
   - Name: Desktop
-    Value: 5526
+    Value: 6006
   Exists: 1
 --- !u!114 &971634653438544226
 MonoBehaviour:
@@ -2386,10 +2555,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638797399665088341
+  lastModified: 638800773578243722
   FileSizes:
   - Name: Desktop
-    Value: 52309504
+    Value: 56177536
   Exists: 1
 --- !u!114 &1006991173850820005
 MonoBehaviour:
@@ -2744,6 +2913,60 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &2547858099534606505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/410_1_Spirit
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/410_1_Spirit
+  Guid:
+    Data1: -1895460578
+    Data2: 1279712792
+    Data3: 518826156
+    Data4: -29062805
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1625
+--- !u!114 &2681656975526430068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/414_5_Spirit
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/414_5_Spirit
+  Guid:
+    Data1: -138967546
+    Data2: 1129257525
+    Data3: -145930568
+    Data4: 807836690
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1625
 --- !u!114 &3050658872768863508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2798,6 +3021,33 @@ MonoBehaviour:
   - Ice
   - Soil
   Exists: 1
+--- !u!114 &3246375228636292898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/415_6_Spirit
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/415_6_Spirit
+  Guid:
+    Data1: -1319760214
+    Data2: 1304761635
+    Data3: -1472776513
+    Data4: 457192344
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1625
 --- !u!114 &3276038542410797792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2820,6 +3070,30 @@ MonoBehaviour:
     data2: 2683430299
   Type: 0
   IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3319350555932275727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/IsSpeaking
+  m_EditorClassIdentifier: 
+  Name: IsSpeaking
+  StudioPath: parameter:/IsSpeaking
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 683168106
+    data2: 1093875431
+  Type: 1
+  IsGlobal: 1
   Labels: []
   Exists: 1
 --- !u!114 &3457392268583610646
@@ -2932,7 +3206,7 @@ MonoBehaviour:
   - {fileID: -5396871821320531222}
   MinDistance: 1
   MaxDistance: 20
-  Length: 1557
+  Length: 1340
 --- !u!114 &3770041678611750122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3197,7 +3471,7 @@ MonoBehaviour:
   - {fileID: 3490229881281740244}
   MinDistance: 1
   MaxDistance: 20
-  Length: 6880
+  Length: 4750
 --- !u!114 &4820637209471835428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3471,6 +3745,33 @@ MonoBehaviour:
   - Soil
   - Equi
   Exists: 1
+--- !u!114 &5769877424465012860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/409_0_Spirit
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/409_0_Spirit
+  Guid:
+    Data1: 2000840176
+    Data2: 1202300344
+    Data3: -470727746
+    Data4: -1822082678
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1062
 --- !u!114 &5814328214347055285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3979,6 +4280,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &7507686913154432604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Dialogue/416_7_Spirit
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Dialogue/416_7_Spirit
+  Guid:
+    Data1: -2048846222
+    Data2: 1193106576
+    Data3: 1986504085
+    Data4: 1827849266
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1625
 --- !u!114 &7533404908888282411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4138,6 +4466,30 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &8374399422194531521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/DialogueIndex
+  m_EditorClassIdentifier: 
+  Name: DialogueIndex
+  StudioPath: parameter:/DialogueIndex
+  Min: 0
+  Max: 8
+  Default: 0
+  ID:
+    data1: 1148031278
+    data2: 110462400
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &8465109868363500911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4166,7 +4518,7 @@ MonoBehaviour:
   - {fileID: 2280053243333047047}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2974
+  Length: 2533
 --- !u!114 &8516445962402575945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4350,4 +4702,4 @@ MonoBehaviour:
   - {fileID: -6641533925278761480}
   MinDistance: 1
   MaxDistance: 20
-  Length: 3021
+  Length: 2733
