@@ -7,25 +7,61 @@
 {93bcb18a-db9a-4a4c-bb61-7a919634ec26} bus:/MX/MX_Mid
 {31923dd0-acd7-4bb4-a98a-65fea4f9714e} bus:/MX/MX_Sender
 {0194a567-92c3-4149-98db-245fdc14fa39} bus:/SFX
-{4eb4eb74-14c4-490f-9e65-8838af4f1261} bus:/SFX/SFX_BOSS
-{82148d65-f19f-4e79-9011-fed8ba8a08ca} bus:/SFX/SFX_ENM
+{c8d85295-405f-4911-9590-b3909b1ccdba} bus:/SFX/SFX_BOSS_Duck
+{4eb4eb74-14c4-490f-9e65-8838af4f1261} bus:/SFX/SFX_BOSS_Normal
+{de9f14ec-ca7c-4446-896b-ef02b43ecb76} bus:/SFX/SFX_ENM_Duck
+{82148d65-f19f-4e79-9011-fed8ba8a08ca} bus:/SFX/SFX_ENM_Normal
 {77f2ea4e-57f9-496f-be34-65352e424e29} bus:/SFX/SFX_LM
 {c4c4b695-085d-4729-a934-abe1062a0adb} bus:/SFX/SFX_PL
+{9888eff2-057a-4330-80c9-2a64d6681761} bus:/SFX/SFX_TestVerb
+{a92e1431-cf36-40ea-8509-b5251621cfaf} bus:/SFX_NonComp
 {31b58757-b5a0-471a-89bf-ce5f0dff8e94} bus:/UI
+{103c43fe-08c2-4d38-a7b6-0d4fd048c247} bus:/UI/UI_Damaged
+{2139a39c-b52f-47cf-a425-fb7d17051774} event:/BOSS/AOE/301_Charge
+{538a3b4d-7106-4cf5-98f8-c62e5f22ffe9} event:/BOSS/AOE/302_Ground_Slam
+{fc0e6764-82c6-43d7-be7a-75cb2ef7b2d5} event:/BOSS/AOE/303_Laser_Beam
+{47fce8ea-9b15-402b-8da2-061f02f9da4d} event:/BOSS/general/304_Blast_Attack
+{e7408e3d-c42c-4866-a317-28b408ed0f0c} event:/BOSS/general/305_Laser_Attack
+{44b597aa-4e38-470b-89eb-a9a38a5ecca6} event:/BOSS/general/306_Teleport
+{a0862e4d-7e22-4067-bb12-a32456afc677} event:/BOSS/general/307_Appear
+{094ed9dd-d718-411d-bb47-24110b7b34ad} event:/BOSS/general/308_Idle
+{0793be7b-23f0-4f37-a9c2-c753c9b45a15} event:/BOSS/general/309_Death
+{09d29b60-80c4-49f4-9b08-8452fd71a7ce} event:/BOSS/general/310_Damaged
 {97919c00-ac56-4f61-9487-6224aa6f2374} event:/ENM/Ghost/202_Injured
 {7e8d22bc-754b-44b5-a29a-9fe0d280adfa} event:/ENM/Ghost/204_Die
+{79dd8e2b-5c0c-4643-b2f3-92e662ae8b71} event:/ENM/Ghost/206_Idle
+{b5972829-cd4d-4771-8d47-d429f069f71e} event:/ENM/Ghost/208_Attack
+{206b6eca-6bb4-4434-bcc1-b78a9e1a6619} event:/ENM/Ghost/210_Move
 {9c7d2a6a-ceed-490d-8f73-aa83565f4e9b} event:/ENM/Skeleton/201_Injured
 {a74de953-c1df-4e1f-802d-d296ff2a725a} event:/ENM/Skeleton/203_Die
+{031749da-169c-4716-894e-f6975fa2b55b} event:/ENM/Skeleton/205_Idle
+{24e439df-b51b-438a-a6ea-a761584d41c5} event:/ENM/Skeleton/207_Attack
+{bf89bfbd-7ea2-4aae-a83a-3b9dc782822f} event:/ENM/Skeleton/209_Move
+{afedc855-d658-4d35-a8b4-43c5896c7f61} event:/ENM/SkeletonAxe/211_Injured
+{44352f98-e4f8-4720-96ed-22008ea4efeb} event:/ENM/SkeletonAxe/213_Die
+{80ba4c3a-609c-4420-a122-fdbce5cb983a} event:/ENM/SkeletonAxe/215_Idle
+{5684a648-be4f-4d5b-a7dd-cc82f077c497} event:/ENM/SkeletonAxe/217_Attack
+{e4433e54-9330-41f7-9922-22d213ceb351} event:/ENM/SkeletonAxe/219_Move
+{17d74978-f8e6-4685-bb96-b99afc388c70} event:/ENM/SkeletonShield/212_Injured
+{65474e67-f825-4f34-8573-b1ccd93a0466} event:/ENM/SkeletonShield/214_Die
+{da290caf-3572-44e2-aa91-5b415ca60525} event:/ENM/SkeletonShield/216_Idle
+{cf5634f6-7dfe-4671-a786-366ead68efa2} event:/ENM/SkeletonShield/218_Attack
+{f1dbb6af-6c7a-4e72-a0e2-24f6923d6419} event:/ENM/SkeletonShield/220_Move
+{90bf92e7-4ecb-4187-90a0-401e501bb0d8} event:/Idle
 {17fbeaca-9c40-4301-af66-177d11db1472} event:/LM/MapDenial/002_SpikeFall
 {85c49f52-3e0c-4c8e-af45-2f5e3d9cd8c4} event:/LM/MapDenial/003_SpikeCollision
 {0fe51a17-4e9e-420b-bad9-d27c6345d404} event:/LM/MapDenial/004_Waterdrop
 {2ea7fde3-7fc5-4ee1-b1e3-1d04f7a029c5} event:/LM/MapDenial/005_Ambience
 {ed5726ee-39e2-4ea6-863d-0952e0395192} event:/LM/MapEquilibrium/007_Ambience
 {da910292-3511-4850-8bd9-485587fb6fc3} event:/LM/MapGeneral/001_WallBreak
+{3f538f41-9ed9-415b-bb24-11113dadda77} event:/LM/MapGeneral/008_WallHit
+{8cc68f00-48f8-4e8a-b5ec-67cc118cacb8} event:/LM/MapGeneral/009_TransDoor_Idle
 {e1041470-5329-4714-9acf-15dccd6662cd} event:/LM/MapTutorial/006_Ambience
 {f858bc53-dcab-49a7-848b-7d8edcab8a83} event:/MX/001_TutorialTrack
 {94b4904f-3049-4338-a05d-e94c12a9ca07} event:/MX/002_DenialTrack
 {22e8f622-ea00-4766-b55e-b8a04f77f178} event:/MX/003_MenuTrack
+{3ebc12d0-4253-4f7e-a4ed-2555a24edcab} event:/MX/004_MenuTrack2.0
+{c5d6c961-8203-431f-80fc-373f9a682eb7} event:/MX/005_Equilibrium
 {a4f58321-7721-4c50-94de-679354c6d4d3} event:/PL/Grim/101_Scyche_Swing
 {31547372-f1d5-42ba-8988-2bd949a3eb99} event:/PL/Grim/102_Scyche_Spin
 {7b46ea18-cb83-4b9f-b272-3a81b109263d} event:/PL/Grim/103_Scyche_Slam
@@ -38,16 +74,45 @@
 {ab60884b-4fe8-45b0-bfbe-3eb20bd1eb3f} event:/PL/Grim/110_Self_WallSlide
 {7d05aa16-d00b-48de-9b0e-bb9b631f5a64} event:/PL/Grim/111_Self_Land
 {6b39c7a1-a0e6-4d39-bcab-0865bcd45dbc} event:/PL/Grim/112_Self_WallLeap
+{a63f06e3-a340-4abe-a40a-23f44e2615fe} event:/PL/Grim/113_Scythe_Throw
+{59000b77-0c93-4547-a485-6ae5fb560b9e} event:/Test/Test SFX/Test_000_Ding
 {2cf8af11-8570-46f3-9f9d-ee551793f5aa} event:/Test/Test SFX/Test_001_Walk
 {ec9aa527-a93c-46ae-b234-9c93b05550be} event:/Test/Test SFX/Test_002_Jump
 {149106d6-7aef-4d73-874f-e37faaf7d940} event:/Test/Test SFX/Test_003_Land
 {674de8d1-747f-4ef6-89ee-f15a12fb1546} event:/Test/Test SFX/Test_004_Dash
 {1771ed6b-2a3c-46dc-8764-593d9d016198} event:/Test/Test SFX/Test_005_Slide
 {f42e4a20-4773-4420-95d1-8b48aaeb7fc1} event:/Test/Test SFX/Test_006_Sword
+{a28cbfe0-bcfa-4a3c-b807-505fb8426678} event:/Test/Test SFX/Test_007_IdleSound
+{e74dd1af-9927-4830-a91d-255f5d02c235} event:/Test/Test SFX/Test_008_Heal
+{74781778-0a23-4af5-9024-066e9f6c2c2f} event:/UI/Dialogue/403_Appear
+{4748cbf9-2bab-44a4-9ceb-bf37c0c66768} event:/UI/Dialogue/404_Continue
+{9c7a32bd-8cc8-4b9a-abb7-3fb0c92750cd} event:/UI/Dialogue/408_Type
+{774265f0-a5b8-47a9-be43-f1e38a396593} event:/UI/Dialogue/409_0_Spirit
+{8f05911e-de18-4c46-aca8-ec1e6b8944fe} event:/UI/Dialogue/410_1_Spirit
+{214fe4ce-d7c7-416e-b297-b3cde55db2d5} event:/UI/Dialogue/411_2_Spirit
+{79c516f6-94f1-494b-a7d4-4a65fd0293db} event:/UI/Dialogue/412_3_Spirit
+{02a5194d-5f31-4930-a6ce-6f6a23927c96} event:/UI/Dialogue/413_4_Spirit
+{f7b78606-1a35-434f-b846-4df7129c2630} event:/UI/Dialogue/414_5_Spirit
+{b1560eaa-1523-4dc5-bf36-37a89833401b} event:/UI/Dialogue/415_6_Spirit
+{85e11672-5c90-471d-95a5-677632c4f26c} event:/UI/Dialogue/416_7_Spirit
+{dae95c03-dbb2-4dae-be34-7d994b5c2286} event:/UI/Dialogue/417_8_Spirit
+{c9540a9b-f397-4bab-bc83-27f6002fe520} event:/UI/Menu/401_Button_Select
+{335c975f-18f9-4c28-ac39-c85e7175e6fa} event:/UI/Menu/402_Button_Press
+{237cc97f-efa3-4150-95a1-074be46308a7} event:/UI/Respoint/405_MenuOpen
+{64e2ff64-e230-4ff5-9415-f3d378f9be57} event:/UI/Respoint/406_MenuHeal
+{9b2dfd2f-1813-4c5d-98fd-7f689a186de5} event:/UI/Respoint/407_MenuClose
+{09c4b57f-7188-4e74-b0c4-a13cb4825a7e} parameter:/DialogueIndex
 {afcbf2eb-f6fe-4931-9fd8-2ca8f7210bae} parameter:/Global_MX_Vol
 {e95d257e-4845-4faa-a3d8-9a4eb4336662} parameter:/Global_SFX_Vol
 {f50be817-cd90-45d2-bb9d-1a5a815d12b7} parameter:/Global_UI_Vol
+{5fb94303-f2e9-49cb-bf47-5ed5cd69b1ef} parameter:/IsSpeaking
 {5e84cfa3-e2c3-488d-a55b-974256edb4e7} parameter:/Jumping Status
+{ed0b892e-7c63-45b3-81b8-6c199bb23736} parameter:/LocalDirection
+{f7f00b09-6139-4163-b36a-7c9da85131e1} parameter:/LocalDistance
 {22917b9c-7d5e-487e-b4d4-bb05d8c56389} parameter:/PlayerStandGround
+{cdd36e41-f0c3-47be-99f1-ebd7e768f633} parameter:/ShootIndex
 {5a5cf519-ec2d-4446-aadc-d93b87a0d596} parameter:/SlideStatus
+{90ecf410-e5a0-43da-aad3-64b2155f15f0} parameter:/ThrowState
 {94bc8d7f-f8da-4880-8256-2c9d278f6577} parameter:/WallTexture
+{aee223de-b4e8-45e0-a85e-45b0f576a4d5} snapshot:/BossSnapshot
+{b2e38ced-30a8-401e-bf9a-f8d568e8eb5f} snapshot:/SelfHit

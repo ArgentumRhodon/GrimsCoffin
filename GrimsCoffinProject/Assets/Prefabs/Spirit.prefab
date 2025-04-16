@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 18545774285721703}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.058, y: 0.488, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0.03, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 9
-  m_Sprite: {fileID: -360642236, guid: 73f14c9691d776445a0df71b7316dc97, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16891d3167762fa46ad85adc1048c989, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -150,7 +150,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.12572575, y: -0.26549858}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -161,7 +161,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 1}
+  m_Size: {x: 2.2787228, y: 1.5309972}
   m_EdgeRadius: 0
 --- !u!114 &2771389208162537455
 MonoBehaviour:
@@ -199,6 +199,13 @@ MonoBehaviour:
   exclamationMark: {fileID: 4389132926752000800}
   Collect: {fileID: 7551828972585119743}
   UnlockMenu: {fileID: 0}
+  dialogueSFX:
+    Guid:
+      Data1: -1669713219
+      Data2: 1268419784
+      Data3: -1338001493
+      Data4: -850384951
+    Path: event:/UI/Dialogue/408_Type
   upgradeCost: 0
   spiritState: 0
 --- !u!1 &3551497090700167552

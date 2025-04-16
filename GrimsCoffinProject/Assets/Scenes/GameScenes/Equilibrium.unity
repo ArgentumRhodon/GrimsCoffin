@@ -724,6 +724,10 @@ PrefabInstance:
       value: -0.00008607842
       objectReference: {fileID: 0}
     - target: {fileID: 3412099861116279620, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
+      propertyPath: isActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3412099861116279620, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: fadeToWhite
       value: 
       objectReference: {fileID: 1554110392}
@@ -753,7 +757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7950690345586759872, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.76
+      value: -2.105
       objectReference: {fileID: 0}
     - target: {fileID: 7950690345586759872, guid: 6fd149cb3d2ff584f9c28090d0bde128, type: 3}
       propertyPath: m_LocalPosition.z
@@ -50993,7 +50997,6 @@ MonoBehaviour:
   dialogueUI: {fileID: 952499286}
   unlockUI: {fileID: 1197576931}
   playerInput: {fileID: 584877822}
-  activeSavePoint: {fileID: 0}
   bossHealthBar: {fileID: 0}
   bossMapIcon: {fileID: 0}
   endStateText: {fileID: 0}
@@ -51047,6 +51050,7 @@ MonoBehaviour:
   healthUpgrades: []
   scytheThrowPlatforms: []
   arenas: []
+  restPoints: []
   defaultXPos: -11.08
   defaultYPos: -2.85
   defaultSceneName: OnboardingLevel

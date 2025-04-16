@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -18,6 +20,9 @@ public class Spirit : Interactable
     [SerializeField] private PlayableDirector Collect;
     [SerializeField] private UnlockAbility UnlockMenu;
 
+    [SerializeField] public EventReference dialogueSFX;
+    [SerializeField] public EventInstance dialogueInstance;
+
     public float upgradeCost;
 
     public enum SpiritID
@@ -26,7 +31,10 @@ public class Spirit : Interactable
         DashSpirit = 2,
         ScytheThrowSpirit = 3,
         HealthSpirit = 4,
-        CombatSpirit = 5
+        CombatSpirit = 5,
+        Onboarding1 = 6,
+        Onboarding2 = 7,
+        Onboarding3 = 8
     }
 
     [SerializeField] public SpiritState spiritState;
@@ -41,6 +49,7 @@ public class Spirit : Interactable
     private void Awake()
     { 
         animator.SetInteger("SpiritID", (int)spiritID);
+        dialogueInstance = RuntimeManager.CreateInstance(dialogueSFX);
     }
 
     // Start is called before the first frame update
@@ -71,11 +80,19 @@ public class Spirit : Interactable
 
         spiritState = PersistentDataManager.Instance.GetSpiritState(this);
 
+        if (spiritState == SpiritState.Uncollected)
+            animator.SetInteger("SpiritPose", 2);
+        else
+            animator.SetInteger("SpiritPose", 0);
+
         if (spiritState == SpiritState.Collected
             || spiritID == SpiritID.HealthSpirit && PersistentDataManager.Instance.HealthCollectablesHeld >= upgradeCost)
             exclamationMark.SetActive(true);
         
         else if (spiritState == SpiritState.Unlocked && PersistentDataManager.Instance.EnemyCurrency >= upgradeCost)
+            exclamationMark.SetActive(true);
+
+        else if (spiritID == SpiritID.Onboarding1 || spiritID == SpiritID.Onboarding2 || spiritID == SpiritID.Onboarding3)
             exclamationMark.SetActive(true);
 
         else
@@ -133,5 +150,13 @@ public class Spirit : Interactable
                 PerformInteraction();
             }
         }
+    }
+
+    public void ToggleSpeakingAnimation(bool isSpeaking)
+    {
+        if (isSpeaking)
+            animator.SetInteger("SpiritPose", 1);
+        else
+            animator.SetInteger("SpiritPose", 0);
     }
 }

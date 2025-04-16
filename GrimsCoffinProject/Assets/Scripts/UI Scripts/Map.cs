@@ -11,8 +11,9 @@ public class Map : MonoBehaviour
     [SerializeField] private Camera fullMapCamera;
     [SerializeField] private GameObject mapKey;
     [SerializeField] private TextMeshProUGUI exploredPercentage;
+    [SerializeField] private TextMeshProUGUI spiritProgress;
 
-    private bool mapKeyActive;
+    private bool mapKeyActive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -46,11 +47,13 @@ public class Map : MonoBehaviour
         }
 
         exploredPercentage.text = ReturnExploredPercentage() + "% Explored";
+        spiritProgress.text = ReturnSpiritsCollected() + "/5 Spirits";
 
         if (ReturnExploredPercentage() == "100")
-        {
             exploredPercentage.color = Color.green;
-        }
+
+        if (ReturnSpiritsCollected() == "4")
+            spiritProgress.color = Color.green;
     }
 
     //Zoom the map in/out
@@ -126,5 +129,14 @@ public class Map : MonoBehaviour
         }
 
         return ((roomsExplored / totalRooms) * 100).ToString("F0");
+    }
+
+    public string ReturnSpiritsCollected()
+    {
+        Spirit[] spirits = FindObjectsOfType<Spirit>();
+
+        int spiritsCollected = 5 - spirits.Length;
+
+        return spiritsCollected.ToString();
     }
 }

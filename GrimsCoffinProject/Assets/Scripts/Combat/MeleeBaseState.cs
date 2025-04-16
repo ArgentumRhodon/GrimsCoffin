@@ -106,6 +106,13 @@ public class MeleeBaseState : CState
 
                     RegisterAttackRope(collidersToDamage[i]);
                 }
+                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.BreakableObject)
+                {
+                    if (collidersToDamage[i].GetComponent<PolygonCollider2D>() != null)
+                        continue;
+
+                    RegisterAttackBreakableObject(collidersToDamage[i]);
+                }
             }
         }
     }
@@ -137,6 +144,12 @@ public class MeleeBaseState : CState
     protected virtual void RegisterAttackRope(Collider2D collidersToDamage)
     {
         collidersToDamage.gameObject.GetComponent<ScytheThrowRope>().TakeDamage(attackDamage * PlayerControllerForces.Instance.Data.damageMultiplier);
+        collidersDamaged.Add(collidersToDamage);
+    }
+
+    protected virtual void RegisterAttackBreakableObject(Collider2D collidersToDamage)
+    {
+        collidersToDamage.gameObject.GetComponent<BreakableObject>().TakeDamage();
         collidersDamaged.Add(collidersToDamage);
     }
 

@@ -298,7 +298,7 @@ public abstract class Enemy : MonoBehaviour
         DamagedNotifer.Invoke();
 
         //Camera shake based off of damage
-        CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
+        CameraShake.Instance.ShakeCamera((damage/PlayerControllerForces.Instance.Data.damageMultiplier) / 1.5f, (damage / PlayerControllerForces.Instance.Data.damageMultiplier) / 2.5f, .2f);
 
         //Either kill or damage the player
         if(health <= 0)

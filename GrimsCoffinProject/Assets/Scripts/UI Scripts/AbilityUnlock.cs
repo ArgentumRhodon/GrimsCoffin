@@ -63,7 +63,7 @@ public class AbilityUnlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
+        timer -= Time.unscaledDeltaTime;
 
         this.GetComponent<Image>().fillAmount = timer / lifetime;
 
