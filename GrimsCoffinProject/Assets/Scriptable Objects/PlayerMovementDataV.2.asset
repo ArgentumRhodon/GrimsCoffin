@@ -17,11 +17,11 @@ MonoBehaviour:
   cameraOffset: 0.6
   cameraWalkOffset: -0.1
   cameraDashOffset: -0.15
-  maxHP: 50
+  maxHP: 125
   maxSP: 0
-  damageMultiplier: 1
+  damageMultiplier: 3
   iFrameTimer: 1
-  respawnPoint: {x: 302.49295, y: -83.001}
+  respawnPoint: {x: 0, y: 0}
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -64,7 +64,7 @@ MonoBehaviour:
   slideAccel: 1
   coyoteTime: 0.2
   jumpInputBufferTime: 0.2
-  canDash: 0
+  canDash: 1
   dashAmount: 1
   dashSpeed: 27
   dashSleepTime: 0.025
@@ -91,24 +91,24 @@ MonoBehaviour:
   combo2Damage: 4
   combo3Damage: 7
   combo4Damage: 10
-  canGUpAttack: 0
+  canGUpAttack: 1
   groundUpwardPForce: 0
   groundUpwardEForce: {x: 1.2, y: 10}
   gUpAttackDuration: 0.35
   upAttackDelay: 0.75
   groundUpDamage: 5
-  canGDownAttack: 0
+  canGDownAttack: 1
   groundDownwardPForce: 0
   groundDownwardEForce: {x: 5, y: 4}
   gDownWalkModifier: 0.2
   gdHoldDuration: 1
   gDownAttackDuration: 0.25
   groundDownDamage: 15
-  canAUpAttack: 0
+  canAUpAttack: 1
   hookPlayerForce: 0
   aUpAttackDuration: 0.4
   aerialUpDamage: 3
-  canADownAttack: 0
+  canADownAttack: 1
   aerialDownwardPForce: 50
   aerialDownwardEForce: {x: 4, y: -5}
   aDownAttackDuration: 5

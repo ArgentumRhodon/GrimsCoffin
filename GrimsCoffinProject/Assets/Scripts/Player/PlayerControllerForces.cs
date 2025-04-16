@@ -694,11 +694,14 @@ public class PlayerControllerForces : MonoBehaviour
 
             if (room.GetComponentInChildren<ArenaManager>() != null)
             {
-                room.GetComponentInChildren<ArenaManager>().ResetArena();
-                room.GetComponentInChildren<ArenaManager>().CombatEnd();
-
-                if (room.GetComponentInChildren<ArenaManager>().GetComponent<LoadCutscene>() != null)
-                    return;
+                ArenaManager[] arenas = room.GetComponentsInChildren<ArenaManager>();
+                foreach (ArenaManager arena in arenas)
+                {
+                    arena.CombatEnd();
+                    arena.ResetArena();
+                    if (arena.GetComponent<LoadCutscene>() != null && room.gameObject.activeInHierarchy)
+                        return;
+                }
             }
         }
 

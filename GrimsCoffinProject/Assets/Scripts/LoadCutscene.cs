@@ -41,7 +41,7 @@ public class LoadCutscene : MonoBehaviour
 
             yield return null;
 
-            elapsedTime += Time.unscaledDeltaTime;
+            elapsedTime += Time.deltaTime;
         }
     }
 }
