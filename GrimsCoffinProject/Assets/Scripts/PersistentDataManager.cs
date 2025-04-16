@@ -26,13 +26,13 @@ public class PersistentDataManager : MonoBehaviour
 
     //Player Ability Flags
     public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 0) == 1; } }
-    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 0) == 1; } }
-    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 0) == 1; } }
+    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 1) == 1; } }
+    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 1) == 1; } }
     public bool CanScytheThrow { get { return PlayerPrefs.GetInt("CanScytheThrow", 0) == 1; } }
     public bool CanViewMap { get { return PlayerPrefs.GetInt("CanViewMap", 0) == 1; } }
     public int MapBought { get { return PlayerPrefs.GetInt("MapBought"); } }
-    public bool CanUpAttack {  get { return PlayerPrefs.GetInt("CanUpAttack", 0) == 1; } }
-    public bool CanDownAttack { get { return PlayerPrefs.GetInt("CanDownAttack", 0) == 1; } }
+    public bool CanUpAttack {  get { return PlayerPrefs.GetInt("CanUpAttack", 1) == 1; } }
+    public bool CanDownAttack { get { return PlayerPrefs.GetInt("CanDownAttack", 1) == 1; } }
 
     //Resources
     public int HealthCollectablesHeld { get { return PlayerPrefs.GetInt("HealthCollectablesHeld", 0); } }
@@ -297,7 +297,7 @@ public class PersistentDataManager : MonoBehaviour
         //Reset Player Stats
         PlayerPrefs.SetFloat("MaxHP", defaultHP);
         PlayerPrefs.SetFloat("MaxSP", 0);
-        PlayerPrefs.SetFloat("DamageMultiplier", 1);
+        PlayerPrefs.SetFloat("DamageMultiplier", 3);
 
         //Reset Player Abilities
         PlayerPrefs.SetInt("CanDoubleJump", 1);
@@ -356,6 +356,7 @@ public class PersistentDataManager : MonoBehaviour
 
         //Reduce Player Stats and Remove Abilities
         PlayerPrefs.SetFloat("MaxHP", 50);
+        PlayerPrefs.SetFloat("DamageMultiplier", 1);
         PlayerPrefs.SetInt("CanDoubleJump", 0);
         //PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanUpAttack", 0);
@@ -452,6 +453,9 @@ public class PersistentDataManager : MonoBehaviour
     /// <param name="addingCurrency">Whether or not the currency is being added or subtracted from the player</param>
     public void UpdateEnemyCurrency(float value, bool addingCurrency)
     {
+        if (UIManager.Instance.enemyCurrencyUI == null)
+            return;
+
         PlayerPrefs.SetFloat("EnemyCurrency", EnemyCurrency + value);
         UIManager.Instance.UpdateEnemyCurrency(value, addingCurrency);
     }
