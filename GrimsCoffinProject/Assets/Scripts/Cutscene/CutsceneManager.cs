@@ -74,6 +74,7 @@ public class CutsceneManager : MonoBehaviour
     void Update()
     {
         // Check for player input:
+        #if UNITY_EDITOR
         if (cutsceneActive)
         {
             if (controls.Dialogue.Skip.triggered)
@@ -81,6 +82,7 @@ public class CutsceneManager : MonoBehaviour
                 SkipCutsceneImmediately();
             }
         }
+        #endif
 
         // Update prompt icons based on the current control scheme:
         if (continuePromptIcons != null)
