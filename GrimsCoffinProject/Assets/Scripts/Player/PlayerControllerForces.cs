@@ -425,7 +425,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         // Grounded() check did not work here
-        if (!playerState.IsJumping && rb.velocity.y > -.1f && !playerState.IsAttacking && !playerState.IsDashing)
+        if (!playerState.IsJumping && rb.velocity.y > -.1f && !playerState.IsAttacking && !playerState.IsDashing && !playerCombat.isDownAttacking)
         {
             if (Math.Abs(rb.velocity.x) < 1)
             {

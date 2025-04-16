@@ -54,6 +54,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private bool isAerialCombo;
     [SerializeField] private bool isAerialAttacking;
     [SerializeField] private bool isComboing;
+    [SerializeField] public bool isDownAttacking;
     [SerializeField] private int attackClickCounter;
     [SerializeField] private int comboQueueLeft;
     [SerializeField] private int currentAttackAmount;
@@ -131,6 +132,19 @@ public class PlayerCombat : MonoBehaviour
         UpdateTimers();
         UpdateAttackVariables();
 
+        // Refactored ground down attack logic
+        if(CheckAttackDirection() == AttackDirection.Down && playerController.Grounded() && !isDownAttacking)
+        {
+            isDownAttacking = true;
+            meleeStateMachine.SetNextState(new GroundDownCharge());
+            AttackDurationTime = playerController.Data.gdHoldDuration;
+            PlayerControllerForces.Instance.ExecuteDownAttack(true);
+        }
+        else if(isDownAttacking && CheckAttackDirection() != AttackDirection.Down)
+        {
+            isDownAttacking = false;
+        }
+
         //Check to see if it should move on to the next combo
         if ((currentAttackAmount < playerController.Data.comboTotal && comboQueueLeft > 0 && AttackDurationTime < 0) || isInterruptingCombo)
         {
@@ -189,8 +203,8 @@ public class PlayerCombat : MonoBehaviour
             return;
 
         //Make sure the attack is not being held so that it can execute a new input 
-        if (!isHoldingAttacking)
-        {
+/*        if (!isHoldingAttacking)
+        {*/
             if (value.isPressed && LastComboTime < 0)
             {
                 //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
@@ -209,21 +223,25 @@ public class PlayerCombat : MonoBehaviour
                         break;
                     case AttackDirection.Down:
                         //Sets holding true since the state is currently pressed
-                        isHoldingAttacking = true;
-                        DownAttackCheck();
+                        if (isDownAttacking)
+                        {
+                            DownAttackCheck();
+                        }
+                        //isHoldingAttacking = true;
+                      
                         break;
                     case AttackDirection.Side:
                         BaseAttackCheck();
                         break;
                 }
             }
-        }
+        //}
         //Release attack input and reset corresponding variables
-        else if (!value.isPressed)
+/*        else if (!value.isPressed)
         {
             isHoldingAttacking = false;
             holdAttackTimer = 0;
-        }
+        }*/
     }
 
     //Dash Input
@@ -312,7 +330,8 @@ public class PlayerCombat : MonoBehaviour
         }
         else if (attackDurationTime < 0)
         {
-            DownAttack();
+            meleeStateMachine.RegisteredAttack = true;
+            //DownAttack();
         }
     }
     #endregion
@@ -442,7 +461,7 @@ public class PlayerCombat : MonoBehaviour
     //Check to see if the combo should be reset
     public bool ShouldResetCombo()
     {
-        return AttackDurationTime < 0 && QueueTimer < 0 && comboQueueLeft == 0 && !isHoldingAttacking;
+        return AttackDurationTime < 0 && QueueTimer < 0 && comboQueueLeft == 0 && !isDownAttacking;
     }
 
     //Set attack direction based off the y direction of the left analog stick
@@ -484,7 +503,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (AttackDurationTime > 0)
             playerState.IsAttacking = true;  
-        else if (!isHoldingAttacking)
+        else if (!isDownAttacking) // isDownAttacking only for ground
         {
             playerState.IsAttacking = false;
         }

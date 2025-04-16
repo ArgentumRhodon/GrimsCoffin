@@ -17,9 +17,9 @@ MonoBehaviour:
   cameraOffset: 0.6
   cameraWalkOffset: -0.1
   cameraDashOffset: -0.15
-  maxHP: 50
+  maxHP: 60
   maxSP: 0
-  damageMultiplier: 1.5
+  damageMultiplier: 1
   iFrameTimer: 1
   respawnPoint: {x: -17.900002, y: 0}
   gravityStrength: -57.14286
@@ -54,7 +54,7 @@ MonoBehaviour:
   wallCoyoteTime: 0.01
   doTurnOnWallJump: 1
   wallTurnBuffer: 0.2
-  canDoubleJump: 1
+  canDoubleJump: 0
   preserveDoubleJump: 1
   resetJumpOnWall: 0
   extraJumpMultiplier: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   slideAccel: 1
   coyoteTime: 0.2
   jumpInputBufferTime: 0.2
-  canDash: 1
+  canDash: 0
   dashAmount: 1
   dashSpeed: 27
   dashSleepTime: 0.025
@@ -115,5 +115,5 @@ MonoBehaviour:
   aDownAttackReset: 0.2
   aerialDownDamage: 6
   aerialImpactDamage: 5
-  canScytheThrow: 1
+  canScytheThrow: 0
   canViewMap: 1

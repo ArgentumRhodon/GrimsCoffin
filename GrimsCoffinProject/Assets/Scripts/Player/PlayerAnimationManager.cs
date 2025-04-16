@@ -18,6 +18,8 @@ public static class PlayerAnimationStates
     public static readonly string AttackUp = "AttackUp";
     public static readonly string Attack4 = "Attack4";
     public static readonly string Death = "Death";
+    public static readonly string AttackDownReady = "AttackDownReady";
+    public static readonly string AttackDownExecute = "AttackDownExecute";
 
     public static string GetComboAnimation(int index)
     {

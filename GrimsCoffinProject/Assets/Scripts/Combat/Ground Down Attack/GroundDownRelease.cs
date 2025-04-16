@@ -17,7 +17,7 @@ public class GroundDownRelease : MeleeBaseState
         attackDamage = PlayerControllerForces.Instance.Data.groundDownDamage;
         playerCombat.AttackDurationTime = PlayerControllerForces.Instance.Data.gDownAttackDuration;
 
-        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.GroundDown);
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.AttackDownExecute);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
@@ -26,8 +26,8 @@ public class GroundDownRelease : MeleeBaseState
 
         if (playerCombat.ShouldResetCombo())
         {
-            PlayerControllerForces playerController = playerCombat.GetComponent<PlayerControllerForces>();
-            playerController.WalkModifier = 1;
+            //PlayerControllerForces playerController = playerCombat.GetComponent<PlayerControllerForces>();
+            //playerController.WalkModifier = 1;
 
             stateMachine.SetNextStateToMain();
         }
