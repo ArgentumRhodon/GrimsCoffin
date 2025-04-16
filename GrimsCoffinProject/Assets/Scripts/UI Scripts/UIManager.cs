@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public PauseScreenBehavior pauseScript;
     [SerializeField] public RestPointMenu restPointMenu;
     [SerializeField] private Map mapScript;
-    [SerializeField] private EnemyCurrencyUI enemyCurrencyUI;
+    [SerializeField] public EnemyCurrencyUI enemyCurrencyUI;
 
     //Post-Processing & Effects
     [SerializeField] private GameObject deathScreen;

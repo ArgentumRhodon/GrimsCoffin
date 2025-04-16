@@ -81,33 +81,15 @@ public class PitRespawn : MonoBehaviour
 
             StartCoroutine(Transition(collision.collider));
         }
-
-        else if (collision.gameObject.CompareTag("Enemy"))
-        {
-            collision.gameObject.GetComponent<Enemy>().health = 0;
-        }
     }
 
-    /*private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (PlayerControllerForces.Instance.IsSleeping)
-                return;
-
-            PlayerControllerForces.Instance.Sleep(1f);
-
-            if (!PlayerControllerForces.Instance.hasInvincibility)
-                PlayerControllerForces.Instance.TakeDamage(damage);
-
-            if (PlayerControllerForces.Instance.currentHP <= 0)
-                return;
-
-            StartCoroutine(Transition(collision.collider));
-            //enterEnemyMgr.SpawnEnemies();
-            //exitEnemyMgr.DeleteEnemies();
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(Vector2.zero, collision.gameObject.GetComponent<Enemy>().health);
         }
-    }*/
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
