@@ -18,7 +18,9 @@ public class CameraShake : MonoBehaviour
         Instance = this;
         Vcam = GetComponent<CinemachineVirtualCamera>();
         cameraShake = Vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        bossCameraShake = bossCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        if (bossCam != null)
+            bossCameraShake = bossCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     public void ShakeCamera(float amplitude, float frequency, float time) 
