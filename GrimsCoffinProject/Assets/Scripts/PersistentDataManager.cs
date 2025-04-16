@@ -314,6 +314,10 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
         PlayerPrefs.SetString("CombatSpirit", "Uncollected");
+        PlayerPrefs.SetString("Onboarding1", "Uncollected");
+        PlayerPrefs.SetString("Onboarding2", "Uncollected");
+        PlayerPrefs.SetString("Onboarding3", "Uncollected");
+
 
         PlayerPrefs.SetInt("HealthCollectablesHeld", 0);
         PlayerPrefs.SetFloat("EnemyCurrency", 0);

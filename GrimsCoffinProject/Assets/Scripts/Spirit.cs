@@ -31,7 +31,10 @@ public class Spirit : Interactable
         DashSpirit = 2,
         ScytheThrowSpirit = 3,
         HealthSpirit = 4,
-        CombatSpirit = 5
+        CombatSpirit = 5,
+        Onboarding1 = 6,
+        Onboarding2 = 7,
+        Onboarding3 = 8
     }
 
     [SerializeField] public SpiritState spiritState;
