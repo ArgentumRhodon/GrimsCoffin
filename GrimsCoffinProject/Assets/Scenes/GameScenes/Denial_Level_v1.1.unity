@@ -610,6 +610,10 @@ PrefabInstance:
       propertyPath: FollowCameraConfiner
       value: 
       objectReference: {fileID: 2074311004}
+    - target: {fileID: 6865034127339271892, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -111.34
+      objectReference: {fileID: 0}
     - target: {fileID: 6918644115366709389, guid: d68b2bb014f81de48b5a686f1867ed38, type: 3}
       propertyPath: screenFade
       value: 
@@ -3777,7 +3781,6 @@ GameObject:
   - component: {fileID: 607910808}
   - component: {fileID: 607910807}
   - component: {fileID: 607910806}
-  - component: {fileID: 607910805}
   - component: {fileID: 607910809}
   m_Layer: 0
   m_Name: BossCamera
@@ -3786,21 +3789,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &607910805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 607910804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a8c357984ad0924c8ff769f75ed5732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Vcam: {fileID: 607910807}
-  shakeTimer: 0
-  cameraShake: {fileID: 0}
 --- !u!114 &607910806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4352,6 +4340,14 @@ PrefabInstance:
     - target: {fileID: 1149516298991991446, guid: c1ca37d7bb0084f49a3b0da790f90e54, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1491309974721040452, guid: c1ca37d7bb0084f49a3b0da790f90e54, type: 3}
+      propertyPath: bossCam
+      value: 
+      objectReference: {fileID: 607910807}
+    - target: {fileID: 1491309974721040452, guid: c1ca37d7bb0084f49a3b0da790f90e54, type: 3}
+      propertyPath: shakeTimer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3071314575132984249, guid: c1ca37d7bb0084f49a3b0da790f90e54, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7117,8 +7113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 1
-  m_FrequencyGain: 1
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!114 &1461924837
 MonoBehaviour:

@@ -7,29 +7,15 @@ using UnityEngine.UI;
 public class LoadCutscene : MonoBehaviour
 {
     [SerializeField] private Image screenFade;
-    private BoxCollider2D trigger;
     // Start is called before the first frame update
     void Start()
     {
-        trigger = this.GetComponent<BoxCollider2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    public void Transition() 
     {
-        if (other.gameObject.GetComponent<PlayerControllerForces>() != null)
-        {
-            StartCoroutine(Transition());
-        }
-    }
-    IEnumerator Transition() 
-    {
-        yield return FadeOut(0.5f);
+        //yield return FadeOut(0.5f);
         LoadNextScene();
     }
     private void LoadNextScene() 

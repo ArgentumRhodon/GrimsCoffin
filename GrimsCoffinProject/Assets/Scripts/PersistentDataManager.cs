@@ -15,7 +15,7 @@ public class PersistentDataManager : MonoBehaviour
     //Game Progress Flags
     public Vector2 SpawnPoint { get { return new Vector2(PlayerPrefs.GetFloat("XSpawnPos", defaultXPos), PlayerPrefs.GetFloat("YSpawnPos", defaultYPos)); } }
     public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave", defaultSceneName); } }
-    public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 1); } }
+    public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", -1); } }
     public bool FirstSpawn { get { return PlayerPrefs.GetInt("FirstSpawn", 0) == 1; } }
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
 
@@ -48,8 +48,8 @@ public class PersistentDataManager : MonoBehaviour
     [SerializeField] public List<SavePoint> restPoints;
 
     //Default values to spawn the player at when a New Game is started
-    [SerializeField] private float defaultXPos = 0;
-    [SerializeField] private float defaultYPos = 0;
+    [SerializeField] private float defaultXPos = -16;
+    [SerializeField] private float defaultYPos = -2f;
     [SerializeField] private string defaultSceneName = "OnboardingLevel";
     [SerializeField] private float defaultHP = 125;
 
@@ -292,7 +292,7 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("SceneSave", defaultSceneName);
         PlayerPrefs.SetFloat("XSpawnPos", defaultXPos);
         PlayerPrefs.SetFloat("YSpawnPos", defaultYPos);
-        PlayerPrefs.SetInt("RoomIndex", 1);
+        PlayerPrefs.SetInt("RoomIndex", -1);
         
         //Reset Player Stats
         PlayerPrefs.SetFloat("MaxHP", defaultHP);
@@ -314,6 +314,10 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
         PlayerPrefs.SetString("CombatSpirit", "Uncollected");
+        PlayerPrefs.SetString("Onboarding1", "Uncollected");
+        PlayerPrefs.SetString("Onboarding2", "Uncollected");
+        PlayerPrefs.SetString("Onboarding3", "Uncollected");
+
 
         PlayerPrefs.SetInt("HealthCollectablesHeld", 0);
         PlayerPrefs.SetFloat("EnemyCurrency", 0);
@@ -353,6 +357,8 @@ public class PersistentDataManager : MonoBehaviour
         //Auto save the Denial Level (i.e. if the player quits after the cutscene they will load into the denial area instead of onboarding
         PlayerPrefs.SetString("SceneSave", "Denial_Level_v1.1");
         PlayerPrefs.SetFloat("XSpawnPos", -17.9f);
+        PlayerPrefs.SetFloat("YSpawnPos", 0);
+        PlayerPrefs.SetInt("RoomIndex", 1);
 
         //Reduce Player Stats and Remove Abilities
         PlayerPrefs.SetFloat("MaxHP", 50);
@@ -374,6 +380,16 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("LevelRoom" + roomIndex, 1);
 
         UIManager.Instance.UpdateMapUI();
+    }
+
+    public void SetOnboardingSpawnPoint(int roomIndex)
+    {
+        if (SceneManager.GetActiveScene().name == "OnboardingLevel")
+        {
+            PlayerPrefs.SetFloat("XSpawnPos", PlayerControllerForces.Instance.gameObject.transform.position.x);
+            PlayerPrefs.SetFloat("YSpawnPos", PlayerControllerForces.Instance.gameObject.transform.position.y);
+            PlayerPrefs.SetInt("RoomIndex", roomIndex);
+        }
     }
 
     /// <summary>

@@ -119,6 +119,9 @@ public class TransitionDoor : MonoBehaviour
             Enter.RoomLive = true;
             //mainCam.SetBorders(roomXMin, roomXMax, roomYMin, roomYMax);
             col.gameObject.transform.position = outDoor.SpawnPos;
+
+            PersistentDataManager.Instance.SetOnboardingSpawnPoint(Enter.roomIndex);
+
             //ColliderEntering.gameObject.SetActive(true);
             FollowCameraConfiner.m_BoundingShape2D = ColliderEntering;
             //yield return new WaitForSeconds(0.5f);
