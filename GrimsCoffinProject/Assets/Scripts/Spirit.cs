@@ -122,6 +122,9 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
+        if (UIManager.Instance.fullMapUI.activeInHierarchy)
+            return;
+
         if (spiritState != SpiritState.Unlocked)
         {
             if (dialogueManager != null)
