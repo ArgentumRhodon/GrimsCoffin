@@ -685,12 +685,7 @@ public class PlayerControllerForces : MonoBehaviour
         currentSP = Data.maxSP;
 
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
-
-        PlayerAnimationManager.Instance.ChangeSpriteLayer(0);
-        UIManager.Instance.gameUI.SetActive(true);
-
-        scytheThrown = false;
-
+        
         foreach (Room room in PersistentDataManager.Instance.rooms)
         {
             if (room.gameObject.activeInHierarchy)
@@ -699,10 +694,18 @@ public class PlayerControllerForces : MonoBehaviour
 
             if (room.GetComponentInChildren<ArenaManager>() != null)
             {
-                room.GetComponentInChildren<ArenaManager>().CombatEnd();
                 room.GetComponentInChildren<ArenaManager>().ResetArena();
+                room.GetComponentInChildren<ArenaManager>().CombatEnd();
+
+                if (room.GetComponentInChildren<ArenaManager>().GetComponent<LoadCutscene>() != null)
+                    return;
             }
         }
+
+        PlayerAnimationManager.Instance.ChangeSpriteLayer(0);
+        UIManager.Instance.gameUI.SetActive(true);
+
+        scytheThrown = false;
 
         if (UIManager.Instance.bossHealthBar.activeInHierarchy)
             UIManager.Instance.bossHealthBar.SetActive(false);

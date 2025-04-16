@@ -29,6 +29,9 @@ public class ArenaManager : MonoBehaviour
     {
         enemyMgr.DeleteEnemies();
         arenaDoors.SetActive(false);
+
+        if (this.GetComponent<LoadCutscene>() != null && this.gameObject.activeInHierarchy)
+            this.GetComponent<LoadCutscene>().Transition();
     }
 
     public void ClearArena()
