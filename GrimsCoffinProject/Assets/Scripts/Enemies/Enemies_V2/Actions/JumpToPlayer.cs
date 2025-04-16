@@ -12,6 +12,8 @@ namespace Core.AI
         public float offset = 0;
 
         public float height = 2;
+        public float linearMult = 1;
+        public float raycastOffest = 0;
         private float gravity;
 
         public float buildupTime;
@@ -26,10 +28,15 @@ namespace Core.AI
         private SpriteRenderer spriteRenderer;
         private float enemyHalfHeight;
 
+        private float previousLinearDrag;
+
         public override void OnStart()
         {
             //Set gravity scale based off of the rigid body
             gravity = -rb.gravityScale * 9.8f;
+
+            previousLinearDrag = rb.drag;
+            rb.drag = 1;
 
             //Face player
             enemyScript.TurnToPlayer();
@@ -56,6 +63,7 @@ namespace Core.AI
             {
                 if (IsGrounded())
                 {
+                    rb.drag = previousLinearDrag;
                     return TaskStatus.Success;
                 }
                 else
@@ -65,14 +73,15 @@ namespace Core.AI
             }
         }
 
+
         private void Jump()
         {
             //Face player
             enemyScript.TurnToPlayer();
 
-            rb.AddForce(CalculateLaunchVelocity(), ForceMode2D.Impulse);
+            rb.AddForce(linearMult * CalculateLaunchVelocity(), ForceMode2D.Impulse);//linearDragMult * 
             animator.SetTrigger(animationRunningTriggerName);
-            DOVirtual.DelayedCall(.2f, EnabledJump, false);
+            DOVirtual.DelayedCall(.1f, EnabledJump, false);
         }
 
         private void EnabledJump()
@@ -98,13 +107,13 @@ namespace Core.AI
         private bool IsGrounded()
         {
             //Debug.DrawRay(transform.position, Vector2.down * (enemyHalfHeight + 0.1f), Color.red);
-            return Physics2D.Raycast(transform.position, Vector2.down, (enemyHalfHeight + 0.1f), LayerMask.GetMask("Ground"));
+            return Physics2D.Raycast(transform.position + new Vector3(0, raycastOffest, 0), Vector2.down, (enemyHalfHeight + 0.1f), LayerMask.GetMask("Ground"));
         }
 
         private bool IsCloseToGround()
         {
             Debug.DrawRay(transform.position, Vector2.down * (enemyHalfHeight * 1.1f), Color.red);
-            return Physics2D.Raycast(transform.position, Vector2.down, (enemyHalfHeight * 1.1f), LayerMask.GetMask("Ground"));
+            return Physics2D.Raycast(transform.position + new Vector3(0, raycastOffest, 0), Vector2.down, (enemyHalfHeight * 1.1f), LayerMask.GetMask("Ground"));
         }
 
         public override void OnEnd()
