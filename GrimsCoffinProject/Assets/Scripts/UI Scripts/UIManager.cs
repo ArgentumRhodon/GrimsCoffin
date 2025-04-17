@@ -45,8 +45,6 @@ public class UIManager : MonoBehaviour
     //Player Input
     [SerializeField] public PlayerInput playerInput;
 
-    [SerializeField] public SavePoint activeSavePoint;
-
     public GameObject bossHealthBar;
     public GameObject bossMapIcon;
     public GameObject endStateText;
@@ -230,6 +228,8 @@ public class UIManager : MonoBehaviour
     //Update Map UI when new room is explored
     public void UpdateMapUI()
     {
+        if (mapRooms == null)
+            return;
         if (mapRooms != null)
         {
             //Get list of bools for if each room is explored or not
@@ -303,20 +303,28 @@ public class UIManager : MonoBehaviour
     }
 
     //Show a panel to inform an ability has been unlocked
-    public void ShowAbilityUnlock(string abilityName, AbilityName name)
+    public void ShowAbilityUnlock(string abilityName, AbilityName name, bool mapUnlock = false)
     {
         Debug.Log("ABILITY UNLOCK");
 
         if (abilityUnlockPrefab == null)
             return;
 
-        GameObject popup = Instantiate(abilityUnlockPrefab, gameUI.transform);
+        Transform parentObject;
+        if (!mapUnlock)
+            parentObject = gameUI.transform;
+        else
+            parentObject = gameUI.transform.parent;
+
+        GameObject popup = Instantiate(abilityUnlockPrefab, parentObject);
         popup.GetComponent<AbilityUnlock>().unlockMessage = abilityName;
         popup.GetComponent<AbilityUnlock>().abilityName = name;
     }
 
     public void UpdateEnemyCurrency(float value, bool addingCurrency)
     {
+        if (enemyCurrencyUI == null)
+            return;
         enemyCurrencyUI.UpdateCurrency(value, addingCurrency);
     }
 
