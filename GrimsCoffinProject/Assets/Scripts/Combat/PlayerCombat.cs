@@ -2,6 +2,7 @@ using FMOD.Studio;
 using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
@@ -133,20 +134,24 @@ public class PlayerCombat : MonoBehaviour
         UpdateAttackVariables();
 
         // Refactored ground down attack logic
-        if(CheckAttackDirection() == AttackDirection.Down && playerController.Grounded() && !isDownAttacking)
+        if (playerController.Data.canGDownAttack)
         {
-            isDownAttacking = true;
-            meleeStateMachine.SetNextState(new GroundDownCharge());
-            AttackDurationTime = playerController.Data.gdHoldDuration;
-            PlayerControllerForces.Instance.ExecuteDownAttack(true);
-        }
-        else if(isDownAttacking && CheckAttackDirection() != AttackDirection.Down)
-        {
-            isDownAttacking = false;
+            if(CheckAttackDirection() == AttackDirection.Down && playerController.Grounded() && !isDownAttacking)
+            {
+                isDownAttacking = true;
+                meleeStateMachine.SetNextState(new GroundDownCharge());
+                // AttackDurationTime = playerController.Data.gdHoldDuration;
+                // PlayerControllerForces.Instance.ExecuteDownAttack(true);
+            }
+            else if(isDownAttacking && CheckAttackDirection() != AttackDirection.Down)
+            {
+                meleeStateMachine.RegisteredAttack = false;
+                isDownAttacking = false;
+            }
         }
 
         //Check to see if it should move on to the next combo
-        if ((currentAttackAmount < playerController.Data.comboTotal && comboQueueLeft > 0 && AttackDurationTime < 0) || isInterruptingCombo)
+        if ((currentAttackAmount < playerController.Data.comboTotal && comboQueueLeft > 0 && AttackDurationTime <= 0) || isInterruptingCombo)
         {
             //If the next attack que is a side attack, progress with the combo
             if (attackQueue[0] == AttackDirection.Side)
@@ -174,6 +179,7 @@ public class PlayerCombat : MonoBehaviour
                         UpAttack();
                         break;
                     case AttackDirection.Down:
+                        Debug.Log("Attacking Down");
                         DownAttack();
                         break;
                     case AttackDirection.Dash:
@@ -199,49 +205,36 @@ public class PlayerCombat : MonoBehaviour
     //Attack Input
     private void OnAttack(InputValue value)
     {
-        if (PlayerControllerForces.Instance.scytheThrown)
+        if (!value.isPressed || PlayerControllerForces.Instance.scytheThrown)
             return;
 
-        //Make sure the attack is not being held so that it can execute a new input 
-/*        if (!isHoldingAttacking)
-        {*/
-            if (value.isPressed && LastComboTime < 0)
-            {
-                //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
-                if (playerState.IsDashing || Time.timeScale == 0 || playerState.IsSliding)
-                    return;
-
-                //Check attack direction
-                attackDirection = CheckAttackDirection();
-
-                //Execute attack based off the direction of the player input
-                scytheAnimator.ResetTrigger("Idle");
-                switch (attackDirection)
-                {
-                    case AttackDirection.Up:
-                        UpAttackCheck();
-                        break;
-                    case AttackDirection.Down:
-                        //Sets holding true since the state is currently pressed
-                        if (isDownAttacking)
-                        {
-                            DownAttackCheck();
-                        }
-                        //isHoldingAttacking = true;
-                      
-                        break;
-                    case AttackDirection.Side:
-                        BaseAttackCheck();
-                        break;
-                }
-            }
-        //}
-        //Release attack input and reset corresponding variables
-/*        else if (!value.isPressed)
+        attackDirection = CheckAttackDirection();
+                
+        if(attackDirection == AttackDirection.Down)
         {
-            isHoldingAttacking = false;
-            holdAttackTimer = 0;
-        }*/
+            Debug.Log("Down Attack Detected");
+
+            if (isDownAttacking)
+            {
+                DownAttackCheck();
+            }
+        }
+
+        //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
+        if (playerState.IsDashing || Time.timeScale == 0 || playerState.IsSliding || LastComboTime > 0)
+            return;
+
+        //Execute attack based off the direction of the player input
+        scytheAnimator.ResetTrigger("Idle");
+        switch (attackDirection)
+        {
+            case AttackDirection.Up:
+                UpAttackCheck();
+                break;
+            case AttackDirection.Side:
+                BaseAttackCheck();
+                break;
+        }
     }
 
     //Dash Input
@@ -327,10 +320,12 @@ public class PlayerCombat : MonoBehaviour
         if (isComboing)
         {
             InterruptCombo(AttackDirection.Down, true);
+            Debug.Log("Interrupting Combo");
         }
         else if (attackDurationTime < 0)
         {
             meleeStateMachine.RegisteredAttack = true;
+            Debug.Log("Registered Attack");
             //DownAttack();
         }
     }
@@ -409,11 +404,12 @@ public class PlayerCombat : MonoBehaviour
         }
         else if (playerController.Data.canGDownAttack)
         {
-            //Debug.Log("Down Ground Attack");
-            meleeStateMachine.SetNextState(new GroundDownCharge());
-            AttackDurationTime = playerController.Data.gdHoldDuration;
-
-            PlayerControllerForces.Instance.ExecuteDownAttack(true);
+            if (isDownAttacking)
+            {
+                meleeStateMachine.SetNextState(new GroundDownRelease());
+                AttackDurationTime = playerController.Data.gdHoldDuration;
+                PlayerControllerForces.Instance.ExecuteDownAttack(true);
+            }
         }
     }
 
@@ -503,7 +499,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (AttackDurationTime > 0)
             playerState.IsAttacking = true;  
-        else if (!isDownAttacking) // isDownAttacking only for ground
+        else if (!isHoldingAttacking) // isDownAttacking only for ground
         {
             playerState.IsAttacking = false;
         }

@@ -18,6 +18,8 @@ public class GroundDownRelease : MeleeBaseState
         playerCombat.AttackDurationTime = PlayerControllerForces.Instance.Data.gDownAttackDuration;
 
         PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.AttackDownExecute);
+
+        
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
@@ -30,7 +32,9 @@ public class GroundDownRelease : MeleeBaseState
             //playerController.WalkModifier = 1;
 
             stateMachine.SetNextStateToMain();
+            Debug.Log("Leaving release state");
         }
+
     }
 
     protected override Vector2 KnockbackForce(Vector2 enemyPos)
