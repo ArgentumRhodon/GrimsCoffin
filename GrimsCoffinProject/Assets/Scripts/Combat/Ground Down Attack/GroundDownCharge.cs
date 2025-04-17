@@ -16,11 +16,6 @@ public class GroundDownCharge : MeleeBaseState
     {
         base.OnEnter(_stateMachine);
 
-        playerController = playerCombat.GetComponent<PlayerControllerForces>();
-        // playerController.WalkModifier = PlayerControllerForces.Instance.Data.gDownWalkModifier;
-        playerController.SleepWalk();
-        playerCombat.AttackDurationTime = 0f;
-
         PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.AttackDownReady);
     }
 
@@ -30,38 +25,11 @@ public class GroundDownCharge : MeleeBaseState
         {
             stateMachine.SetNextState(new GroundDownRelease());
             _stateMachine.RegisteredAttack = false;
-            playerController.EndSleepWalk();
         }
         else if (!playerCombat.isHoldingDownOnGround)
         {
+            _stateMachine.RegisteredAttack = false;
             stateMachine.SetNextStateToMain();
-            playerController.EndSleepWalk();
-        }
-        //Highlight yellow after certain time to note that the attack is charged
-        //if(playerCombat.AttackDurationTime < 0)
-        //{
-        //    playerCombat.scytheSprite.GetComponent<SpriteRenderer>().color = Color.yellow;
-        //}
-
-        //if (!playerCombat.IsHoldingAttacking)
-        //{
-        //    playerController.EndSleepWalk();
-
-        //    //Released after being charged up
-        //    if (playerCombat.AttackDurationTime < 0)
-        //    {
-        //        playerCombat.scytheSprite.GetComponent<SpriteRenderer>().color = Color.white;
-
-        //        stateMachine.SetNextState(new GroundDownRelease());
-        //    }
-        //    //Let go of attack before charging up
-        //    else 
-        //    {
-        //        Debug.Log("Ended holding");
-        //        playerController.WalkModifier = 1;
-        //        playerCombat.AttackDurationTime = 0;
-        //        stateMachine.SetNextStateToMain();
-        //    }
-        //}
+        }       
     }
 }

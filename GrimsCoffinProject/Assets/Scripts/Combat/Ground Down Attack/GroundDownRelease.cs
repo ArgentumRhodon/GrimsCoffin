@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Playables;
 
 public class GroundDownRelease : MeleeBaseState
 {
@@ -17,7 +18,6 @@ public class GroundDownRelease : MeleeBaseState
         //Set attack variables and animation
         attackDamage = PlayerControllerForces.Instance.Data.groundDownDamage;
         playerCombat.AttackDurationTime = PlayerControllerForces.Instance.Data.gDownAttackDuration;
-
         PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.AttackDownExecute);
 
         DOVirtual.DelayedCall(.567f, EndAttack);
@@ -31,8 +31,9 @@ public class GroundDownRelease : MeleeBaseState
     private void EndAttack()
     {
         stateMachine.SetNextStateToMain();
-        //playerCombat.isHoldingDownOnGround = false;
-        Debug.Log("Leaving release state");
+        playerCombat.isHoldingDownOnGround = false;
+        playerCombat.GetComponent<PlayerControllerForces>().playerState.IsAttacking = false;
+        //Debug.Log("Leaving release state");
     }
 
     protected override Vector2 KnockbackForce(Vector2 enemyPos)

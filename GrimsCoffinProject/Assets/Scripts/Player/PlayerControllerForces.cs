@@ -779,18 +779,14 @@ public class PlayerControllerForces : MonoBehaviour
         if (isSleeping)
             return;
 
-        //Aerial attack check
-        //if (Data.hasStallForce)
-        //{
-            if (shouldGroundAttack)
-            {
-                //Sleep(Data.gDownAttackDuration);
-            }
-            else
-            {
-                Sleep(Data.aDownAttackDuration);
-            }
-        //}
+        if (shouldGroundAttack)
+        {
+            Sleep(Data.gDownAttackDuration);
+        }
+        else
+        {
+            Sleep(Data.aDownAttackDuration);
+        }
     }
 
     public void ExecuteScytheThrow()
@@ -1066,11 +1062,26 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void DownAttack()
     {
-        rb.excludeLayers = LayerMask.GetMask("Enemy");
-        rb.excludeLayers += LayerMask.GetMask("Agent");
-        SetGravityScale(1);
-        //rb.AddForce(Vector2.down * Data.aerialDownwardPForce, ForceMode2D.Impulse);
-        rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
+        if (Grounded())
+        {
+            int direction;
+            if (playerState.IsFacingRight)
+                direction = 1;
+            else
+                direction = -1;
+
+            rb.velocity = new Vector2(.1f, 0);
+
+            rb.AddForce(new Vector2(direction, 0) * Data.groundDownwardPForce, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.excludeLayers = LayerMask.GetMask("Enemy");
+            rb.excludeLayers += LayerMask.GetMask("Agent");
+            SetGravityScale(1);
+            //rb.AddForce(Vector2.down * Data.aerialDownwardPForce, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
+        }
     }
 
     #endregion
@@ -1771,12 +1782,13 @@ public class PlayerControllerForces : MonoBehaviour
     #endregion
 
     private void TempResetData()
-        {
-            //Data.canDash = true;
-            Data.canDoubleJump = true;
-            currentHP = 50;
-            Data.canADownAttack = true;
-            Data.canGUpAttack = true;
-            Data.canGDownAttack = true;
-        }
+    {
+    //Data.canDash = true;
+        Data.canDash = true;
+        Data.canDoubleJump = true;
+        currentHP = 50;
+        Data.canADownAttack = true;
+        Data.canGUpAttack = true;
+        Data.canGDownAttack = true;
     }
+}

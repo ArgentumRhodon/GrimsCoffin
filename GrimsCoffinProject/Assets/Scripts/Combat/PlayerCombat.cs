@@ -40,13 +40,14 @@ public class PlayerCombat : MonoBehaviour
     private float attackDurationTime;
     private float queueTimer;
     private float upAttackComboTime;
+    private float downAttackComboTime;
 
     public float AttackDurationTime { get { return attackDurationTime; } set { attackDurationTime = value; } }
     public float QueueTimer { get { return queueTimer; } set { queueTimer = value; } }
     public float LastComboTime { get { return lastComboTime; } set { lastComboTime = value; } }
-    public float UpAttackComboTime { get {return upAttackComboTime; } set { upAttackComboTime = value; } }
+/*    public float UpAttackComboTime { get {return upAttackComboTime; } set { upAttackComboTime = value; } }
+    public float DownAttackComboTime { get { return downAttackComboTime; } set { downAttackComboTime = value; } }*/
     //[SerializeField] public float HoldAttackTimer;
-    [SerializeField] private float holdAttackTimer; //{ get { return lastComboTime; } set { lastComboTime = value; } }
 
 
     //Attack
@@ -140,14 +141,11 @@ public class PlayerCombat : MonoBehaviour
         {
             if(CheckAttackDirection() == AttackDirection.Down && playerController.Grounded() && !isHoldingDownOnGround)
             {
+                isHoldingDownOnGround = true;
                 if (attackDurationTime < 0)
-                {
-                    isHoldingDownOnGround = true;
+                {             
                     meleeStateMachine.SetNextState(new GroundDownCharge());
                 }
-
-                // AttackDurationTime = playerController.Data.gdHoldDuration;
-                // PlayerControllerForces.Instance.ExecuteDownAttack(true);
             }
             else if (isHoldingDownOnGround && CheckAttackDirection() != AttackDirection.Down)
             {
@@ -184,7 +182,6 @@ public class PlayerCombat : MonoBehaviour
                         UpAttack();
                         break;
                     case AttackDirection.Down:
-                        Debug.Log("Attacking Down");
                         DownAttack();
                         break;
                     case AttackDirection.Dash:
@@ -214,16 +211,6 @@ public class PlayerCombat : MonoBehaviour
             return;
 
         attackDirection = CheckAttackDirection();
-                
-/*        if(attackDirection == AttackDirection.Down)
-        {
-            Debug.Log("Down Attack Detected");
-
-            if (isDownAttacking)
-            {
-                DownAttackCheck();
-            }
-        }*/
 
         //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
         if (playerState.IsDashing || Time.timeScale == 0 || playerState.IsSliding || LastComboTime > 0)
@@ -272,11 +259,6 @@ public class PlayerCombat : MonoBehaviour
     #region Attack Checks
     private void BaseAttackCheck()
     {
-/*        if (meleeStateMachine.CurrentState.GetType() == null)
-            return;*/
-
-        //Debug.Log(meleeStateMachine.CurrentState.GetType());
-
         //Check for combo timer, if the click amount is less then combo total 
         if (LastComboTime < 0 && attackClickCounter < playerController.Data.comboTotal &&
             //Check if the attack counter is above, make sure the queue timer still allows for adding an attack
@@ -328,12 +310,10 @@ public class PlayerCombat : MonoBehaviour
         if (isComboing)
         {
             InterruptCombo(AttackDirection.Down, true);
-            Debug.Log("Interrupting Combo");
         }
         else if (attackDurationTime < 0)
         {
             //meleeStateMachine.RegisteredAttack = true;
-            Debug.Log("Registered Attack");
             DownAttack();
         }
     }
@@ -360,7 +340,6 @@ public class PlayerCombat : MonoBehaviour
     private void ComboAttack()
     {
         //Debug.Log("Combo Attack");
-
         playerState.IsAttacking = true;
         meleeStateMachine.RegisteredAttack = true;
         isComboing = true;
@@ -400,27 +379,34 @@ public class PlayerCombat : MonoBehaviour
 
     private void DownAttack()
     {
-        playerState.IsAttacking = true;
+       
         if (!playerController.Grounded() && playerController.Data.canADownAttack)
         {
             //Debug.Log("Down Aerial Attack");
+            playerState.IsAttacking = true;
             isAerialAttacking = true;
             meleeStateMachine.SetNextState(new AirDownState());
             AttackDurationTime = playerController.Data.aDownAttackDuration;
 
             PlayerControllerForces.Instance.ExecuteDownAttack(false);
         }
-        else if (playerController.Data.canGDownAttack)
+        else if (playerController.Data.canGDownAttack && downAttackComboTime < 0 && isHoldingDownOnGround)
         {
-            if (isHoldingDownOnGround)// && downAttackRegistered)
+            //If they are interrupting the combo, make sure that are in the charge state
+            if (isInterruptingCombo)
             {
-                //meleeStateMachine.SetNextState(new GroundDownRelease());
-                //AttackDurationTime = playerController.Data.gdHoldDuration;
-                meleeStateMachine.RegisteredAttack = true;
-                AttackDurationTime = playerController.Data.gDownAttackDuration;
-                PlayerControllerForces.Instance.ExecuteDownAttack(true);
-                downAttackRegistered = false;
+                meleeStateMachine.SetNextState(new GroundDownCharge());
             }
+
+            //Updates proper states
+            playerState.IsAttacking = true;
+            meleeStateMachine.RegisteredAttack = true;
+
+            //Player physics
+            PlayerControllerForces.Instance.ExecuteDownAttack(true);
+
+            //Delay between next attack
+            downAttackComboTime = playerController.Data.gDownAttackDelay;         
         }
     }
 
@@ -498,11 +484,7 @@ public class PlayerCombat : MonoBehaviour
         AttackDurationTime -= Time.deltaTime;
         QueueTimer -= Time.deltaTime;
         upAttackComboTime -= Time.deltaTime;
-
-        if(isHoldingAttacking)
-        {
-            holdAttackTimer += Time.deltaTime;
-        }
+        downAttackComboTime -= Time.deltaTime;
     }
 
     //Updates all stats in FixedUpdate
