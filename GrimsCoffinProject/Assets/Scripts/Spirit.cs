@@ -31,7 +31,10 @@ public class Spirit : Interactable
         DashSpirit = 2,
         ScytheThrowSpirit = 3,
         HealthSpirit = 4,
-        CombatSpirit = 5
+        CombatSpirit = 5,
+        Onboarding1 = 6,
+        Onboarding2 = 7,
+        Onboarding3 = 8
     }
 
     [SerializeField] public SpiritState spiritState;
@@ -89,6 +92,9 @@ public class Spirit : Interactable
         else if (spiritState == SpiritState.Unlocked && PersistentDataManager.Instance.EnemyCurrency >= upgradeCost)
             exclamationMark.SetActive(true);
 
+        else if (spiritID == SpiritID.Onboarding1 || spiritID == SpiritID.Onboarding2 || spiritID == SpiritID.Onboarding3)
+            exclamationMark.SetActive(true);
+
         else
             exclamationMark.SetActive(false);
     }
@@ -116,6 +122,9 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
+        if (UIManager.Instance.fullMapUI.activeInHierarchy)
+            return;
+
         if (spiritState != SpiritState.Unlocked)
         {
             if (dialogueManager != null)

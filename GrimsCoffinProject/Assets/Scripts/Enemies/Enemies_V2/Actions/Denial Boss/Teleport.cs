@@ -13,6 +13,8 @@ namespace Core.AI
         public string animationTeleportName;
         public string animationAppearName;
 
+
+        public float hitboxDisableDelay = 0.3f;
         public float waitTimer; //Time before starting teleport animation
         public float awayDuration; //Time while away
 
@@ -25,12 +27,12 @@ namespace Core.AI
         private float targetLoc;
 
         //Cast to denial boss
-        private DenialBoss bossScript;
+        private Boss bossScript;
 
         public override void OnStart()
         {
             teleportCompleted = false;
-            bossScript = (DenialBoss)enemyScript;
+            bossScript = (Boss)enemyScript;
 
             DOVirtual.DelayedCall(waitTimer, ExecuteTeleport);
         }
@@ -48,8 +50,8 @@ namespace Core.AI
         private void ExecuteTeleport()
         {
             animator.Play(animationTeleportName);
-            DOVirtual.DelayedCall(.3f, DisableHitbox);
-            DOVirtual.DelayedCall(1 + awayDuration, TeleportLocation);
+            DOVirtual.DelayedCall(hitboxDisableDelay, DisableHitbox);
+            DOVirtual.DelayedCall(awayDuration, TeleportLocation);
 
         }
 
@@ -74,7 +76,7 @@ namespace Core.AI
         {
             animator.Play(animationAppearName);
             bossScript.GetComponent<TeamComponent>().teamIndex = TeamIndex.Enemy;
-            DOVirtual.DelayedCall(.3f, FinishTeleport);
+            DOVirtual.DelayedCall(hitboxDisableDelay, FinishTeleport);
         }
 
         //Finish teleport sequence

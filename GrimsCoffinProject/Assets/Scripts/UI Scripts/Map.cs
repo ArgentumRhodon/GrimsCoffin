@@ -47,7 +47,7 @@ public class Map : MonoBehaviour
         }
 
         exploredPercentage.text = ReturnExploredPercentage() + "% Explored";
-        spiritProgress.text = ReturnSpiritsCollected() + "/4 Spirits";
+        spiritProgress.text = ReturnSpiritsCollected() + "/5 Spirits";
 
         if (ReturnExploredPercentage() == "100")
             exploredPercentage.color = Color.green;
@@ -135,7 +135,7 @@ public class Map : MonoBehaviour
     {
         Spirit[] spirits = FindObjectsOfType<Spirit>();
 
-        int spiritsCollected = 4 - spirits.Length;
+        int spiritsCollected = 5 - spirits.Length;
 
         return spiritsCollected.ToString();
     }

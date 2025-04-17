@@ -688,12 +688,7 @@ public class PlayerControllerForces : MonoBehaviour
         currentSP = Data.maxSP;
 
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
-
-        PlayerAnimationManager.Instance.ChangeSpriteLayer(0);
-        UIManager.Instance.gameUI.SetActive(true);
-
-        scytheThrown = false;
-
+        
         foreach (Room room in PersistentDataManager.Instance.rooms)
         {
             if (room.gameObject.activeInHierarchy)
@@ -702,10 +697,21 @@ public class PlayerControllerForces : MonoBehaviour
 
             if (room.GetComponentInChildren<ArenaManager>() != null)
             {
-                room.GetComponentInChildren<ArenaManager>().CombatEnd();
-                room.GetComponentInChildren<ArenaManager>().ResetArena();
+                ArenaManager[] arenas = room.GetComponentsInChildren<ArenaManager>();
+                foreach (ArenaManager arena in arenas)
+                {
+                    arena.CombatEnd();
+                    arena.ResetArena();
+                    if (arena.GetComponent<LoadCutscene>() != null && room.gameObject.activeInHierarchy)
+                        return;
+                }
             }
         }
+
+        PlayerAnimationManager.Instance.ChangeSpriteLayer(0);
+        UIManager.Instance.gameUI.SetActive(true);
+
+        scytheThrown = false;
 
         if (UIManager.Instance.bossHealthBar.activeInHierarchy)
             UIManager.Instance.bossHealthBar.SetActive(false);
@@ -1772,11 +1778,15 @@ public class PlayerControllerForces : MonoBehaviour
     #endregion
 
     private void TempResetData()
-        {
-            //Data.canDash = true;
-            Data.canDoubleJump = true;
-            currentHP = 50;
-            Data.canADownAttack = true;
-            Data.canGUpAttack = true;
-        }
+    {
+        //Data.canDash = true;
+        Data.canDoubleJump = true;
+        Data.canDash = true;
+        Data.maxHP = 125;
+        currentHP = 125;
+        Data.damageMultiplier = 3;
+        Data.canADownAttack = true;
+        Data.canGUpAttack = true;
+        Data.canScytheThrow = true;
     }
+}

@@ -174,7 +174,7 @@ MonoBehaviour:
   sceneController: {fileID: 164312468}
   sentences:
   - 'Grim: ...34, 35, 36. '
-  - 'Spirit 36: Hello? Can you hear me?'
+  - 'Spirit 36: <b><color=red>Hello? </b></color>Can you hear me?'
   - 'Grim: 4 left to collect.'
   - "Spirit 36: Hey! I'm talking to you\u2014!"
   - 'Grim: ...'
@@ -1012,7 +1012,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: <i><color=red>1234</i></color> 1234
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1759d871ced29044182ad8e8ce2e0997, type: 2}
   m_sharedMaterial: {fileID: -8124081880131944629, guid: 1759d871ced29044182ad8e8ce2e0997, type: 2}
