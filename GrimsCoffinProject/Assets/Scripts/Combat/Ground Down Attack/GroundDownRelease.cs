@@ -33,7 +33,6 @@ public class GroundDownRelease : MeleeBaseState
         stateMachine.SetNextStateToMain();
         playerCombat.isHoldingDownOnGround = false;
         playerCombat.GetComponent<PlayerControllerForces>().playerState.IsAttacking = false;
-        //Debug.Log("Leaving release state");
     }
 
     protected override Vector2 KnockbackForce(Vector2 enemyPos)

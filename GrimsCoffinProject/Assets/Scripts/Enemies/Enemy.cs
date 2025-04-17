@@ -327,10 +327,13 @@ public abstract class Enemy : MonoBehaviour
         behaviorTree.ResetValuesOnRestart = true;
         ToggleBehaviorTree(false);
 
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
-        {
-            animator.Play("Dead");
-        }
+        /*        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+                {
+                    animator.Play("Dead");
+                }*/
+
+        EndSleep();
+        EndStagger();
         animator.speed = 1;
        
 

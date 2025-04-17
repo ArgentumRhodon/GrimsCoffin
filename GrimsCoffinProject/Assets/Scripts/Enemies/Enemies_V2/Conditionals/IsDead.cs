@@ -16,9 +16,10 @@ namespace Core.AI
         {
             if(enemyScript.health <= 0)
             {
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Corpse"))
                 {
                     animator.Play("Dead");
+                    //animator.SetTrigger("Dead");
                 }
             }
         }

@@ -141,9 +141,10 @@ public class PlayerCombat : MonoBehaviour
         {
             if(CheckAttackDirection() == AttackDirection.Down && playerController.Grounded() && !isHoldingDownOnGround)
             {
-                isHoldingDownOnGround = true;
-                if (attackDurationTime < 0)
-                {             
+           
+                if (attackDurationTime < 0 && !playerState.IsAttacking)
+                {
+                    isHoldingDownOnGround = true;
                     meleeStateMachine.SetNextState(new GroundDownCharge());
                 }
             }
@@ -402,11 +403,11 @@ public class PlayerCombat : MonoBehaviour
             playerState.IsAttacking = true;
             meleeStateMachine.RegisteredAttack = true;
 
-            //Player physics
-            PlayerControllerForces.Instance.ExecuteDownAttack(true);
-
             //Delay between next attack
-            downAttackComboTime = playerController.Data.gDownAttackDelay;         
+            downAttackComboTime = playerController.Data.gDownAttackDelay;
+
+            //Player physics
+            PlayerControllerForces.Instance.ExecuteDownAttack(true);  
         }
     }
 
