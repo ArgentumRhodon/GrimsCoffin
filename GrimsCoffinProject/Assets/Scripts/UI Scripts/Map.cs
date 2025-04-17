@@ -52,7 +52,7 @@ public class Map : MonoBehaviour
         if (ReturnExploredPercentage() == "100")
             exploredPercentage.color = Color.green;
 
-        if (ReturnSpiritsCollected() == "4")
+        if (ReturnSpiritsCollected() == "5")
             spiritProgress.color = Color.green;
     }
 
