@@ -32,7 +32,7 @@ public class GroundDownCharge : MeleeBaseState
             _stateMachine.RegisteredAttack = false;
             playerController.EndSleepWalk();
         }
-        else if (!playerCombat.isDownAttacking)
+        else if (!playerCombat.isHoldingDownOnGround)
         {
             stateMachine.SetNextStateToMain();
             playerController.EndSleepWalk();

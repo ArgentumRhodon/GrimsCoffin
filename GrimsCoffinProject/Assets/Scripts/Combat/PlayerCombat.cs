@@ -55,7 +55,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private bool isAerialCombo;
     [SerializeField] private bool isAerialAttacking;
     [SerializeField] private bool isComboing;
-    [SerializeField] public bool isDownAttacking;
+    [SerializeField] public bool isHoldingDownOnGround;
     [SerializeField] private int attackClickCounter;
     [SerializeField] private int comboQueueLeft;
     [SerializeField] private int currentAttackAmount;
@@ -102,6 +102,8 @@ public class PlayerCombat : MonoBehaviour
     }
 
     public AttackDirection CurrentAttackDirection { get { return attackDirection; } set { attackDirection = value; } }
+
+    private bool downAttackRegistered;
     #endregion
 
     //Runtime Methods -------------------------------------------------------------------
@@ -136,17 +138,20 @@ public class PlayerCombat : MonoBehaviour
         // Refactored ground down attack logic
         if (playerController.Data.canGDownAttack)
         {
-            if(CheckAttackDirection() == AttackDirection.Down && playerController.Grounded() && !isDownAttacking)
+            if(CheckAttackDirection() == AttackDirection.Down && playerController.Grounded() && !isHoldingDownOnGround)
             {
-                isDownAttacking = true;
-                meleeStateMachine.SetNextState(new GroundDownCharge());
+                if (attackDurationTime < 0)
+                {
+                    isHoldingDownOnGround = true;
+                    meleeStateMachine.SetNextState(new GroundDownCharge());
+                }
+
                 // AttackDurationTime = playerController.Data.gdHoldDuration;
                 // PlayerControllerForces.Instance.ExecuteDownAttack(true);
             }
-            else if(isDownAttacking && CheckAttackDirection() != AttackDirection.Down)
+            else if (isHoldingDownOnGround && CheckAttackDirection() != AttackDirection.Down)
             {
-                meleeStateMachine.RegisteredAttack = false;
-                isDownAttacking = false;
+                isHoldingDownOnGround = false;
             }
         }
 
@@ -210,7 +215,7 @@ public class PlayerCombat : MonoBehaviour
 
         attackDirection = CheckAttackDirection();
                 
-        if(attackDirection == AttackDirection.Down)
+/*        if(attackDirection == AttackDirection.Down)
         {
             Debug.Log("Down Attack Detected");
 
@@ -218,7 +223,7 @@ public class PlayerCombat : MonoBehaviour
             {
                 DownAttackCheck();
             }
-        }
+        }*/
 
         //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
         if (playerState.IsDashing || Time.timeScale == 0 || playerState.IsSliding || LastComboTime > 0)
@@ -230,6 +235,9 @@ public class PlayerCombat : MonoBehaviour
         {
             case AttackDirection.Up:
                 UpAttackCheck();
+                break;
+            case AttackDirection.Down:
+                DownAttackCheck();
                 break;
             case AttackDirection.Side:
                 BaseAttackCheck();
@@ -324,9 +332,9 @@ public class PlayerCombat : MonoBehaviour
         }
         else if (attackDurationTime < 0)
         {
-            meleeStateMachine.RegisteredAttack = true;
+            //meleeStateMachine.RegisteredAttack = true;
             Debug.Log("Registered Attack");
-            //DownAttack();
+            DownAttack();
         }
     }
     #endregion
@@ -404,11 +412,14 @@ public class PlayerCombat : MonoBehaviour
         }
         else if (playerController.Data.canGDownAttack)
         {
-            if (isDownAttacking)
+            if (isHoldingDownOnGround)// && downAttackRegistered)
             {
-                meleeStateMachine.SetNextState(new GroundDownRelease());
-                AttackDurationTime = playerController.Data.gdHoldDuration;
+                //meleeStateMachine.SetNextState(new GroundDownRelease());
+                //AttackDurationTime = playerController.Data.gdHoldDuration;
+                meleeStateMachine.RegisteredAttack = true;
+                AttackDurationTime = playerController.Data.gDownAttackDuration;
                 PlayerControllerForces.Instance.ExecuteDownAttack(true);
+                downAttackRegistered = false;
             }
         }
     }
@@ -457,7 +468,7 @@ public class PlayerCombat : MonoBehaviour
     //Check to see if the combo should be reset
     public bool ShouldResetCombo()
     {
-        return AttackDurationTime < 0 && QueueTimer < 0 && comboQueueLeft == 0 && !isDownAttacking;
+        return AttackDurationTime < 0 && QueueTimer < 0 && comboQueueLeft == 0 && !isHoldingDownOnGround;
     }
 
     //Set attack direction based off the y direction of the left analog stick

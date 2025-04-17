@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GroundDownRelease : MeleeBaseState
 {
@@ -19,22 +20,19 @@ public class GroundDownRelease : MeleeBaseState
 
         PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.AttackDownExecute);
 
-        
+        DOVirtual.DelayedCall(.567f, EndAttack);
     }
 
     public override void OnUpdate(CStateMachine _stateMachine)
     {
         base.OnUpdate(_stateMachine);
+    }
 
-        if (playerCombat.ShouldResetCombo())
-        {
-            //PlayerControllerForces playerController = playerCombat.GetComponent<PlayerControllerForces>();
-            //playerController.WalkModifier = 1;
-
-            stateMachine.SetNextStateToMain();
-            Debug.Log("Leaving release state");
-        }
-
+    private void EndAttack()
+    {
+        stateMachine.SetNextStateToMain();
+        //playerCombat.isHoldingDownOnGround = false;
+        Debug.Log("Leaving release state");
     }
 
     protected override Vector2 KnockbackForce(Vector2 enemyPos)

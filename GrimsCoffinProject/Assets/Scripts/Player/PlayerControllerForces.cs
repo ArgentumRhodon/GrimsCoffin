@@ -425,7 +425,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         // Grounded() check did not work here
-        if (!playerState.IsJumping && rb.velocity.y > -.1f && !playerState.IsAttacking && !playerState.IsDashing && !playerCombat.isDownAttacking)
+        if (!playerState.IsJumping && rb.velocity.y > -.1f && !playerState.IsAttacking && !playerState.IsDashing && !playerCombat.isHoldingDownOnGround)
         {
             if (Math.Abs(rb.velocity.x) < 1)
             {
@@ -1480,7 +1480,7 @@ public class PlayerControllerForces : MonoBehaviour
     private int XInputDirection()
     {
         //Added deadzone to account for controller drift
-        if (playerCombat.isDownAttacking)
+        if (playerCombat.isHoldingDownOnGround)
             return 0;
         else if (moveInput.x < -Data.deadzone)
             return -1;
@@ -1777,5 +1777,6 @@ public class PlayerControllerForces : MonoBehaviour
             currentHP = 50;
             Data.canADownAttack = true;
             Data.canGUpAttack = true;
+            Data.canGDownAttack = true;
         }
     }
