@@ -44,7 +44,10 @@ public class BreakableObject : MonoBehaviour
         timer = 1;
 
         if (objectType == ObjectType.Bones1 || objectType == ObjectType.Bones2)
+        {
             PersistentDataManager.Instance.UpdateEnemyCurrency(Random.Range(5, 20), true);
+            CameraShake.Instance.ShakeCamera(.75f, .75f, .15f);
+        }
     }
 
     public void DestroyObject()
