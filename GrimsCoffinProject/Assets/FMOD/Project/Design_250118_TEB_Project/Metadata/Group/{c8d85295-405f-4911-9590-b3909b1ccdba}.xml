@@ -17,6 +17,7 @@
 	<object class="MixerBusEffectChain" id="{f7da6bf0-a541-4aea-90ac-83fed9f1c602}">
 		<relationship name="effects">
 			<destination>{be94c9c6-6dee-4965-9efe-81b44c8eb92b}</destination>
+			<destination>{33d5aced-8250-43ca-9a50-a9262ab388c5}</destination>
 			<destination>{2bf669e4-5989-4d3a-a691-bf5235036fea}</destination>
 			<destination>{59e13f3d-f9f0-482d-9f79-a0b37eced220}</destination>
 		</relationship>
@@ -26,6 +27,17 @@
 		<property name="gain">
 			<value>-6</value>
 		</property>
+	</object>
+	<object class="MixerSend" id="{33d5aced-8250-43ca-9a50-a9262ab388c5}">
+		<property name="level">
+			<value>-23.5</value>
+		</property>
+		<property name="inputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="mixerReturn">
+			<destination>{0524cee5-e2a1-4817-bfab-aa3a61774f43}</destination>
+		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{2bf669e4-5989-4d3a-a691-bf5235036fea}" />
 	<object class="CompressorEffect" id="{59e13f3d-f9f0-482d-9f79-a0b37eced220}">
