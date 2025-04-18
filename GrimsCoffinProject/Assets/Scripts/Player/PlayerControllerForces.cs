@@ -1463,6 +1463,7 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            RuntimeManager.StudioSystem.setParameterByName("DenialLevel", 0);
             ToggleSleep(true);
             PlayerAnimationManager.Instance.ChangeSpriteLayer(5);
             PlayerAnimationManager.Instance.ChangeAnimationState("Death", false);

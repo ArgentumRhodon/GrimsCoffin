@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 4298879604570272131}
   - component: {fileID: 5855524234300227423}
   - component: {fileID: 9083029842915043585}
+  - component: {fileID: 6155699985814731952}
   m_Layer: 11
   m_Name: BossSprite
   m_TagString: Untagged
@@ -431,6 +432,103 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.78192127, y: 1.5270536}
   m_EdgeRadius: 0
+--- !u!114 &6155699985814731952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836227217629919773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8991cb6963ab54e8985fb73ca683df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamagedSFX:
+    Guid:
+      Data1: 1945469379
+      Data2: 1099280781
+      Data3: 1916161453
+      Data4: -1713462677
+    Path: event:/BOSS/Ninja/319_Damaged
+  DeadSFX:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  IdleSFX:
+    Guid:
+      Data1: 1620111571
+      Data2: 1168612353
+      Data3: 1838402187
+      Data4: 277893723
+    Path: event:/BOSS/Ninja/320_Idle
+  AttackSFX:
+    Guid:
+      Data1: 810617116
+      Data2: 1322635195
+      Data3: 1892482698
+      Data4: -600290666
+    Path: event:/BOSS/Ninja/316_Attack
+  TeleSFX:
+    Guid:
+      Data1: 459938195
+      Data2: 1101327941
+      Data3: 1828067981
+      Data4: 1912671632
+    Path: event:/BOSS/Ninja/314_Teleport
+  AppearSFX:
+    Guid:
+      Data1: 1473223610
+      Data2: 1319440698
+      Data3: -505626972
+      Data4: -1811645491
+    Path: event:/BOSS/Ninja/315_Appear
+  AOEChargeSFX:
+    Guid:
+      Data1: 2094275482
+      Data2: 1095153210
+      Data3: -388165214
+      Data4: -1674352071
+    Path: event:/BOSS/Ninja/312_Jump
+  AOESlamSFX:
+    Guid:
+      Data1: 1793938431
+      Data2: 1299953375
+      Data3: -497273957
+      Data4: -1899389619
+    Path: event:/BOSS/Ninja/313_JumpLanding
+  AOEBeamSFX:
+    Guid:
+      Data1: 907155422
+      Data2: 1326854851
+      Data3: -1777958504
+      Data4: 574471023
+    Path: event:/BOSS/Ninja/318_WallSlide
+  LaserShootSFX:
+    Guid:
+      Data1: -520622821
+      Data2: 1312373471
+      Data3: 1562201261
+      Data4: 1205983412
+    Path: event:/BOSS/Ninja/317_GlitchAttack
+  BlastSFX:
+    Guid:
+      Data1: 1620111571
+      Data2: 1168612353
+      Data3: 1838402187
+      Data4: 277893723
+    Path: event:/BOSS/Ninja/320_Idle
+  runSFX:
+    Guid:
+      Data1: 1123797993
+      Data2: 1157457547
+      Data3: -257959494
+      Data4: 1241245134
+    Path: event:/BOSS/Ninja/311_Run
+  attenuation: 1
 --- !u!1 &4146840992309603346
 GameObject:
   m_ObjectHideFlags: 0

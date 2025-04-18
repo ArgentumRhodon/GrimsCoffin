@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9185772138578644789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/312_Jump
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/312_Jump
+  Guid:
+    Data1: 2094275482
+    Data2: 1095153210
+    Data3: -388165214
+    Data4: -1674352071
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 8470269398719916524}
+  - {fileID: -7877630980913067885}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 750
+--- !u!114 &-9153243321144804528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/317_GlitchAttack/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-9029187549352905176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +131,35 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-8782788723504265733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/319_Damaged
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/319_Damaged
+  Guid:
+    Data1: 1945469379
+    Data2: 1099280781
+    Data3: 1916161453
+    Data4: -1713462677
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -153697720639748526}
+  - {fileID: 754453730568263616}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3000
 --- !u!114 &-8728452934070747381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +290,30 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-8421616138833689603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/314_Teleport/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-8354957661222872710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +394,35 @@ MonoBehaviour:
   - Ice
   - Soil
   Exists: 1
+--- !u!114 &-8286392334249855848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/317_GlitchAttack
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/317_GlitchAttack
+  Guid:
+    Data1: -520622821
+    Data2: 1312373471
+    Data3: 1562201261
+    Data4: 1205983412
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -4818684321942108899}
+  - {fileID: -9153243321144804528}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2533
 --- !u!114 &-8283962429936446840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +512,30 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: parameter:/211_Injured/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-7877630980913067885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/312_Jump/LocalDirection
   m_EditorClassIdentifier: 
   Name: LocalDirection
   StudioPath: 
@@ -1006,6 +1165,35 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-5861199657987821265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/315_Appear
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/315_Appear
+  Guid:
+    Data1: 1473223610
+    Data2: 1319440698
+    Data3: -505626972
+    Data4: -1811645491
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -1598778579897217710}
+  - {fileID: -2907677270299907635}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1340
 --- !u!114 &-5765262173497969298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1151,6 +1339,30 @@ MonoBehaviour:
     data2: 1093875431
   Type: 1
   IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-5423187873446556541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/311_Run/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
   Labels: []
   Exists: 1
 --- !u!114 &-5396871821320531222
@@ -1360,6 +1572,30 @@ MonoBehaviour:
   ID:
     data1: 1178717349
     data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-4818684321942108899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/317_GlitchAttack/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
   Type: 0
   IsGlobal: 0
   Labels: []
@@ -1610,6 +1846,35 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1152
+--- !u!114 &-3963775497302198107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/311_Run
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/311_Run
+  Guid:
+    Data1: 1123797993
+    Data2: 1157457547
+    Data3: -257959494
+    Data4: 1241245134
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -5423187873446556541}
+  - {fileID: -143855390268801445}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1340
 --- !u!114 &-3727740268469363956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1853,6 +2118,30 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-2907677270299907635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/315_Appear/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-2772175046319512307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,6 +2255,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 750
+--- !u!114 &-2216418606413385076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/320_Idle/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-2182413578976880424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2167,6 +2480,30 @@ MonoBehaviour:
   ID:
     data1: 3310833060
     data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-1598778579897217710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/315_Appear/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
   Type: 0
   IsGlobal: 0
   Labels: []
@@ -2434,6 +2771,54 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-153697720639748526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/319_Damaged/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-143855390268801445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/311_Run/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-43656311397301652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2585,6 +2970,16 @@ MonoBehaviour:
   - {fileID: 262505293926038730}
   - {fileID: -8283962429936446840}
   - {fileID: -364867024330526481}
+  - {fileID: -8286392334249855848}
+  - {fileID: 3251816655037580714}
+  - {fileID: 8000746551520327291}
+  - {fileID: -9185772138578644789}
+  - {fileID: -5861199657987821265}
+  - {fileID: 4735606902161300107}
+  - {fileID: -3963775497302198107}
+  - {fileID: 30363964898113010}
+  - {fileID: -8782788723504265733}
+  - {fileID: 658608782325986729}
   EditorParameters:
   - {fileID: -3355277177704017374}
   - {fileID: -3685714587446246573}
@@ -2600,8 +2995,37 @@ MonoBehaviour:
   - {fileID: 971634653438544226}
   StringsBanks:
   - {fileID: 861109146523642461}
-  cacheTime: 638805814580436826
+  cacheTime: 638805935980135930
   cacheVersion: 131620
+--- !u!114 &30363964898113010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/313_JumpLanding
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/313_JumpLanding
+  Guid:
+    Data1: 1793938431
+    Data2: 1299953375
+    Data3: -497273957
+    Data4: -1899389619
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 1722852264258943689}
+  - {fileID: 7799699644646271056}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1500
 --- !u!114 &262505293926038730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2733,6 +3157,59 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1612
+--- !u!114 &658608782325986729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/320_Idle
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/320_Idle
+  Guid:
+    Data1: 1620111571
+    Data2: 1168612353
+    Data3: 1838402187
+    Data4: 277893723
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -2216418606413385076}
+  - {fileID: 8687913625591875625}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 14990
+--- !u!114 &754453730568263616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/319_Damaged/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &861109146523642461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2748,10 +3225,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638805814580436826
+  lastModified: 638805935980135930
   FileSizes:
   - Name: Desktop
-    Value: 6250
+    Value: 6684
   Exists: 1
 --- !u!114 &971634653438544226
 MonoBehaviour:
@@ -2768,10 +3245,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638805814580371622
+  lastModified: 638805935980055260
   FileSizes:
   - Name: Desktop
-    Value: 61277920
+    Value: 61355648
   Exists: 1
 --- !u!114 &1006991173850820005
 MonoBehaviour:
@@ -2945,6 +3422,54 @@ MonoBehaviour:
   ID:
     data1: 3310833060
     data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &1722852264258943689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/313_JumpLanding/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &1770371799539636696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/314_Teleport/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
   Type: 0
   IsGlobal: 0
   Labels: []
@@ -3126,6 +3651,54 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &2584021727605332434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/318_WallSlide/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &2686136487414960874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/316_Attack/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &2872356912223134577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3206,6 +3779,35 @@ MonoBehaviour:
   - Ice
   - Soil
   Exists: 1
+--- !u!114 &3251816655037580714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/316_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/316_Attack
+  Guid:
+    Data1: 810617116
+    Data2: 1322635195
+    Data3: 1892482698
+    Data4: -600290666
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 2686136487414960874}
+  - {fileID: 7457773922658476517}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1340
 --- !u!114 &3276038542410797792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3601,6 +4203,35 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &4735606902161300107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/318_WallSlide
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/318_WallSlide
+  Guid:
+    Data1: 907155422
+    Data2: 1326854851
+    Data3: -1777958504
+    Data4: 574471023
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 5818526418311654001}
+  - {fileID: 2584021727605332434}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1340
 --- !u!114 &4803278913353849112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3682,7 +4313,7 @@ MonoBehaviour:
   - {fileID: -3727740268469363956}
   MinDistance: 1
   MaxDistance: 20
-  Length: 3125
+  Length: 1406
 --- !u!114 &4902855108799612586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3792,7 +4423,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1125
+  Length: 1312
 --- !u!114 &5228836073806235808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3938,6 +4569,30 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: parameter:/207_Attack/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &5818526418311654001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/318_WallSlide/LocalDistance
   m_EditorClassIdentifier: 
   Name: LocalDistance
   StudioPath: 
@@ -4465,6 +5120,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
+--- !u!114 &7457773922658476517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/316_Attack/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &7485734307714751703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4542,6 +5221,30 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &7799699644646271056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/313_JumpLanding/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &7880917393636914407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4600,6 +5303,35 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1375
+--- !u!114 &8000746551520327291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BOSS/Ninja/314_Teleport
+  m_EditorClassIdentifier: 
+  Path: event:/BOSS/Ninja/314_Teleport
+  Guid:
+    Data1: 459938195
+    Data2: 1101327941
+    Data3: 1828067981
+    Data4: 1912671632
+  Banks:
+  - {fileID: 971634653438544226}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8421616138833689603}
+  - {fileID: 1770371799539636696}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1152
 --- !u!114 &8080480194368983242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4677,6 +5409,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2533
+--- !u!114 &8470269398719916524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/312_Jump/LocalDistance
+  m_EditorClassIdentifier: 
+  Name: LocalDistance
+  StudioPath: 
+  Min: 0
+  Max: 20
+  Default: 0
+  ID:
+    data1: 3310833060
+    data2: 2281791487
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &8516445962402575945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4730,6 +5486,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 750
+--- !u!114 &8687913625591875625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/320_Idle/LocalDirection
+  m_EditorClassIdentifier: 
+  Name: LocalDirection
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1178717349
+    data2: 2683430299
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &8744726653844569082
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class SavePoint : Interactable
@@ -17,6 +18,10 @@ public class SavePoint : Interactable
 
     private bool sceneTransition = false;
     public bool isActive = false;
+
+    [SerializeField] private UnityEvent healEvent;
+    [SerializeField] private UnityEvent activeEvent;
+    [SerializeField] private UnityEvent transEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -66,15 +71,27 @@ public class SavePoint : Interactable
             return;
 
         Heal();
+
+        //FMOD Event to Avoid Loading sound play when already-loaded
+        if (!isActive) {
+            activeEvent.Invoke();
+        }
+
         isActive = true;
         animator.SetBool("Active", isActive);
 
         foreach (SavePoint restPoint in PersistentDataManager.Instance.restPoints)
         {
             if (restPoint == this)
+            {
                 continue;
+            }
+
             else
+            {
                 restPoint.isActive = false;
+            }
+                
         }
 
         if (SceneManager.GetActiveScene().name != "Equilibrium")
@@ -88,6 +105,10 @@ public class SavePoint : Interactable
 
     public void Heal()
     {
+        if (PlayerControllerForces.Instance.currentHP < PlayerControllerForces.Instance.Data.maxHP)
+        {
+            healEvent.Invoke();
+        }
         PlayerControllerForces.Instance.currentHP = PlayerControllerForces.Instance.Data.maxHP;
         PlayerControllerForces.Instance.currentSP = PlayerControllerForces.Instance.Data.maxSP;
     }
@@ -99,11 +120,13 @@ public class SavePoint : Interactable
         if (insideEquilibrium)
         {
             PersistentDataManager.Instance.ToggleFirstSpawn(true);
+            transEvent.Invoke();
             StartCoroutine(TransitionScene(PersistentDataManager.Instance.LastSavedScene));
         }
 
         else
         {
+            transEvent.Invoke();
             StartCoroutine(TransitionScene("Equilibrium"));
         }
     }

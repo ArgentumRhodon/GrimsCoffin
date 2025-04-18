@@ -5166,6 +5166,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8244068739184428094, guid: ee868d3bfc7eade4a82d37fb2e9fe2c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3412099861116279620}
+    - targetCorrespondingSourceObject: {fileID: 8244068739184428094, guid: ee868d3bfc7eade4a82d37fb2e9fe2c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9115941823200600228}
   m_SourcePrefab: {fileID: 100100000, guid: ee868d3bfc7eade4a82d37fb2e9fe2c7, type: 3}
 --- !u!4 &4277168380175208032 stripped
 Transform:
@@ -5196,3 +5199,89 @@ MonoBehaviour:
   holdTimer: 0.5
   fadeToWhite: {fileID: 0}
   isActive: 0
+  healEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9115941823200600228}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  activeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9115941823200600228}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  transEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9115941823200600228}
+        m_TargetAssemblyTypeName: FMOD_Object_OneShotSoundListener, Assembly-CSharp
+        m_MethodName: RespondToEventD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9115941823200600228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7789939562870209013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92623db9bba39764babfdc9a57b554a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneShotFXA:
+    Guid:
+      Data1: 1692598116
+      Data2: 1341514288
+      Data3: -739043948
+      Data4: 1472133496
+    Path: event:/UI/Respoint/406_MenuHeal
+  oneShotFXB:
+    Guid:
+      Data1: 595380607
+      Data2: 1095823267
+      Data3: 1258791317
+      Data4: -1492622364
+    Path: event:/UI/Respoint/405_MenuOpen
+  oneShotFXC:
+    Guid:
+      Data1: -1866493209
+      Data2: 1099386571
+      Data3: 507551888
+      Data4: -659547312
+    Path: event:/Idle
+  oneShotFXD:
+    Guid:
+      Data1: -414330449
+      Data2: 1211144487
+      Data3: 1596267945
+      Data4: 901907037
+    Path: event:/Test/Test SFX/Test_008_Heal
+  attenuation: 1
