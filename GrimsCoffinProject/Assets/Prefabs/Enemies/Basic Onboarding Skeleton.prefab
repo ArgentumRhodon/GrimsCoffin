@@ -455,7 +455,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126606689286891966}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaa85f6e75563444f863c104d6824ec9, type: 3}
   m_Name: 
@@ -510,7 +510,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4965321942252582458}
         m_TargetAssemblyTypeName: FMOD_Object_MonsterListener, Assembly-CSharp
-        m_MethodName: RespondToInstMoveEvent
+        m_MethodName: RespondToAttackEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

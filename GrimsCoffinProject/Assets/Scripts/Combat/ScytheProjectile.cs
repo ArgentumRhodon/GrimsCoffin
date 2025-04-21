@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +20,9 @@ public class ScytheProjectile : MonoBehaviour
     public bool facingRight;
     private bool returning;
 
+    private EventInstance throwInstance;
+    [SerializeField] private EventReference catchSFX;
+
     private void Start()
     {
         hitbox = GetComponent<CircleCollider2D>();
@@ -25,6 +30,11 @@ public class ScytheProjectile : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
 
         facingRight = PlayerControllerForces.Instance.playerState.IsFacingRight;
+
+        //FMOD Related Stuff
+        throwInstance = PlayerControllerForces.Instance.throwInstance;
+        throwInstance.start();
+        RuntimeManager.StudioSystem.setParameterByName("ThrowState", 0);
 
         if (!facingRight)
         {
@@ -62,6 +72,24 @@ public class ScytheProjectile : MonoBehaviour
             this.transform.parent.transform.position = Vector3.MoveTowards(this.transform.parent.transform.position, destination, speed * Time.deltaTime * 1.25f);
         }
 
+        //FMOD Distance Tester
+        {
+            throwInstance.setParameterByName("LocalDistance", distance);
+            if (direction.x < 0)
+            {
+                throwInstance.setParameterByName("LocalDirection", -distance);
+
+
+            }
+            else
+            {
+                throwInstance.setParameterByName("LocalDirection", distance);
+            }
+        }
+
+
+
+
         if (PlayerControllerForces.Instance.currentHP <= 0)
         {
             Destroy(this.gameObject);
@@ -76,11 +104,13 @@ public class ScytheProjectile : MonoBehaviour
 
     private void OnEnable()
     {
+        RuntimeManager.StudioSystem.setParameterByName("ThrowState", 0);
         gameObject.SetActive(true);
     }
 
     private void OnDisable()
     {
+        RuntimeManager.StudioSystem.setParameterByName("ThrowState", 1);
         PlayerControllerForces.Instance.scytheThrown = false;
         Destroy(this.transform.parent.gameObject);
     }
@@ -117,6 +147,12 @@ public class ScytheProjectile : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (returning && collision.gameObject.GetComponent<PlayerControllerForces>() != null)
+        {
+            RuntimeManager.PlayOneShot(catchSFX);
+            RuntimeManager.StudioSystem.setParameterByName("ThrowState", 1);
             enabled = false;
+        }
+            
+
     }
 }

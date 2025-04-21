@@ -295,7 +295,15 @@ public abstract class Enemy : MonoBehaviour
         //Remove health
         health -= damage;
 
-        DamagedNotifer.Invoke();
+        if (health >= 0)
+        {
+            DamagedNotifer.Invoke();
+        }
+    
+        else {
+            allStopNotifier.Invoke();
+            DeadNotifer.Invoke();
+        }
 
         //Camera shake based off of damage
         CameraShake.Instance.ShakeCamera((damage/PlayerControllerForces.Instance.Data.damageMultiplier) / 1.5f, (damage / PlayerControllerForces.Instance.Data.damageMultiplier) / 2.5f, .2f);
@@ -322,6 +330,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void KillEnemy()
     {
+
         enemyStateList.IsDead = true;
 
         //Disable the behavior tree and play death animation
@@ -337,7 +346,7 @@ public abstract class Enemy : MonoBehaviour
         EndSleep();
         EndStagger();
         animator.speed = 1;
-       
+
 
         //Remove enemy from pool and make sure it can't block player to take damage (doesn't matter if it loses health, but if it takes hit stop and camera shake will happen)
         gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;

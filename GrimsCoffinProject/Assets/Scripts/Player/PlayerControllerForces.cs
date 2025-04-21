@@ -140,6 +140,10 @@ public class PlayerControllerForces : MonoBehaviour
     [SerializeField] public EventReference damageSFX;
     protected EventInstance damageInstance;
 
+    [Tooltip("FMOD events for the taking damage")]
+    [SerializeField] public EventReference throwSFX;
+    public EventInstance throwInstance;
+
     [Header("Player VFX Reference")]
     [SerializeField] private PlayerVFX playervfx;
     [SerializeField] private Material defaultShader;
@@ -189,8 +193,7 @@ public class PlayerControllerForces : MonoBehaviour
         slideInstance = RuntimeManager.CreateInstance(slidingSFX);
         wallLeapInstance = RuntimeManager.CreateInstance(wallLeapSFX);
         damageInstance = RuntimeManager.CreateInstance(damageSFX);
-
-
+        throwInstance = RuntimeManager.CreateInstance(throwSFX);
     }
 
     //Methods to make player controls work and to access it in the code
@@ -1480,6 +1483,7 @@ public class PlayerControllerForces : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            RuntimeManager.StudioSystem.setParameterByName("DenialLevel", 0);
             ToggleSleep(true);
             PlayerAnimationManager.Instance.ChangeSpriteLayer(5);
             PlayerAnimationManager.Instance.ChangeAnimationState("Death", false);

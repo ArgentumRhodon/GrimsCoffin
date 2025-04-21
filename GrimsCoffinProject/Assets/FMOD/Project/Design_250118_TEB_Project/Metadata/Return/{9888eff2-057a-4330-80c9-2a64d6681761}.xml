@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="MixerReturn" id="{9888eff2-057a-4330-80c9-2a64d6681761}">
 		<property name="name">
-			<value>SFX_TestVerb</value>
+			<value>SFX_EquiVerb</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{9d21f049-0aed-4f85-85bd-5ebd716fe322}</destination>
@@ -17,6 +17,7 @@
 	<object class="MixerBusEffectChain" id="{9d21f049-0aed-4f85-85bd-5ebd716fe322}">
 		<relationship name="effects">
 			<destination>{6ea40105-3f5c-4551-ba38-6c0914704cc9}</destination>
+			<destination>{1abdefbe-cbc0-44c3-8c7c-c769b1670026}</destination>
 			<destination>{4d029a7d-3be6-4e6b-8fab-545f533505f5}</destination>
 			<destination>{da6eaf22-b3bc-41e3-8117-15a9dbc89a29}</destination>
 		</relationship>
@@ -29,6 +30,17 @@
 		<relationship name="referenceableData">
 			<destination>{82302f3b-aa0a-4ba7-981a-2e450abd8296}</destination>
 		</relationship>
+	</object>
+	<object class="MultibandEqEffect" id="{1abdefbe-cbc0-44c3-8c7c-c769b1670026}">
+		<property name="filterTypeA">
+			<value>7</value>
+		</property>
+		<property name="frequencyA">
+			<value>165.518555</value>
+		</property>
+		<property name="gainA">
+			<value>-7.96316338</value>
+		</property>
 	</object>
 	<object class="GainEffect" id="{4d029a7d-3be6-4e6b-8fab-545f533505f5}">
 		<relationship name="automators">

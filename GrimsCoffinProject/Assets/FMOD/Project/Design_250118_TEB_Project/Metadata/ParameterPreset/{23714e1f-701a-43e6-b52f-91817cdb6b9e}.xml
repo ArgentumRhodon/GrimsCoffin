@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{23714e1f-701a-43e6-b52f-91817cdb6b9e}">
+		<property name="name">
+			<value>BossLevel</value>
+		</property>
+		<relationship name="folder">
+			<destination>{8cb617a0-b73d-4f0b-975c-e15a641a464e}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{3af581f5-dfbc-4f11-8cab-0cb446e65d7a}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{3af581f5-dfbc-4f11-8cab-0cb446e65d7a}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>25</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

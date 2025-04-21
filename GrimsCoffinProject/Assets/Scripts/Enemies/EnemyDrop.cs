@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class EnemyDrop : MonoBehaviour
     [SerializeField] private Sprite spiritPowerSprite;
 
     private bool collected;
+
+    [SerializeField] private EventReference healSFX;
 
     private void Start()
     {
@@ -105,6 +108,8 @@ public class EnemyDrop : MonoBehaviour
                 PlayerControllerForces.Instance.currentSP = Mathf.Clamp(PlayerControllerForces.Instance.currentSP, 0, PlayerControllerForces.Instance.Data.maxSP);
                 break;
         }
+
+        RuntimeManager.PlayOneShot(healSFX);
 
         Destroy(gameObject);
     }

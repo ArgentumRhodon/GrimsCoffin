@@ -19,7 +19,7 @@ public class Spirit : Interactable
     [SerializeField] public GameObject exclamationMark;
     [SerializeField] private PlayableDirector Collect;
     [SerializeField] private UnlockAbility UnlockMenu;
-    public bool istalking;
+    public bool isTalking;
 
     [SerializeField] public EventReference dialogueSFX;
     [SerializeField] public EventInstance dialogueInstance;
@@ -124,7 +124,7 @@ public class Spirit : Interactable
     public override void PerformInteraction()
     {
 
-        if(!istalking)
+        if(!isTalking)
         {
             if (UIManager.Instance.fullMapUI != null && UIManager.Instance.fullMapUI.activeInHierarchy)
                 return;
@@ -157,7 +157,7 @@ public class Spirit : Interactable
                     PerformInteraction();
                 }
             }
-            istalking = true;
+            isTalking = true;
         }
        
     }
@@ -168,5 +168,7 @@ public class Spirit : Interactable
             animator.SetInteger("SpiritPose", 1);
         else
             animator.SetInteger("SpiritPose", 0);
+
+        isTalking = isSpeaking;
     }
 }

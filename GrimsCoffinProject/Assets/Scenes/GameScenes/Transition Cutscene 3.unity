@@ -405,7 +405,7 @@ MonoBehaviour:
   - 'When I found you in the snow, your body began to glow, and suddenly, we ended
     up here.  '
   - "It's peaceful and soothing here\u2014a good place for you to recover.  "
-  - "Wait... that runes\u2014no, this can't be real.  "
+  - "Wait... my coffin\u2014no, this can't be real.  "
   - 'Please, you need to rest!  '
   - 'Those spirits out there... they''re lost!  '
   - 'I see there''s no convincing you otherwise. At least bring them here; it''s
@@ -29426,6 +29426,7 @@ GameObject:
   - component: {fileID: 5152267894322774724}
   - component: {fileID: 5586611091014624260}
   - component: {fileID: 5586611091014624261}
+  - component: {fileID: 5586611091014624262}
   m_Layer: 0
   m_Name: SavePoint
   m_TagString: Untagged
@@ -30078,6 +30079,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5586611091014624262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809158930423883196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 595380607
+      Data2: 1095823267
+      Data3: 1258791317
+      Data4: -1492622364
+    Path: event:/UI/Respoint/405_MenuOpen
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &5630163240545933121
 MonoBehaviour:
   m_ObjectHideFlags: 0

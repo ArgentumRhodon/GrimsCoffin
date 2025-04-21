@@ -20,7 +20,7 @@ public class FMOD_Object_BossListener : MonoBehaviour
     [SerializeField] protected EventInstance AttackInstance;
     [SerializeField] public EventReference TeleSFX;
     [SerializeField] protected EventInstance TeleInstance;
-    [SerializeField] public EventReference InstMoveSFX;
+    [SerializeField] public EventReference AppearSFX;
     [SerializeField] protected EventInstance AppearInstance;
     [SerializeField] public EventReference AOEChargeSFX;
     [SerializeField] protected EventInstance AOEChargeInstance;
@@ -32,6 +32,14 @@ public class FMOD_Object_BossListener : MonoBehaviour
     [SerializeField] protected EventInstance LaserShootInstance;
     [SerializeField] public EventReference BlastSFX;
     [SerializeField] protected EventInstance BlastInstance;
+    [SerializeField] public EventReference runSFX;
+    [SerializeField] protected EventInstance runInstance;
+
+    private GameObject musicController;
+    private DenialBoss denialboss;
+    private OnboardingBoss onboardingboss;
+    private int bossHalfHealth;
+    private bool chargeStat;
 
     private Transform object1;
     private Transform object2;
@@ -48,17 +56,38 @@ public class FMOD_Object_BossListener : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         DamagedInstance = RuntimeManager.CreateInstance(DamagedSFX);
         DeadInstance = RuntimeManager.CreateInstance(DeadSFX);
         IdleInstance = RuntimeManager.CreateInstance(IdleSFX);
         AttackInstance = RuntimeManager.CreateInstance(AttackSFX);
         TeleInstance = RuntimeManager.CreateInstance(TeleSFX);
-        AppearInstance = RuntimeManager.CreateInstance(InstMoveSFX);
+        AppearInstance = RuntimeManager.CreateInstance(AppearSFX);
         AOEChargeInstance = RuntimeManager.CreateInstance(AOEChargeSFX);
         AOESlamInstance = RuntimeManager.CreateInstance(AOESlamSFX);
         AOEBeamInstance = RuntimeManager.CreateInstance(AOEBeamSFX);
         LaserShootInstance = RuntimeManager.CreateInstance(LaserShootSFX);
         BlastInstance = RuntimeManager.CreateInstance(BlastSFX);
+        runInstance = RuntimeManager.CreateInstance(runSFX);
+
+        musicController = GameObject.Find("MusicController");
+        Debug.Log((int)musicController.GetComponent<FMODGlobalParameterTester>().groundName == 1);
+
+        if ((int)musicController.GetComponent<FMODGlobalParameterTester>().groundName == 1){
+            denialboss = FindObjectOfType<DenialBoss>();
+            bossHalfHealth = (int)denialboss.health / 2;
+        }
+
+        else
+        {
+            onboardingboss = FindObjectOfType<OnboardingBoss>();
+            bossHalfHealth = (int)onboardingboss.health / 2;
+        }
+        
+
+        RuntimeManager.StudioSystem.setParameterByName("DenialLevel", 1);
+        RuntimeManager.StudioSystem.setParameterByName("BossLevel", 0);
+
         object1 = this.transform;
         GameObject target2 = GameObject.Find("PlayerForces");
         if (target2 != null)
@@ -79,6 +108,24 @@ public class FMOD_Object_BossListener : MonoBehaviour
     {
         attenuationResult = 2 * attenuation;
         distanceUpdater();
+        if ((int)musicController.GetComponent<FMODGlobalParameterTester>().groundName == 1)
+        {
+            if (denialboss.health < bossHalfHealth)
+            {
+                //Debug.Log("Boss Health Triggered");
+                RuntimeManager.StudioSystem.setParameterByName("BossLevel", 1);
+            }
+        }
+
+        else
+        {
+            if (onboardingboss.health < bossHalfHealth)
+            {
+                //Debug.Log("Boss Health Triggered");
+                RuntimeManager.StudioSystem.setParameterByName("BossLevel", 1);
+            }
+        }
+
     }
 
     public void RespondToDamagedEvent()
@@ -89,7 +136,10 @@ public class FMOD_Object_BossListener : MonoBehaviour
 
     public void RespondToDeadEvent()
     {
+        IdleInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         DeadInstance.start();
+        RuntimeManager.StudioSystem.setParameterByName("DenialLevel", 0);
+        RuntimeManager.StudioSystem.setParameterByName("BossLevel", 0);
     }
 
     public void RespondToIdleEvent()
@@ -114,13 +164,19 @@ public class FMOD_Object_BossListener : MonoBehaviour
 
     public void RespondToAOEChargeEvent()
     {
-        AOEChargeInstance.start();
-        shootIndex = 0;
+        if (chargeStat == false)
+        {
+            AOEChargeInstance.start();
+            shootIndex = 0;
+            chargeStat = true;
+        }
+
     }
 
     public void RespondToAOESlamEvent()
     {
         AOESlamInstance.start();
+        chargeStat = false;
     }
 
     public void RespondToAOEBeamEvent()
@@ -136,6 +192,11 @@ public class FMOD_Object_BossListener : MonoBehaviour
     public void RespondToBlastEvent()
     {
         BlastInstance.start();
+    }
+
+    public void RespondToRunEvent()
+    {
+        runInstance.start();
     }
 
 
@@ -163,6 +224,8 @@ public class FMOD_Object_BossListener : MonoBehaviour
         AOEBeamInstance.setParameterByName("LocalDistance", distance);
         LaserShootInstance.setParameterByName("LocalDistance", distance);
         BlastInstance.setParameterByName("LocalDistance", distance);
+        runInstance.setParameterByName("LocalDistance", distance);
+
         float position = object1.position.x - object2.position.x;
 
         if (position < 0)
@@ -178,6 +241,7 @@ public class FMOD_Object_BossListener : MonoBehaviour
             AOEBeamInstance.setParameterByName("LocalDirection", -distance / (attenuationResult));
             LaserShootInstance.setParameterByName("LocalDirection", -distance / (attenuationResult));
             BlastInstance.setParameterByName("LocalDirection", -distance / (attenuationResult));
+            runInstance.setParameterByName("LocalDirection", -distance / (attenuationResult));
 
         }
         else
@@ -193,6 +257,7 @@ public class FMOD_Object_BossListener : MonoBehaviour
             AOEBeamInstance.setParameterByName("LocalDirection", distance / (attenuationResult));
             LaserShootInstance.setParameterByName("LocalDirection", distance / (attenuationResult));
             BlastInstance.setParameterByName("LocalDirection", distance / (attenuationResult));
+            runInstance.setParameterByName("LocalDirection", distance / (attenuationResult));
         }
     }
 

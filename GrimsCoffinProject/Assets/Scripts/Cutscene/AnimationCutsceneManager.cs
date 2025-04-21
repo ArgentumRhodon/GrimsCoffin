@@ -197,6 +197,9 @@ public class AnimationCutsceneManager : MonoBehaviour
         if (sentences.Length > 0)
         {
             Portait.sprite = Speaker[SpeakerID[currentSentenceIndex]];
+            RuntimeManager.StudioSystem.setParameterByName("DialogueIndex", SpeakerID[currentSentenceIndex]);
+            dxInstance.start();
+            RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 1);
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         UpdateSkipText();
@@ -267,12 +270,14 @@ public class AnimationCutsceneManager : MonoBehaviour
     /// </summary>
     void AdvanceSentence()
     {
-        RuntimeManager.PlayOneShot(dxContinue);
-
+        dxInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         currentSentenceIndex++;
         if (currentSentenceIndex < sentences.Length)
         {
             Portait.sprite = Speaker[SpeakerID[currentSentenceIndex]];
+            RuntimeManager.StudioSystem.setParameterByName("DialogueIndex", SpeakerID[currentSentenceIndex]);
+            dxInstance.start();
+            RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 1);
             StartCoroutine(ShowSentence(sentences[currentSentenceIndex]));
         }
         else
@@ -319,6 +324,7 @@ public class AnimationCutsceneManager : MonoBehaviour
             else
                 yield return normalDelay;
         }
+        RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 0);
         isTyping = false;
     }
 
@@ -329,6 +335,7 @@ public class AnimationCutsceneManager : MonoBehaviour
     {
         if (typingCoroutine != null)
         {
+            RuntimeManager.StudioSystem.setParameterByName("IsSpeaking", 0);
             StopCoroutine(typingCoroutine);
         }
         dialogueText.text = currentSentence;
