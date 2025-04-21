@@ -48,7 +48,7 @@ public class PlayerAnimationManager : MonoBehaviour
     [SerializeField]
     private Animator scytheAnimator;
 
-    private string currentState;
+    public string currentState;
 
     public string CurrentState { get { return currentState; } }
 

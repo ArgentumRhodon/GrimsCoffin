@@ -287,7 +287,6 @@ public class PlayerControllerForces : MonoBehaviour
             else if (moveInput.x < -Data.deadzone)
                 CheckDirectionToFace(false);
 
-
             //Variable Updates ----------------------------------------------
             //Check if player hit ground or walls
             CollisionChecks();
@@ -426,7 +425,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         // Grounded() check did not work here
-        if (!playerState.IsJumping && rb.velocity.y > -.1f && !playerState.IsAttacking && !playerState.IsDashing && !playerCombat.isHoldingDownOnGround)
+        if (!playerState.IsJumping && rb.velocity.y > -.3f && !playerState.IsAttacking && !playerState.IsDashing && !playerCombat.isHoldingDownOnGround)
         {
             if (Math.Abs(rb.velocity.x) < 1)
             {
@@ -443,7 +442,7 @@ public class PlayerControllerForces : MonoBehaviour
         {
             PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.WallSlide);
         }
-        else if(rb.velocity.y < -.1f && !playerState.IsAttacking && !playerState.IsDashing)
+        else if(rb.velocity.y < -.3f && !playerState.IsAttacking && !playerState.IsDashing && !playerCombat.isHoldingDownOnGround)
         {
             PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.JumpDown);
         }
@@ -453,7 +452,13 @@ public class PlayerControllerForces : MonoBehaviour
         {
             ResetPlayerOffset();         
         }
-        
+
+        Debug.Log(PlayerAnimationManager.Instance.currentState);
+
+        if (PlayerAnimationManager.Instance.currentState == PlayerAnimationStates.JumpDown && rb.velocity.y > -0.3f)
+        {
+            PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Idle);
+        }
     }
     #endregion
 
@@ -1025,6 +1030,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Dash over
         playerState.IsDashing = false;
         hasDashInvincibility = false;
+
         //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Agent"), LayerMask.NameToLayer("Agent"), false);
         rb.excludeLayers = LayerMask.GetMask("Nothing");
         //tmp = animator.GetComponent<SpriteRenderer>().color;
@@ -1186,6 +1192,8 @@ public class PlayerControllerForces : MonoBehaviour
 
             StartCoroutine(nameof(StartDash), lastDashDir);
 
+            playerCombat.isHoldingDownOnGround = false;
+            playerCombat.meleeStateMachine.SetNextState(new IdleCombatState());
             PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Dash);
         }
     }

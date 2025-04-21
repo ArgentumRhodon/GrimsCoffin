@@ -23,7 +23,7 @@ public class PlayerCombat : MonoBehaviour
     //Data & Variables ------------------------------------------------------------------
     #region Data & Variables
     //References to needed items
-    private CStateMachine meleeStateMachine;
+    public CStateMachine meleeStateMachine;
     private PlayerStateList playerState;
     private PlayerControllerForces playerController;
 
@@ -141,8 +141,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if(CheckAttackDirection() == AttackDirection.Down && playerController.Grounded() && !isHoldingDownOnGround)
             {
-           
-                if (attackDurationTime < 0 && !playerState.IsAttacking)
+                if (attackDurationTime < 0 && !playerState.IsAttacking && !playerState.IsDashing)
                 {
                     isHoldingDownOnGround = true;
                     meleeStateMachine.SetNextState(new GroundDownCharge());
