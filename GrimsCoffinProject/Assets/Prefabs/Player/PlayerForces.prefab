@@ -202,7 +202,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.3388045, y: -0.17231673}
+  m_Offset: {x: 1.5685012, y: -0.12794405}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -423,6 +423,8 @@ MonoBehaviour:
   canSleepWalk: 0
   scytheProjectilePrefab: {fileID: 7168144048661873661, guid: 1f0ce5aeff96e61449d387eb41d94534, type: 3}
   heldScytheSprite: {fileID: 5297061223688076639}
+  isHoldingInteract: 0
+  holdInteractTimer: 0
   animator: {fileID: 8317159216238193831}
   scytheAnimator: {fileID: 4929932698530573072}
   groundLayer:
@@ -568,7 +570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b33bab15da98234996f94a9ac3aff78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 0}
   hitbox: {fileID: 7568753305882926414}
   scytheAnimator: {fileID: 4929932698530573072}
   scytheSprite: {fileID: 5297061223688076639}
@@ -579,6 +580,7 @@ MonoBehaviour:
   isAerialCombo: 0
   isAerialAttacking: 0
   isComboing: 0
+  isDownAttacking: 0
   attackClickCounter: 0
   comboQueueLeft: 0
   currentAttackAmount: 0

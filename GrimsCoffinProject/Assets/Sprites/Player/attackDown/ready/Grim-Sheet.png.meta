@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 538191d4f85d73f48b27ad5796c98177
+guid: 2518ddfd364bb73448d4dcd7c1d33ed2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -94,33 +94,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -137,7 +111,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -149,43 +123,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: coffin_0
+      name: Grim-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 50
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 832a466735a7ea141853f20516deaf61
-      internalID: -1897997097
+      spriteID: 933d72d2a3ee2d947aa9f3539b06e51f
+      internalID: 1865821405
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coffin_1
+      name: Grim-Sheet_1
       rect:
         serializedVersion: 2
-        x: 33
+        x: 48
         y: 0
-        width: 35
-        height: 50
-      alignment: 9
-      pivot: {x: 0.45714286, y: 0.5}
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23ff559118d99da4294836e8eac1115e
-      internalID: -1336183337
+      spriteID: e73a79fbc2823e74fb964e9a6998f918
+      internalID: 471321423
       vertices: []
       indices: 
       edges: []
@@ -201,8 +175,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      coffin_0: -1897997097
-      coffin_1: -1336183337
+      Grim-Sheet_0: 1865821405
+      Grim-Sheet_1: 471321423
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

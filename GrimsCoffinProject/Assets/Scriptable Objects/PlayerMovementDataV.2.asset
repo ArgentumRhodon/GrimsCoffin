@@ -21,7 +21,7 @@ MonoBehaviour:
   maxSP: 0
   damageMultiplier: 3
   iFrameTimer: 1
-  respawnPoint: {x: 0, y: 0}
+  respawnPoint: {x: -16, y: -2}
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -99,11 +99,10 @@ MonoBehaviour:
   groundUpDamage: 5
   canGDownAttack: 1
   groundDownwardPForce: 0
-  groundDownwardEForce: {x: 5, y: 4}
-  gDownWalkModifier: 0.2
-  gdHoldDuration: 1
-  gDownAttackDuration: 0.25
-  groundDownDamage: 15
+  groundDownwardEForce: {x: 8, y: 5}
+  gDownAttackDuration: 0.567
+  gDownAttackDelay: 1
+  groundDownDamage: 4
   canAUpAttack: 1
   hookPlayerForce: 0
   aUpAttackDuration: 0.4
