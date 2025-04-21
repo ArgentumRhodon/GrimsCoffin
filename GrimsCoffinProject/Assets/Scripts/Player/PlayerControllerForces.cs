@@ -244,6 +244,7 @@ public class PlayerControllerForces : MonoBehaviour
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
         }
 
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Idle);
         //TempResetData();
     }
 
