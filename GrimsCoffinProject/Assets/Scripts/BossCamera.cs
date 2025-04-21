@@ -32,6 +32,7 @@ public class BossCamera : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            CameraShake.Instance.inBossFight = true;
             camMgr.ChangeCamera(bossVirtualCam);
             camMgr.Vcam = bossVirtualCam;
             UICamera.orthographicSize = 10f;
@@ -42,6 +43,7 @@ public class BossCamera : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            CameraShake.Instance.inBossFight = false;
             camMgr.CameraReset();
             camMgr.Vcam = followCam;
         }

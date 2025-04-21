@@ -19,6 +19,7 @@ public class Spirit : Interactable
     [SerializeField] public GameObject exclamationMark;
     [SerializeField] private PlayableDirector Collect;
     [SerializeField] private UnlockAbility UnlockMenu;
+    public bool istalking;
 
     [SerializeField] public EventReference dialogueSFX;
     [SerializeField] public EventInstance dialogueInstance;
@@ -31,7 +32,10 @@ public class Spirit : Interactable
         DashSpirit = 2,
         ScytheThrowSpirit = 3,
         HealthSpirit = 4,
-        CombatSpirit = 5
+        CombatSpirit = 5,
+        Onboarding1 = 6,
+        Onboarding2 = 7,
+        Onboarding3 = 8
     }
 
     [SerializeField] public SpiritState spiritState;
@@ -89,6 +93,9 @@ public class Spirit : Interactable
         else if (spiritState == SpiritState.Unlocked && PersistentDataManager.Instance.EnemyCurrency >= upgradeCost)
             exclamationMark.SetActive(true);
 
+        else if (spiritID == SpiritID.Onboarding1 || spiritID == SpiritID.Onboarding2 || spiritID == SpiritID.Onboarding3)
+            exclamationMark.SetActive(true);
+
         else
             exclamationMark.SetActive(false);
     }
@@ -116,34 +123,43 @@ public class Spirit : Interactable
 
     public override void PerformInteraction()
     {
-        if (spiritState != SpiritState.Unlocked)
+
+        if(!istalking)
         {
-            if (dialogueManager != null)
+            if (UIManager.Instance.fullMapUI != null && UIManager.Instance.fullMapUI.activeInHierarchy)
+                return;
+
+            if (spiritState != SpiritState.Unlocked)
             {
-                exclamationMark.SetActive(false);
-                dialogueManager.ShowDialogueForSpirit(this);
+                if (dialogueManager != null)
+                {
+                    exclamationMark.SetActive(false);
+                    dialogueManager.ShowDialogueForSpirit(this);
+                }
             }
+            else if (spiritState == SpiritState.Unlocked)
+            {
+                if (spiritID == SpiritID.MapSpirit)
+                {
+                    UnlockMenu.StartUnlock(this);
+                }
+                else if (spiritID == SpiritID.HealthSpirit)
+                {
+                    UnlockMenu.StartUnlock(this);
+                }
+                else if (spiritID == SpiritID.CombatSpirit)
+                {
+                    UnlockMenu.StartUnlock(this);
+                }
+                else
+                {
+                    PersistentDataManager.Instance.UpdateSpiritState(this);
+                    PerformInteraction();
+                }
+            }
+            istalking = true;
         }
-        else if (spiritState == SpiritState.Unlocked)
-        {
-            if (spiritID == SpiritID.MapSpirit)
-            {
-                UnlockMenu.StartUnlock(this);
-            }
-            else if (spiritID == SpiritID.HealthSpirit)
-            {
-                UnlockMenu.StartUnlock(this);
-            }
-            else if (spiritID == SpiritID.CombatSpirit)
-            {
-                UnlockMenu.StartUnlock(this);
-            }
-            else
-            {
-                PersistentDataManager.Instance.UpdateSpiritState(this);
-                PerformInteraction();
-            }
-        }
+       
     }
 
     public void ToggleSpeakingAnimation(bool isSpeaking)

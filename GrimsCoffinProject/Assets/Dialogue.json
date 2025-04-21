@@ -3,7 +3,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 1,
-    "DialogueContent": "Oh! I didn't notice you there—Greetings! ",
+    "DialogueContent": "Permafrost, high winds, and blizzards...",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -11,7 +11,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 2,
-    "DialogueContent": "I'm Shikkor, an explorer, or at least I was once... Though this place is stranger than any realm I've encountered.",
+    "DialogueContent": "It seems strange and... unsettling.",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -19,7 +19,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 3,
-    "DialogueContent": "The presence of hostile creatures here is... troubling.",
+    "DialogueContent": "Do you have any ideas on how to explore this place?",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -27,15 +27,15 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 4,
-    "DialogueContent": "You appear quite capable. Might you lend your strength to ensure I can safely continue my exploration?",
-    "SpeakerID": 1,
+    "DialogueContent": "It's dangerous here.",
+    "SpeakerID": 0,
     "Column5": ""
   },
   {
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 5,
-    "DialogueContent": "I'll do my best.",
+    "DialogueContent": "I'll take you to a safe place.",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -43,7 +43,7 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 6,
-    "DialogueContent": "Excellent! Perhaps I can offer assistance as well—I have an exceptional sense for navigation. Allow me to map this realm for you in return.",
+    "DialogueContent": "Great! Perhaps I can help too. Allow me to map this area in return.",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -51,23 +51,23 @@
     "SpiritID": 1,
     "SpiritState": 0,
     "LineID": 7,
-    "DialogueContent": "What should my first task be?",
+    "DialogueContent": "Also, I marked some other spirits that I detected.",
     "SpeakerID": 1,
     "Column5": ""
   },
   {
-    "SpiritID": 1,
-    "SpiritState": 0,
-    "LineID": 8,
-    "DialogueContent": "Relax.",
-    "SpeakerID": 0,
+    "SpiritID": 0.0,
+    "SpiritState": 0.0,
+    "LineID": 0.0,
+    "DialogueContent": "",
+    "SpeakerID": 0.0,
     "Column5": ""
   },
   {
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 1,
-    "DialogueContent": "Remarkable... this place feels secure. Is it within you?",
+    "DialogueContent": "Amazing! Your coffin... very special! It allows me to see your surroundings.",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -75,15 +75,15 @@
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 2,
-    "DialogueContent": "...Yes...",
-    "SpeakerID": 0,
+    "DialogueContent": "Ever since I entered here, I have felt my strength slowly growing.",
+    "SpeakerID": 1,
     "Column5": ""
   },
   {
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 3,
-    "DialogueContent": "Fascinating! Ah! That coffin of yours—quite extraordinary! It allows me to clearly see your surroundings.",
+    "DialogueContent": "Through this coffin, I may even help you more with the map!",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -91,7 +91,7 @@
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 4,
-    "DialogueContent": "Pardon my memory, but... your name was?",
+    "DialogueContent": "Could you find some items to enhance my strengths?",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -99,7 +99,7 @@
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 5,
-    "DialogueContent": "...Grim.",
+    "DialogueContent": "This one<sprite index=0>?",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -107,15 +107,7 @@
     "SpiritID": 1,
     "SpiritState": 1,
     "LineID": 6,
-    "DialogueContent": "Grim, since entering here, I've felt my strength slowly returning.",
-    "SpeakerID": 1,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 1,
-    "SpiritState": 1,
-    "LineID": 7,
-    "DialogueContent": "If you could help me gather 500 <sprite index=0>, my abilities should significantly improve, allowing me to better assist you.",
+    "DialogueContent": "Oh, of course, let me see... 500<sprite index=0>should be enough.",
     "SpeakerID": 1,
     "Column5": ""
   },
@@ -131,7 +123,7 @@
     "SpiritID": 2,
     "SpiritState": 0,
     "LineID": 1,
-    "DialogueContent": "It's you! You're the one who silenced me and trapped me in that coffin!",
+    "DialogueContent": "It's you! I thought that Samurai killed you!",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -139,7 +131,7 @@
     "SpiritID": 2,
     "SpiritState": 0,
     "LineID": 2,
-    "DialogueContent": "Hurry up and send me back—I refuse to waste another second out here.",
+    "DialogueContent": "Hurry! Take me somewhere safe.",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -147,7 +139,7 @@
     "SpiritID": 2,
     "SpiritState": 0,
     "LineID": 3,
-    "DialogueContent": "Not a single moment outside the coffin has passed without endless running... endless, exhausting running!",
+    "DialogueContent": "Even though your coffin is broken, you still need to protect me!",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -155,23 +147,15 @@
     "SpiritID": 2,
     "SpiritState": 0,
     "LineID": 4,
-    "DialogueContent": "But...",
-    "SpeakerID": 0,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 2,
-    "SpiritState": 0,
-    "LineID": 5,
-    "DialogueContent": "Enough hesitation! If you won't act, I'll do it myself. Let me help you move faster",
+    "DialogueContent": "I have to dodge these monsters' attacks constantly.",
     "SpeakerID": 2,
     "Column5": ""
   },
   {
     "SpiritID": 2,
     "SpiritState": 0,
-    "LineID": 6,
-    "DialogueContent": "...Alright.",
+    "LineID": 5,
+    "DialogueContent": "...Okay.",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -179,7 +163,7 @@
     "SpiritID": 2,
     "SpiritState": 1,
     "LineID": 1,
-    "DialogueContent": "Huh, not bad. Looks like you've upgraded your coffin—it wasn't this spacious before.",
+    "DialogueContent": "Hmm, not bad—this is much more comfortable than your coffin.",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -187,7 +171,7 @@
     "SpiritID": 2,
     "SpiritState": 1,
     "LineID": 2,
-    "DialogueContent": "This isn't the same as before.",
+    "DialogueContent": "What was it like in the coffin?",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -195,7 +179,7 @@
     "SpiritID": 2,
     "SpiritState": 1,
     "LineID": 3,
-    "DialogueContent": "Tell me—why weren't we inside the coffin in the first place? Isn't this your responsibility?",
+    "DialogueContent": "Oh, it was much more crowded in there—felt like a packed prison.",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -203,7 +187,7 @@
     "SpiritID": 2,
     "SpiritState": 1,
     "LineID": 4,
-    "DialogueContent": "I... I don't know.",
+    "DialogueContent": "...I didn't know that before.",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -211,7 +195,7 @@
     "SpiritID": 2,
     "SpiritState": 1,
     "LineID": 5,
-    "DialogueContent": "Very well. Since you're clearly overwhelmed, I'll assist you. But now, I'm going to rest. I'll need plenty of energy for our training later. ",
+    "DialogueContent": "Never mind. Now that I've finally found a safe place, I will rest.",
     "SpeakerID": 2,
     "Column5": ""
   },
@@ -227,7 +211,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 1,
-    "DialogueContent": "Faster, faster, faster!",
+    "DialogueContent": "Oh, you've finally come to fetch me again!",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -235,7 +219,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 2,
-    "DialogueContent": "Hello?",
+    "DialogueContent": "Would you like to see my juggling act?",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -243,7 +227,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 3,
-    "DialogueContent": "Oh—hello, hello! I've been dying for an audience.",
+    "DialogueContent": "I hope this will help you get over your previous failure!",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -251,7 +235,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 4,
-    "DialogueContent": "Care to witness my juggling skills? I'll guarantee laughter in no time!",
+    "DialogueContent": "That was just a mistake!",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -259,7 +243,7 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 5,
-    "DialogueContent": "Uh... sure?",
+    "DialogueContent": "I can teach you to throw your scythe, too!",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -267,55 +251,15 @@
     "SpiritID": 3,
     "SpiritState": 0,
     "LineID": 6,
-    "DialogueContent": "Wonderful! Watch closely—this is my greatest routine yet!",
+    "DialogueContent": "That's enough! It's time to go.",
     "SpeakerID": 3,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 3,
-    "SpiritState": 0,
-    "LineID": 7,
-    "DialogueContent": "...",
-    "SpeakerID": 0,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 3,
-    "SpiritState": 0,
-    "LineID": 8,
-    "DialogueContent": "...You know, it's alright to laugh...",
-    "SpeakerID": 3,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 3,
-    "SpiritState": 0,
-    "LineID": 9,
-    "DialogueContent": "Did I mess up? Wait—I can even teach you to juggle your scythe! Please stay for just one more act...",
-    "SpeakerID": 3,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 3,
-    "SpiritState": 0,
-    "LineID": 10,
-    "DialogueContent": "...",
-    "SpeakerID": 0,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 3,
-    "SpiritState": 0,
-    "LineID": 11,
-    "DialogueContent": "...Relax. I'll take you someplace with more spectators.",
-    "SpeakerID": 0,
     "Column5": ""
   },
   {
     "SpiritID": 3,
     "SpiritState": 1,
     "LineID": 1,
-    "DialogueContent": "At least you've more audience here.",
+    "DialogueContent": "So did the new skill help?",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -323,7 +267,7 @@
     "SpiritID": 3,
     "SpiritState": 1,
     "LineID": 2,
-    "DialogueContent": "Indeed! A clown is nothing without spectators.",
+    "DialogueContent": "Yes.",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -331,7 +275,7 @@
     "SpiritID": 3,
     "SpiritState": 1,
     "LineID": 3,
-    "DialogueContent": "You've granted me this stage—now, I'll deliver the finest performance a clown can offer!",
+    "DialogueContent": "Great, I'm glad I could help!",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -339,7 +283,7 @@
     "SpiritID": 3,
     "SpiritState": 1,
     "LineID": 4,
-    "DialogueContent": "...I have tasks to complete...",
+    "DialogueContent": "If only I could have helped you in that battle!",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -347,7 +291,7 @@
     "SpiritID": 3,
     "SpiritState": 1,
     "LineID": 5,
-    "DialogueContent": "Don't forget to bring back more audience!",
+    "DialogueContent": "Let's not talk about it anymore.",
     "SpeakerID": 3,
     "Column5": ""
   },
@@ -363,7 +307,7 @@
     "SpiritID": 4,
     "SpiritState": 1,
     "LineID": 1,
-    "DialogueContent": "You're back. How's your head? Any pain or strange feelings?",
+    "DialogueContent": "You're back. Are you feeling better?",
     "SpeakerID": 4,
     "Column5": ""
   },
@@ -371,7 +315,7 @@
     "SpiritID": 4,
     "SpiritState": 1,
     "LineID": 2,
-    "DialogueContent": "I'm still weak.",
+    "DialogueContent": "I'm still quite weak.",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -379,15 +323,15 @@
     "SpiritID": 4,
     "SpiritState": 1,
     "LineID": 3,
-    "DialogueContent": "I want to get stronger.",
-    "SpeakerID": 0,
+    "DialogueContent": "I see. You should be able to find this herb(<sprite index=1>) somewhere.",
+    "SpeakerID": 4,
     "Column5": ""
   },
   {
     "SpiritID": 4,
     "SpiritState": 1,
     "LineID": 4,
-    "DialogueContent": "Expected as much. I sorted the herbs(<sprite index=1>)I've found while you were away. There's one that can strengthen you, though it won't restore you to full power.",
+    "DialogueContent": "Bring me three, and I'll help restore your strength.",
     "SpeakerID": 4,
     "Column5": ""
   },
@@ -395,15 +339,7 @@
     "SpiritID": 4,
     "SpiritState": 1,
     "LineID": 5,
-    "DialogueContent": "I used the last of my supply to brew this potion for you. Drink up—but after this, you'll have to collect more on your own.",
-    "SpeakerID": 4,
-    "Column5": ""
-  },
-  {
-    "SpiritID": 4,
-    "SpiritState": 1,
-    "LineID": 6,
-    "DialogueContent": "Bring me three of those herbs(<sprite index=1>), and I'll make you another batch.",
+    "DialogueContent": "Here's the last bit I have left; try it.",
     "SpeakerID": 4,
     "Column5": ""
   },
@@ -427,7 +363,7 @@
     "SpiritID": 5,
     "SpiritState": 0,
     "LineID": 2,
-    "DialogueContent": "Well done, boy. You're about two percent of what I was.",
+    "DialogueContent": "Well, look who I've found—the loser of the duel.",
     "SpeakerID": 5,
     "Column5": ""
   },
@@ -435,7 +371,7 @@
     "SpiritID": 5,
     "SpiritState": 0,
     "LineID": 3,
-    "DialogueContent": "But your moves are still too rigid, and you don't know how to improvise.",
+    "DialogueContent": "You seem weaker than before.",
     "SpeakerID": 5,
     "Column5": ""
   },
@@ -443,7 +379,7 @@
     "SpiritID": 5,
     "SpiritState": 0,
     "LineID": 4,
-    "DialogueContent": "Can you teach me?",
+    "DialogueContent": "I want to grow stronger.",
     "SpeakerID": 0,
     "Column5": ""
   },
@@ -451,7 +387,7 @@
     "SpiritID": 5,
     "SpiritState": 0,
     "LineID": 5,
-    "DialogueContent": "Oh! Of course! There's nothing I like more than training eager apprentices!",
+    "DialogueContent": "Ha! That's something I can easily help with.",
     "SpeakerID": 5,
     "Column5": ""
   },
@@ -459,7 +395,7 @@
     "SpiritID": 5,
     "SpiritState": 0,
     "LineID": 6,
-    "DialogueContent": "Find a place! I'll teach you some skills..",
+    "DialogueContent": "Take me to your place, and I'll teach you some new techniques.",
     "SpeakerID": 5,
     "Column5": ""
   },
@@ -467,15 +403,15 @@
     "SpiritID": 5,
     "SpiritState": 1,
     "LineID": 1,
-    "DialogueContent": "A splendid spot! I can already feel my muscles and joints loosening up.",
-    "SpeakerID": 5,
+    "DialogueContent": "This is a good spot for training.",
+    "SpeakerID": 0.0,
     "Column5": ""
   },
   {
     "SpiritID": 5,
     "SpiritState": 1,
     "LineID": 2,
-    "DialogueContent": "Alright, first lesson: as a warrior, agility is key. You must learn to strike your enemies swiftly and unpredictably.",
+    "DialogueContent": "Your previous attacks are too simple.",
     "SpeakerID": 5,
     "Column5": ""
   },
@@ -483,15 +419,23 @@
     "SpiritID": 5,
     "SpiritState": 1,
     "LineID": 3,
-    "DialogueContent": "Sometimes, redirecting your attack can accomplish more than merely killing your opponent.",
-    "SpeakerID": 5,
+    "DialogueContent": "What should I do?",
+    "SpeakerID": 0,
     "Column5": ""
   },
   {
     "SpiritID": 5,
     "SpiritState": 1,
     "LineID": 4,
-    "DialogueContent": "Your current style of fighting is far too repetitive. Bring me 1000<sprite index=0>, and I'll show you some advanced techniques.",
+    "DialogueContent": "Bring me some <sprite index=0>.",
+    "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 5,
+    "SpiritState": 1,
+    "LineID": 5,
+    "DialogueContent": "I'll show you how to wield your scythe more effectively.",
     "SpeakerID": 5,
     "Column5": ""
   },
@@ -501,6 +445,102 @@
     "LineID": 1,
     "DialogueContent": "Don't let up!",
     "SpeakerID": 5,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 6,
+    "SpiritState": 0,
+    "LineID": 1,
+    "DialogueContent": "Is this what they call the afterlife?!",
+    "SpeakerID": 6,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 6,
+    "SpiritState": 0,
+    "LineID": 2,
+    "DialogueContent": "No, not yet, this is the drift, the space between life and death.",
+    "SpeakerID": 0,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 6,
+    "SpiritState": 0,
+    "LineID": 3,
+    "DialogueContent": "Then, does that mean you're... the Grim Reaper?",
+    "SpeakerID": 6,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 6,
+    "SpiritState": 0,
+    "LineID": 4,
+    "DialogueContent": "Yes, I’m here to guide you to the afterlife.",
+    "SpeakerID": 0,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 6,
+    "SpiritState": 0,
+    "LineID": 5,
+    "DialogueContent": "Then be quick! I feel strange here !",
+    "SpeakerID": 6,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 7,
+    "SpiritState": 0,
+    "LineID": 1,
+    "DialogueContent": "Ahhhhh! Why did I end up in this hellhole after I died?! ",
+    "SpeakerID": 7,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 7,
+    "SpiritState": 0,
+    "LineID": 2,
+    "DialogueContent": "Calm down.",
+    "SpeakerID": 0,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 7,
+    "SpiritState": 0,
+    "LineID": 3,
+    "DialogueContent": "Monsters! They're everywhere! I need to find a safe place!",
+    "SpeakerID": 7,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 7,
+    "SpiritState": 0,
+    "LineID": 4,
+    "DialogueContent": "My coffin can protect you from the monsters",
+    "SpeakerID": 0,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 8,
+    "SpiritState": 0,
+    "LineID": 1,
+    "DialogueContent": "A scythe! A skeleton! You're one of them!",
+    "SpeakerID": 8,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 8,
+    "SpiritState": 0,
+    "LineID": 2,
+    "DialogueContent": "No, my duty is to escort you to the afterlife.",
+    "SpeakerID": 0,
+    "Column5": ""
+  },
+  {
+    "SpiritID": 8,
+    "SpiritState": 0,
+    "LineID": 3,
+    "DialogueContent": "Then do your job!",
+    "SpeakerID": 8,
     "Column5": ""
   }
 ]

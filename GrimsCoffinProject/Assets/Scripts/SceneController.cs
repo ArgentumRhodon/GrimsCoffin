@@ -9,6 +9,14 @@ public class SceneController : MonoBehaviour
 
     public void LoadNextScene()
     {
+        if (nextSceneName == "Denial_Level_v1.1")
+        {
+            GameObject MusicController = GameObject.Find("MusicController_Temp");
+            if (MusicController != null)
+            {
+                Destroy(MusicController);
+            }
+        }
         SceneManager.LoadScene(nextSceneName);
     }
 }

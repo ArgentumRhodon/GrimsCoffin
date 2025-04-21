@@ -75,7 +75,7 @@ public class TitleScreen : MonoBehaviour
     {
         PersistentDataManager.Instance.ResetSaveData();
         PersistentDataManager.Instance.ToggleFirstSpawn(false);
-        SceneManager.LoadScene("Intro Cutscene");
+        SceneManager.LoadScene("OnboardingLevel");
     }
 
     public void CancelNewGame()

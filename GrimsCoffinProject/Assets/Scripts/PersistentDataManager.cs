@@ -15,7 +15,7 @@ public class PersistentDataManager : MonoBehaviour
     //Game Progress Flags
     public Vector2 SpawnPoint { get { return new Vector2(PlayerPrefs.GetFloat("XSpawnPos", defaultXPos), PlayerPrefs.GetFloat("YSpawnPos", defaultYPos)); } }
     public string LastSavedScene { get { return PlayerPrefs.GetString("SceneSave", defaultSceneName); } }
-    public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", 1); } }
+    public int LastSavedRoomIndex { get { return PlayerPrefs.GetInt("RoomIndex", -1); } }
     public bool FirstSpawn { get { return PlayerPrefs.GetInt("FirstSpawn", 0) == 1; } }
     public bool FirstTimeInDenial { get { return PlayerPrefs.GetInt("FirstTimeDenial", 1) == 1; } }
 
@@ -26,13 +26,13 @@ public class PersistentDataManager : MonoBehaviour
 
     //Player Ability Flags
     public bool CanDoubleJump { get { return PlayerPrefs.GetInt("CanDoubleJump", 0) == 1; } }
-    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 0) == 1; } }
-    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 0) == 1; } }
+    public bool CanDash { get { return PlayerPrefs.GetInt("CanDash", 1) == 1; } }
+    public bool CanWallJump { get { return PlayerPrefs.GetInt("CanWallJump", 1) == 1; } }
     public bool CanScytheThrow { get { return PlayerPrefs.GetInt("CanScytheThrow", 0) == 1; } }
     public bool CanViewMap { get { return PlayerPrefs.GetInt("CanViewMap", 0) == 1; } }
     public int MapBought { get { return PlayerPrefs.GetInt("MapBought"); } }
-    public bool CanUpAttack {  get { return PlayerPrefs.GetInt("CanUpAttack", 0) == 1; } }
-    public bool CanDownAttack { get { return PlayerPrefs.GetInt("CanDownAttack", 0) == 1; } }
+    public bool CanUpAttack {  get { return PlayerPrefs.GetInt("CanUpAttack", 1) == 1; } }
+    public bool CanDownAttack { get { return PlayerPrefs.GetInt("CanDownAttack", 1) == 1; } }
 
     //Resources
     public int HealthCollectablesHeld { get { return PlayerPrefs.GetInt("HealthCollectablesHeld", 0); } }
@@ -48,8 +48,8 @@ public class PersistentDataManager : MonoBehaviour
     [SerializeField] public List<SavePoint> restPoints;
 
     //Default values to spawn the player at when a New Game is started
-    [SerializeField] private float defaultXPos = 0;
-    [SerializeField] private float defaultYPos = 0;
+    [SerializeField] private float defaultXPos = -16;
+    [SerializeField] private float defaultYPos = -2f;
     [SerializeField] private string defaultSceneName = "OnboardingLevel";
     [SerializeField] private float defaultHP = 125;
 
@@ -71,7 +71,7 @@ public class PersistentDataManager : MonoBehaviour
     void Start()
     {
         //If the player is in the cutscene between Onboarding and Denial Area, transition their stats
-        if (SceneManager.GetActiveScene().name == "Transition Cutscene 1")
+        if (SceneManager.GetActiveScene().name == "Transition Cutscene 1 Autoplay")
             TransitionToDenialArea();
 
         for (int i = 0; i < scytheThrowPlatforms.Count; i++)
@@ -135,7 +135,7 @@ public class PersistentDataManager : MonoBehaviour
                         PlayerPrefs.SetInt("CanViewMap", 1);
                         PlayerControllerForces.Instance.Data.canViewMap = true;
                         UIManager.Instance.ShowAbilityUnlock("Map Unlocked", AbilityName.Map, true);
-                        UIManager.Instance.ToggleMap();
+                        UIManager.Instance.ToggleMap();                      
                         break;
 
                     //Unlocks Dash
@@ -292,12 +292,12 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("SceneSave", defaultSceneName);
         PlayerPrefs.SetFloat("XSpawnPos", defaultXPos);
         PlayerPrefs.SetFloat("YSpawnPos", defaultYPos);
-        PlayerPrefs.SetInt("RoomIndex", 1);
+        PlayerPrefs.SetInt("RoomIndex", -1);
         
         //Reset Player Stats
         PlayerPrefs.SetFloat("MaxHP", defaultHP);
         PlayerPrefs.SetFloat("MaxSP", 0);
-        PlayerPrefs.SetFloat("DamageMultiplier", 1);
+        PlayerPrefs.SetFloat("DamageMultiplier", 3);
 
         //Reset Player Abilities
         PlayerPrefs.SetInt("CanDoubleJump", 1);
@@ -314,6 +314,10 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetString("ScytheThrowSpirit", "Uncollected");
         PlayerPrefs.SetString("HealthSpirit", "Uncollected");
         PlayerPrefs.SetString("CombatSpirit", "Uncollected");
+        PlayerPrefs.SetString("Onboarding1", "Uncollected");
+        PlayerPrefs.SetString("Onboarding2", "Uncollected");
+        PlayerPrefs.SetString("Onboarding3", "Uncollected");
+
 
         PlayerPrefs.SetInt("HealthCollectablesHeld", 0);
         PlayerPrefs.SetFloat("EnemyCurrency", 0);
@@ -353,9 +357,12 @@ public class PersistentDataManager : MonoBehaviour
         //Auto save the Denial Level (i.e. if the player quits after the cutscene they will load into the denial area instead of onboarding
         PlayerPrefs.SetString("SceneSave", "Denial_Level_v1.1");
         PlayerPrefs.SetFloat("XSpawnPos", -17.9f);
+        PlayerPrefs.SetFloat("YSpawnPos", 0);
+        PlayerPrefs.SetInt("RoomIndex", 1);
 
         //Reduce Player Stats and Remove Abilities
         PlayerPrefs.SetFloat("MaxHP", 50);
+        PlayerPrefs.SetFloat("DamageMultiplier", 1);
         PlayerPrefs.SetInt("CanDoubleJump", 0);
         //PlayerPrefs.SetInt("CanWallJump", 0);
         PlayerPrefs.SetInt("CanUpAttack", 0);
@@ -373,6 +380,16 @@ public class PersistentDataManager : MonoBehaviour
         PlayerPrefs.SetInt("LevelRoom" + roomIndex, 1);
 
         UIManager.Instance.UpdateMapUI();
+    }
+
+    public void SetOnboardingSpawnPoint(int roomIndex)
+    {
+        if (SceneManager.GetActiveScene().name == "OnboardingLevel")
+        {
+            PlayerPrefs.SetFloat("XSpawnPos", PlayerControllerForces.Instance.gameObject.transform.position.x);
+            PlayerPrefs.SetFloat("YSpawnPos", PlayerControllerForces.Instance.gameObject.transform.position.y);
+            PlayerPrefs.SetInt("RoomIndex", roomIndex);
+        }
     }
 
     /// <summary>
@@ -452,6 +469,9 @@ public class PersistentDataManager : MonoBehaviour
     /// <param name="addingCurrency">Whether or not the currency is being added or subtracted from the player</param>
     public void UpdateEnemyCurrency(float value, bool addingCurrency)
     {
+        if (UIManager.Instance.enemyCurrencyUI == null)
+            return;
+
         PlayerPrefs.SetFloat("EnemyCurrency", EnemyCurrency + value);
         UIManager.Instance.UpdateEnemyCurrency(value, addingCurrency);
     }
