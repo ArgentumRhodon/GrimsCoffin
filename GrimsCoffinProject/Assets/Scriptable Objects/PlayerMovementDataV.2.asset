@@ -21,7 +21,7 @@ MonoBehaviour:
   maxSP: 0
   damageMultiplier: 3
   iFrameTimer: 1
-  respawnPoint: {x: 0, y: 0}
+  respawnPoint: {x: -16, y: -2}
   gravityStrength: -57.14286
   gravityScale: 5.82496
   fallGravityMult: 1.5
@@ -45,7 +45,7 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
-  canWallJump: 0
+  canWallJump: 1
   canWallJumpCancel: 1
   wallJumpForce: {x: 15.5, y: 16.5}
   wallJumpRunLerp: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
   wallCoyoteTime: 0.01
   doTurnOnWallJump: 1
   wallTurnBuffer: 0.2
-  canDoubleJump: 0
+  canDoubleJump: 1
   preserveDoubleJump: 1
   resetJumpOnWall: 0
   extraJumpMultiplier: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   slideAccel: 1
   coyoteTime: 0.2
   jumpInputBufferTime: 0.2
-  canDash: 0
+  canDash: 1
   dashAmount: 1
   dashSpeed: 27
   dashSleepTime: 0.025
@@ -103,11 +103,11 @@ MonoBehaviour:
   gDownAttackDuration: 0.567
   gDownAttackDelay: 1
   groundDownDamage: 4
-  canAUpAttack: 0
+  canAUpAttack: 1
   hookPlayerForce: 0
   aUpAttackDuration: 0.4
   aerialUpDamage: 3
-  canADownAttack: 0
+  canADownAttack: 1
   aerialDownwardPForce: 50
   aerialDownwardEForce: {x: 4, y: -5}
   aDownAttackDuration: 5
