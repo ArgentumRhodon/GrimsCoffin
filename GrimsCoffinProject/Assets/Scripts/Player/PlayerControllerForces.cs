@@ -247,6 +247,7 @@ public class PlayerControllerForces : MonoBehaviour
             PersistentDataManager.Instance.ToggleFirstSpawn(false);
         }
 
+        PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Idle);
         //TempResetData();
     }
 
@@ -288,7 +289,6 @@ public class PlayerControllerForces : MonoBehaviour
                 CheckDirectionToFace(true);
             else if (moveInput.x < -Data.deadzone)
                 CheckDirectionToFace(false);
-
 
             //Variable Updates ----------------------------------------------
             //Check if player hit ground or walls
@@ -428,7 +428,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         // Grounded() check did not work here
-        if (!playerState.IsJumping && rb.velocity.y > -.1f && !playerState.IsAttacking && !playerState.IsDashing)
+        if (!playerState.IsJumping && rb.velocity.y > -.3f && !playerState.IsAttacking && !playerState.IsDashing && !playerCombat.isHoldingDownOnGround)
         {
             if (Math.Abs(rb.velocity.x) < 1)
             {
@@ -445,7 +445,7 @@ public class PlayerControllerForces : MonoBehaviour
         {
             PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.WallSlide);
         }
-        else if(rb.velocity.y < -.1f && !playerState.IsAttacking && !playerState.IsDashing)
+        else if(rb.velocity.y < -.3f && !playerState.IsAttacking && !playerState.IsDashing && !playerCombat.isHoldingDownOnGround)
         {
             PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.JumpDown);
         }
@@ -455,7 +455,13 @@ public class PlayerControllerForces : MonoBehaviour
         {
             ResetPlayerOffset();         
         }
-        
+
+        Debug.Log(PlayerAnimationManager.Instance.currentState);
+
+        if (PlayerAnimationManager.Instance.currentState == PlayerAnimationStates.JumpDown && rb.velocity.y > -0.3f)
+        {
+            PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Idle);
+        }
     }
     #endregion
 
@@ -788,18 +794,14 @@ public class PlayerControllerForces : MonoBehaviour
         if (isSleeping)
             return;
 
-        //Aerial attack check
-        //if (Data.hasStallForce)
-        //{
-            if (shouldGroundAttack)
-            {
-                //Sleep(Data.gDownAttackDuration);
-            }
-            else
-            {
-                Sleep(Data.aDownAttackDuration);
-            }
-        //}
+        if (shouldGroundAttack)
+        {
+            Sleep(Data.gDownAttackDuration);
+        }
+        else
+        {
+            Sleep(Data.aDownAttackDuration);
+        }
     }
 
     public void ExecuteScytheThrow()
@@ -1031,6 +1033,7 @@ public class PlayerControllerForces : MonoBehaviour
         //Dash over
         playerState.IsDashing = false;
         hasDashInvincibility = false;
+
         //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Agent"), LayerMask.NameToLayer("Agent"), false);
         rb.excludeLayers = LayerMask.GetMask("Nothing");
         //tmp = animator.GetComponent<SpriteRenderer>().color;
@@ -1075,11 +1078,26 @@ public class PlayerControllerForces : MonoBehaviour
 
     private void DownAttack()
     {
-        rb.excludeLayers = LayerMask.GetMask("Enemy");
-        rb.excludeLayers += LayerMask.GetMask("Agent");
-        SetGravityScale(1);
-        //rb.AddForce(Vector2.down * Data.aerialDownwardPForce, ForceMode2D.Impulse);
-        rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
+        if (Grounded())
+        {
+            int direction;
+            if (playerState.IsFacingRight)
+                direction = 1;
+            else
+                direction = -1;
+
+            rb.velocity = new Vector2(.1f, 0);
+
+            rb.AddForce(new Vector2(direction, 0) * Data.groundDownwardPForce, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.excludeLayers = LayerMask.GetMask("Enemy");
+            rb.excludeLayers += LayerMask.GetMask("Agent");
+            SetGravityScale(1);
+            //rb.AddForce(Vector2.down * Data.aerialDownwardPForce, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(0, -Data.aerialDownwardPForce);
+        }
     }
 
     #endregion
@@ -1177,6 +1195,8 @@ public class PlayerControllerForces : MonoBehaviour
 
             StartCoroutine(nameof(StartDash), lastDashDir);
 
+            playerCombat.isHoldingDownOnGround = false;
+            playerCombat.meleeStateMachine.SetNextState(new IdleCombatState());
             PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Dash);
         }
     }
@@ -1490,7 +1510,9 @@ public class PlayerControllerForces : MonoBehaviour
     private int XInputDirection()
     {
         //Added deadzone to account for controller drift
-        if (moveInput.x < -Data.deadzone)
+        if (playerCombat.isHoldingDownOnGround)
+            return 0;
+        else if (moveInput.x < -Data.deadzone)
             return -1;
         else if (moveInput.x > Data.deadzone)
             return 1;
