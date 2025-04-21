@@ -134,7 +134,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 5759074365042596800}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -385,6 +386,25 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-2106423898751535124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274db0bfa2f598547b3965c44b76f7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackFX:
+    Guid:
+      Data1: 2068245016
+      Data2: 1268763523
+      Data3: -2126875982
+      Data4: 1025903025
+    Path: event:/PL/Grim/103_Scyche_Slam
 --- !u!114 &-1281132620013884443
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -595,7 +615,8 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -2106423898751535124}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -610,6 +631,25 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &5759074365042596800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274db0bfa2f598547b3965c44b76f7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackFX:
+    Guid:
+      Data1: 1562111585
+      Data2: 1194535205
+      Data3: 2106431384
+      Data4: -1159510018
+    Path: event:/PL/Grim/108_Self_Jump
 --- !u!1102 &5807734834884324207
 AnimatorState:
   serializedVersion: 6
