@@ -56,6 +56,7 @@ public class FMOD_Object_BossListener : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         DamagedInstance = RuntimeManager.CreateInstance(DamagedSFX);
         DeadInstance = RuntimeManager.CreateInstance(DeadSFX);
         IdleInstance = RuntimeManager.CreateInstance(IdleSFX);
@@ -70,8 +71,9 @@ public class FMOD_Object_BossListener : MonoBehaviour
         runInstance = RuntimeManager.CreateInstance(runSFX);
 
         musicController = GameObject.Find("MusicController");
+        Debug.Log((int)musicController.GetComponent<FMODGlobalParameterTester>().groundName == 1);
 
-        if ((int)musicController.GetComponent<FMODGlobalParameterTester>().groundName == 2){
+        if ((int)musicController.GetComponent<FMODGlobalParameterTester>().groundName == 1){
             denialboss = FindObjectOfType<DenialBoss>();
             bossHalfHealth = (int)denialboss.health / 2;
         }
@@ -106,7 +108,7 @@ public class FMOD_Object_BossListener : MonoBehaviour
     {
         attenuationResult = 2 * attenuation;
         distanceUpdater();
-        if ((int)musicController.GetComponent<FMODGlobalParameterTester>().groundName == 2)
+        if ((int)musicController.GetComponent<FMODGlobalParameterTester>().groundName == 1)
         {
             if (denialboss.health < bossHalfHealth)
             {
