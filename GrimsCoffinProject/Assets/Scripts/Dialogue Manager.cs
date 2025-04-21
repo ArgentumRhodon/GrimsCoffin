@@ -247,7 +247,7 @@ public class DialogueManager : MonoBehaviour
             // Update persistent data, reset line, hide UI
             PersistentDataManager.Instance.UpdateSpiritState(spirit);
             currentLine = 1;
-            spirit.istalking = false;
+            spirit.isTalking = false;
             uiManager.ToggleDialogueUI(false);
             controls.Dialogue.Continue.performed -= OnContinue;
             spirit.ToggleSpeakingAnimation(false);
