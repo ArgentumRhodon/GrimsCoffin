@@ -37,6 +37,11 @@ namespace Core.AI
                 return TaskStatus.Running;
         }
 
+        public override void OnEnd()
+        {
+            DOTween.Kill(this);
+        }
+
         private void Attack()
         {
             //Attack

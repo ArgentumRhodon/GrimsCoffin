@@ -49,6 +49,8 @@ namespace Core.AI
         {
             enemyScript.HasAttackTicket = false;
             enemyScript.CombatCoordinator.UseAttack(enemyScript);
+
+            DOTween.Kill(this);
         }
 
         private void Attack()

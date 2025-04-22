@@ -68,6 +68,8 @@ namespace Core.AI
             enemyScript.CanTakeKnockback = originalKnockbackState;
             enemyScript.GetsHitCanceled = originalGetHitCanceled;
             //enemyScript.SpriteRenderer.color = Color.white;
+
+            DOTween.Kill(this);
         }
 
         private void Attack()

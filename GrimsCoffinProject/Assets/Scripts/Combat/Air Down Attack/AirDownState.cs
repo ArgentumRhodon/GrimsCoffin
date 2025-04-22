@@ -1,12 +1,14 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class AirDownState : MeleeBaseState
 {
     //Impact force to 
     private Vector2 impactPoint;
-    private  List<Collider2D> collidersAttached;
+    private List<Collider2D> collidersAttached;
 
     public AirDownState() : base()
     {
@@ -29,9 +31,17 @@ public class AirDownState : MeleeBaseState
         base.OnUpdate(_stateMachine);
 
         //If player is on the ground, end it
-        if (PlayerControllerForces.Instance.Grounded() && playerCombat.AttackDurationTime < 0)
+        if (PlayerControllerForces.Instance.Grounded())// && playerCombat.AttackDurationTime < 0)
         {
             stateMachine.SetNextStateToMain();
+
+            //Update timers
+            playerCombat.AttackDurationTime = PlayerControllerForces.Instance.Data.aDownAttackReset;
+
+            //If they didn't land on a door, end sleep
+            if (!PlayerControllerForces.Instance.LandedOnDoor())
+                DOVirtual.DelayedCall(PlayerControllerForces.Instance.Data.aDownAttackReset, PlayerControllerForces.Instance.EndSleep, false);
+
             playerCombat.IsAerialAttacking = false;
         }
     }

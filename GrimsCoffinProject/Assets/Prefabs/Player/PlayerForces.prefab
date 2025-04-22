@@ -405,6 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 8317159216238193831}
   scytheAnimator: {fileID: 4929932698530573072}
+  currentState: 
 --- !u!114 &1960859601187753200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +428,9 @@ MonoBehaviour:
   holdInteractTimer: 0
   animator: {fileID: 8317159216238193831}
   scytheAnimator: {fileID: 4929932698530573072}
+  doorLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -577,17 +581,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b33bab15da98234996f94a9ac3aff78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeStateMachine: {fileID: 0}
   hitbox: {fileID: 7568753305882926414}
   scytheAnimator: {fileID: 4929932698530573072}
   scytheSprite: {fileID: 5297061223688076639}
   animator: {fileID: 8317159216238193831}
-  holdAttackTimer: 0
   attackAnimTotal: 0
   canAerialCombo: 0
   isAerialCombo: 0
   isAerialAttacking: 0
   isComboing: 0
-  isDownAttacking: 0
+  isHoldingDownOnGround: 0
   attackClickCounter: 0
   comboQueueLeft: 0
   currentAttackAmount: 0

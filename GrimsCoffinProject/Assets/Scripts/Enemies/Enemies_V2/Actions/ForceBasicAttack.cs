@@ -40,6 +40,11 @@ namespace Core.AI
 
         }
 
+        public override void OnEnd()
+        {
+            DOTween.Kill(this);
+        }
+
         private void Attack()
         {
             enemyScript.AttackDamage = enemyScript.attackDamages[attackDamageIndex];

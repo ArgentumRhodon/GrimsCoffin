@@ -79,6 +79,7 @@ public class PlayerControllerForces : MonoBehaviour
 
     //Positions used for state checks
     [Header("Tile Checks")]
+    [SerializeField] private LayerMask doorLayer;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheckPoint;
     //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
@@ -248,7 +249,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Idle);
-        //TempResetData();
+        TempResetData();
     }
 
     private void Update()
@@ -456,7 +457,7 @@ public class PlayerControllerForces : MonoBehaviour
             ResetPlayerOffset();         
         }
 
-        Debug.Log(PlayerAnimationManager.Instance.currentState);
+        //Debug.Log(PlayerAnimationManager.Instance.currentState);
 
         if (PlayerAnimationManager.Instance.currentState == PlayerAnimationStates.JumpDown && rb.velocity.y > -0.3f)
         {
@@ -1337,6 +1338,13 @@ public class PlayerControllerForces : MonoBehaviour
         return Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
     }
 
+    public bool LandedOnDoor()
+    {
+        return Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, doorLayer)
+                || Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, doorLayer)
+                || Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, doorLayer);
+    }
+
     //Check wall specific collision and return a bool
     private bool OnWall()
     {
@@ -1604,7 +1612,6 @@ public class PlayerControllerForces : MonoBehaviour
             SetGravityScale(1);
         }
     }
-
 
     public void SleepWalk()
     {

@@ -213,7 +213,7 @@ public class PlayerCombat : MonoBehaviour
         attackDirection = CheckAttackDirection();
 
         //Make sure player is not dashing or the time scale is not zero so that the player cannot attack
-        if (playerState.IsDashing || Time.timeScale == 0 || playerState.IsSliding || LastComboTime > 0)
+        if (playerState.IsDashing || Time.timeScale == 0 || playerState.IsSliding || LastComboTime > 0 || PlayerControllerForces.Instance.LandedOnDoor())
             return;
 
         //Execute attack based off the direction of the player input
@@ -236,7 +236,7 @@ public class PlayerCombat : MonoBehaviour
     private void OnDash()
     {
         //If the player is currently comboing, interrupt it //isComboing && 
-        if (playerState.IsAttacking && playerController.Data.canDash)
+        if (playerState.IsAttacking && playerController.Data.canDash && !PlayerControllerForces.Instance.LandedOnDoor())
         {
             InterruptCombo(AttackDirection.Dash, true);
         }  
@@ -245,7 +245,7 @@ public class PlayerCombat : MonoBehaviour
     private void OnAbility()
     {
         //Debug.Log("Trying to throw");
-        if (isComboing && playerController.Data.canScytheThrow)
+        if (isComboing && playerController.Data.canScytheThrow && !PlayerControllerForces.Instance.LandedOnDoor())
         {
             if (playerController.currentSP <= 0 || playerController.scytheThrown || !playerController.Data.canScytheThrow)
                 return;

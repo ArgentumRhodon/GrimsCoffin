@@ -311,8 +311,9 @@ public abstract class Enemy : MonoBehaviour
         //Either kill or damage the player
         if(health <= 0)
         {
+            RemoveEnemy();
             HitStopTimer(0.15f);
-            DOVirtual.DelayedCall(.2f, KillEnemy, false);
+            DOVirtual.DelayedCall(.15f, KillEnemy, false);
             PersistentDataManager.Instance.UpdateEnemyCurrency(currencyValue, true);
         }
         else
@@ -328,9 +329,15 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    protected virtual void RemoveEnemy()
+    {
+        //Remove enemy from pool and make sure it can't block player to take damage (doesn't matter if it loses health, but if it takes hit stop and camera shake will happen)
+        gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
+        RemoveActiveEnemy();
+    }
+
     protected virtual void KillEnemy()
     {
-
         enemyStateList.IsDead = true;
 
         //Disable the behavior tree and play death animation
@@ -346,11 +353,6 @@ public abstract class Enemy : MonoBehaviour
         EndSleep();
         EndStagger();
         animator.speed = 1;
-
-
-        //Remove enemy from pool and make sure it can't block player to take damage (doesn't matter if it loses health, but if it takes hit stop and camera shake will happen)
-        gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
-        RemoveActiveEnemy();
 
         //Destroy the game object after a while
         DOVirtual.DelayedCall(1, DestroyEnemyGO, false);
