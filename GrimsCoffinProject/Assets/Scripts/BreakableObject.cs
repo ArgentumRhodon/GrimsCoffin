@@ -41,6 +41,7 @@ public class BreakableObject : MonoBehaviour
         //Set animator conditional to play animation
         isBroken = true;
         animator.SetBool("IsBroken", isBroken);
+        gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
         timer = 1;
 
         if (objectType == ObjectType.Bones1 || objectType == ObjectType.Bones2)
