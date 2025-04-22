@@ -70,7 +70,7 @@ public class BreakableWall : MonoBehaviour
             Debug.Log("The Damage has been dealt");
 
             //Camera shake based off of damage
-            CameraShake.Instance.ShakeCamera(damage / 2.25f, damage / 3.25f, .2f);
+            CameraShake.Instance.ShakeCamera((damage/PlayerControllerForces.Instance.Data.damageMultiplier) / 2.25f, (damage / PlayerControllerForces.Instance.Data.damageMultiplier) / 3.25f, .2f);
 
             Instantiate(hitEffect, this.transform.position, Quaternion.identity);
 

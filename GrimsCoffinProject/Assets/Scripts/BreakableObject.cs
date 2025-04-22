@@ -38,21 +38,20 @@ public class BreakableObject : MonoBehaviour
 
     public void TakeDamage()
     {
+        if ((objectType == ObjectType.Bones1 || objectType == ObjectType.Bones2) && !isBroken)
+            PersistentDataManager.Instance.UpdateEnemyCurrency(Random.Range(5, 20), true);
+
         //Set animator conditional to play animation
         isBroken = true;
         animator.SetBool("IsBroken", isBroken);
         gameObject.GetComponent<TeamComponent>().teamIndex = TeamIndex.Neutral;
         timer = 1;
 
-        if (objectType == ObjectType.Bones1 || objectType == ObjectType.Bones2)
-        {
-            PersistentDataManager.Instance.UpdateEnemyCurrency(Random.Range(5, 20), true);
-            CameraShake.Instance.ShakeCamera(.75f, .75f, .15f);
-        }
+        CameraShake.Instance.ShakeCamera(.75f, .75f, .15f);
     }
 
     public void DestroyObject()
-    {
+    {     
         Destroy(gameObject);
     }
 }

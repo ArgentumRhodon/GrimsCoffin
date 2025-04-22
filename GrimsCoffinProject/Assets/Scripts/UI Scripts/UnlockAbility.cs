@@ -6,6 +6,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -51,6 +52,7 @@ public class UnlockAbility : MonoBehaviour
             else 
             {
                 yes.interactable = true;
+                EventSystem.current.SetSelectedGameObject(yes.gameObject);
             }
 
         }
@@ -68,6 +70,7 @@ public class UnlockAbility : MonoBehaviour
             else
             {
                 yes.interactable = true;
+                EventSystem.current.SetSelectedGameObject(yes.gameObject);
             }
         }
         else if (id==5)
@@ -89,6 +92,7 @@ public class UnlockAbility : MonoBehaviour
             else 
             {
                 yes.interactable = true;
+                EventSystem.current.SetSelectedGameObject(yes.gameObject);
             }
         }
     }
