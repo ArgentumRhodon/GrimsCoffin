@@ -81,4 +81,10 @@ public class FakeWall : MonoBehaviour
             //fWall.color = new Color(fWall.color.r, fWall.color.g, fWall.color.b, 1f);
             StartCoroutine(WallFadeIn());
     }
+
+    private void OnEnable()
+    {
+        StartCoroutine(WallFadeIn());
+    }
+
 }

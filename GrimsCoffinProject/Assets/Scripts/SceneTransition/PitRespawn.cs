@@ -71,7 +71,7 @@ public class PitRespawn : MonoBehaviour
             /*if (PlayerControllerForces.Instance.IsSleeping)
                 return;*/
 
-            PlayerControllerForces.Instance.Sleep(1f);
+            PlayerControllerForces.Instance.Sleep(2f);
 
             if (!PlayerControllerForces.Instance.hasInvincibility)
                 PlayerControllerForces.Instance.TakeDamage(damage);
