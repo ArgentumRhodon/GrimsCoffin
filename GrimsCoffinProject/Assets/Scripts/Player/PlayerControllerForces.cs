@@ -249,7 +249,7 @@ public class PlayerControllerForces : MonoBehaviour
         }
 
         PlayerAnimationManager.Instance.ChangeAnimationState(PlayerAnimationStates.Idle);
-        TempResetData();
+        //TempResetData();
     }
 
     private void Update()
