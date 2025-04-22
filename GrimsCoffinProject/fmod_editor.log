@@ -4,25 +4,10 @@
 [LOG] SystemI::setOutputInternal               : Setting output to 'FMOD WASAPI Output'
 [LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEX): wFormatTag=0xFFFE, nChannels=2, nSamplesPerSec=48000, nAvgBytesPerSec=384000, nBlockAlign=8, wBitsPerSample=32, cbSize=22.
 [LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEXTENSIBLE): wValidBitsPerSample=32, dwChannelMask=0x00000003, SubFormat=00000003-0000-0010-8000-00AA00389B71.
-[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60A8128, queue head = 0000019EDF2165D8, queue count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60A8128
-[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C480
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Demo 0202-Ver.2', format=5, channels=2, frequency=48000, lengthbytes=2553504, lengthpcm=2664576, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.494568.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60A8128
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000019DEDEE1288 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 0000019ECF7DCA98 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -33,386 +18,688 @@
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
-[LOG] SoundI::release                          :  (0000019E881AB188)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_01 (0000019E88286A68)
-[LOG] SoundI::release                          :  (0000019E881A7AE8)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_02 (0000019E88287908)
-[LOG] SoundI::release                          :  (0000019DEDFB2938)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_03 (0000019E42B49238)
-[LOG] SoundI::release                          :  (0000019E883F4C18)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_04 (0000019E88371A18)
-[LOG] SoundI::release                          :  (0000019DEDFB0DE8)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_05 (0000019DC74EC9B8)
-[LOG] SoundI::release                          :  (0000019DEDFB3068)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_06 (0000019E425940D8)
-[LOG] SoundI::release                          :  (0000019DEDFAD8B8)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_01 (0000019ED53AB958)
-[LOG] SoundI::release                          :  (0000019DEDFB1968)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_02 (0000019DC74EB2F8)
-[LOG] SoundI::release                          :  (0000019E883F78A8)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_03 (0000019E88373278)
-[LOG] SoundI::release                          :  (0000019E881AA1B8)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_04 (0000019E882894A8)
-[LOG] SoundI::release                          :  (0000019E881A9A88)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_05 (0000019E882870E8)
-[LOG] SoundI::release                          :  (0000019DEDFBA648)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_06 (0000019EDE031CF8)
-[LOG] SoundI::release                          :  (0000019DEDFB6878)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_01 (0000019EDE030978)
-[LOG] SoundI::release                          :  (0000019DEDFAFCA8)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_02 (0000019E3F81B6E8)
-[LOG] SoundI::release                          :  (0000019E881A7698)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_03 (0000019EDE1DCF58)
-[LOG] SoundI::release                          :  (0000019DEDFB5458)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_04 (0000019DC74EC4D8)
-[LOG] SoundI::release                          :  (0000019DEDFB9228)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_05 (0000019E3F96C0E8)
-[LOG] SoundI::release                          :  (0000019DEDFB1F28)
-[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_06 (0000019F1FDB3308)
-[LOG] SoundI::release                          :  (0000019DEDFB7288)
-[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_01 (0000019EDE186708)
-[LOG] SoundI::release                          :  (0000019DEDFB8818)
-[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_02 (0000019EDE032038)
-[LOG] SoundI::release                          :  (0000019E881A8C28)
-[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_03 (0000019E88288E28)
-[LOG] SoundI::release                          :  (0000019E881AB018)
-[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_01 (0000019E88286728)
-[LOG] SoundI::release                          :  (0000019DEDFB6598)
-[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_02 (0000019DD1A21068)
-[LOG] SoundI::release                          :  (0000019DEDFB7848)
-[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_03 (0000019EDE1863C8)
-[LOG] SoundI::release                          :  (0000019E881A8668)
-[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_01 (0000019EDE1DBA38)
-[LOG] SoundI::release                          :  (0000019DEDFB3798)
-[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_02 (0000019EDD2B18D8)
-[LOG] SoundI::release                          :  (0000019DEDFB2378)
-[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_03 (0000019E425945B8)
-[LOG] SoundI::release                          :  (0000019E881A7808)
-[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_01 (0000019EDE1DC8D8)
-[LOG] SoundI::release                          :  (0000019DEDFB8F48)
-[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_02 (0000019EDE02F458)
-[LOG] SoundI::release                          :  (0000019DEDFB2EF8)
-[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_03 (0000019E42595938)
-[LOG] SoundI::release                          :  (0000019DEDFB2208)
-[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_01 (0000019DEE708898)
-[LOG] SoundI::release                          :  (0000019E881A9078)
-[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_02 (0000019E88373A98)
-[LOG] SoundI::release                          :  (0000019DEDFADFE8)
-[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_03 (0000019E4324F3C8)
-[LOG] SoundI::release                          :  (0000019DEDFAE9F8)
-[LOG] SoundI::release                          :     Ninja_Projectile_Throw_3 (0000019E4324F8A8)
-[LOG] SoundI::release                          :  (0000019DEDFB6708)
-[LOG] SoundI::release                          :     FX_105_PL_Grim_Scyche_DownAttack_Release_01 (0000019DD1A21D68)
-[LOG] SoundI::release                          :  (0000019DEDFAF9C8)
-[LOG] SoundI::release                          :     FX_103_PL_Grim_Scyche_Slam_01 (0000019E4324FD88)
-[LOG] SoundI::release                          :  (0000019DEDFB0B08)
-[LOG] SoundI::release                          :     FX_405_UI_Respoint_MenuOpen_02 (0000019ED53ABAF8)
-[LOG] SoundI::release                          :  (0000019DEDFAC8E8)
-[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Ice_01 (0000019E3FCAAC78)
-[LOG] SoundI::release                          :  (0000019DEDFB5FD8)
-[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Ice_02 (0000019E3F96CAA8)
-[LOG] SoundI::release                          :  (0000019DEDFB80E8)
-[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Ice_03 (0000019E3F96B8C8)
-[LOG] SoundI::release                          :  (0000019DEDFB1238)
-[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Stone_01 (0000019ED755D578)
-[LOG] SoundI::release                          :  (0000019DEDFB4D28)
-[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Stone_02 (0000019ED755DA58)
-[LOG] SoundI::release                          :  (0000019E881A8AB8)
-[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Stone_03 (0000019E88371878)
-[LOG] SoundI::release                          :  (0000019E881AA048)
-[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Soil_01 (0000019E88287DE8)
-[LOG] SoundI::release                          :  (0000019E881A97A8)
-[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Soil_02 (0000019EDE1DAD38)
-[LOG] SoundI::release                          :  (0000019DEDFB97E8)
-[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Soil_01 (0000019EDE030B18)
-[LOG] SoundI::release                          :  (0000019DEDFB2658)
-[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Snow_01 (0000019EDD2B2F98)
-[LOG] SoundI::release                          :  (0000019DEDFB8AF8)
-[LOG] SoundI::release                          :     FX_001_LM_MapGeneral_WallBreak_Soil_03 (0000019E3F96AF08)
-[LOG] SoundI::release                          :  (0000019DEDFB48D8)
-[LOG] SoundI::release                          :     DSGNImpt_HIT-Iron Dome_B00M (0000019E42DF7978)
-[LOG] SoundI::release                          :  (0000019DEDFB8258)
-[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Stone_01 (0000019EDE031818)
-[LOG] SoundI::release                          :  (0000019DEDFB58A8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019EDD2BA388)
-[LOG] SoundI::release                          :  (0000019DEDFB3A78)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019EDD2B3618)
-[LOG] SoundI::release                          :  (0000019DEDFB27C8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019E42594758)
-[LOG] SoundI::release                          :  (0000019DEDFB7118)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019EDE187F68)
-[LOG] SoundI::release                          :  (0000019DEDFB7C98)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019EDE185BA8)
-[LOG] SoundI::release                          :  (0000019DEDFB2C18)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019DD1A20B88)
-[LOG] SoundI::release                          :  (0000019DEDFAFB38)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019E3F81B3A8)
-[LOG] SoundI::release                          :  (0000019DEDFB5CF8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019DC74ECCF8)
-[LOG] SoundI::release                          :  (0000019DEDFAE2C8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019E3F81BD68)
-[LOG] SoundI::release                          :  (0000019DEDFB2AA8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019EDD2B9D08)
-[LOG] SoundI::release                          :  (0000019DEDFB9398)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019EDE0319B8)
-[LOG] SoundI::release                          :  (0000019DEDFB6B58)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019EDE031678)
-[LOG] SoundI::release                          :  (0000019DEDFB3EC8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019DD9138DF8)
-[LOG] SoundI::release                          :  (0000019DEDFB10C8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019EDD2BAA08)
-[LOG] SoundI::release                          :  (0000019DEDFB3628)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019DEE708BD8)
-[LOG] SoundI::release                          :  (0000019DEDFB3908)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019DC74EB7D8)
-[LOG] SoundI::release                          :  (0000019E881A7F38)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019EDE1D9CF8)
-[LOG] SoundI::release                          :  (0000019E881AA8E8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019E882882C8)
-[LOG] SoundI::release                          :  (0000019E881A9358)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019E883709D8)
-[LOG] SoundI::release                          :  (0000019DEDFB9DA8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019EDE031B58)
-[LOG] SoundI::release                          :  (0000019DEDFB8538)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019EDE1870C8)
-[LOG] SoundI::release                          :  (0000019DEDFB3348)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019E42B493D8)
-[LOG] SoundI::release                          :  (0000019DEDFB7F78)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019EDE1875A8)
-[LOG] SoundI::release                          :  (0000019DEDFB41A8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019EDD2BA6C8)
-[LOG] SoundI::release                          :  (0000019DEDFB13A8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019EDD2B2918)
-[LOG] SoundI::release                          :  (0000019DEDFB69E8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019EDE02F118)
-[LOG] SoundI::release                          :  (0000019E881A8388)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019EDE1D9B58)
-[LOG] SoundI::release                          :  (0000019DEDFBA368)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019EDE187268)
-[LOG] SoundI::release                          :  (0000019DEDFB52E8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019EDD2B3478)
-[LOG] SoundI::release                          :  (0000019E881A87D8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019E882875C8)
-[LOG] SoundI::release                          :  (0000019DEDFB5B88)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019E42DF77D8)
-[LOG] SoundI::release                          :  (0000019E881A9D68)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019E88287288)
-[LOG] SoundI::release                          :  (0000019DEDFB4318)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019DD1A213A8)
-[LOG] SoundI::release                          :  (0000019E883F8428)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019E88371D58)
-[LOG] SoundI::release                          :  (0000019DEDFAE718)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019E3F81BA28)
-[LOG] SoundI::release                          :  (0000019DEDFB6FA8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019EDE031338)
-[LOG] SoundI::release                          :  (0000019E881A8218)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019E883738F8)
-[LOG] SoundI::release                          :  (0000019DEDFB4BB8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019E425952B8)
-[LOG] SoundI::release                          :  (0000019DEDFBA4D8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019EDE032D38)
-[LOG] SoundI::release                          :  (0000019E881A7C58)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019E88289308)
-[LOG] SoundI::release                          :  (0000019DEDFB9AC8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019EDE02F5F8)
-[LOG] SoundI::release                          :  (0000019E881A84F8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019E88370698)
-[LOG] SoundI::release                          :  (0000019DEDFB4488)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019DD1A21548)
-[LOG] SoundI::release                          :  (0000019E883F4AA8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019E88371BB8)
-[LOG] SoundI::release                          :  (0000019E881A94C8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019E882897E8)
-[LOG] SoundI::release                          :  (0000019DEDFB4038)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019DC74EC818)
-[LOG] SoundI::release                          :  (0000019E881A9BF8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019E88286588)
-[LOG] SoundI::release                          :  (0000019E881AA498)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019EDE1DB898)
-[LOG] SoundI::release                          :  (0000019E883F7178)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019E88370838)
-[LOG] SoundI::release                          :  (0000019E881AA778)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019E88288AE8)
-[LOG] SoundI::release                          :  (0000019DEDFAEB68)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019E3FCAA118)
-[LOG] SoundI::release                          :  (0000019DEDFBA928)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019E3F96C288)
-[LOG] SoundI::release                          :  (0000019E883F7008)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019E883752F8)
-[LOG] SoundI::release                          :  (0000019E881A73B8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019E88288948)
-[LOG] SoundI::release                          :  (0000019DEDFB7568)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019EDE1882A8)
-[LOG] SoundI::release                          :  (0000019DEDFB6148)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019EDD2B2778)
-[LOG] SoundI::release                          :  (0000019E881AAEA8)
-[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 01_B00M_ONE(2) (0000019EDE1DBF18)
-[LOG] SoundI::release                          :  (0000019DEDFB1DB8)
-[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 01_B00M_ONE(3) (0000019EDD2B25D8)
-[LOG] SoundI::release                          :  (0000019DEDFB8988)
-[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 01_B00M_ONE (0000019EDE1DB6F8)
-[LOG] SoundI::release                          :  (0000019DEDFB1518)
-[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 02_B00M_ONE(2) (0000019DD1A20368)
-[LOG] SoundI::release                          :  (0000019E881AAD38)
-[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 02_B00M_ONE(3) (0000019EDE1DB218)
-[LOG] SoundI::release                          :  (0000019DEDFB90B8)
-[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 02_B00M_ONE(4) (0000019E3F96C908)
-[LOG] SoundI::release                          :  (0000019DEDFB9678)
-[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 02_B00M_ONE (0000019EDE1DB078)
-[LOG] SoundI::release                          :  (0000019E881AAA58)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019EDE1DBBD8)
-[LOG] SoundI::release                          :  (0000019E881A7528)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019EDE1DA9F8)
-[LOG] SoundI::release                          :  (0000019E881A7978)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019E88289CC8)
-[LOG] SoundI::release                          :  (0000019DEDFB5008)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019E42594DD8)
-[LOG] SoundI::release                          :  (0000019E881A9918)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019E8828A1A8)
-[LOG] SoundI::release                          :  (0000019DEDFB5E68)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019DD1A20D28)
-[LOG] SoundI::release                          :  (0000019E881A80A8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019E88376198)
-[LOG] SoundI::release                          :  (0000019DEDFB83C8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019EDE186BE8)
-[LOG] SoundI::release                          :  (0000019DEDFB34B8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019DC74EB978)
-[LOG] SoundI::release                          :  (0000019E883F65F8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019E88375E58)
-[LOG] SoundI::release                          :  (0000019DEDFAF128)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019F1FDB2C88)
-[LOG] SoundI::release                          :  (0000019DEDFB9C38)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019EDE030CB8)
-[LOG] SoundI::release                          :  (0000019DEDFBA1F8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019EDE0321D8)
-[LOG] SoundI::release                          :  (0000019DEDFB4E98)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019DD9138C58)
-[LOG] SoundI::release                          :  (0000019E881A91E8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019EDE1D94D8)
-[LOG] SoundI::release                          :  (0000019DEDFB1688)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019F1FDAC468)
-[LOG] SoundI::release                          :  (0000019DEDFB1AD8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019DC74EC198)
-[LOG] SoundI::release                          :  (0000019DEDFB24E8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019DD1A20848)
-[LOG] SoundI::release                          :  (0000019DEDFBA088)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019EDE187DC8)
-[LOG] SoundI::release                          :  (0000019DEDFB3BE8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019EDD2B20F8)
-[LOG] SoundI::release                          :  (0000019E881AA608)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019E88288128)
-[LOG] SoundI::release                          :  (0000019DEDFB0C78)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019F1FDABDE8)
-[LOG] SoundI::release                          :  (0000019DEDFBA7B8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019E3F96BA68)
-[LOG] SoundI::release                          :  (0000019E883F7B88)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019E88371EF8)
-[LOG] SoundI::release                          :  (0000019DEDFBAD78)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019EDE185388)
-[LOG] SoundI::release                          :  (0000019DEDFAECD8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019F1FDB2AE8)
-[LOG] SoundI::release                          :  (0000019DEDFABED8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019E3FCAA5F8)
-[LOG] SoundI::release                          :  (0000019DEDFB31D8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019F1FDB3648)
-[LOG] SoundI::release                          :  (0000019DEDFB8DD8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019EDE02FE18)
-[LOG] SoundI::release                          :  (0000019DEDFB76D8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019EDE185EE8)
-[LOG] SoundI::release                          :  (0000019DEDFB9508)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019EDE187748)
-[LOG] SoundI::release                          :  (0000019DEDFB4768)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019E42593BF8)
-[LOG] SoundI::release                          :  (0000019DEDFB5A18)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019ED755DD98)
-[LOG] SoundI::release                          :  (0000019E881AA328)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019E88288608)
-[LOG] SoundI::release                          :  (0000019E881A8D98)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019EDE1DD0F8)
-[LOG] SoundI::release                          :  (0000019DEDFB2D88)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019E42595798)
-[LOG] SoundI::release                          :  (0000019DEDFBAC08)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019E3F96BDA8)
-[LOG] SoundI::release                          :  (0000019DEDFB86A8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019EDE1878E8)
-[LOG] SoundI::release                          :  (0000019DEDFACA58)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019E3FCAAAD8)
-[LOG] SoundI::release                          :  (0000019DEDFB62B8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019E3F96C428)
-[LOG] SoundI::release                          :  (0000019E883F6E98)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019E8836FE78)
-[LOG] SoundI::release                          :  (0000019DEDFB9958)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019EDE1856C8)
-[LOG] SoundI::release                          :  (0000019E881A7DC8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019EDE1DC3F8)
-[LOG] SoundI::release                          :  (0000019DEDFB79B8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019EDE1851E8)
-[LOG] SoundI::release                          :  (0000019DEDFBAA98)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019EDE186568)
-[LOG] SoundI::release                          :  (0000019DEDFB6428)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019ED755D098)
-[LOG] SoundI::release                          :  (0000019E881A8F08)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019EDE1DCA78)
-[LOG] SoundI::release                          :  (0000019DEDFB5738)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019DC74EBB18)
-[LOG] SoundI::release                          :  (0000019DEDFB17F8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019DD1A20508)
-[LOG] SoundI::release                          :  (0000019E881A9638)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019E88370EB8)
-[LOG] SoundI::release                          :  (0000019E883F4D88)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019E88373418)
-[LOG] SoundI::release                          :  (0000019DEDFB6CC8)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019EDE030158)
-[LOG] SoundI::release                          :  (0000019DEDFB5178)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019E42594F78)
-[LOG] SoundI::release                          :  (0000019DEDFAE888)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019F1FDB2E28)
-[LOG] SoundI::release                          :  (0000019DEDFB3D58)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019F1FDABAA8)
-[LOG] SoundI::release                          :  (0000019DEDFB0F58)
-[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019EDD2B2DF8)
-[LOG] SoundI::release                          :  (0000019DEDFB2098)
-[LOG] SoundI::release                          :     FX_406_UI_Respoint_MenuHeal_01 (0000019EDD2B2438)
-[LOG] SoundI::release                          :  (0000019DEDFB0828)
-[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_01 (0000019E3FCAA2B8)
-[LOG] SoundI::release                          :  (0000019E881A9ED8)
-[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_02 (0000019E88286F48)
-[LOG] SoundI::release                          :  (0000019DEDFB9F18)
-[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_03 (0000019EDE02FAD8)
-[LOG] SoundI::release                          :  (0000019DEDFB0548)
-[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_04 (0000019E4324F568)
-[LOG] SoundI::release                          :  (0000019DEDFB6E38)
-[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_01 (0000019EDE0326B8)
-[LOG] SoundI::release                          :  (0000019E42645338)
-[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_02 (0000019EDE1DC738)
-[LOG] SoundI::release                          :  (0000019E881AABC8)
-[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_03 (0000019E88375638)
-[LOG] SoundI::release                          :  (0000019E883F47C8)
-[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Sand_01 (0000019E88374AD8)
-[LOG] SoundI::release                          :  (0000019DEDFB55C8)
-[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Sand_02 (0000019F1FDAC608)
-[LOG] SoundI::release                          :  (0000019E883F6A48)
-[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Sand_03 (0000019E88374798)
-[LOG] SoundI::release                          :  (0000019DEDFB4A48)
-[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Snow_01 (0000019EDD2BA528)
-[LOG] SoundI::release                          :  (0000019DEDFB7B28)
-[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Snow_02 (0000019E3F96B588)
-[LOG] SoundI::release                          : Demo 0202-Ver.2 (0000019ED60A8128)
-[LOG] SoundI::release                          :     Demo 0202-Ver.2 (0000019EDD47DFA8)
-[LOG] SoundI::release                          :     Demo 0202-Ver.2 (0000019ED60A3898)
-[LOG] SoundI::release                          : FX_005_LM_MapDenial_Ambience_01 (0000019ED609FA28)
-[LOG] SoundI::release                          :     FX_005_LM_MapDenial_Ambience_01 (0000019EDD47E628)
-[LOG] SoundI::release                          :     FX_005_LM_MapDenial_Ambience_01 (0000019ED60A1378)
-[LOG] SoundI::release                          :  (0000019DEDFB73F8)
-[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Snow_03 (0000019EDE184B68)
-[LOG] SoundI::release                          :  (0000019E881A8948)
-[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Stone_01 (0000019EDE1DCC18)
-[LOG] SoundI::release                          :  (0000019DEDFB8C68)
-[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Stone_02 (0000019EDE184D08)
-[LOG] SoundI::release                          :  (0000019DEDFB7E08)
-[LOG] SoundI::release                          :     FX_008_LM_MapGeneral_WallHit_Stone_03 (0000019EDE185D48)
-[LOG] SoundI::release                          :  (0000019DEDFB45F8)
-[LOG] SoundI::release                          :     MUSCPerc_DRUMS-Snare Hit Lo (0000019DD1A216E8)
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60AEED8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60AEED8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019E3FB69680
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Tutorial Level 222', format=5, channels=2, frequency=48000, lengthbytes=2557120, lengthpcm=2837524, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.458374.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60AEED8
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000004002AFF2F8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FF855BA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FF855BA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FF855BA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FF855BA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000019F1FDB2F08
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_101_PL_Grim_Scyche_Swing_02', format=5, channels=2, frequency=48000, lengthbytes=61664, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000004002AFF2F8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FF855BA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FF855BA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FF855BA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FF855BA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000019F1FDB2F08
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_101_PL_Grim_Scyche_Swing_01', format=5, channels=2, frequency=48000, lengthbytes=76640, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070794.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 0000004002AFF2F8
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FF855BA3CE0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FF855BA3CA0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FF855BA3DC0
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FF855BA3E80
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000019F1FDB2F08
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='FX_101_PL_Grim_Scyche_Swing_03', format=5, channels=2, frequency=48000, lengthbytes=65888, lengthpcm=96000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.070796.
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B5928, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B5928
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019E3F16A070
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B5928
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60A4E88)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AE7E8)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60A5548)
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B4BA8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B4BA8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C340
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B4BA8
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B5928)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD5D63B48)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B3258)
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B15A8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B15A8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B15A8
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B15A8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B15A8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B15A8
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B3258, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B3258
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C480
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B3258
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B4BA8)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AE988)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B15A8)
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B3918, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B3918
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B3918
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B24D8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B24D8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C700
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B24D8
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B3258)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AF008)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B3918)
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B5778, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B5778
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C840
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B5778
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B24D8)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AF1A8)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B2688)
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B35B8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B35B8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C700
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 46
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Tutorial Level 222', format=5, channels=2, frequency=48000, lengthbytes=2557120, lengthpcm=2837524, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.458374.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B35B8
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B55C8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B55C8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B55C8
+[LOG] SoundI::release                          : Tutorial Level 222 (0000019ED60AEED8)
+[LOG] SoundI::release                          :     Tutorial Level 222 (0000019EDE131148)
+[LOG] SoundI::release                          :     Tutorial Level 222 (0000019ED60AF238)
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B4698, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B4698
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C480
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B4698
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B5778)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AE7E8)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B55C8)
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B15A8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B15A8
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60A5DB8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B15A8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60A5DB8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60A5DB8
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B1758, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B1758
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B1758
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B4BA8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B4BA8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C840
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B4BA8
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B4698)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AF008)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B1758)
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B4D58, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B4D58
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B4D58
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B4D58, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B4D58
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B4D58
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B3258, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B3258
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C340
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B3258
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B4BA8)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AEE68)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B4D58)
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B3258)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AF008)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B5418)
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B3918, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B3918
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C340
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B3918
+[LOG] SystemI::createSound                     : filename = Assets/FMOD/Bank/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B4D58, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B4D58
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/FMOD/Bank/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 62349024
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 2111616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000019D2787C480
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Skeleton Idle', format=5, channels=1, frequency=48000, lengthbytes=328160, lengthpcm=571904, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.460968.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B4D58
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B5418, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B5418
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B5418
+[LOG] SystemI::mixerSuspend                    : Suspending output.
+[LOG] SystemI::mixerResume                     : Resuming output.
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60B15A8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B15A8
+[LOG] AsyncThread::add                         : add sound to async queue : soundi = 0000019ED60A5DB8, queue head = 0000019DD8863598, queue count = 0
+[LOG] AsyncThread::add                         :     add sound to async queue : soundi = 0000019ED60B5418, queue head = 0000019DD8863598, queue count = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B15A8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60A5DB8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60A5DB8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000019ED60B5418
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000019ED60B5418
+[LOG] SoundI::release                          :  (0000019DC8817318)
+[LOG] SoundI::release                          :     FX_101_PL_Grim_Scyche_Swing_01 (0000019EDE131628)
+[LOG] SoundI::release                          :  (0000019DC88171A8)
+[LOG] SoundI::release                          :     FX_101_PL_Grim_Scyche_Swing_02 (0000019EDE131488)
+[LOG] SoundI::release                          :  (0000019ED6158A78)
+[LOG] SoundI::release                          :     FX_101_PL_Grim_Scyche_Swing_03 (0000019EDE130E08)
+[LOG] SoundI::release                          :  (0000019EDD4B4F08)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_01 (0000019DD2108068)
+[LOG] SoundI::release                          :  (0000019EDD4B5358)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_02 (0000019DD2108BC8)
+[LOG] SoundI::release                          :  (0000019EDD476E98)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_03 (0000019E88DD9008)
+[LOG] SoundI::release                          :  (0000019EDD4B3528)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_04 (0000019DD210B468)
+[LOG] SoundI::release                          :  (0000019F1FDAEC48)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_05 (0000019E88DDCF68)
+[LOG] SoundI::release                          :  (0000019F1FDB18D8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Snow_06 (0000019EDE110AE8)
+[LOG] SoundI::release                          :  (0000019ED5F46D28)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_01 (0000019EDD43FA18)
+[LOG] SoundI::release                          :  (0000019EDD477458)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_02 (0000019E88DD7E28)
+[LOG] SoundI::release                          :  (0000019EDD4B2838)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_03 (0000019DD210ADE8)
+[LOG] SoundI::release                          :  (0000019EDD444D68)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_04 (0000019DD2108208)
+[LOG] SoundI::release                          :  (0000019EDD4B40A8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_05 (0000019DD210A288)
+[LOG] SoundI::release                          :  (0000019DD8F7EA78)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Soil_06 (0000019EDE114088)
+[LOG] SoundI::release                          :  (0000019F1FDB04B8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_01 (0000019EDE1158E8)
+[LOG] SoundI::release                          :  (0000019ED5F47E68)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_02 (0000019E458A9E38)
+[LOG] SoundI::release                          :  (0000019EDD4437D8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_03 (0000019DA47C1E88)
+[LOG] SoundI::release                          :  (0000019F1FDB1BB8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_04 (0000019E88DDCDC8)
+[LOG] SoundI::release                          :  (0000019F1FDB2178)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_05 (0000019EDE112008)
+[LOG] SoundI::release                          :  (0000019EDD477CF8)
+[LOG] SoundI::release                          :     FX_107_PL_Grim_Self_Run_Brick_06 (0000019E458AB838)
+[LOG] SoundI::release                          :  (0000019DD8F7F8D8)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_01 (0000019DA47BFC68)
+[LOG] SoundI::release                          :  (0000019DD8F7ED58)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_02 (0000019DA47BB348)
+[LOG] SoundI::release                          :  (0000019EDD4B1F98)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Snow_03 (0000019DD210A428)
+[LOG] SoundI::release                          :  (0000019EDD4B44F8)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_01 (0000019DD2107848)
+[LOG] SoundI::release                          :  (0000019EDD477FD8)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_02 (0000019E88DDB228)
+[LOG] SoundI::release                          :  (0000019DD8F7FD28)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Brick_03 (0000019DA47BEA88)
+[LOG] SoundI::release                          :  (0000019EDD443388)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_01 (0000019DA47C1CE8)
+[LOG] SoundI::release                          :  (0000019F1FDAEAD8)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_02 (0000019E88DDD448)
+[LOG] SoundI::release                          :  (0000019F1FDB2008)
+[LOG] SoundI::release                          :     FX_111_PL_Grim_Self_Land_Soil_03 (0000019EDE1162A8)
+[LOG] SoundI::release                          :  (0000019EDD443AB8)
+[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_01 (0000019DD2109C08)
+[LOG] SoundI::release                          :  (0000019F1FDB0A78)
+[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_02 (0000019EDE1155A8)
+[LOG] SoundI::release                          :  (0000019F1FDB1E98)
+[LOG] SoundI::release                          :     FX_108_PL_Grim_Self_Jump_03 (0000019EDE1143C8)
+[LOG] SoundI::release                          :  (0000019EDD476038)
+[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_01 (0000019E88DD9EA8)
+[LOG] SoundI::release                          :  (0000019EDD4B5638)
+[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_02 (0000019DD210A768)
+[LOG] SoundI::release                          :  (0000019ED5F46E98)
+[LOG] SoundI::release                          :     FX_112_PL_Grim_Self_WallLeap_03 (0000019EDD440098)
+[LOG] SoundI::release                          :  (0000019ED5F444E8)
+[LOG] SoundI::release                          :     Ninja_Projectile_Throw_3 (0000019E458A8DF8)
+[LOG] SoundI::release                          :  (0000019EDD477008)
+[LOG] SoundI::release                          :     FX_105_PL_Grim_Scyche_DownAttack_Release_01 (0000019E88DD6288)
+[LOG] SoundI::release                          :  (0000019ED5F47008)
+[LOG] SoundI::release                          :     FX_103_PL_Grim_Scyche_Slam_01 (0000019EDD43FD58)
+[LOG] SoundI::release                          :  (0000019ED5F472E8)
+[LOG] SoundI::release                          :     FX_209_ENM_Skeleton_Move_01 (0000019E458A9138)
+[LOG] SoundI::release                          :  (0000019ED5F46BB8)
+[LOG] SoundI::release                          :     FX_209_ENM_Skeleton_Move_02 (0000019EDD43F398)
+[LOG] SoundI::release                          :  (0000019EDD4778A8)
+[LOG] SoundI::release                          :     FX_209_ENM_Skeleton_Move_03 (0000019E88DD8E68)
+[LOG] SoundI::release                          :  (0000019EDD478598)
+[LOG] SoundI::release                          :     FX_209_ENM_Skeleton_Move_04 (0000019E88DD91A8)
+[LOG] SoundI::release                          :  (0000019F1FDAF7C8)
+[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Soil_01 (0000019EDE111CC8)
+[LOG] SoundI::release                          :  (0000019F1FDAF208)
+[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Snow_01 (0000019E88DDCA88)
+[LOG] SoundI::release                          :  (0000019EDD476BB8)
+[LOG] SoundI::release                          :     FX_203_ENM_Skeleton_Die_01 (0000019E88DDA048)
+[LOG] SoundI::release                          :  (0000019EDD4B2C88)
+[LOG] SoundI::release                          :     FX_203_ENM_Skeleton_Die_02 (0000019DD2104C68)
+[LOG] SoundI::release                          :  (0000019DD8F7FA48)
+[LOG] SoundI::release                          :     FX_203_ENM_Skeleton_Die_03 (0000019DA47BB828)
+[LOG] SoundI::release                          :  (0000019DD8F7EBE8)
+[LOG] SoundI::release                          :     FX_110_PL_Grim_Self_WallSlide_Stone_01 (0000019EDE1148A8)
+[LOG] SoundI::release                          :  (0000019EDD476768)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019E88DD9B68)
+[LOG] SoundI::release                          :  (0000019F1FDB0798)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019EDE116C68)
+[LOG] SoundI::release                          :  (0000019F1FDAF378)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019EDE116788)
+[LOG] SoundI::release                          :  (0000019DD8F7DEF8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019DA47C0628)
+[LOG] SoundI::release                          :  (0000019DD8F808A8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019DA47BC1E8)
+[LOG] SoundI::release                          :  (0000019EDD477A18)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019E88DD7AE8)
+[LOG] SoundI::release                          :  (0000019EDD476318)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019E458A9478)
+[LOG] SoundI::release                          :  (0000019F1FDB1488)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019E88DDBD88)
+[LOG] SoundI::release                          :  (0000019EDD478B58)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019E458A8298)
+[LOG] SoundI::release                          :  (0000019EDD475A78)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019E88DD6908)
+[LOG] SoundI::release                          :  (0000019DD8F7DAA8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019EDE114F28)
+[LOG] SoundI::release                          :  (0000019DD8F7E628)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019EDE113D48)
+[LOG] SoundI::release                          :  (0000019EDD478148)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019E88DD8648)
+[LOG] SoundI::release                          :  (0000019EDD479118)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019E458A8778)
+[LOG] SoundI::release                          :  (0000019EDD475BE8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019E88DD8988)
+[LOG] SoundI::release                          :  (0000019F1FDAFAA8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019E88DDB8A8)
+[LOG] SoundI::release                          :  (0000019EDD443948)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019DA47C2848)
+[LOG] SoundI::release                          :  (0000019EDD445048)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019DD2106328)
+[LOG] SoundI::release                          :  (0000019EDD4B2108)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019DD210A908)
+[LOG] SoundI::release                          :  (0000019DD8F7DC18)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019EDE115408)
+[LOG] SoundI::release                          :  (0000019DD8F80178)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019DA47BDBE8)
+[LOG] SoundI::release                          :  (0000019EDD4782B8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019E88DDC8E8)
+[LOG] SoundI::release                          :  (0000019DD8F80CF8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019DA47BD088)
+[LOG] SoundI::release                          :  (0000019EDD479288)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019E88DDAD48)
+[LOG] SoundI::release                          :  (0000019F1FDB0348)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019EDE117488)
+[LOG] SoundI::release                          :  (0000019F1FDB1038)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019EDE1124E8)
+[LOG] SoundI::release                          :  (0000019EDD4423B8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019DA47BE0C8)
+[LOG] SoundI::release                          :  (0000019DD8F7F1A8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019DA47BF448)
+[LOG] SoundI::release                          :  (0000019F1FDB0D58)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019E88DDDAC8)
+[LOG] SoundI::release                          :  (0000019EDD4451B8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019DD210A0E8)
+[LOG] SoundI::release                          :  (0000019EDD476D28)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019E88DD8B28)
+[LOG] SoundI::release                          :  (0000019EDD444078)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019DD2105488)
+[LOG] SoundI::release                          :  (0000019EDD477178)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019E88DD84A8)
+[LOG] SoundI::release                          :  (0000019E431F6208)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019EDD8FC0D8)
+[LOG] SoundI::release                          :  (0000019EDD4765F8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019E458AB358)
+[LOG] SoundI::release                          :  (0000019DD8F7D378)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019EDE115F68)
+[LOG] SoundI::release                          :  (0000019EDD4B57A8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019DD21071C8)
+[LOG] SoundI::release                          :  (0000019F1FDAFC18)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019EDE110FC8)
+[LOG] SoundI::release                          :  (0000019F1FDB0628)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019EDE113A08)
+[LOG] SoundI::release                          :  (0000019EDD4B2F68)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019DD21083A8)
+[LOG] SoundI::release                          :  (0000019DD8F7E908)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019EDE111988)
+[LOG] SoundI::release                          :  (0000019EDD4B3978)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019DD2107D28)
+[LOG] SoundI::release                          :  (0000019EDD476A48)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019E88DD9828)
+[LOG] SoundI::release                          :  (0000019E431F53A8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019DD210B7A8)
+[LOG] SoundI::release                          :  (0000019EDD4441E8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019DD2106668)
+[LOG] SoundI::release                          :  (0000019F1FDAEF28)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019E88DDDFA8)
+[LOG] SoundI::release                          :  (0000019EDD4B26C8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019DD210A5C8)
+[LOG] SoundI::release                          :  (0000019EDD4430A8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019DA47C1B48)
+[LOG] SoundI::release                          :  (0000019E431F5238)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019DD210BC88)
+[LOG] SoundI::release                          :  (0000019EDD444358)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019DD2106808)
+[LOG] SoundI::release                          :  (0000019ED5F47458)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019E458A8F98)
+[LOG] SoundI::release                          :  (0000019F1FDB01D8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019EDE1131E8)
+[LOG] SoundI::release                          :  (0000019EDD4B1E28)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019DD210AC48)
+[LOG] SoundI::release                          :  (0000019EDD4B2B18)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019DD2109A68)
+[LOG] SoundI::release                          :  (0000019DD8F7F318)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019DA47C07C8)
+[LOG] SoundI::release                          :  (0000019F1FDB25C8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019EDE116E08)
+[LOG] SoundI::release                          :  (0000019EDD443C28)
+[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 01_B00M_ONE(2) (0000019DD21090A8)
+[LOG] SoundI::release                          :  (0000019F1FDB15F8)
+[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 01_B00M_ONE(3) (0000019EDE116108)
+[LOG] SoundI::release                          :  (0000019DD8F7D208)
+[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 01_B00M_ONE (0000019DA47BFFA8)
+[LOG] SoundI::release                          :  (0000019EDD477B88)
+[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 02_B00M_ONE(2) (0000019E88DD8168)
+[LOG] SoundI::release                          :  (0000019EDD444638)
+[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 02_B00M_ONE(3) (0000019DA47BE408)
+[LOG] SoundI::release                          :  (0000019F1FDAEDB8)
+[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 02_B00M_ONE(4) (0000019EDE114568)
+[LOG] SoundI::release                          :  (0000019DD8F80738)
+[LOG] SoundI::release                          :     VOXMale_Male Gibberish Scandinavian 02_B00M_ONE (0000019DA47BDF28)
+[LOG] SoundI::release                          :  (0000019EDD443218)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019DA47C26A8)
+[LOG] SoundI::release                          :  (0000019EDD4447A8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019DA47C1668)
+[LOG] SoundI::release                          :  (0000019EDD444A88)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019DD21069A8)
+[LOG] SoundI::release                          :  (0000019F1FDB1A48)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019EDE115C28)
+[LOG] SoundI::release                          :  (0000019EDD4B4948)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019DD2109588)
+[LOG] SoundI::release                          :  (0000019EDD4793F8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019E88DDBF28)
+[LOG] SoundI::release                          :  (0000019EDD4B54C8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019DD2108888)
+[LOG] SoundI::release                          :  (0000019DD8F7D098)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019DA47BD8A8)
+[LOG] SoundI::release                          :  (0000019EDD4775C8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019E88DDAA08)
+[LOG] SoundI::release                          :  (0000019EDD4B2278)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019DD2104928)
+[LOG] SoundI::release                          :  (0000019EDD478FA8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019E458AA998)
+[LOG] SoundI::release                          :  (0000019DD8F7D658)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019EDE113EE8)
+[LOG] SoundI::release                          :  (0000019F1FDB0908)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019EDE112348)
+[LOG] SoundI::release                          :  (0000019EDD4768D8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019E88DDA388)
+[LOG] SoundI::release                          :  (0000019EDD442C58)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019DA47C0148)
+[LOG] SoundI::release                          :  (0000019EDD478428)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019E458A7F58)
+[LOG] SoundI::release                          :  (0000019EDD4789E8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019E88DD7FC8)
+[LOG] SoundI::release                          :  (0000019EDD478708)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019E88DD9348)
+[LOG] SoundI::release                          :  (0000019DD8F80E68)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019DA47BBD08)
+[LOG] SoundI::release                          :  (0000019F1FDB0EC8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019EDE116FA8)
+[LOG] SoundI::release                          :  (0000019EDD443F08)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019DD2104E08)
+[LOG] SoundI::release                          :  (0000019EDD475EC8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019E458A7DB8)
+[LOG] SoundI::release                          :  (0000019F1FDB0068)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019EDE112828)
+[LOG] SoundI::release                          :  (0000019EDD4B23E8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019DD210B128)
+[LOG] SoundI::release                          :  (0000019DD8F7E068)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019DA47BD708)
+[LOG] SoundI::release                          :  (0000019EDD475908)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019E458A8AB8)
+[LOG] SoundI::release                          :  (0000019ED5F47738)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019E458A7C18)
+[LOG] SoundI::release                          :  (0000019EDD476488)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019E458A97B8)
+[LOG] SoundI::release                          :  (0000019DD8F805C8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019DA47BF108)
+[LOG] SoundI::release                          :  (0000019DD8F7FBB8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019DA47BEDC8)
+[LOG] SoundI::release                          :  (0000019DD8F7EEC8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019DA47BD568)
+[LOG] SoundI::release                          :  (0000019F1FDB2738)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019EDE114BE8)
+[LOG] SoundI::release                          :  (0000019EDD475D58)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019E88DDC0C8)
+[LOG] SoundI::release                          :  (0000019EDD4B3C58)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019DD2104788)
+[LOG] SoundI::release                          :  (0000019EDD441F68)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019DA47BEF68)
+[LOG] SoundI::release                          :  (0000019F1FDB1768)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019EDE10F908)
+[LOG] SoundI::release                          :  (0000019F1FDAFD88)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019EDE113388)
+[LOG] SoundI::release                          :  (0000019DD8F7F038)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019DA47BE8E8)
+[LOG] SoundI::release                          :  (0000019ED5F478A8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019E458AA178)
+[LOG] SoundI::release                          :  (0000019F1FDAFEF8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019EDE115DC8)
+[LOG] SoundI::release                          :  (0000019EDD4B33B8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019DD210AF88)
+[LOG] SoundI::release                          :  (0000019DD8F7FE98)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019DA47BF5E8)
+[LOG] SoundI::release                          :  (0000019EDD442F38)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(2) (0000019DA47C2028)
+[LOG] SoundI::release                          :  (0000019DD8F80A18)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(3) (0000019DA47BB9C8)
+[LOG] SoundI::release                          :  (0000019DD8F80B88)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(4) (0000019DA47C1328)
+[LOG] SoundI::release                          :  (0000019EDD4796D8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(5) (0000019E88DD9D08)
+[LOG] SoundI::release                          :  (0000019EDD444918)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE(6) (0000019DA47BD3C8)
+[LOG] SoundI::release                          :  (0000019EDD478CC8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble 01_B00M_ONE (0000019E88DDB3C8)
+[LOG] SoundI::release                          :  (0000019EDD477E68)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(2) (0000019E88DD6C48)
+[LOG] SoundI::release                          :  (0000019EDD4B1CB8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(3) (0000019DD2109728)
+[LOG] SoundI::release                          :  (0000019EDD4B3248)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(4) (0000019DD210C308)
+[LOG] SoundI::release                          :  (0000019F1FDAF658)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(5) (0000019EDE1136C8)
+[LOG] SoundI::release                          :  (0000019F1FDB28A8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(6) (0000019EDE113BA8)
+[LOG] SoundI::release                          :  (0000019EDD479568)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(7) (0000019E458A9AF8)
+[LOG] SoundI::release                          :  (0000019EDD477738)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE(8) (0000019E458AACD8)
+[LOG] SoundI::release                          :  (0000019F1FDB22E8)
+[LOG] SoundI::release                          :     VOXMisc_Cartoonish Random Letters High Babble Long 01_B00M_ONE (0000019E88DDDC68)
+[LOG] SoundI::release                          :  (0000019ED5F47B88)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_01 (0000019E458AA318)
+[LOG] SoundI::release                          :  (0000019EDD443D98)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_02 (0000019DD2109248)
+[LOG] SoundI::release                          :  (0000019DD8F7F768)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_03 (0000019DA47BDD88)
+[LOG] SoundI::release                          :  (0000019ED5F47178)
+[LOG] SoundI::release                          :     FX_106_PL_Grim_Self_Hit_04 (0000019E458A9618)
+[LOG] SoundI::release                          :  (0000019EDD442AE8)
+[LOG] SoundI::release                          :     FX_208_ENM_Skeleton_Attack_01 (0000019DA47BE748)
+[LOG] SoundI::release                          :  (0000019DD8F802E8)
+[LOG] SoundI::release                          :     FX_208_ENM_Skeleton_Attack_02 (0000019DA47BF788)
+[LOG] SoundI::release                          :  (0000019EDD442528)
+[LOG] SoundI::release                          :     FX_208_ENM_Skeleton_Attack_03 (0000019DA47BB008)
+[LOG] SoundI::release                          :  (0000019EDD478878)
+[LOG] SoundI::release                          :     FX_208_ENM_Skeleton_Attack_04 (0000019E88DD6F88)
+[LOG] SoundI::release                          :  (0000019DD8F7D7C8)
+[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_01 (0000019EDE1150C8)
+[LOG] SoundI::release                          :  (0000019EDD441DF8)
+[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_02 (0000019DA47BB4E8)
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B4D58)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AECC8)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B3E28)
+[LOG] SoundI::release                          : Skeleton Idle (0000019ED60B3918)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019DD92AF008)
+[LOG] SoundI::release                          :     Skeleton Idle (0000019ED60B5418)
+[LOG] SoundI::release                          : FX_006_LM_MapTutorial_Ambience_01 (0000019ED60A8B48)
+[LOG] SoundI::release                          :     FX_006_LM_MapTutorial_Ambience_01 (0000019DD92AEB28)
+[LOG] SoundI::release                          :     FX_006_LM_MapTutorial_Ambience_01 (0000019ED60A5DB8)
+[LOG] SoundI::release                          : Tutorial Level 222 (0000019ED60B35B8)
+[LOG] SoundI::release                          :     Tutorial Level 222 (0000019DD92AE988)
+[LOG] SoundI::release                          :     Tutorial Level 222 (0000019ED60B15A8)
+[LOG] SoundI::release                          :  (0000019EDD4B19D8)
+[LOG] SoundI::release                          :     FX_109_PL_Grim_Self_Dash_03 (0000019DD2106B48)
+[LOG] SoundI::release                          :  (0000019F1FDB2458)
+[LOG] SoundI::release                          :     FX_201_ENM_Skeleton_Injured_01 (0000019EDE1129C8)
+[LOG] SoundI::release                          :  (0000019DD8F7E348)
+[LOG] SoundI::release                          :     FX_201_ENM_Skeleton_Injured_02 (0000019EDE112D08)
+[LOG] SoundI::release                          :  (0000019EDD4B2558)
+[LOG] SoundI::release                          :     FX_201_ENM_Skeleton_Injured_03 (0000019DD2105968)
+[LOG] SoundI::release                          :  (0000019F1FDAF4E8)
+[LOG] SoundI::release                          :     Sword Whoosh Hit Bind Scrap (0000019EDE1102C8)
+[LOG] SoundI::release                          :  (0000019EDD4772E8)
+[LOG] SoundI::release                          :     MUSCPerc_DRUMS-Snare Hit Lo (0000019E88DDA528)
 [LOG] Thread::callback                         : FMOD Convolution thread finished.
 [LOG] Thread::callback                         : FMOD Convolution thread finished.
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
@@ -425,3 +712,12 @@
 [LOG] Thread::callback                         : FMOD mixer thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] SystemI::close                           : Closed.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] SystemI::close                           : Closed.
+[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         : FMOD file thread finished.

@@ -565,7 +565,7 @@ public class PlayerControllerForces : MonoBehaviour
         UIManager.Instance.Pause();
     }
 
-    public void OnCameraLook(InputValue value)
+    /*public void OnCameraLook(InputValue value)
     {
         if (UIManager.Instance.pauseScript.isPaused || Time.timeScale == 0)
             return;
@@ -583,7 +583,7 @@ public class PlayerControllerForces : MonoBehaviour
         {
             CameraManager.Instance.CameraLookReset();
         }
-    }
+    }*/
 
     private void OnInteract(InputValue value)
     {

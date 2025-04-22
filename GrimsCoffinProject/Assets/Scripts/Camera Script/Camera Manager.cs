@@ -49,7 +49,7 @@ public class CameraManager : MonoBehaviour
 
 
 
-    public void LookDown()
+    /*public void LookDown()
     {
         float targetScreenY = 0.25f;
         StartScreenYTransition(targetScreenY, 0.15f,1);
@@ -59,7 +59,7 @@ public class CameraManager : MonoBehaviour
     {
         float targetScreenY = 0.75f;
         StartScreenYTransition(targetScreenY, 0.15f,1);
-    }
+    }*/
 
     public void CameraLookReset()
     {
