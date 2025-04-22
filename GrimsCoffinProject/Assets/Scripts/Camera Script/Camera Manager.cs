@@ -83,9 +83,13 @@ public class CameraManager : MonoBehaviour
 
     public void CameraReset()
     {
-        Vcam = Playercam;
-        CameraControl.ActiveVirtualCamera.Priority = 9;
-        Playercam.Priority = 10;
+        if (CameraControl != null) 
+        {
+            Vcam = Playercam;
+            CameraControl.ActiveVirtualCamera.Priority = 9;
+            Playercam.Priority = 10;
+        }
+
 /*        UICamera.orthographicSize = 7.5f;
         UICamera.nearClipPlane = 0.1f;
         UICamera.farClipPlane = 1000f;*/
